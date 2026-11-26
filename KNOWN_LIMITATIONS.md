@@ -47,4 +47,11 @@
 * **Material properties:** coverage is partial and condition-specific. Refractive indices are room-temperature formulas (no T dependence, ordinary ray only for birefringent crystals, no absorption k). Fluids are at 1 atm only. Solids have no sourced sound speed, thermal conductivity or emissivity yet, so they show as *unknown*. Copper resistivity is the IACS defined value, not a sample measurement.
 * **Phase diagrams:** water and CO₂ only. The CO₂ melting curve is not bundled, and its sublimation curve is limited to 154–196 K, leaving a 196–216.6 K gap. Boundaries between ice polymorphs below 251 K are not drawn. Coexistence properties are interpolated from 600-row tables. There are no metastable states (supercooling, superheating) and no mixtures.
 * **Lennard-Jones fluid:** 256 atoms, a truncated and shifted potential, a Berendsen thermostat (not canonical), O(N²) forces on the main thread, no long-range corrections. Qualitative states only. Hydrogen bonds and dipoles are not modelled.
+* **Spectral atlas:**
+  * ISO 20473 band edges are not shown. The standard is sold by ISO, iso.org blocks automated access, and values are not copied from secondary sources.
+  * ISO 21348 values come from the summary table published by Space Environment Technologies (2016 archived copy), not the full ISO text. Its microwave letter bands are not bundled.
+  * The plane wave is the vacuum solution only: no dispersion, absorption or sources.
+  * The blackbody is an ideal model, not the observed solar spectrum. Displayed spectral colours are approximate sRGB.
+  * Radio and X-ray examples are limited to verified sources. The 21 cm hydrogen line and Cu Kα were dropped because their primary papers are paywalled.
+  * NIST lines cover 200–1000 nm only.
 * **Wave laboratory:** linear waves only (no shocks, no nonlinear steepening). Analytic 2D two-source patterns ignore spreading and absorption. The finite-difference solver is 1D only. Attenuation α is illustrative and user-chosen. Fluid sound speeds are at 1 atm. There is no elastic-solid medium (P/S waves) because no cited solid sound speeds are bundled yet. The 3D view exaggerates displacement (stated); the plots show true values. Audio playback is Phase 9 (Gate 9.6).

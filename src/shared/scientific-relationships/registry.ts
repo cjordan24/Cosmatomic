@@ -50,9 +50,9 @@ const BASE_ENTITIES: Entity[] = [
   E('context:acid-rain', 'Acid rain', null),
   E('context:ocean-acidification', 'Ocean acidification', null),
   E('context:energy-production', 'Energy production', null),
-  E('context:sunlight', 'Sunlight', null, 'Spectral Mode (Gate 4.6)'),
-  E('wave:em-ultraviolet', 'Ultraviolet radiation', null, 'Spectral Mode (Gate 4.6)'),
-  E('wave:em-visible', 'Visible light', null, 'Spectral Mode (Gate 4.6)'),
+  E('context:sunlight', 'Sunlight', '#/spectral?tab=blackbody&T=5772', 'Spectral atlas: 5772 K blackbody model of the Sun (IAU nominal T_eff)'),
+  E('wave:em-ultraviolet', 'Ultraviolet radiation', '#/spectral?lambda=3e-7', 'Spectral atlas: UV-A/B/C (CIE) and ISO 21348 categories'),
+  E('wave:em-visible', 'Visible light', '#/spectral?lambda=5.5e-7', 'Spectral atlas: visible range (no precise limits, CIE)'),
 ];
 
 const REGISTRY = new Map<string, Entity>();

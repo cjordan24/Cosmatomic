@@ -19,7 +19,7 @@ src/
 │   ├── units/{dimensions,units}.ts dimension vectors, unit registry, checked conversion (fm…Mpc, eV, u, M☉ …)
 │   ├── mathematics/{vec3,kepler}.ts float64 vectors, frame rotations, Kepler solver
 │   ├── simulation/                 clock (TDB JD, leap seconds), seeded PRNG, snapshots & replay
-│   ├── physics/                    gravity (leapfrog N-body + diagnostics), cosmology (FLRW), module registry
+│   ├── physics/                    gravity (leapfrog N-body + diagnostics), cosmology (FLRW), waves (Gate 4.5), em (photon, plane wave, Planck; Gate 4.6), module registry
 │   ├── provenance/provenance.ts    five reliability classes + record metadata
 │   └── scale/scale.ts              16-level logarithmic scale ladder
 ├── modes/
@@ -30,6 +30,9 @@ src/
 │   │   ├── orbitals/               analytic ψ_nlm, exact |ψ|² sampler, worker hook
 │   │   ├── molecules/              records, formats (XYZ/MOL/SDF/PDB), PubChem client, user library, viewer, comparison
 │   │   └── laboratory/             builder operations, valence model, RDKit-JS bridge, lab scene + view
+│   ├── spectral/
+│   │   ├── atlas/                  EM band conventions, atlas view (#/spectral)
+│   │   └── laboratory/             Wave Lab (#/spectral/lab)
 │   └── cosmic/
 │       ├── solar-system/           ephemerides, catalogue, live clock, scene, timeline, view
 │       └── sandbox/                N-body physics, presets, instruments, Experiment/Compare view

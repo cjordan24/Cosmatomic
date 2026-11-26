@@ -153,7 +153,7 @@ export function TopBar() {
         <nav className="mode-switch" aria-label="Mode">
           <button className={mode === 'atomic' ? 'active' : ''} onClick={() => navigate('/atomic')}>ATOMIC</button>
           <button className={`cosmic ${mode === 'cosmic' ? 'active' : ''}`} onClick={() => navigate('/cosmic')}>COSMIC</button>
-          <button className={`spectral ${mode === 'spectral' ? 'active' : ''}`} onClick={() => navigate('/spectral/lab')}>SPECTRAL</button>
+          <button className={`spectral ${mode === 'spectral' ? 'active' : ''}`} onClick={() => navigate('/spectral')}>SPECTRAL</button>
         </nav>
         {mode === 'atomic' && (
           <nav className="chip-row hide-mobile" aria-label="Atomic sections">
@@ -167,7 +167,8 @@ export function TopBar() {
         )}
         {mode === 'spectral' && (
           <nav className="chip-row hide-mobile" aria-label="Spectral sections">
-            <button className={`chip ${path[1] === 'lab' || !path[1] ? 'active' : ''}`} onClick={() => navigate('/spectral/lab')}>Wave lab</button>
+            <button className={`chip ${path[1] !== 'lab' ? 'active' : ''}`} onClick={() => navigate('/spectral')}>Atlas</button>
+            <button className={`chip ${path[1] === 'lab' ? 'active' : ''}`} onClick={() => navigate('/spectral/lab')}>Wave lab</button>
           </nav>
         )}
         <div className="spacer" />

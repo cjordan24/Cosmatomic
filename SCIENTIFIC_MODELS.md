@@ -167,3 +167,21 @@ CPK colours (PubChem), illustrative giant-planet banding (procedural, not imager
   * FD: Courant rejection; pulse splitting at ±v; inverted (fixed) and upright (free) reflections; energy within 2 % over 1000 steps; bit-identical results under different time slicing;
   * string 100 m/s; air M = 28.96 g/mol and c(20 °C) = 343.2 m/s; water/air ≈ 4.3; vacuum gives null; no extrapolation.
 * **Experiment persistence:** the Experiment store is now a discriminated union (`gravitational` | `wave`). Legacy records without `kind` migrate unchanged (tested), and wave experiments store the full parameter set, model, solver version, Courant number, medium, speed and observations.
+
+## 11. Electromagnetic radiation (Phase 4, Gate 4.6): `src/core/physics/em`, `src/modes/spectral/atlas`
+* **Vacuum relations:** λ = c/f, E = hf = hc/λ, σ̃ = 1/λ and ω = 2πf, with exact c, h and e (2019 SI). Only one quantity is stored, the **vacuum wavelength** (URL `lambda`); everything else is derived. In a medium, f is invariant, λ = λ₀/n and v = c/n. n(λ) comes only from a cited dispersion formula, inside its range (null outside).
+* **Plane wave:** k̂ = +z, E = (E₀ₓcos φ, E₀ᵧcos(φ + δ), 0), φ = kz − ωt, B = k̂ × E/c. Polarisation is linear for δ = 0 or π, circular for E₀ₓ = E₀ᵧ with δ = ±π/2, and elliptical otherwise. **Handedness follows CIE S 017 17-21-018/019:** right-handed means clockwise as seen by the receiver, so with this sign convention δ = −π/2 is right-handed. ⟨S⟩ = ½cε₀(E₀ₓ² + E₀ᵧ²) and μ₀ = 1/(ε₀c²).
+* **Blackbody:** B_λ = 2hc²λ⁻⁵/(e^{hc/λkT} − 1) and B_ν = 2hν³c⁻²/(e^{hν/kT} − 1). Wien: λ_max = b/T and ν_max = x₃kT/h, with x₅ and x₃ solved by Newton's method; σ = 2π⁵k⁴/(15h³c²). The two peaks fall at different wavelengths, and both are shown. Curves at sourced temperatures (IAU 5772 K, Fixsen 2.72548 K) are **Derived**; curves at user temperatures are **Hypothetical**. A blackbody is an idealisation.
+* **Band conventions** (`datasets/spectral/em-bands.json`) are kept separate and each is shown under its own name; none is presented as *the* definition. Edge rules come from the documents:
+  * ITU-R V.431: lower limit exclusive, upper inclusive, **in frequency**;
+  * ISO 21348: lower limit inclusive, upper exclusive, **in wavelength**. Its sub-categories overlap by design (UVC/MUV, VUV/EUV/FUV);
+  * CIE and the detector IR scheme do not state a rule, so a value exactly on an edge matches both neighbours and is flagged;
+  * ISO 20473 is not available (see KNOWN_LIMITATIONS).
+* **Visible colours** are an sRGB approximation (**Illustrative**). Per the CIE, visible radiation has no precise limits (lower 360–400 nm, upper 760–830 nm).
+* *Validation (tests/science/spectral.test.ts, 26 tests):*
+  * photon relations: λ = c/f; 1 eV ↔ 1239.841984 nm and 8.065543937 × 10⁵ m⁻¹ (CODATA listed values); round trips between f, λ and E;
+  * plane wave: E ⊥ B ⊥ k and c|B| = |E| at sampled points for every polarisation; Poynting vector along +k; ⟨S⟩ by quadrature = ½cε₀E₀²; μ₀ = 1.25663706212 × 10⁻⁶; the field pattern moves at c;
+  * polarisation: handedness checked against the actual rotation sense; |E| constant for circular, modulated at twice the frequency for elliptical;
+  * bands: ITU band algebra (17 contiguous bands, 0.3·10^N … 3·10^N Hz, symbols TLF…THF) and edge inclusivity; ISO 21348 overlaps and edges; CIE edge flagging; detector IR contiguity;
+  * blackbody: b = 2.897771955 × 10⁻³ m K, b′ = 5.878925757 × 10¹⁰ Hz/K and σ = 5.670374419 × 10⁻⁸ W m⁻² K⁻⁴ (CODATA); the peaks are maxima; π∫B_λ dλ = σT⁴; Sun peak 502.04 nm and CMB peak 160.23 GHz;
+  * materials: frequency invariance and λ/n in fused silica; normal dispersion in four materials; null outside the validity range.

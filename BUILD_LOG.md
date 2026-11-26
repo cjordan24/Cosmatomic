@@ -83,3 +83,21 @@ Findings: (1) The IAPWS saturation release has no text layer, so pages were rend
 ## 2026-11-26 — Phase 4, Gate 4.5 (shared wave physics engine and wave laboratory)
 `src/core/physics/waves/{waves,media}.ts` (analytic models, packets and dispersion, Doppler, Courant-checked FD, media with sourced speeds). `#/spectral/lab` offers 9 demonstrations with URL-held configuration, slow-motion time scale, step and reset, 3D transverse/longitudinal rendering, snapshot and probe plots with axis quantities, 2D canvas interference and Doppler, and save to the notebook. The Experiment record is now a discriminated union with a legacy migration. SPECTRAL was added to the mode switch with an amber theme, and the Waves module to the engine registry.
 Findings: (1) A constant for the molar mass of air needed a source. The 1976 Standard Atmosphere scan has no usable text, and the WebBook has no air fluid, so M is now *derived* from the NSSDC composition already in the app (28.966 g/mol). (2) The longitudinal view first rendered as a solid bar because the particles were too dense; it is now a 61 × 7 particle grid with compression colouring, and the camera distance is fixed. (3) The instantaneous two-source field hid the nodal lines, so a time-averaged intensity view was added.
+
+## 2026-11-26 — Phase 4, Gate 4.6 (Spectral Mode: electromagnetic atlas)
+First, a live re-check of Gate 4.5 against production: 42/42 passed. New `src/core/physics/em/em.ts`: photon relations, a vacuum plane wave with polarisation and CIE handedness, Poynting flux, and Planck/Wien/Stefan–Boltzmann derived from h, c and k. New dataset `spectral/em-bands.json` (adapter `em-bands.ts`), with band edges transcribed by hand from:
+- ITU-R V.431-9 (official .docx text);
+- the CIE S 017:2020 e-ILV terms;
+- the ISO 21348 summary table (rendered with PDFKit and read as an image);
+- Rogalski & Chrzanowski (2014) Table 1.
+
+`#/spectral` is now the atlas, with four views: a log spectrum with one row per convention plus a visible-colour comparison (Illustrative), a 3D E/B/k plane wave, a blackbody view and NIST lines. `#/spectral/lab` keeps the Wave Lab. Also: Atlas/Wave lab chips; `wave:em-visible`, `wave:em-ultraviolet` and `context:sunlight` are now routable; the element spectrum links to the atlas; the Electromagnetic module is now `partial`; five new Source-index entries (DOIs and URLs checked); 26 new science tests (303 total) and e2e test 49 (43 total).
+
+Findings:
+1. iso.org serves a Cloudflare bot wall, so ISO 20473 could not be read. It is listed as *not available* rather than filled from secondary sources. The ISO 21348 values come from the summary table published by Space Environment Technologies. The live copy is behind a bot check, so the 2016 Internet Archive copy was used.
+2. The Lyman-α example was first typed in as 121.567 nm. That is the measured fine-structure blend, not the model value. Derived examples are now computed at run time and stored as null.
+3. **A test caught a clash between conventions:** the 511 keV annihilation photon (λ = Compton wavelength, 2.43 pm) is a "gamma ray" by origin, but it falls in ISO 21348's *hard X-ray* category, which is defined by wavelength alone. The UI now explains this instead of hiding it.
+4. Two of my test expectations were wrong (50 Hz is ITU SLF, not ELF; 0.1 m is UHF); the data were right.
+5. The CIE column of the lines table printed "visible", which is not a CIE band name. It now prints "—".
+6. The 1000-unit-wide SVGs rendered with unreadable text and are now drawn at their real width.
+7. The Hellwig 1970 hydrogen 21 cm paper and the Hölzer 1997 Cu Kα paper are paywalled, so those examples were dropped rather than quoted from memory.

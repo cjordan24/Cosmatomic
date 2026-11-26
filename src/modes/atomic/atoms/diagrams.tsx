@@ -4,7 +4,7 @@
 import { useEffect, useState } from 'react';
 import { formatSig } from '@/core/units/units';
 import { blendCentroid, isForbidden, loadNistSpectra, nistSpectraSync, spectrumLabel, type NistSpectra, type NistLine } from './nistSpectra';
-import { setQuery } from '@/shared/router';
+import { navigate, setQuery } from '@/shared/router';
 import { L_LETTER, formatConfiguration, orbitalBoxes, subshellLabel, MADELUNG } from './configuration';
 import { decayModes, formatHalfLife, groundStates } from './isotopes';
 import { hydrogenLikeLines, levelEnergyEV, wavelengthToColor } from './spectrum';
@@ -217,6 +217,7 @@ function Spectrum({ st }: { st: AtomState }) {
         <button className={`chip ${mode === 'emission' ? 'active' : ''}`} onClick={() => setMode('emission')}>Emission</button>
         <button className={`chip ${mode === 'absorption' ? 'active' : ''}`} onClick={() => setMode('absorption')}>Absorption</button>
         <span className="note" style={{ alignSelf: 'center' }}>{label} · {lines.length} of {data.totalInRange} lines (200–1000 nm, vacuum)</span>
+        <button className="link-btn" style={{ marginLeft: 'auto' }} onClick={() => navigate(`/spectral?tab=lines&spec=${encodeURIComponent(label!)}`)}>Open in Spectral atlas →</button>
       </div>
       <svg viewBox="0 0 400 96" role="img" aria-label={`${mode} spectrum of ${label}`}>
         <defs><linearGradient id="vis2">{[200, 380, 420, 460, 500, 540, 580, 620, 660, 700, 750, 1000].map((nm) => <stop key={nm} offset={`${((nm - lo) / (hi - lo)) * 100}%`} stopColor={nm < 380 ? '#3a2a66' : nm > 750 ? '#4a1a1a' : wavelengthToColor(nm)} />)}</linearGradient></defs>

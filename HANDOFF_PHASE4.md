@@ -2,14 +2,20 @@
 
 Written 2026-11-26 at the end of Phase 3. Read this first, then `ARCHITECTURE.md`, `SCIENTIFIC_MODELS.md`, `DATA_SOURCES.md`, `KNOWN_LIMITATIONS.md` and the tail of `BUILD_LOG.md`.
 
-## ▶ RESUME HERE (context cleared mid-Phase 4, after Gate 4.5)
+## ▶ RESUME HERE (after Gate 4.6)
 
-**State:** Gates 4.1–4.5 are done, committed and pushed. HEAD is `7b89321` ("Phase 4 Gate 4.5 …") and the working tree is clean. Gate 4.5 is **deployed** to production (site returns 200), but its **live Playwright run was stopped part-way** at the user's request. The first step next session is to re-run the live suite (§3 procedure) and confirm 42/42. Gates 4.1–4.4 each passed the full live suite (36 → 41 tests).
+**State:** Gates 4.1–4.6 are done, committed, pushed and deployed. Gate 4.5's live re-run passed 42/42 at the start of this session. Gate 4.6 status: see the latest BUILD_LOG entry; the next step is **Gate 4.7**.
 
-**Counts at the stop:** 277 science tests (Vitest), 42 browser tests (Playwright), 17 dataset manifests, 63 Source-index entries. The full e2e suite takes ~7.5 min locally and ~7.5 min live.
+**Counts:** 303 science tests (Vitest), 43 browser tests (Playwright), 18 dataset manifests, 65 Source-index entries (the earlier "63" was a miscount; it was 60 before Gate 4.6).
+
+**Gate 4.6 notes for 4.7:**
+- `src/core/physics/em/em.ts` already has `planeE`/`planeB` (the analytic plane wave for the FIELDS layer), `planckLambda`/`planckNu`, `peakWavelength` and `MU0`.
+- The atlas lives at `src/modes/spectral/atlas/` (`bands.ts`, `SpectralAtlas.tsx`). Its URL state is `lambda` (vacuum m), `tab` (wave | blackbody | lines), `pol`, `T` and `spec`.
+- Already linked: Element → spectrum → atlas (`#/spectral?tab=lines&spec=H%20I`); Sun 5772 K blackbody (`context:sunlight` → `#/spectral?tab=blackbody&T=5772`); Material n(λ) in the atlas right panel. For 4.7, formalise these as registry relationships and add the reverse links.
+- ISO 20473 is deliberately *not available* (iso.org bot wall). Don't fill it from secondary sources.
 
 **What is left in Phase 4:**
-1. **Gate 4.6, Spectral Mode and the EM atlas.** `#/spectral` currently renders the Wave Lab, so make it the atlas and keep `#/spectral/lab`. Contents:
+1. ~~**Gate 4.6, Spectral Mode and the EM atlas.**~~ Done (spec kept below for reference). `#/spectral` currently renders the Wave Lab, so make it the atlas and keep `#/spectral/lab`. Contents:
    - log navigation by frequency, wavelength and energy;
    - an EM band dataset with *named conventions*: ITU-R V.431 radio bands ELF…THF; ISO 20473 and CIE IR-A/B/C for infrared, plus an industry NIR/SWIR/MWIR/LWIR scheme; ISO 21348 for UV, X-ray and gamma. Verify each value from the source document, the way the IAPWS pages were read;
    - photon energy E = hf = hc/λ from CODATA;

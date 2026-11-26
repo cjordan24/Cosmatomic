@@ -163,3 +163,55 @@ test('48 wave laboratory: transverse, longitudinal, interference, standing wave,
   await page.goto('/#/notebook');
   await expect(page.getByRole('article', { name: /Pulse reflection, fixed ends/ })).toContainText('wave-lab');
 });
+
+// ---------------- Gate 4.6 ----------------
+test('49 spectral atlas: band conventions, photon quantities, plane wave, blackbody and NIST lines', async ({ page }) => {
+  await page.goto('/#/spectral?lambda=3e-2');
+  await expect(page.locator('.center-stage h1')).toHaveText('Electromagnetic spectrum');
+  const q = page.getByLabel('Photon quantities');
+  await expect(q).toContainText('9.99308');                       // 3 cm → 9.99308 GHz
+  const conv = page.getByLabel('Band names by convention');
+  await expect(conv).toContainText('SHF');                         // ITU-R V.431 band 10
+  await expect(conv).toContainText('ISO 20473');
+  await expect(conv).toContainText('Not available');
+  // energy input: 1 eV → 1239.84 nm
+  await page.getByRole('radio', { name: 'energy' }).click();
+  await page.getByLabel('energy unit').selectOption('eV');
+  await page.getByLabel('Enter energy').fill('1');
+  await page.getByLabel('Enter energy').press('Enter');
+  await expect(q).toContainText('1.23984');
+  await expect(conv).toContainText('IR-A');
+  await expect(conv).toContainText('SWIR');
+  // a mid-UV mercury line from the examples list
+  await page.getByRole('listbox', { name: 'Spectral examples' }).getByRole('option', { name: /Mercury 254 nm/ }).click();
+  await expect(conv).toContainText('UV-C');
+  await expect(conv).toContainText('MUV');
+  await shot(page, '49-spectral-atlas', 'Spectral atlas (#/spectral): the Hg I 253.7 nm line (NIST ASD) placed on a log wavelength/frequency/energy axis. Each band row is a named convention: ITU-R V.431-9 radio bands, CIE S 017 UV/IR, ISO 21348 (overlapping sub-categories stacked) and the detector IR scheme. ISO 20473 is listed as not available because its text could not be consulted. The right panel shows f, E = hf, the wavenumber, the band name under each convention, and n(λ) in a chosen material.');
+  // frequency-dependent material data
+  await page.getByLabel('Optical material').selectOption('fused-silica');
+  await expect(page.getByLabel('Propagation in the material')).toContainText('1.50');   // n(253.7 nm) of fused silica ≈ 1.505
+  // plane wave
+  await page.goto('/#/spectral?lambda=5.5e-7&tab=wave&pol=circular-right');
+  await expect(page.getByLabel('Plane wave quantities')).toContainText('circular, right-handed');
+  await page.waitForTimeout(1200);
+  await shot(page, '49b-plane-wave', 'Vacuum plane wave at 550 nm with right-handed circular polarisation (CIE: clockwise as seen by the receiver). E (red) and c·B (blue) are perpendicular to each other and to k (gold) at every point, with |B| = |E|/c. B₀ and the time-averaged intensity ½cε₀E₀² follow from the chosen E₀.');
+  // blackbody
+  await page.goto('/#/spectral?tab=blackbody&T=5772');
+  await expect(page.getByLabel('Blackbody quantities')).toContainText('502.0');
+  await shot(page, '49c-blackbody', 'Planck spectrum of a 5772 K blackbody (IAU nominal solar T_eff): peak per wavelength 502.0 nm. The per-frequency peak corresponds to a different wavelength (c/ν_max ≈ 883 nm). σ and b are derived from h, c and k and match CODATA. Labelled as a model, not the observed solar spectrum.');
+  // NIST lines, reached from the element view
+  await page.goto('/#/atomic/element/1?diagram=spectrum');
+  await page.getByRole('button', { name: 'Open in Spectral atlas →' }).click();
+  await expect(page).toHaveURL(/#\/spectral\?tab=lines&spec=H/);
+  await expect(page.getByRole('img', { name: 'NIST lines of H I on the spectrum' })).toBeVisible();
+  await page.getByRole('button', { name: /Select 656\.4/ }).click();
+  await expect(q).toContainText('656.4');
+  await shot(page, '49d-atomic-lines', 'Hydrogen (H I) lines from the NIST Atomic Spectra Database on the spectrum, opened from the element view. Selecting Hα (656.46 nm, vacuum) gives its frequency and photon energy and names its band under each convention.');
+  // visible-light registry entity is now routable
+  await page.goto('/#/spectral?lambda=5.5e-7');
+  await expect(page.getByRole('img', { name: 'Visible spectrum colour comparison' })).toBeVisible();
+  await expect(page.getByText('no precise limits')).toBeVisible();
+  // TopBar chips
+  await page.locator('.chip-row[aria-label="Spectral sections"]').getByRole('button', { name: 'Wave lab' }).click();
+  await expect(page).toHaveURL(/#\/spectral\/lab/);
+});
