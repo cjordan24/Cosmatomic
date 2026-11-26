@@ -38,7 +38,8 @@ src/
 │       ├── solar-system/           ephemerides, catalogue, live clock, scene, timeline, view
 │       ├── sandbox/                N-body physics, presets, instruments, Experiment/Compare view
 │       ├── star-systems/           nearby-star catalogues, astrometry, calibrations, 3D map (#/cosmic/stars)
-│       └── relativity/             Schwarzschild radii, clocks, orbits, light paths, weak-field tests (#/cosmic/relativity)
+│       ├── relativity/             Schwarzschild radii, clocks, orbits, light paths, weak-field tests (#/cosmic/relativity)
+│       └── compact/                white dwarfs, neutron stars, black holes with published values (#/cosmic/compact)
 ├── core/fields/                    FIELDS layer interface + gravity, Coulomb, plane-wave, heat layers (FIELDS_ARCHITECTURE.md)
 ├── shared/scientific-relationships typed, sourced entity/edge registry; ui/RelatedLinks renders both directions (SCIENTIFIC_RELATIONSHIPS.md)
 ├── rendering/                      Viewport (adaptive DPR, log depth), PointCloud shader, labels, colours

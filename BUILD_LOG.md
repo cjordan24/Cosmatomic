@@ -205,3 +205,27 @@ Findings:
 1. The first deflection test failed by 11 %: the exit-point interpolation had the wrong sign. After the fix the ODE was still 0.74 % above 2r_s/b at b = 200 r_s. That is the real second-order term (≈ 15π/16 · m/b), not an error, so the test now uses an independent quadrature of the orbit equation (agreement 0.2 %) and bounds the excess.
 2. Carroll's "R☉ = 10⁶ GM☉" (7.31) is an order of magnitude only (exact ratio 4.71 × 10⁵); the test checks the exact ratio.
 3. Access decision: Ashby (2003) on GPS relativity is hosted by Springer, which served a JavaScript bot challenge, so it was not used and the GPS check was dropped.
+
+## 2026-11-26 — Phase 6, Gate 6.2 (compact objects and black holes)
+First, a live re-check of Gate 6.1 against production: 53/53 passed.
+
+New view `#/cosmic/compact` (chip *Black holes*) and the curated dataset `compact-objects.json` (11 objects). The view has:
+- a mass–radius diagram against the horizon and photon-sphere lines, with the Sun for scale;
+- a table and per-object panel with the published values, their interval types and sources;
+- quantities derived with the Gate 6.1 module;
+- two checks against independent measurements: Sirius B's predicted 80.0 km/s redshift against the measured 80.65 ± 0.77 km/s, and the Sgr A* and M87* shadows against the EHT rings.
+
+Integration:
+- The star panel shows the measured masses of white dwarfs, or "unknown".
+- Sirius B links to the H I spectrum.
+- Neutron stars and black holes are registry entities.
+- Measured objects are presets in the Relativity view.
+
+There are 12 new Source-index entries, with every DOI checked on Crossref and every arXiv abstract fetched. New: a stacked key–value layout. 12 new science tests (405 total) and e2e test 60.
+
+Findings:
+1. **Interval types differ.** GW150914 quotes 90 % credible intervals, the NICER papers 68 % (16–84 % quantiles) and the timing and astrometric papers 1σ. The dataset stores the interval type per value, and the UI labels it.
+2. **The M87* mass is circular for a shadow test.** The EHT's 6.5 × 10⁹ M☉ is derived from the ring itself, so the shadow check uses the stellar-dynamics mass (6.2 × 10⁹ → 37.8 µas; EHT quotes 37.6). The gas-dynamics mass gives 21.3 µas, as the paper states.
+3. **Wrong paper caught.** The arXiv number first used for "Riley 2021" (2105.06979) is actually Miller et al. 2021, a different analysis of the same J0740 data. The dataset cites Miller et al. explicitly and notes that the two analyses disagree.
+4. **Access:** four searches were sent to export.arxiv.org before its robots.txt was checked; it disallows all agents. It was not used again. Papers were then fetched only from arxiv.org/pdf and /abs, which robots.txt allows, at its 15 s crawl-delay, and searched through Crossref.
+5. **White dwarfs are not duplicated.** They are the same objects as the `star:<seq>` entities, so they get no separate `compact-object` entity (rule 3 of SCIENTIFIC_RELATIONSHIPS).

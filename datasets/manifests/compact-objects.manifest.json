@@ -1,0 +1,37 @@
+{
+  "dataset": "compact-objects",
+  "version": "1.0.0",
+  "records": 11,
+  "sources": [
+    {
+      "institution": "Bond et al. (2015, 2017); Bond, Bergeron & Bédard (2017); Joyce et al. (2018)",
+      "url": "https://doi.org/10.3847/1538-4357/aa8a63",
+      "notes": "white-dwarf dynamical masses, radii and the Sirius B gravitational redshift"
+    },
+    {
+      "institution": "Fonseca et al. (2021); Miller et al. (2021); Riley et al. (2019); Weisberg & Huang (2016)",
+      "url": "https://doi.org/10.3847/2041-8213/ac03b8",
+      "notes": "neutron-star masses and radii"
+    },
+    {
+      "institution": "Event Horizon Telescope Collaboration (2019, 2022)",
+      "url": "https://doi.org/10.3847/2041-8213/ab0ec7",
+      "license": "M87 Paper I: CC BY 3.0 (as stated in the article)",
+      "notes": "M87* and Sgr A* ring diameters, masses and distances"
+    },
+    {
+      "institution": "Miller-Jones et al. (2021); LIGO Scientific and Virgo Collaborations (Abbott et al. 2016)",
+      "url": "https://doi.org/10.1103/PhysRevLett.116.061102",
+      "notes": "stellar-mass black holes"
+    }
+  ],
+  "adapter": "scripts/ingestion/curated-compact-objects.ts",
+  "warnings": [
+    "Hand-transcribed from the papers (manually transcribed values; checked against the PDF text).",
+    "Interval types differ between papers (1σ, 68 % or 90 % credible) and are stored per value."
+  ],
+  "output": "datasets/astronomical/compact-objects.json",
+  "retrievedAt": "2026-11-26T22:16:35.465Z",
+  "bytes": 10541,
+  "sha256": "b3fc1d9cf7ab027e8371a07faa791def7d9248520590fb31a2476682b32745c7"
+}

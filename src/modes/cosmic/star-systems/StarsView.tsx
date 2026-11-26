@@ -9,6 +9,7 @@ import { Viewport } from '@/rendering/Viewport';
 import { LabelLayer, LabelOverlay } from '@/rendering/labels';
 import { navigate, setQuery, useRoute } from '@/shared/router';
 import { KV, Loading, Panel, ProvenanceBadge } from '@/ui/components';
+import { COMPACT_OBJECTS, radiusKm } from '@/modes/cosmic/compact/compact';
 import { SourceLinks } from '@/ui/SourcesView';
 import { RelatedLinks } from '@/ui/RelatedLinks';
 import { LinePlot } from '@/ui/plots';
@@ -139,6 +140,8 @@ function ObjectPanel({ o, all, cns }: { o: NearbyObject; all: NearbyObject[]; cn
         </> : <p className="note">Not calibrated: {o.type === 'white dwarf' ? 'the dwarf sequence does not cover white dwarfs' : !spt ? 'no spectral type' : spt.limit ? 'only a bound on the type is known' : spt.subdwarf ? 'subdwarfs (metal-poor) lie below the dwarf sequence' : 'type outside the table'}.</p>}
       </>}
 
+      {o.type === 'white dwarf' && <WhiteDwarfMass seq={o.seq} />}
+
       {o.type !== 'exoplanet' && <ThermalModel o={o} />}
 
       {members.length > 1 && <>
@@ -158,6 +161,23 @@ function ObjectPanel({ o, all, cns }: { o: NearbyObject; all: NearbyObject[]; cn
       {o.type !== 'exoplanet' && <button className="chip" style={{ marginTop: 8 }} onClick={() => navigate(`/cosmic/stars/hr?sel=${o.seq}`)}>Show on the HR diagram →</button>}
       <RelatedLinks id={`star:${o.seq}`} />
       <p className="note" style={{ marginTop: 10 }}>Catalogue: <SourceLinks ids={['reyle-2021', 'gaia-edr3', 'vizier']} />. Unknown means the catalogue has no value. Nothing is filled from other stars.</p>
+    </>
+  );
+}
+
+/** White dwarfs: published mass and radius when bundled (Gate 6.2), otherwise an explicit unknown. */
+function WhiteDwarfMass({ seq }: { seq: number }) {
+  const c = COMPACT_OBJECTS.find((x) => x.starSeq === seq);
+  const R = c ? radiusKm(c) : null;
+  return (
+    <>
+      <div className="section-title">White dwarf {c && <ProvenanceBadge cls="observed" title="published mass and radius" />}</div>
+      <dl className="kv" aria-label="White dwarf mass">
+        <KV k={c ? `Mass (${c.massInterval})` : 'Mass'} v={c ? `${c.mass[0]} ± ${c.mass[1]}` : null} unit={c ? 'M☉' : undefined} />
+        <KV k="Radius" v={R ? R[0] : null} unit="km" sig={4} />
+      </dl>
+      {c ? <p className="note" style={{ fontSize: 10.5 }}>{c.massMethod} <SourceLinks ids={[c.massSource]} /></p> : <p className="note" style={{ fontSize: 10.5 }}>No measured mass or radius is bundled for this white dwarf.</p>}
+      <button className="chip" onClick={() => navigate(c ? `/cosmic/compact?sel=${c.id}` : '/cosmic/compact')}>{c ? 'Relativity of this white dwarf →' : 'Compact objects →'}</button>
     </>
   );
 }

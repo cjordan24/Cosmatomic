@@ -83,6 +83,8 @@ a { color: var(--accent); }
 .kv dt { color: var(--text-dim); }
 .kv dd { margin: 0; text-align: right; font-family: var(--mono); font-size: 12px; color: var(--text); }
 .kv dd.unknown { color: var(--text-faint); font-style: italic; font-family: var(--font); }
+.kv.stack { grid-template-columns: 1fr; gap: 1px; }
+.kv.stack dd { margin-bottom: 6px; }
 .section-title { margin: 14px 0 8px; font-size: 10.5px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); }
 .note { font-size: 11.5px; line-height: 1.5; color: var(--text-dim); }
 .note.warn { color: var(--warn); }

@@ -14,7 +14,7 @@ import { Logo, SearchGlyph } from './components';
 interface Hit { kind: 'element' | 'molecule' | 'body' | 'reaction' | 'material' | 'star' | 'exoplanet'; label: string; sub: string; to: string; score: number }
 
 /** Cosmic sub-routes that are not solar-system bodies (#/cosmic/<id> otherwise focuses a body). */
-const COSMIC_SECTIONS = ['stars', 'sandbox', 'relativity'];
+const COSMIC_SECTIONS = ['stars', 'sandbox', 'relativity', 'compact'];
 
 function useSearchIndex(stars: NearbyObject[] | null) {
   return useMemo(() => [
@@ -100,7 +100,7 @@ export function currentScaleId(path: string[], query: URLSearchParams): string |
     if (path[1] === 'element') return query.get('view') === 'nucleus' ? 'nucleus' : 'atom';
     return 'atom';
   }
-  if (path[0] === 'cosmic') return path[1] === 'stars' ? 'stellar' : path[1] === 'relativity' ? null : path[1] && path[1] !== 'sun' && path[1] !== 'sandbox' ? 'planet' : 'solar-system';
+  if (path[0] === 'cosmic') return path[1] === 'stars' ? 'stellar' : path[1] === 'relativity' || path[1] === 'compact' ? null : path[1] && path[1] !== 'sun' && path[1] !== 'sandbox' ? 'planet' : 'solar-system';
   return null;
 }
 
@@ -186,6 +186,7 @@ export function TopBar() {
             <button className={`chip ${path[1] === 'stars' && path[2] === 'hr' ? 'active' : ''}`} onClick={() => navigate('/cosmic/stars/hr')}>HR diagram</button>
             <button className={`chip ${path[1] === 'stars' && path[2] === 'planets' ? 'active' : ''}`} onClick={() => navigate('/cosmic/stars/planets')}>Exoplanets</button>
             <button className={`chip ${path[1] === 'relativity' ? 'active' : ''}`} onClick={() => navigate('/cosmic/relativity')}>Relativity</button>
+            <button className={`chip ${path[1] === 'compact' ? 'active' : ''}`} onClick={() => navigate('/cosmic/compact')}>Black holes</button>
             <button className={`chip ${path[1] === 'sandbox' ? 'active' : ''}`} onClick={() => navigate('/cosmic/sandbox')}>Sandbox</button>
           </nav>
         )}

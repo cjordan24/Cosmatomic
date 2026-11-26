@@ -52,3 +52,32 @@ test('59 relativity: Schwarzschild radii and clocks, orbits, light paths, weak-f
   await expect(page.getByLabel('Lorentz factor')).toContainText('1.25');
   await shot(page, '59d-relativity-tests', 'Weak-field checks: Mercury’s relativistic perihelion advance from JPL elements (42.98″ per century vs. the 43″ quoted by Carroll), 1.751″ solar-limb deflection, solar and terrestrial gravitational redshifts, and a Lorentz-factor calculator.');
 });
+
+// ---------------- Gate 6.2 ----------------
+test('60 compact objects: white dwarfs, neutron stars and black holes with published values and Schwarzschild checks', async ({ page }) => {
+  await page.goto('/#/cosmic');
+  await page.getByRole('navigation', { name: 'Cosmic sections' }).getByRole('button', { name: 'Black holes' }).click();
+  await expect(page).toHaveURL(/#\/cosmic\/compact$/);
+  await expect(page.getByRole('img', { name: 'Mass–radius diagram of compact objects' })).toBeVisible();
+  await expect(page.getByRole('table', { name: 'Compact objects' })).toContainText('PSR J0740+6620');
+  await expect(page.getByLabel('White dwarfs within 10 pc')).toContainText('LAWD 37');
+  await shot(page, '60a-compact-overview', 'Compact objects (#/cosmic/compact): published masses and radii of four nearby white dwarfs, three neutron stars and four black holes on a mass–radius diagram against the horizon line R = r_s, with the 21 white dwarfs of the 10 pc sample listed.');
+  await page.getByRole('table', { name: 'Compact objects' }).getByRole('button', { name: 'Sirius B' }).click();
+  const info = page.locator('.right-panel');
+  await expect(info.getByLabel('Published values')).toContainText('80.65 ± 0.77 km/s');
+  await expect(info.getByLabel('Derived values')).toContainText('80.02');
+  await expect(info.locator('.related-links')).toContainText('H I');
+  await shot(page, '60b-sirius-b', 'Sirius B: dynamical mass (Bond et al. 2017) and radius predict a surface gravitational redshift of 80.0 km/s; Joyce et al. (2018) measured 80.65 ± 0.77 km/s in its Hα line, linked to the H I spectrum.');
+  await page.getByRole('table', { name: 'Compact objects' }).getByRole('button', { name: 'Sagittarius A*' }).click();
+  await expect(info.getByLabel('Derived values')).toContainText('53.3');
+  await expect(info.getByLabel('Published values')).toContainText('51.8 ± 2.3 µas');
+  await shot(page, '60c-sgr-a', 'Sagittarius A*: the stellar-orbit mass and distance predict a 53.3 µas shadow for a non-rotating hole; the EHT ring is 51.8 ± 2.3 µas.');
+  await info.getByRole('button', { name: 'Open in the Relativity view →' }).click();
+  await expect(page).toHaveURL(/relativity\?m=sgr-a-star/);
+  await expect(page.locator('.right-panel h2')).toHaveText('Sagittarius A*');
+  await expect(page.locator('.right-panel').getByLabel('Characteristic radii')).toContainText("0.08483 au"); // r_s = 2GM/c² for 4.297 × 10⁶ M☉
+  await shot(page, '60d-relativity-sgr-a', 'Relativity view opened from Sagittarius A*: r_s = 0.085 au, photon sphere, ISCO and clocks for its published stellar-orbit mass (treated as non-rotating).');
+  // the star map shows the measured mass of Sirius B
+  await page.goto('/#/cosmic/stars?sel=14');
+  await expect(page.locator('.right-panel').getByLabel('White dwarf mass')).toContainText('1.018 ± 0.011');
+});

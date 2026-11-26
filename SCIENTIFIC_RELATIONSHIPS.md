@@ -37,6 +37,14 @@ The Sun's blackbody is labelled a *model*: the real solar spectrum has absorptio
 
 Star entities are registered at run time when the 10 pc catalogue loads (`starRegistry.ts`). The atlas loads the catalogue itself when opened with `star=`.
 
+## Phase 6 relationships
+
+| From | Edge | To (route) | Source | Shown in |
+|---|---|---|---|---|
+| `star:14` (Sirius B) | has-spectrum | `spectrum:H-I` (context: Hα gravitationally redshifted by 80.65 ± 0.77 km/s) | Joyce et al. 2018 | Compact-objects panel, star panel, atlas Lines tab |
+
+Neutron stars and black holes are registered as `compact-object:<id>` (route `#/cosmic/compact?sel=<id>`). The four white dwarfs with measured masses stay `star:<seq>`, so they are not duplicated.
+
 ## Earlier relationships (Gate 4.1)
 
 Reaction → process/context (`participates-in`), e.g. net photosynthesis → `process:photosynthesis` (planned, Biologic Mode Phase 11), combustion → `context:energy-production`.

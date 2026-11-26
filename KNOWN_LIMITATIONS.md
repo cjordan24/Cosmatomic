@@ -93,3 +93,9 @@
   * Light paths are drawn in the equatorial plane of a static hole; no ray-traced image, accretion disc, Doppler beaming or lensed background is rendered.
   * Weak-field checks compare with figures quoted in textbooks (Carroll's 43″ per century; Narayan & Bartelmann's 1.″7). No measurement papers for these tests are bundled. A GPS clock check was planned but not added: the review it would cite (Ashby 2003, Living Reviews in Relativity) is served behind a bot wall.
   * The Earth clock figure ignores Earth's rotation and the Sun's potential.
+* **Compact objects (Gate 6.2):**
+  * Only 4 of the 21 white dwarfs within 10 pc have a bundled mass (dynamical or lensing). The others show mass "unknown"; spectroscopic masses were not added.
+  * All derived quantities assume non-rotating objects. The millisecond pulsars are oblate, and the black holes spin (GW150914 remnant a ≈ 0.67), so their ISCO and horizon differ from the values shown.
+  * Neutron-star radii differ between analyses of the same data. Only Miller et al. (2021) is bundled for J0740+6620.
+  * The EHT ring is not the shadow: emission, spin and resolution change its size by factors of order unity. The comparison is shown as a check, not as a test of general relativity.
+  * Values are transcribed by hand; uncertainties keep each paper's interval type (1σ, 68 % or 90 %), so they are not directly comparable.

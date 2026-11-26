@@ -5,6 +5,7 @@
  */
 import { getEntity, registerEntity, registerRelationship } from '@/shared/scientific-relationships/registry';
 import { calibrateDwarf, parseSpectralType, type NearbyObject } from './stars';
+import { spectrumId } from '@/shared/scientific-relationships/registry';
 
 export const blackbodyId = (T: number) => `spectrum:blackbody-${Math.round(T)}`;
 export const blackbodyRoute = (T: number, seq?: number) => `#/spectral?tab=blackbody&T=${Math.round(T)}${seq !== undefined ? `&star=${seq}` : ''}`;
@@ -25,6 +26,8 @@ export function registerStars(objs: NearbyObject[]) {
     registerEntity({ id, kind: 'star', label: o.common && o.common !== o.name ? `${o.name} (${o.common})` : o.name, route: `#/cosmic/stars?sel=${o.seq}`, status: 'available' });
     const p = parseSpectralType(o.spt);
     if (p?.kind === 'mk' && p.cls && getEntity(`stellar-class:${p.cls}`)) registerRelationship({ from: id, to: `stellar-class:${p.cls}`, type: 'part-of', context: `spectral type ${o.spt}`, source: 'reyle-2021' });
+    // Gate 6.2: Sirius B's Hα line is measurably redshifted by its gravity (Joyce et al. 2018)
+    if (o.seq === 14 && o.type === 'white dwarf') registerRelationship({ from: id, to: spectrumId('H I'), type: 'has-spectrum', context: 'Hα gravitationally redshifted by 80.65 ± 0.77 km/s', source: 'joyce-2018' });
     const T = modelTeff(o);
     if (T !== null) {
       const bb = blackbodyId(T);

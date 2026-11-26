@@ -15,8 +15,9 @@ import { MATERIALS } from '@/modes/atomic/materials/materials';
 import { MEDIA } from '@/core/physics/waves/media';
 import { SOURCES } from '@/shared/sources/sources';
 import curated from '@datasets/curated/curated-reference.json';
+import compactData from '@datasets/astronomical/compact-objects.json';
 
-export type EntityKind = 'element' | 'molecule' | 'reaction' | 'material' | 'body' | 'wave' | 'process' | 'context' | 'structure' | 'instrument' | 'spectrum' | 'field' | 'star' | 'stellar-class';
+export type EntityKind = 'element' | 'molecule' | 'reaction' | 'material' | 'body' | 'wave' | 'process' | 'context' | 'structure' | 'instrument' | 'spectrum' | 'field' | 'star' | 'stellar-class' | 'compact-object';
 
 export interface Entity {
   id: string; // "kind:local-id"
@@ -151,6 +152,14 @@ for (const sym of Object.keys(SOLAR_LOG_EPS)) {
   if (!el) continue;
   registerEntity(E(`element:${el.Z}`, el.name, `#/atomic/element/${el.Z}`));
   registerRelationship({ from: 'body:sun', to: `element:${el.Z}`, type: 'has-property', context: 'photospheric abundance', source: 'asplund-2009' });
+}
+
+// ---------------------------------------------------------------- Gate 6.2 compact objects
+// Neutron stars and black holes are registered here. White dwarfs of the 10 pc sample are the same
+// physical objects as their star:<seq> entities, so they are not duplicated (starRegistry.ts adds their edges).
+for (const o of (compactData as { objects: { id: string; name: string; kind: string; starSeq: number | null }[] }).objects) {
+  if (o.starSeq !== null) continue;
+  registerEntity(E(`compact-object:${o.id}`, o.name, `#/cosmic/compact?sel=${o.id}`));
 }
 
 export const getEntity = (id: string) => REGISTRY.get(id);
