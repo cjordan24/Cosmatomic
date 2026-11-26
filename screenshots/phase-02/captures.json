@@ -1,9 +1,12 @@
 {
-  "23-import-xyz.png": "Imported XYZ file: connectivity inferred from covalent radii (stated), provenance “user-supplied, unverified”; exported back to MDL MOL V2000.",
-  "24-compare-isomers.png": "Comparison view: ethanol vs dimethyl ether (both C₂H₆O) — side-by-side 3D models, descriptors (XLogP3, TPSA, H-bond donors) and bond-length statistics by element pair.",
   "21-library-c60.png": "Expanded library (≥100 records, biomolecules filter shown): C₆₀ built from gas-phase electron-diffraction bond lengths (1.401 / 1.458 Å) — observed provenance.",
   "22-pubchem-search-vanillin.png": "On-demand PubChem search: “vanillin” → CID 1183 fetched live (properties + PubChem3D conformer), cached in IndexedDB and saved to “my library”.",
+  "23-import-xyz.png": "Imported XYZ file: connectivity inferred from covalent radii (stated), provenance “user-supplied, unverified”; exported back to MDL MOL V2000.",
+  "24-compare-isomers.png": "Comparison view: ethanol vs dimethyl ether (both C₂H₆O) — side-by-side 3D models, descriptors (XLogP3, TPSA, H-bond donors) and bond-length statistics by element pair.",
   "25-lab-methanol.png": "Laboratory: methanol built by clicking (place C, grow O, add hydrogens). In-house valence rules ✓, RDKit sanitisation ✓, canonical SMILES/InChIKey, identified live in PubChem by InChIKey (CID 887).",
   "26-lab-sandbox-hypothetical.png": "Experimental sandbox: an over-valent atom (CH₅O) is allowed only in the sandbox; both validators flag it and the structure is labelled hypothetical. Strict mode refused the same edit.",
-  "27-lab-optimised-ethanol.png": "VGFF-1 optimisation in a Web Worker: a distorted ethanol starting guess relaxes (L-BFGS, converged, energy-vs-iteration plot); geometry now labelled Simulated; identity confirmed as ethanol."
+  "27-lab-optimised-ethanol.png": "VGFF-1 optimisation in a Web Worker: a distorted ethanol starting guess relaxes (L-BFGS, converged, energy-vs-iteration plot); geometry now labelled Simulated; identity confirmed as ethanol.",
+  "28-spectrum-sodium.png": "Sodium: measured NIST ASD emission spectrum (vacuum wavelengths) with the Na D doublet 589.158 / 589.756 nm, transitions (3s ²S → 3p ²P°), Einstein A values and accuracy grades.",
+  "28b-spectrum-oiii-nebular.png": "Doubly ionised oxygen (O III, selectable because NIST has its spectrum): forbidden nebular lines [O III] 495.9 / 500.7 nm (Ritz wavelengths, magnetic-dipole) that make planetary nebulae glow green.",
+  "28c-nuclide-chart-uranium.png": "Isotope comparison: half-life vs neutron number for all uranium ground-state nuclides (NUBASE), coloured by decay mode, with the age of the Universe marked — ²³⁸U and ²³⁵U survive from stellar nucleosynthesis."
 }

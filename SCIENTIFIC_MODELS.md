@@ -19,7 +19,7 @@ Every model below states its assumptions, validity range and the test that check
 * **Sampling:** r from the exact radial CDF (inverse transform), angles by rejection on |Y|² — independent draws from |ψ|², seeded (mulberry32) for reproducibility. Points are probability samples, **not trajectories**; the UI says so.
 * **Multi-electron clouds: approximation.** Hydrogenic orbitals with Slater Z_eff (principal n, not Slater n*). Qualitatively right shell structure and relative sizes; **not** Hartree–Fock and not quantitative densities. Labelled "approx." in the UI.
 * **Energy levels:** one-electron: E_n = −R_M·Z²/n² with reduced-mass Rydberg R_M = R∞/(1+mₑ/M). Multi-electron: E ≈ −13.6 eV·Z_eff²/n² (Slater) — labelled APPROXIMATE.
-* **Spectra:** computed only for one-electron systems (Rydberg formula, vacuum wavelengths; fine structure/Lamb shift neglected). *Tests:* H ground state −13.5984 eV; Lyman-α 121.567 nm (±0.005); Hα 656.46 nm (±0.02). Multi-electron spectra are **not drawn** (NIST ASD link instead).
+* **Computed spectra** (one-electron systems): Rydberg formula, vacuum wavelengths; fine structure/Lamb shift neglected. *Tests:* H ground state −13.5984 eV; Lyman-α 121.567 nm (±0.005); Hα 656.46 nm (±0.02). Measured multi-electron spectra come from NIST (§4e); elements without bundled data show no lines.
 * **Educational shell model:** occupancy exact; radii and motion non-physical; labelled.
 * **Nucleus:** R = r₀A^⅓, r₀ = 1.2 fm (empirical charge-radius fit); nucleon placement is a deterministic schematic packing; binding energy from AMDC atomic masses: B = [Z·m(¹H) + N·mₙ − m]c².
 
@@ -52,6 +52,13 @@ A deliberately small, fully traceable **generic valence force field** (`src/mode
 | Non-bonded | K(d₀ − r)² for r < d₀, ≥ 3 bonds apart (1-4 × 0.5) | d₀ = 0.8 × Σ PubChem vdW radii; repulsion only |
 Perception: hybridisation from bond orders; aromatic 6-rings (3 alternating doubles) and 5-rings (2 doubles + N/O/S); amide/aniline N planarised. Optimiser: L-BFGS (m = 8), Armijo backtracking, 0.3 Å step cap, convergence at RMS gradient ≤ 10⁻³; runs in a Web Worker with live progress.
 *Validation (tests/science/forcefield.test.ts):* analytic gradient vs central differences (relative error < 10⁻⁵, 7 molecules); rigid-motion invariance; monotone convergence. From crude builder guesses it reproduces **experimental** geometries: water 0.958 Å / 104.5°, ammonia 106.7°, methane 109.47° / 1.087 Å, ethane 1.535 Å, ethylene 1.339 Å (planar), acetylene 1.203 Å (linear), benzene six equal bonds 1.397 Å (spread < 0.005 Å). Against PubChem MMFF94s conformers: **91 % of 133 organic molecules keep bond-length RMS change < 0.04 Å (median 0.021 Å)**. Known failures of additive radii: H₂, O₂, HF, H₂O₂, P/S oxoacids, SO₂, fused aromatics (anthracene), C₆₀, heterocumulenes. Energies are relative strain within one structure, not thermochemistry.
+
+### 4e. Measured atomic spectra (Phase 2.4)
+* **Data:** NIST Atomic Spectra Database, 33 spectra (neutral atoms + He II, C II, N II, Mg II, Ca II, Fe II, O III, and D I), 200–1000 nm, **vacuum** wavelengths; strongest 150 lines per spectrum by NIST relative intensity then A_ki, plus every forbidden M1/E2 line from levels below 50 000 cm⁻¹ (nebular/auroral diagnostics such as [O III] 495.9/500.7, [N II] 654.8/658.3, [O I] 557.7/630.0 nm air). Ritz wavelengths are used (and flagged) when no observed value exists.
+* **Model checks against measurement:** Rydberg/Bohr model vs NIST A-weighted fine-structure centroids — Hα, Hβ, Hγ within 0.01 nm; He II 468.6 nm within 0.02 nm; the **H–D isotope shift** of Hα (≈ 0.179 nm, reduced mass) reproduced within 0.002 nm.
+* **Display:** emission/absorption views; bar height = log relative intensity (else A_ki) — explicitly *not* comparable between spectra (NIST intensities depend on the light source).
+* **Ion stages:** any ionisation stage with a bundled spectrum is selectable (spectroscopy is physics, not chemistry), in addition to chemical oxidation states.
+* **Isotope comparison chart:** half-life vs neutron number for every ground-state nuclide (NUBASE), coloured by primary decay mode, with the age of the Universe (4.35 × 10¹⁷ s) marked.
 
 ## 5. Solar-system dynamics
 | Body set | Model | Validated accuracy (1900–2049, vs JPL Horizons DE440/441) |

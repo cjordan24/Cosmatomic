@@ -136,3 +136,27 @@ test('27 laboratory: VGFF-1 geometry optimisation of a builder structure', async
   await page.waitForTimeout(1200);
   await shot(page, '27-lab-optimised-ethanol', 'VGFF-1 optimisation in a Web Worker: a distorted ethanol starting guess relaxes (L-BFGS, converged, energy-vs-iteration plot); geometry now labelled Simulated; identity confirmed as ethanol.');
 });
+
+test('28 spectroscopy: measured NIST spectra (Na D lines; [O III] nebular lines) and nuclide chart', async ({ page }) => {
+  await page.goto('/#/atomic/element/11?diagram=spectrum');
+  const diagram = page.locator('.diagram');
+  await expect(diagram).toContainText('Na I', { timeout: 30_000 });
+  await expect(diagram).toContainText('589.158');
+  await page.waitForTimeout(800);
+  await shot(page, '28-spectrum-sodium', 'Sodium: measured NIST ASD emission spectrum (vacuum wavelengths) with the Na D doublet 589.158 / 589.756 nm, transitions (3s ²S → 3p ²P°), Einstein A values and accuracy grades.');
+  await page.goto('/#/atomic/element/8?diagram=spectrum');
+  await page.getByRole('button', { name: 'O3+', exact: true }).waitFor({ timeout: 30_000 }).catch(() => {});
+  await page.getByRole('button', { name: 'O2+', exact: true }).click();
+  await expect(diagram).toContainText('O III');
+  await expect(diagram).toContainText('500.824');
+  await expect(diagram).toContainText('[M1]');
+  await page.getByRole('button', { name: 'Absorption' }).click();
+  await page.getByRole('button', { name: 'Emission' }).click();
+  await page.waitForTimeout(800);
+  await shot(page, '28b-spectrum-oiii-nebular', 'Doubly ionised oxygen (O III, selectable because NIST has its spectrum): forbidden nebular lines [O III] 495.9 / 500.7 nm (Ritz wavelengths, magnetic-dipole) that make planetary nebulae glow green.');
+  await page.goto('/#/atomic/element/92?diagram=isotopes');
+  await expect(diagram).toContainText('half-life vs neutron number');
+  await page.getByText('Isotope comparison · half-life vs neutron number').scrollIntoViewIfNeeded();
+  await page.waitForTimeout(800);
+  await shot(page, '28c-nuclide-chart-uranium', 'Isotope comparison: half-life vs neutron number for all uranium ground-state nuclides (NUBASE), coloured by decay mode, with the age of the Universe marked — ²³⁸U and ²³⁵U survive from stellar nucleosynthesis.');
+});

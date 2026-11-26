@@ -60,9 +60,9 @@ test('04 hydrogen: orbital view, excitation and photon emission', async ({ page 
   await page.getByRole('button', { name: 'De-excite ↓ (emit)' }).click();
   await expect(page.locator('.model-label')).toContainText('121.5');
   await page.getByRole('tab', { name: 'Spectrum' }).click();
-  await expect(page.locator('.diagram')).toContainText('Balmer');
+  await expect(page.locator('.diagram')).toContainText('Rydberg formula vs NIST');
   await page.waitForTimeout(400);
-  await shot(page, '04-hydrogen', 'Hydrogen: analytic 1s orbital after an excite (1s→2s, absorption) then de-excite (2→1) — Lyman-α photon at 121.57 nm reported; computed Balmer spectrum diagram.');
+  await shot(page, '04-hydrogen', 'Hydrogen: analytic 1s orbital after an excite (1s→2s, absorption) then de-excite (2→1) — Lyman-α photon at 121.57 nm reported; measured NIST H I spectrum with a Rydberg-model-vs-NIST residual table.');
 });
 
 test('05 carbon: probability cloud and orbital-box diagram', async ({ page }) => {

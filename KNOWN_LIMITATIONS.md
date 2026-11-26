@@ -2,7 +2,7 @@
 
 ## Scientific
 * **Multi-electron atoms** use hydrogenic orbitals with Slater Z_eff — qualitative only (no Hartree–Fock/DFT, no relativistic effects for heavy elements, principal n instead of Slater n*). Labelled in the UI.
-* **Spectra** are computed only for one-electron systems; NIST ASD lines for other elements are not yet ingested (link shown instead).
+* **Spectra:** measured NIST lines are bundled for 33 spectra only (200–1000 nm, strongest 150 + forbidden lines each); other elements/ions show a NIST link instead. Relative intensities are source-dependent. No line profiles, Doppler/pressure broadening or temperature-dependent populations yet.
 * **Ion configurations** use the "remove highest-n first / Madelung for anions" rule; a few real ions differ.
 * **Cosmic abundances**: only 28 elements (Asplund 2009) were transcribed; others show "no data". Values are manually transcribed and should be re-verified against the publication table by an automated adapter.
 * **Molecule geometries** are MMFF94s conformers (e.g. CO₂ C=O 1.197 Å vs 1.160 Å experimental); H₂, NO and C₆₀ use experimental bond lengths. Bond orders are Kekulé. NO₂, SF₆ and stearic acid are absent (PubChem has no 3D conformer). 140 curated records.

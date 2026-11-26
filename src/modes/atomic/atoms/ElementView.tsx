@@ -139,7 +139,7 @@ export default function ElementView({ Z }: { Z: number }) {
         <div className="chip-row" role="group" aria-label="Charge state">
           {st.allowedCharges.map((c) => <button key={c} className={`chip ${c === st.charge ? 'active' : ''}`} onClick={() => setQuery({ q: c })}>{c === 0 ? `${element.symbol} (neutral)` : `${element.symbol}${supSign(c)}`}</button>)}
         </div>
-        <p className="note">Ion states offered: documented oxidation states (PubChem). Ionisation removes electrons from the outermost subshell.</p>
+        <p className="note">Ion states offered: documented oxidation states (PubChem) plus ionisation stages with a measured NIST spectrum. Ionisation removes electrons from the outermost subshell.</p>
 
         <div className="section-title">Properties</div>
         <dl className="kv">

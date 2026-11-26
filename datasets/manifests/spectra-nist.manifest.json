@@ -1,0 +1,19 @@
+{
+  "dataset": "spectra-nist",
+  "version": "1",
+  "records": 33,
+  "adapter": "scripts/ingestion/nist-asd.ts",
+  "warnings": [],
+  "sources": [
+    {
+      "institution": "NIST Atomic Spectra Database (ver. 5.x) — Kramida, Ralchenko, Reader & NIST ASD Team",
+      "url": "https://physics.nist.gov/asd",
+      "license": "US Government work (public domain)",
+      "notes": "Lines 200–1000 nm (vacuum), strongest 150 per spectrum by relative intensity then A_ki. Ritz wavelengths used when no observed value exists."
+    }
+  ],
+  "output": "datasets/atomic/spectra-nist.json",
+  "retrievedAt": "2026-11-26T07:02:30.729Z",
+  "bytes": 974423,
+  "sha256": "8582d0db285e68df04416e4866887028641814800eba7525866ce145eb1dd643"
+}

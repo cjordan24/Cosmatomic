@@ -1,11 +1,13 @@
 /**
  * Data-driven 2D atomic diagrams. Every diagram is a pure function of AtomState.
  */
+import { useEffect, useState } from 'react';
 import { formatSig } from '@/core/units/units';
+import { blendCentroid, isForbidden, loadNistSpectra, nistSpectraSync, spectrumLabel, type NistSpectra, type NistLine } from './nistSpectra';
 import { setQuery } from '@/shared/router';
 import { L_LETTER, formatConfiguration, orbitalBoxes, subshellLabel, MADELUNG } from './configuration';
 import { decayModes, formatHalfLife, groundStates } from './isotopes';
-import { hydrogenLikeLines, levelEnergyEV, wavelengthToColor, SERIES } from './spectrum';
+import { hydrogenLikeLines, levelEnergyEV, wavelengthToColor } from './spectrum';
 import type { AtomState } from './useAtomState';
 import { subshellColor } from './AtomScene';
 import { CONSTANTS } from '@/core/constants/constants';
@@ -168,37 +170,126 @@ function Energy({ st }: { st: AtomState }) {
   );
 }
 
+function useNist(): NistSpectra | null {
+  const [d, setD] = useState<NistSpectra | null>(nistSpectraSync());
+  useEffect(() => { if (!d) loadNistSpectra().then(setD); }, [d]);
+  return d;
+}
+
+/** Line "strength" for drawing: log of NIST relative intensity, else of A_ki; forbidden lines get a fixed short stub. */
+function strengths(lines: NistLine[]): number[] {
+  const li = lines.map((l) => (l.intensity && l.intensity > 0 ? Math.log10(l.intensity) : null));
+  const la = lines.map((l) => (l.A && l.A > 0 ? Math.log10(l.A) : null));
+  const norm = (v: (number | null)[]) => { const xs = v.filter((x): x is number => x !== null); const lo = Math.min(...xs), hi = Math.max(...xs); return v.map((x) => (x === null ? null : hi > lo ? (x - lo) / (hi - lo) : 1)); };
+  const ni = norm(li), na = norm(la);
+  return lines.map((l, k) => (isForbidden(l) ? 0.35 : ni[k] ?? (na[k] !== null ? 0.25 + 0.6 * na[k]! : 0.2)));
+}
+
 function Spectrum({ st }: { st: AtomState }) {
-  if (st.electrons !== 1) {
+  const nist = useNist();
+  const [mode, setMode] = useState<'emission' | 'absorption'>('emission');
+  const label = spectrumLabel(st.element.symbol, st.charge, st.A);
+  const data = label && nist ? nist.spectra[label] : undefined;
+  const oneElectron = st.electrons === 1;
+  const lo = 200, hi = 1000;
+  const x = (nm: number) => ((nm - lo) / (hi - lo)) * 400;
+
+  if (!nist) return <p className="note">Loading NIST spectra…</p>;
+  if (!data) {
     return (
       <div>
-        <p className="note">Emission/absorption lines of multi-electron atoms cannot be computed from the Bohr/Rydberg formula. Measured lines come from the NIST Atomic Spectra Database, which is not yet ingested in Phase 1 — no lines are drawn rather than inventing them.</p>
+        <p className="note">No NIST ASD lines are bundled for <strong>{label ?? `${st.element.symbol} (charge ${st.charge})`}</strong> yet (Phase 2 ingests 33 spectra). Nothing is drawn rather than inventing lines.</p>
         {st.element.nistSpectraUrl && <p><a href={st.element.nistSpectraUrl} target="_blank" rel="noreferrer">Open NIST ASD lines for {st.element.symbol} →</a></p>}
-        <p className="note">Tip: select hydrogen, or ionise helium to He⁺, to see computed hydrogen-like spectra.</p>
+        <p className="note">Available: {Object.keys(nist.spectra).join(', ')}.</p>
       </div>
     );
   }
-  const lines = hydrogenLikeLines(st.protons, st.nuclearMassU, 4, 12);
-  const vis = lines.filter((l) => l.wavelengthNm >= 380 && l.wavelengthNm <= 750);
-  const x = (nm: number) => ((nm - 380) / 370) * 400;
+  const lines = data.lines;
+  const str = strengths(lines);
+  // table: the 10 strongest lines plus every forbidden line (one row per wavelength; M1/E2 components merged)
+  const top = lines.map((l, k) => ({ l, s: str[k] })).filter((p) => !isForbidden(p.l)).sort((p, q) => q.s - p.s).slice(0, 10).map((p) => p.l);
+  const forb = lines.filter(isForbidden).filter((l, k, arr) => arr.findIndex((m) => Math.abs(m.wl - l.wl) < 1e-6) === k);
+  const strongest = [...top, ...forb].sort((p, q) => p.wl - q.wl);
+  const bohr = oneElectron ? hydrogenLikeLines(st.protons, st.nuclearMassU, 4, 9).filter((l) => l.wavelengthNm >= lo && l.wavelengthNm <= hi) : [];
   return (
     <div>
-      <svg viewBox="0 0 400 90" role="img" aria-label="Visible emission spectrum">
-        <defs><linearGradient id="vis">{[380, 420, 460, 500, 540, 580, 620, 660, 700, 750].map((nm) => <stop key={nm} offset={`${((nm - 380) / 370) * 100}%`} stopColor={wavelengthToColor(nm)} stopOpacity={0.18} />)}</linearGradient></defs>
-        <rect x={0} y={8} width={400} height={50} fill="url(#vis)" />
-        <rect x={0} y={8} width={400} height={50} fill="#000" opacity={0.55} />
-        {vis.map((l) => <rect key={`${l.nUpper}-${l.nLower}`} x={x(l.wavelengthNm) - 1} y={8} width={2.4} height={50} fill={wavelengthToColor(l.wavelengthNm)} />)}
-        {[400, 500, 600, 700].map((nm) => <text key={nm} x={x(nm)} y={74} fontSize="10" textAnchor="middle" opacity="0.7">{nm} nm</text>)}
+      <div className="chip-row" style={{ marginBottom: 6 }}>
+        <button className={`chip ${mode === 'emission' ? 'active' : ''}`} onClick={() => setMode('emission')}>Emission</button>
+        <button className={`chip ${mode === 'absorption' ? 'active' : ''}`} onClick={() => setMode('absorption')}>Absorption</button>
+        <span className="note" style={{ alignSelf: 'center' }}>{label} · {lines.length} of {data.totalInRange} lines (200–1000 nm, vacuum)</span>
+      </div>
+      <svg viewBox="0 0 400 96" role="img" aria-label={`${mode} spectrum of ${label}`}>
+        <defs><linearGradient id="vis2">{[200, 380, 420, 460, 500, 540, 580, 620, 660, 700, 750, 1000].map((nm) => <stop key={nm} offset={`${((nm - lo) / (hi - lo)) * 100}%`} stopColor={nm < 380 ? '#3a2a66' : nm > 750 ? '#4a1a1a' : wavelengthToColor(nm)} />)}</linearGradient></defs>
+        <rect x={0} y={6} width={400} height={56} fill={mode === 'emission' ? '#020308' : 'url(#vis2)'} opacity={mode === 'emission' ? 1 : 0.85} />
+        {mode === 'emission' && <rect x={x(380)} y={6} width={x(750) - x(380)} height={56} fill="url(#vis2)" opacity={0.08} />}
+        {lines.map((l, k) => {
+          const h = 8 + 48 * str[k];
+          const c = l.wl >= 380 && l.wl <= 750 ? wavelengthToColor(l.wl) : l.wl < 380 ? '#a48cff' : '#ff8a7a';
+          return mode === 'emission'
+            ? <rect key={k} x={x(l.wl) - 0.5} y={62 - h} width={1} height={h} fill={c} opacity={isForbidden(l) ? 0.9 : 0.85} />
+            : <rect key={k} x={x(l.wl) - 0.5} y={6} width={1} height={56} fill="#000" opacity={0.25 + 0.7 * str[k]} />;
+        })}
+        {[200, 300, 400, 500, 600, 700, 800, 900, 1000].map((nm) => <text key={nm} x={Math.min(392, Math.max(8, x(nm)))} y={76} fontSize="9" textAnchor="middle" opacity="0.7">{nm}</text>)}
+        <text x={x(380)} y={90} fontSize="9" opacity="0.6">visible 380–750 nm</text>
       </svg>
       <table className="table-mini">
-        <thead><tr><th>Transition</th><th>Series</th><th>λ (vac) nm</th><th>ΔE eV</th></tr></thead>
+        <thead><tr><th>λ vac (nm)</th><th>Transition (lower → upper)</th><th>A (s⁻¹)</th><th>Acc.</th></tr></thead>
         <tbody>
-          {lines.filter((l) => l.nUpper - l.nLower <= 3).slice(0, 12).map((l) => (
-            <tr key={`${l.nUpper}-${l.nLower}`}><td>{l.nUpper} → {l.nLower}</td><td>{SERIES[l.nLower]}</td><td>{l.wavelengthNm.toFixed(3)}</td><td>{l.energyEV.toFixed(4)}</td></tr>
+          {strongest.map((l, k) => (
+            <tr key={k}>
+              <td>{l.wl.toFixed(3)}{l.ritz ? ' ᴿ' : ''}{isForbidden(l) ? ` [${l.type}]` : ''}</td>
+              <td style={{ fontSize: 10, textAlign: 'left' }}>{l.lower} → {l.upper}</td>
+              <td>{l.A ? l.A.toExponential(2) : '—'}</td><td>{l.acc || '—'}</td>
+            </tr>
           ))}
         </tbody>
       </table>
-      <p className="note">Computed (derived): Rydberg formula with reduced mass for M = {st.nuclearMassU.toFixed(4)} u. Absorption lines occur at the same wavelengths.</p>
+      {oneElectron && bohr.length > 0 && (
+        <>
+          <div className="section-title">Model check: Rydberg formula vs NIST</div>
+          <table className="table-mini">
+            <thead><tr><th>Transition</th><th>Model (nm)</th><th>NIST centroid</th><th>Δ (nm)</th></tr></thead>
+            <tbody>{bohr.slice(0, 6).map((b) => { const m = blendCentroid(lines, b.wavelengthNm, 0.1); return <tr key={`${b.nUpper}${b.nLower}`}><td>{b.nUpper}→{b.nLower}</td><td>{b.wavelengthNm.toFixed(3)}</td><td>{m ? m.toFixed(3) : '—'}</td><td>{m ? (b.wavelengthNm - m).toFixed(3) : '—'}</td></tr>; })}</tbody>
+          </table>
+          <p className="note">Residuals are fine structure and QED effects the Bohr model omits. Reduced mass uses {st.element.symbol}-{st.A} ({st.nuclearMassU.toFixed(4)} u){st.A === 2 ? ' — note the H→D isotope shift' : ''}.</p>
+        </>
+      )}
+      <p className="note">Measured (Observed) lines: NIST Atomic Spectra Database (public domain). ᴿ = Ritz wavelength from energy levels (no laboratory measurement). [M1]/[E2] = forbidden transitions (e.g. the nebular [O III] and auroral [O I] lines). Bar heights: log NIST relative intensity (else transition probability) — not comparable between spectra.</p>
+    </div>
+  );
+}
+
+const DECAY_COLORS: [RegExp, string, string][] = [[/^β-/, '#58b4ff', 'β⁻'], [/^(β\+|ec|e\+)/i, '#ff7a90', 'β⁺/EC'], [/^α/, '#f5c76b', 'α'], [/^SF/, '#b18cff', 'SF'], [/^(p|2p)\b/, '#5cf2a6', 'p'], [/^(n|2n)\b/, '#9aa6c8', 'n'], [/^IT/, '#ffffff', 'IT']];
+function decayColor(decay: string): string { const first = decay.split(';').map((x) => x.trim()).find((x) => x && !x.startsWith('IS=')) ?? ''; return DECAY_COLORS.find(([re]) => re.test(first))?.[1] ?? '#66708f'; }
+
+/** Isotope comparison: half-life vs neutron number for every ground-state nuclide (NUBASE). */
+function NuclideChart({ st }: { st: AtomState }) {
+  if (!st.nuclides) return null;
+  const gs = groundStates(st.nuclides).filter((n) => n.stable || n.halfLifeS !== null);
+  if (!gs.length) return null;
+  const Ns = gs.map((n) => n.A - st.protons);
+  const nMin = Math.min(...Ns), nMax = Math.max(...Ns);
+  const ys = gs.map((n) => (n.stable ? 30 : Math.log10(n.halfLifeS!)));
+  const yMin = Math.min(-9, ...ys), yMax = 30;
+  const X = (N: number) => 30 + ((N - nMin) / Math.max(1, nMax - nMin)) * 360;
+  const Y = (y: number) => 130 - ((y - yMin) / (yMax - yMin)) * 115;
+  return (
+    <div>
+      <div className="section-title">Isotope comparison · half-life vs neutron number</div>
+      <svg viewBox="0 0 400 150" role="img" aria-label="Half-life of each isotope versus neutron number">
+        {[-6, 0, 6, 12, 18, 24].filter((t) => t >= yMin).map((t) => <g key={t}><line x1={30} x2={392} y1={Y(t)} y2={Y(t)} stroke="rgba(255,255,255,0.08)" /><text x={26} y={Y(t) + 3} fontSize="8" textAnchor="end" opacity="0.6">10^{t} s</text></g>)}
+        <line x1={30} x2={392} y1={Y(Math.log10(4.35e17))} y2={Y(Math.log10(4.35e17))} stroke="rgba(245,199,107,0.35)" strokeDasharray="3 3" />
+        <text x={392} y={Y(Math.log10(4.35e17)) - 3} fontSize="8" textAnchor="end" fill="#f5c76b" opacity="0.8">age of the Universe</text>
+        {gs.map((n, k) => (
+          <g key={n.A} style={{ cursor: 'pointer' }} onClick={() => setQuery({ A: n.A })}>
+            <rect x={X(Ns[k]) - 2.5} y={Y(ys[k]) - 2.5} width={5} height={5} fill={n.stable ? '#5cf2a6' : decayColor(n.decay)} stroke={n.A === st.A ? '#fff' : 'none'} strokeWidth={1.2} />
+            <title>{n.A}{st.element.symbol}: N = {Ns[k]}, {formatHalfLife(n)}</title>
+          </g>
+        ))}
+        <text x={30} y={146} fontSize="8" opacity="0.7">N = {nMin}</text><text x={392} y={146} fontSize="8" textAnchor="end" opacity="0.7">N = {nMax}</text>
+        <text x={30} y={10} fontSize="8" fill="#5cf2a6">■ stable (top row)</text>
+      </svg>
+      <div className="legend" style={{ marginTop: 2 }}>{DECAY_COLORS.slice(0, 6).map(([, c, l]) => <span key={l}><span className="sw" style={{ background: c }} />{l}</span>)}</div>
     </div>
   );
 }
@@ -236,6 +327,7 @@ function Isotopes({ st }: { st: AtomState }) {
         </tbody>
       </table>
       <p className="note">{gs.length} known ground-state nuclides (IAEA AMDC NUBASE). Yellow ticks mark CIAAW abundance intervals.</p>
+      <NuclideChart st={st} />
     </div>
   );
 }

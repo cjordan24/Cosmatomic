@@ -181,3 +181,34 @@ describe('Hydrogen-like quantum model', () => {
     expect(Array.from(a.positions)).toEqual(Array.from(b.positions));
   });
 });
+
+describe('NIST ASD spectra (measured) vs models', async () => {
+  const nist = (await import('@datasets/atomic/spectra-nist.json')).default as unknown as import('@/modes/atomic/atoms/nistSpectra').NistSpectra;
+  const { blendCentroid } = await import('@/modes/atomic/atoms/nistSpectra');
+  const has = (sp: string, wl: number, tol: number) => nist.spectra[sp].lines.some((l) => Math.abs(l.wl - wl) < tol);
+  it('contains ≥ 20 spectra including the classic lines (vacuum nm): Na D 589.158/589.756, Ca II K/H 393.477/396.959, He I 587.725, [O III] 500.824, [O I] 557.889', () => {
+    expect(Object.keys(nist.spectra).length).toBeGreaterThanOrEqual(20);
+    expect(has('Na I', 589.1583, 0.001) && has('Na I', 589.7558, 0.001)).toBe(true);
+    expect(has('Ca II', 393.477, 0.002) && has('Ca II', 396.959, 0.002)).toBe(true);
+    expect(has('He I', 587.725, 0.002)).toBe(true);
+    expect(has('O III', 500.824, 0.002)).toBe(true);
+    expect(has('O I', 557.889, 0.002)).toBe(true);
+  });
+  it('Bohr/Rydberg model vs NIST H I Balmer lines (A-weighted fine-structure centroids): Hα, Hβ, Hγ within 0.01 nm', () => {
+    for (const [nu, ref] of [[3, 656.47], [4, 486.27], [5, 434.17]] as const) {
+      const model = transitionLine(nu, 2, 1, 1.007276).wavelengthNm;
+      const meas = blendCentroid(nist.spectra['H I'].lines, ref, 0.06)!;
+      expect(Math.abs(model - meas), `n=${nu}`).toBeLessThan(0.01);
+    }
+  });
+  it('He II Pickering/Paschen-α line 468.6 nm (n = 4 → 3, Z = 2) matches NIST within 0.02 nm', () => {
+    const model = transitionLine(4, 3, 2, 4.001506).wavelengthNm;
+    expect(Math.abs(model - blendCentroid(nist.spectra['He II'].lines, 468.7, 0.1)!)).toBeLessThan(0.02);
+  });
+  it('H–D isotope shift of Hα: reduced-mass model reproduces NIST (≈ 0.179 nm) within 0.002 nm', () => {
+    const shiftModel = transitionLine(3, 2, 1, 1.007276).wavelengthNm - transitionLine(3, 2, 1, 2.013553).wavelengthNm;
+    const shiftNist = blendCentroid(nist.spectra['H I'].lines, 656.47, 0.06)! - blendCentroid(nist.spectra['D I'].lines, 656.29, 0.06)!;
+    expect(shiftNist).toBeGreaterThan(0.17);
+    expect(Math.abs(shiftModel - shiftNist)).toBeLessThan(0.002);
+  });
+});

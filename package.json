@@ -17,13 +17,14 @@
     "data:elements": "node --experimental-strip-types scripts/ingestion/pubchem-elements.ts",
     "data:molecules": "node --experimental-strip-types scripts/ingestion/pubchem-molecules.ts",
     "data:horizons": "node --experimental-strip-types scripts/ingestion/jpl-horizons.ts",
-    "data:all": "npm run data:elements && npm run data:molecules && npm run data:horizons",
+    "data:all": "npm run data:elements && npm run data:molecules && npm run data:horizons && npm run data:spectra",
     "data:validate": "node --experimental-strip-types scripts/validation/validate-datasets.ts",
     "screenshots": "playwright test --config tests/e2e/playwright.config.ts",
     "models:build": "/Applications/Blender.app/Contents/MacOS/Blender -b --factory-startup --python scripts/blender/build_voyager.py -- \"$PWD\"",
     "test:e2e": "playwright test --config tests/e2e/playwright.config.ts",
     "predev": "node scripts/build/copy-vendor.mjs",
-    "prebuild": "node scripts/build/copy-vendor.mjs"
+    "prebuild": "node scripts/build/copy-vendor.mjs",
+    "data:spectra": "node --experimental-strip-types scripts/ingestion/nist-asd.ts"
   },
   "dependencies": {
     "@rdkit/rdkit": "^2026.9.2",
