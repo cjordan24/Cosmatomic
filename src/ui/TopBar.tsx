@@ -168,8 +168,9 @@ export function TopBar() {
         {mode === 'cosmic' && (
           <nav className="chip-row hide-mobile" aria-label="Cosmic sections">
             <button className={`chip ${path[1] !== 'stars' && path[1] !== 'sandbox' ? 'active' : ''}`} onClick={() => navigate('/cosmic')}>Solar system</button>
-            <button className={`chip ${path[1] === 'stars' && path[2] !== 'hr' ? 'active' : ''}`} onClick={() => navigate('/cosmic/stars')}>Nearby stars</button>
+            <button className={`chip ${path[1] === 'stars' && !path[2] ? 'active' : ''}`} onClick={() => navigate('/cosmic/stars')}>Nearby stars</button>
             <button className={`chip ${path[1] === 'stars' && path[2] === 'hr' ? 'active' : ''}`} onClick={() => navigate('/cosmic/stars/hr')}>HR diagram</button>
+            <button className={`chip ${path[1] === 'stars' && path[2] === 'planets' ? 'active' : ''}`} onClick={() => navigate('/cosmic/stars/planets')}>Exoplanets</button>
             <button className={`chip ${path[1] === 'sandbox' ? 'active' : ''}`} onClick={() => navigate('/cosmic/sandbox')}>Sandbox</button>
           </nav>
         )}

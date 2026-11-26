@@ -217,3 +217,13 @@ One `FieldLayer` interface (quantity, units, frame, resolution, sources, display
   * Proxima log L = −2.81 and R 0.13–0.17 R☉; Sirius A placed with V at log L ≈ 1.39;
   * refusals for white dwarfs, planets and untyped objects; ≥ 300 stars placed, with the main sequence monotonic in the mean;
   * white dwarfs > 5 mag below the main sequence on the CMD; the Sirius converted-G discrepancy (+0.3…+0.5 mag); MK class ordering.
+
+## 15. Exoplanets within 10 pc (Phase 5, Gate 5.3): `src/modes/cosmic/star-systems/exoplanets.ts`
+* **Census and elements:** the 85 planets come from the 10 pc sample. 82 are matched to exoplanet.eu, 79 by planet name and 3 by host identifier plus planet letter. The other 3 have no exoplanet.eu entry under a matching letter (GJ 9066 b, GJ 832 c, BD+61 195 b) and are shown with catalogue data only. Elements are stored as published, [value, −σ, +σ].
+* **Units:** M_J and R_J are converted to Earth units with the IAU 2015 B3 nominal (GM)_J/(GM)_E = 317.83 and R_eJ/R_eE = 11.209. Where no true mass is published, m sin i is shown and labelled *minimum mass*.
+* **Checks (Derived):**
+  * Kepler's third law: a = (GM★P²/4π²)^{1/3} with M★ from the same compilation (planet mass neglected). The panel shows the difference and warns above 15 %.
+  * Periastron times outside 1950–2100 are rejected as not plausible Julian dates (4 in the compilation, e.g. Proxima b 245813.5).
+  * Eccentricities must lie in [0, 1) and inclinations in [0°, 180°].
+* **Orbit drawing:** each orbit is drawn face-on in its own plane, star at the focus, r(ν) = a(1−e²)/(1+e cos ν) rotated by ω. The band spans a ± 1σ. Missing e or ω gives a dashed placeholder shape or orientation. The orientation on the sky is not shown. Solar System comparison orbits use the JPL approximate elements.
+* *Validation (8 more tests in tests/science/stars.test.ts):* IAU nominal ratios; Kepler (Earth at 1 au to 1e-4, a ∝ P^{2/3}); the census matches the catalogue; published a agrees with Kepler within 15 % for > 90 % of planets; Proxima b P, a and minimum mass; JD plausibility; e/i ranges; ellipse geometry (closure, periastron, apastron, ω rotation).

@@ -74,3 +74,9 @@
   * White dwarfs and most brown dwarfs (no G or V, or no calibration) appear only on the colour–magnitude diagram, or not at all.
   * Hipparcos-converted G in CNS5 can be off for the brightest stars (Sirius A +0.39 mag versus V + G−V); it is flagged, not corrected.
   * No evolutionary tracks or isochrones yet.
+* **Exoplanets (Gate 5.3):**
+  * Elements are exoplanet.eu's compilation, so the values for one planet can come from different papers. Per-field references are on the linked exoplanet.eu page, not bundled.
+  * The NASA Exoplanet Archive was not used: its robots.txt disallows Anthropic agents by name.
+  * Orbits are face-on schematics with no sky orientation (Ω is not bundled). Planet positions along their orbits are not computed: periastron times are missing or invalid for about half of the planets.
+  * Three catalogued planets have no elements. Planets announced after the catalogue's 2023 update are not included.
+  * No habitable-zone model yet.

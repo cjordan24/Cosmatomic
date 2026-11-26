@@ -1,0 +1,33 @@
+{
+  "dataset": "exoplanets-10pc",
+  "version": "2026-11-26",
+  "records": 85,
+  "sources": [
+    {
+      "institution": "The Extrasolar Planets Encyclopaedia (exoplanet.eu), Observatoire de Paris — Schneider et al. (2011) A&A 532, A79",
+      "url": "https://exoplanet.eu/catalog/csv/",
+      "license": "CC BY 4.0 (site content)",
+      "notes": "8644 planets in the catalogue at retrieval; per-field references on each planet page"
+    },
+    {
+      "institution": "Reylé, C. et al. (2021) A&A 650, A201 — 10 pc census of planets",
+      "url": "https://doi.org/10.1051/0004-6361/202140985",
+      "license": "CC BY 4.0"
+    }
+  ],
+  "adapter": "scripts/ingestion/exoplanets.ts",
+  "warnings": [
+    "Units: M_Jup, R_Jup, days, au, degrees, JD, m/s, M☉ (exoplanet.eu API documentation). Uncertainties stored as [value, error_min, error_max].",
+    "Elements are as compiled by exoplanet.eu; values for one planet may come from different papers (see the planet page).",
+    "HD 95735 b matched to exoplanet.eu “Lalande 21185 b” by host identifier + planet letter",
+    "GJ 9066 b: not found in exoplanet.eu (shown with catalogue data only)",
+    "GJ 832 c: not found in exoplanet.eu (shown with catalogue data only)",
+    "BD+01 2447 b matched to exoplanet.eu “GJ 393 b” by host identifier + planet letter",
+    "CD-45 5378 b matched to exoplanet.eu “GJ 367  b” by host identifier + planet letter",
+    "BD+61 195 b: not found in exoplanet.eu (shown with catalogue data only)"
+  ],
+  "output": "datasets/astronomical/exoplanets-10pc.json",
+  "retrievedAt": "2026-11-26T20:40:27.991Z",
+  "bytes": 51542,
+  "sha256": "a7fbb59a221d28f9b6a891c2dbb31681366a7bf25b433a61d25a2bb8e7af7ba3"
+}

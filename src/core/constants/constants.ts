@@ -50,6 +50,9 @@ export const CONSTANTS = {
   Rsun: c('R☉', 'nominal solar radius', 6.957e8, 'm', DIM.length, 0, 'IAU 2015 Resolution B3 (nominal)'),
   Lsun: c('L☉', 'nominal solar luminosity', 3.828e26, 'W', DIM.power, 0, 'IAU 2015 Resolution B3 (nominal)'),
   GMearth: c('GM⊕', 'nominal terrestrial mass parameter', 3.986_004e14, 'm³ s⁻²', DIM.gravParam, 0, 'IAU 2015 Resolution B3 (nominal)'),
+  GMjup: c('GM_J', 'nominal jovian mass parameter', 1.266_865_3e17, 'm³ s⁻²', DIM.gravParam, 0, 'IAU 2015 Resolution B3 (nominal)'),
+  ReEarth: c('R_eE', 'nominal terrestrial equatorial radius', 6.3781e6, 'm', DIM.length, 0, 'IAU 2015 Resolution B3 (nominal)'),
+  ReJup: c('R_eJ', 'nominal jovian equatorial radius', 7.1492e7, 'm', DIM.length, 0, 'IAU 2015 Resolution B3 (nominal)'),
 } as const satisfies Record<string, PhysicalConstant>;
 
 /** Derived astronomical lengths. */

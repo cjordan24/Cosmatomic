@@ -96,3 +96,25 @@ async function seqOf(page: Page, name: string): Promise<number> {
   const m = page.url().match(/sel=(\d+)/);
   return Number(m![1]);
 }
+
+// ---------------- Gate 5.3 ----------------
+test('56 exoplanets: published orbits with uncertainty bands, element table, checks, mass–period diagram', async ({ page }) => {
+  await page.goto('/#/cosmic/stars?sel=1');
+  await page.getByRole('button', { name: /exoplanets?: orbits and elements/ }).click();
+  await expect(page).toHaveURL(/stars\/planets\?sys=1/);
+  await expect(page.locator('.stage-head h1')).toContainText('alf Cen');
+  await expect(page.getByRole('img', { name: 'Orbit diagram' })).toBeVisible();
+  await page.getByRole('listbox', { name: 'Planets in this system' }).getByRole('option', { name: /^Proxima Cen b/ }).click();
+  const info = page.locator('.right-panel');
+  await expect(info.getByLabel('Orbital elements')).toContainText('11.1881 ± 0.006');
+  await expect(info.getByLabel('Planet properties')).toContainText('Minimum mass in Earth masses');
+  await expect(info).toContainText('not a plausible Julian date');
+  await expect(info.getByLabel('Consistency checks')).toContainText('%');
+  await shot(page, '56a-proxima-system', 'Proxima Centauri planets: face-on orbits from published a, e, ω with ±1σ bands on a, Mercury–Jupiter overlaid for scale; Proxima b elements with uncertainties (exoplanet.eu), minimum mass in Earth masses, Kepler-law check, and a flagged periastron time that is not a valid Julian date.');
+  await page.getByRole('listbox', { name: 'Planetary systems' }).getByRole('option', { name: /^IL Aqr/ }).click();
+  await expect(page.locator('.stage-head h1')).toContainText('IL Aqr');
+  const mp = page.getByRole('img', { name: 'Mass–period diagram' });
+  await expect(mp).toContainText('orbital period P (days, log)');
+  expect(await mp.locator('circle').count()).toBeGreaterThan(60);
+  await shot(page, '56b-gj876-mass-period', 'GJ 876 (four planets, two of them in resonance) with the mass–period diagram of all planets within 10 pc against the Solar System planets; hollow points are minimum masses.');
+});

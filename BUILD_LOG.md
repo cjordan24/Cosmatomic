@@ -150,3 +150,23 @@ Findings:
 2. The bolometric zero point (IAU 2015 B2) is not needed: scaling from the calibration row cancels it, so no new constant was introduced.
 3. Explanatory sentences about class criteria were checked against the textbook text before use. An unsourced remark about core hydrogen burning was removed.
 4. Screenshot review: the log temperature axis showed only "1e4", so explicit ticks were added at 2 000–10 000 K.
+
+## 2026-11-26 — Phase 5, Gate 5.3 (exoplanets)
+First, a live re-check of Gate 5.2 against production: 49/49 passed. New adapter `exoplanets.ts`: the 85 planets of the 10 pc census matched to the exoplanet.eu catalogue (82 matched). New `exoplanets.ts` science module:
+- IAU-nominal unit conversions and best-available mass, with the minimum-mass flag;
+- a Kepler third-law check, a periastron-JD plausibility check and e/i range checks;
+- face-on orbit geometry.
+
+New view `#/cosmic/stars/planets`:
+- 48 planetary systems by distance;
+- an orbit diagram with ±1σ bands on a and an optional Mercury–Jupiter overlay (JPL elements);
+- a mass–period diagram of all planets against the Solar System (NASA fact sheet);
+- an element table with uncertainties, checks and links to exoplanet.eu and the ADS system reference.
+
+Also: the star map links to the planets view; IAU 2015 B3 nominal GM_J, R_eJ and R_eE added to the constants (read from Prša et al. 2016, Table 1); Source-index entry for exoplanet.eu (Schneider et al. 2011, Crossref-verified, affiliations from arXiv:1106.0586). 8 new science tests (365 total) and e2e test 56.
+
+Findings:
+1. **Access decision:** the NASA Exoplanet Archive's robots.txt disallows Anthropic agents (ClaudeBot, anthropic-ai, Claude-Web) by name. It was not queried. exoplanet.eu has no robots restrictions and its content is CC BY 4.0.
+2. **Data errors caught by a test:** four periastron times in the compilation are not valid Julian dates (Proxima b 245813.5, Teegarden's Star c, HD 20794 b, GJ 849 b). They are shown as unknown, with a warning.
+3. Name matching needed host-plus-letter fallbacks (Lalande 21185 b is HD 95735 b; GJ 393 b is BD+01 2447 b) and apostrophe handling ("Teegarden's b"). Three planets stay unmatched rather than being guessed (one letter differs and one is disputed).
+4. Screenshot review: the Solar System overlay forced a 1.7 au view that shrank close-in systems, and Earth's orbit was missing (JPL lists the Earth–Moon barycentre). The view now always includes Mercury but no more, and Earth is drawn.

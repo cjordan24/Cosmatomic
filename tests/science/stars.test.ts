@@ -243,3 +243,55 @@ describe('HR diagram relations', () => {
     for (let i = 1; i < MK_CLASSES.length; i++) expect(MK_CLASSES[i].teffHot).toBeLessThan(MK_CLASSES[i - 1].teffCool + 1);
   });
 });
+
+// ---------------------------------------------------------------- Gate 5.3: exoplanets
+import exoRaw from '@datasets/astronomical/exoplanets-10pc.json';
+import { MJUP_IN_MEARTH, RJUP_IN_REARTH, apastron, bestMass, elementIssues, keplerA, keplerCheck, orbitPath, periastron, plausibleJd, type Exoplanet } from '@/modes/cosmic/star-systems/exoplanets';
+const EXO = (exoRaw as unknown as { planets: Exoplanet[] }).planets;
+
+describe('exoplanets within 10 pc', () => {
+  it('IAU nominal ratios: M_J/M_E = 317.83, R_eJ/R_eE = 11.209', () => {
+    expect(MJUP_IN_MEARTH).toBeCloseTo(317.83, 2);
+    expect(RJUP_IN_REARTH).toBeCloseTo(11.209, 3);
+  });
+  it('Kepler’s third law: Earth (1 yr, 1 M☉) at 1 au to 1e-4; 8 × P² at fixed M gives 4 × a', () => {
+    expect(keplerA(365.256363, 1)).toBeCloseTo(1, 4);
+    expect(keplerA(8 * 100, 0.5) / keplerA(100, 0.5)).toBeCloseTo(4, 12);
+  });
+  it('the census matches the 10 pc catalogue planets and most have exoplanet.eu elements', () => {
+    expect(EXO.length).toBe(OBJ.filter((o) => o.type === 'exoplanet').length);
+    expect(EXO.filter((p) => p.eu).length).toBeGreaterThanOrEqual(80);
+  });
+  it('published a agrees with Kepler’s law (P, M★) within 15 % for ≥ 90 % of planets', () => {
+    const checks = EXO.filter((p) => p.eu).map((p) => keplerCheck(p.eu!)).filter((x): x is number => x !== null);
+    expect(checks.length).toBeGreaterThan(70);
+    expect(checks.filter((k) => Math.abs(k) <= 0.15).length / checks.length).toBeGreaterThan(0.9);
+  });
+  it('Proxima b: P = 11.19 d, a ≈ 0.0486 au, m sin i ≈ 1.07 M⊕ (minimum mass)', () => {
+    const p = EXO.find((x) => x.name === 'Proxima Cen b')!.eu!;
+    expect(p.P![0]).toBeCloseTo(11.19, 2);
+    expect(p.a![0]).toBeCloseTo(0.0486, 3);
+    const m = bestMass(p)!;
+    expect(m.minimum).toBe(true);
+    expect(m.mEarth).toBeCloseTo(1.07, 1);
+  });
+  it('implausible periastron times are flagged, valid ones are not', () => {
+    expect(plausibleJd(2_458_135.5)).toBe(true);
+    expect(plausibleJd(245_813.5)).toBe(false);
+    const prox = EXO.find((x) => x.name === 'Proxima Cen b')!.eu!;
+    expect(elementIssues(prox).map((i) => i.field)).toContain('tperi');
+  });
+  it('every eccentricity is in [0, 1) and every inclination in [0°, 180°]', () => {
+    for (const p of EXO) if (p.eu) for (const i of elementIssues(p.eu)) expect(['tperi', 'a'], `${p.name}: ${i.message}`).toContain(i.field);
+  });
+  it('orbit geometry: closed ellipse, star at focus, peri/apo distances, ω rotates periastron', () => {
+    const pts = orbitPath(2, 0.5, 90, 360);
+    expect(pts[0][0]).toBeCloseTo(0, 12);
+    expect(pts[0][1]).toBeCloseTo(periastron(2, 0.5), 12); // periastron along +y for ω = 90°
+    expect(Math.hypot(...pts[180])).toBeCloseTo(apastron(2, 0.5), 12);
+    expect(pts[360][0]).toBeCloseTo(pts[0][0], 12);
+    const r = pts.map(([x, y]) => Math.hypot(x, y));
+    expect(Math.min(...r)).toBeCloseTo(1, 9);
+    expect(Math.max(...r)).toBeCloseTo(3, 9);
+  });
+});

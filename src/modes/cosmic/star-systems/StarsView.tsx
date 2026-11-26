@@ -113,6 +113,7 @@ function ObjectPanel({ o, all, cns }: { o: NearbyObject; all: NearbyObject[]; cn
           {members.map((m) => <button key={m.seq} role="option" aria-selected={m.seq === o.seq} className={m.seq === o.seq ? 'active' : ''} onClick={() => setQuery({ sel: m.seq })}><span>{m.name}</span><span className="f">{m.type === 'exoplanet' ? 'planet' : m.spt ?? m.type}</span></button>)}
         </div>
       </>}
+      {planets.length > 0 && <button className="chip" style={{ margin: '6px 0' }} onClick={() => navigate(`/cosmic/stars/planets?sys=${o.sys}`)}>{planets.length} exoplanet{planets.length > 1 ? 's' : ''}: orbits and elements →</button>}
       {planets.length > 0 && <p className="note" style={{ fontSize: 10.5 }}>Confirmed exoplanets in this system: {planets.length}. References: {[...new Set(planets.map((p) => p.rSys).filter(Boolean))].map((r) => <span key={r}><Ref r={r} /> </span>)}</p>}
       {o.comment && <p className="note" style={{ fontSize: 10.5 }}><strong>Catalogue note:</strong> {o.comment}</p>}
       <dl className="kv" aria-label="Identifiers">
