@@ -16,6 +16,8 @@ export interface PlotProps {
   markers?: { x: number; y: number; label?: string; color?: string }[];
   ariaLabel: string;
   children?: ReactNode;
+  /** corner for the series legend (default top-left) */
+  legend?: 'tl' | 'tr' | 'bl' | 'br';
 }
 
 const nice = (v: number) => { const e = Math.floor(Math.log10(Math.abs(v) || 1)); const f = v / 10 ** e; return (f < 1.5 ? 1 : f < 3.5 ? 2 : f < 7.5 ? 5 : 10) * 10 ** e; };
@@ -28,7 +30,7 @@ function ticks(lo: number, hi: number, log: boolean): number[] {
   return out;
 }
 
-export function LinePlot({ series, xLabel, yLabel, xLog, yLog, xDomain, yDomain, width = 380, height = 200, hLines = [], vLines = [], markers = [], ariaLabel, children }: PlotProps) {
+export function LinePlot({ series, xLabel, yLabel, xLog, yLog, xDomain, yDomain, width = 380, height = 200, hLines = [], vLines = [], markers = [], ariaLabel, children, legend = 'tl' }: PlotProps) {
   const all = series.flatMap((s) => s.points).filter(([x, y]) => Number.isFinite(x) && Number.isFinite(y) && (!xLog || x > 0) && (!yLog || y > 0));
   if (!all.length) return <p className="note">No data in range.</p>;
   const [x0, x1] = xDomain ?? [Math.min(...all.map((p) => p[0])), Math.max(...all.map((p) => p[0]))];
@@ -59,7 +61,11 @@ export function LinePlot({ series, xLabel, yLabel, xLog, yLog, xDomain, yDomain,
       <text x={pad.l + W / 2} y={height - 4} textAnchor="middle" style={{ fill: 'var(--text)' }}>{xLabel}</text>
       <text transform={`translate(11 ${pad.t + H / 2}) rotate(-90)`} textAnchor="middle" style={{ fill: 'var(--text)' }}>{yLabel}</text>
       {series.some((s) => s.label) && (
-        <g>{series.filter((s) => s.label).map((s, i) => <g key={i} transform={`translate(${pad.l + 6} ${pad.t + 12 + i * 12})`}><line x1={0} x2={14} y1={-3} y2={-3} stroke={s.color} strokeDasharray={s.dashed ? '4 3' : undefined} /><text x={18} y={0}>{s.label}</text></g>)}</g>
+        <g>{series.filter((s) => s.label).map((s, i, arr) => {
+          const right = legend === 'tr' || legend === 'br', bottom = legend === 'bl' || legend === 'br';
+          const y = bottom ? pad.t + H - 6 - (arr.length - 1 - i) * 12 : pad.t + 12 + i * 12;
+          return <g key={i} transform={`translate(${right ? pad.l + W - 6 : pad.l + 6} ${y})`}><line x1={right ? -14 : 0} x2={right ? 0 : 14} y1={-3} y2={-3} stroke={s.color} strokeDasharray={s.dashed ? '4 3' : undefined} /><text x={right ? -18 : 18} y={0} textAnchor={right ? 'end' : 'start'}>{s.label}</text></g>;
+        })}</g>
       )}
     </svg>
   );

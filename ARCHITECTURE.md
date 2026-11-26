@@ -19,7 +19,7 @@ src/
 │   ├── units/{dimensions,units}.ts dimension vectors, unit registry, checked conversion (fm…Mpc, eV, u, M☉ …)
 │   ├── mathematics/{vec3,kepler}.ts float64 vectors, frame rotations, Kepler solver
 │   ├── simulation/                 clock (TDB JD, leap seconds), seeded PRNG, snapshots & replay
-│   ├── physics/                    gravity (leapfrog N-body + diagnostics), cosmology (FLRW), waves (Gate 4.5), em (photon, plane wave, Planck; Gate 4.6), module registry
+│   ├── physics/                    gravity (leapfrog N-body + diagnostics), relativity (Schwarzschild exterior, Gate 6.1), cosmology (FLRW), waves (Gate 4.5), em (photon, plane wave, Planck; Gate 4.6), module registry
 │   ├── provenance/provenance.ts    five reliability classes + record metadata
 │   └── scale/scale.ts              16-level logarithmic scale ladder
 ├── modes/
@@ -37,7 +37,8 @@ src/
 │   └── cosmic/
 │       ├── solar-system/           ephemerides, catalogue, live clock, scene, timeline, view
 │       ├── sandbox/                N-body physics, presets, instruments, Experiment/Compare view
-│       └── star-systems/           nearby-star catalogues, astrometry, calibrations, 3D map (#/cosmic/stars)
+│       ├── star-systems/           nearby-star catalogues, astrometry, calibrations, 3D map (#/cosmic/stars)
+│       └── relativity/             Schwarzschild radii, clocks, orbits, light paths, weak-field tests (#/cosmic/relativity)
 ├── core/fields/                    FIELDS layer interface + gravity, Coulomb, plane-wave, heat layers (FIELDS_ARCHITECTURE.md)
 ├── shared/scientific-relationships typed, sourced entity/edge registry; ui/RelatedLinks renders both directions (SCIENTIFIC_RELATIONSHIPS.md)
 ├── rendering/                      Viewport (adaptive DPR, log depth), PointCloud shader, labels, colours

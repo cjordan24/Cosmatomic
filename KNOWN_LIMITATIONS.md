@@ -85,3 +85,11 @@
   * Class → line links are qualitative (where each family of lines peaks), with Ca and Fe standing in for the metals.
   * Star links appear only after the catalogue has loaded in the session, or when the atlas is opened from a star.
 * **Cross-links (Gate 5.5):** stars appear in universal search only after the first query has loaded the 10 pc catalogue (about 70 kB gzipped), so the very first keystroke may show them a moment later. The Sun is the only star with a composition. Other stars have no metallicities or abundances bundled.
+
+## Phase 6
+
+* **Relativity (Gate 6.1):**
+  * Schwarzschild only: no spin (Kerr), charge, or cosmological constant. Real astrophysical black holes rotate, which moves the ISCO and photon orbits.
+  * Light paths are drawn in the equatorial plane of a static hole; no ray-traced image, accretion disc, Doppler beaming or lensed background is rendered.
+  * Weak-field checks compare with figures quoted in textbooks (Carroll's 43″ per century; Narayan & Bartelmann's 1.″7). No measurement papers for these tests are bundled. A GPS clock check was planned but not added: the review it would cite (Ashby 2003, Living Reviews in Relativity) is served behind a bot wall.
+  * The Earth clock figure ignores Earth's rotation and the Sun's potential.

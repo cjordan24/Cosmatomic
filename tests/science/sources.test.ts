@@ -50,3 +50,17 @@ describe('crystal and material sources', () => {
     for (const m of MATERIALS) if (m.refractiveIndex?.doi) expect(ALL.some((s) => s.doi === m.refractiveIndex!.doi), `${m.id}: doi ${m.refractiveIndex.doi}`).toBe(true);
   });
 });
+
+const SRC_FILES = import.meta.glob<string>('../../src/**/*.{ts,tsx}', { eager: true, query: '?raw', import: 'default' });
+
+describe('inline citations', () => {
+  it('every SourceLinks id used in a view exists in the Source index', () => {
+    let n = 0;
+    for (const [file, text] of Object.entries(SRC_FILES)) {
+      for (const m of text.matchAll(/SourceLinks ids=\{\[([^\]]*)\]\}/g)) {
+        for (const id of m[1].matchAll(/'([^']+)'/g)) { n++; expect(getSource(id[1]), `${file} → ${id[1]}`).toBeDefined(); }
+      }
+    }
+    expect(n).toBeGreaterThan(30);
+  });
+});

@@ -191,3 +191,17 @@ Findings:
 2. The search index was static. Making it depend on a lazily loaded catalogue keeps the 330 kB star chunk out of every other page.
 
 Gate 5.5 verified against production: 52/52 passed. Phase 5 complete.
+
+## 2026-11-26 — Phase 6, Gate 6.1 (relativity foundations)
+New relativistic physics module `src/core/physics/relativity.ts` (status *partial*, v1.0.0, with validity limits in the module registry) and the view `#/cosmic/relativity` (chip *Relativity*), with four tabs:
+- **Radii & clocks:** static and orbiting clock rates, exact and weak-field redshift, and horizon, photon sphere and ISCO drawn to scale, plus a probe radius.
+- **Orbits:** massive and photon effective potentials, GR against Newtonian, with circular orbits that merge at the ISCO.
+- **Light paths:** numerically integrated null geodesics, with capture below 3√3 GM/c².
+- **Weak-field tests:** Mercury 42.98″ per century, solar-limb deflection 1.751″, solar and terrestrial redshift, and a Lorentz-factor calculator.
+
+Masses: Sun and Earth (IAU nominal), a hypothetical 10 M☉ hole and any user mass. Values inside a body's surface or the horizon are refused. New Source-index entries: Carroll (1997) lecture notes (arXiv:gr-qc/9712019; formulas checked in the PDF text, ch. 7), Narayan & Bartelmann (1996) (arXiv:astro-ph/9606001, eq. 7 and the 1.″7 example), OpenStax University Physics 3 §5.3. The plot component gained legend placement. A new source test checks every `SourceLinks` id in the code. 22 new science tests (393 total) and e2e test 59.
+
+Findings:
+1. The first deflection test failed by 11 %: the exit-point interpolation had the wrong sign. After the fix the ODE was still 0.74 % above 2r_s/b at b = 200 r_s. That is the real second-order term (≈ 15π/16 · m/b), not an error, so the test now uses an independent quadrature of the orbit equation (agreement 0.2 %) and bounds the excess.
+2. Carroll's "R☉ = 10⁶ GM☉" (7.31) is an order of magnitude only (exact ratio 4.71 × 10⁵); the test checks the exact ratio.
+3. Access decision: Ashby (2003) on GPS relativity is hosted by Springer, which served a JavaScript bot challenge, so it was not used and the GPS check was dropped.

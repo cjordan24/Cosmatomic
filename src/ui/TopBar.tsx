@@ -13,6 +13,9 @@ import { Logo, SearchGlyph } from './components';
 
 interface Hit { kind: 'element' | 'molecule' | 'body' | 'reaction' | 'material' | 'star' | 'exoplanet'; label: string; sub: string; to: string; score: number }
 
+/** Cosmic sub-routes that are not solar-system bodies (#/cosmic/<id> otherwise focuses a body). */
+const COSMIC_SECTIONS = ['stars', 'sandbox', 'relativity'];
+
 function useSearchIndex(stars: NearbyObject[] | null) {
   return useMemo(() => [
     // nearby stars and exoplanets: the 10 pc catalogue is loaded lazily on the first search (Gate 5.5)
@@ -97,7 +100,7 @@ export function currentScaleId(path: string[], query: URLSearchParams): string |
     if (path[1] === 'element') return query.get('view') === 'nucleus' ? 'nucleus' : 'atom';
     return 'atom';
   }
-  if (path[0] === 'cosmic') return path[1] === 'stars' ? 'stellar' : path[1] && path[1] !== 'sun' && path[1] !== 'sandbox' ? 'planet' : 'solar-system';
+  if (path[0] === 'cosmic') return path[1] === 'stars' ? 'stellar' : path[1] === 'relativity' ? null : path[1] && path[1] !== 'sun' && path[1] !== 'sandbox' ? 'planet' : 'solar-system';
   return null;
 }
 
@@ -178,10 +181,11 @@ export function TopBar() {
         )}
         {mode === 'cosmic' && (
           <nav className="chip-row hide-mobile" aria-label="Cosmic sections">
-            <button className={`chip ${path[1] !== 'stars' && path[1] !== 'sandbox' ? 'active' : ''}`} onClick={() => navigate('/cosmic')}>Solar system</button>
+            <button className={`chip ${!COSMIC_SECTIONS.includes(path[1]) ? 'active' : ''}`} onClick={() => navigate('/cosmic')}>Solar system</button>
             <button className={`chip ${path[1] === 'stars' && !path[2] ? 'active' : ''}`} onClick={() => navigate('/cosmic/stars')}>Nearby stars</button>
             <button className={`chip ${path[1] === 'stars' && path[2] === 'hr' ? 'active' : ''}`} onClick={() => navigate('/cosmic/stars/hr')}>HR diagram</button>
             <button className={`chip ${path[1] === 'stars' && path[2] === 'planets' ? 'active' : ''}`} onClick={() => navigate('/cosmic/stars/planets')}>Exoplanets</button>
+            <button className={`chip ${path[1] === 'relativity' ? 'active' : ''}`} onClick={() => navigate('/cosmic/relativity')}>Relativity</button>
             <button className={`chip ${path[1] === 'sandbox' ? 'active' : ''}`} onClick={() => navigate('/cosmic/sandbox')}>Sandbox</button>
           </nav>
         )}

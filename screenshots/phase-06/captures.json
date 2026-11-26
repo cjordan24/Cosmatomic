@@ -1,0 +1,6 @@
+{
+  "59a-relativity-radii.png": "Relativity view (#/cosmic/relativity) for a hypothetical 10 M☉ black hole: static and orbiting clock rates and the gravitational redshift against r/r_s, the horizon, photon sphere and ISCO drawn to scale, and probe values at 4 r_s (static clock √0.75).",
+  "59b-relativity-orbits.png": "Effective potential (Carroll eq. 7.48) for L̃ = 4 GM/c: general relativity against Newtonian, with the unstable and stable circular orbits marked, and the photon potential peaking at 3GM/c².",
+  "59c-relativity-light.png": "Numerically integrated null geodesics around a Schwarzschild black hole: rays below b = 3√3 GM/c² are captured, the selected ray at b = 2.7 r_s loops around the photon sphere before escaping.",
+  "59d-relativity-tests.png": "Weak-field checks: Mercury’s relativistic perihelion advance from JPL elements (42.98″ per century vs. the 43″ quoted by Carroll), 1.751″ solar-limb deflection, solar and terrestrial gravitational redshifts, and a Lorentz-factor calculator."
+}

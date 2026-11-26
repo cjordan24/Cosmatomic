@@ -294,6 +294,19 @@ export const SOURCES: Source[] = [
     institution: 'CDS, Observatoire astronomique de Strasbourg (queried through the official mirror at the Harvard–Smithsonian Center for Astrophysics)', url: 'https://vizier.cfa.harvard.edu/viz-bin/VizieR', doi: '10.1051/aas:2000169', license: 'Free for scientific use with citation of the original authors and publisher (VizieR rules of usage)',
     authorBio: 'François Ochsenbein, Patricia Bauer and James Marcout of the Centre de Données astronomiques de Strasbourg (CDS), as listed on the article.',
     usedFor: ['access to the 10 pc sample and CNS5 catalogues'], datasets: ['nearby-stars-10pc', 'cns5-20pc'] },
+  // ---------------- Phase 6: relativity, compact objects, lensing, galaxies ----------------
+  { id: 'carroll-1997', kind: 'book', citation: 'Carroll, S. M. (1997) Lecture Notes on General Relativity. Institute for Theoretical Physics, University of California, Santa Barbara, NSF-ITP/97-147. arXiv:gr-qc/9712019, chapter 7 (The Schwarzschild solution and black holes).', title: 'Lecture Notes on General Relativity', authors: 'S. M. Carroll', year: 1997,
+    institution: 'Institute for Theoretical Physics, University of California, Santa Barbara', url: 'https://arxiv.org/abs/gr-qc/9712019', license: 'arXiv non-exclusive distribution licence (free to read)',
+    authorBio: 'Sean M. Carroll, theoretical physicist; the title page lists him at the Institute for Theoretical Physics, University of California, Santa Barbara. The notes are a one-semester graduate course in general relativity.',
+    usedFor: ['Schwarzschild radius, photon orbit at 3GM/c², innermost stable circular orbit at 6GM/c² (eqs. 7.51, 7.55)', 'conserved energy and angular momentum, effective potential (7.43–7.48)', 'static clock rate and exact gravitational frequency shift (7.58–7.62)', 'apsidal precession and Mercury’s 43″ per century (7.56–7.57)'] },
+  { id: 'narayan-bartelmann-1996', kind: 'book', citation: 'Narayan, R. and Bartelmann, M. (1996) Lectures on Gravitational Lensing. arXiv:astro-ph/9606001 (v2, 1997). Point-mass deflection, lens equation, Einstein radius and point-lens magnification (§2.1).', title: 'Lectures on Gravitational Lensing', authors: 'R. Narayan, M. Bartelmann', year: 1996,
+    institution: 'Harvard-Smithsonian Center for Astrophysics; Max-Planck-Institut für Astrophysik', url: 'https://arxiv.org/abs/astro-ph/9606001', license: 'arXiv non-exclusive distribution licence (free to read)',
+    authorBio: 'Ramesh Narayan (Harvard-Smithsonian Center for Astrophysics, Cambridge MA) and Matthias Bartelmann (Max-Planck-Institut für Astrophysik, Garching), as listed on the title page.',
+    usedFor: ['light deflection by a point mass α̂ = 4GM/(c²b) and the 1.″7 solar-limb example (eq. 7)'] },
+  { id: 'openstax-university-physics-3', kind: 'book', citation: 'Ling, S. J., Sanny, J. and Moebs, W. (2016) University Physics, Volume 3, §5.3 Time Dilation. OpenStax, Houston, Texas.', title: 'University Physics Volume 3', authors: 'S. J. Ling, J. Sanny, W. Moebs', year: 2016,
+    institution: 'OpenStax, Rice University', url: 'https://openstax.org/books/university-physics-volume-3/pages/5-3-time-dilation', license: 'CC BY-NC-SA 4.0 (as stated on the book page)',
+    authorBio: 'Peer-reviewed open textbook from OpenStax (Rice University). Senior contributing authors as listed by OpenStax: Samuel J. Ling (Truman State University), Jeff Sanny (Loyola Marymount University) and William Moebs (formerly of Loyola Marymount University).',
+    usedFor: ['proper time and time dilation Δt = γΔτ with the Lorentz factor γ = 1/√(1 − v²/c²)'] },
 ];
 
 const BY_ID = new Map(SOURCES.map((s) => [s.id, s]));
