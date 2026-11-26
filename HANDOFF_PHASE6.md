@@ -4,7 +4,7 @@ Written 2026-11-26 at the end of Phase 5. Read this first, then `DEVELOPMENT_ROA
 
 ## ▶ RESUME HERE
 
-**State:** Phases 1–5 are complete. Phase 5 is Gates 5.1–5.5; each gate was committed, pushed, deployed and checked against production with the full browser suite (5.5 result in BUILD_LOG). **Phase 6 has not started. The user reviews each phase before the next begins: do not start Phase 6 until they say so.**
+**State:** Phases 1–5 are complete. Phase 5 is Gates 5.1–5.5; each gate was committed, pushed, deployed and checked against production with the full browser suite (final run after 5.5: 52/52 against production). **Phase 6 has not started. The user reviews each phase before the next begins: do not start Phase 6 until they say so.**
 
 **Counts at the end of Phase 5:** 371 science tests (Vitest), 52 browser tests (Playwright), 22 dataset manifests, 75 Source-index entries.
 
