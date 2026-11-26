@@ -19,7 +19,7 @@
     "Mean values for luminosity class V (dwarfs) only; giants, subgiants and white dwarfs are not covered."
   ],
   "output": "datasets/astronomical/mamajek-dwarf-sequence.json",
-  "retrievedAt": "2026-11-26T20:11:19.173Z",
-  "bytes": 14339,
-  "sha256": "8d319ceebfc7feea3347c6b8f73f4cf762d0c36fc4a43d07e402c0a5d2ac0df6"
+  "retrievedAt": "2026-11-26T20:26:35.430Z",
+  "bytes": 15595,
+  "sha256": "11ed853a63d7841b143dad538859fabfc7c7962733a65028b1ff944df7386c42"
 }

@@ -120,6 +120,7 @@ function ObjectPanel({ o, all, cns }: { o: NearbyObject; all: NearbyObject[]; cn
         <KV k="HIP / HD / GJ" v={[o.hip, o.hd, o.gj].some(Boolean) ? `${o.hip ?? '—'} / ${o.hd ?? '—'} / ${o.gj ?? '—'}` : null} />
         <KV k="CNS5 number" v={cns?.cns5 ?? null} />
       </dl>
+      {o.type !== 'exoplanet' && <button className="chip" style={{ marginTop: 8 }} onClick={() => navigate(`/cosmic/stars/hr?sel=${o.seq}`)}>Show on the HR diagram →</button>}
       <RelatedLinks id={`star:${o.seq}`} />
       <p className="note" style={{ marginTop: 10 }}>Catalogue: <SourceLinks ids={['reyle-2021', 'gaia-edr3', 'vizier']} />. Unknown means the catalogue has no value. Nothing is filled from other stars.</p>
     </>

@@ -68,3 +68,9 @@
   * Spectral-type calibrations assume luminosity class V. Subgiants such as δ Eri or β Hyi get dwarf values (stated in the panel). White dwarfs and subdwarfs are not calibrated.
   * Point colours and sizes are illustrative.
   * Data were fetched from the CDS mirror at Harvard CfA while CDS Strasbourg was offline. The content is the same VizieR catalogue.
+* **HR diagrams (Gate 5.2):**
+  * T_eff on the theoretical diagram is the class V mean for each spectral type, not a measured temperature. Stars therefore line up in vertical stripes at each subtype.
+  * L assumes the mean bolometric correction of the type. Unresolved binaries sit up to 0.75 dex too high (flagged when |ΔM| > 1.5 mag).
+  * White dwarfs and most brown dwarfs (no G or V, or no calibration) appear only on the colour–magnitude diagram, or not at all.
+  * Hipparcos-converted G in CNS5 can be off for the brightest stars (Sirius A +0.39 mag versus V + G−V); it is flagged, not corrected.
+  * No evolutionary tracks or isochrones yet.

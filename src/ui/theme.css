@@ -299,3 +299,5 @@ input[type='range'] { accent-color: var(--accent); }
 .cosmic-tools.stars-tools { left: 354px; }
 .star-legend { position: absolute; z-index: 6; left: 354px; right: 444px; bottom: 12px; font-size: 10.5px; line-height: 1.45; padding: 6px 10px; border-radius: 10px; background: var(--glass); border: 1px solid var(--line); backdrop-filter: blur(12px); }
 @media (max-width: 900px) { .star-legend { display: none; } .cosmic-tools.stars-tools { left: 8px; } }
+.hr-stage { top: 56px; }
+.hr-stage .plot.scatter text { font-size: 10px; fill: var(--text-dim); }

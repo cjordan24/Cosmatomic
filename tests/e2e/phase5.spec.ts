@@ -58,3 +58,41 @@ test('54 nearby-star map: 10 pc catalogue, selection, derived astrometry and ref
   await page.getByTitle('Universal scale navigator').click();
   await expect(page.locator('.scale-nav li.current')).toContainText('Stellar neighbourhood');
 });
+
+// ---------------- Gate 5.2 ----------------
+test('55 HR diagrams: observed CMD, luminosity–temperature with the IAU Sun, spectral classes', async ({ page }) => {
+  await page.goto('/#/cosmic/stars/hr');
+  const cmd = page.getByRole('img', { name: 'Colour–magnitude diagram' });
+  await expect(cmd).toBeVisible();
+  expect(await cmd.locator('circle').count()).toBeGreaterThan(2000);
+  await expect(cmd).toContainText('colour G − RP (mag)');
+  await expect(cmd).toContainText('absolute magnitude M_G (mag)');
+  await shot(page, '55a-cmd', 'Observational colour–magnitude diagram: absolute G against G−RP for every CNS5 star within 20 pc (Golovin et al. 2023), 10 pc objects coloured by category, main sequence and white-dwarf sequence visible, mean class V sequence overlaid, Hipparcos-converted stars hollow.');
+  // Sirius from the star map → HR, with the converted-G warning
+  await page.goto('/#/cosmic/stars?sel=' + '1'); // Proxima first, then switch via URL
+  await page.getByRole('button', { name: 'Show on the HR diagram →' }).click();
+  await expect(page).toHaveURL(/stars\/hr\?sel=1/);
+  await expect(page.locator('.right-panel')).toContainText('Proxima Cen');
+  await page.getByRole('button', { name: 'Luminosity–temperature' }).click();
+  const hr = page.getByRole('img', { name: 'Luminosity–temperature diagram' });
+  await expect(hr).toContainText('Sun');
+  await expect(hr).toContainText('effective temperature T_eff (K, log scale)');
+  await expect(page.locator('.right-panel').getByLabel('HR values')).toContainText('2,930');
+  await shot(page, '55b-luminosity-temperature', 'Luminosity–temperature diagram for 10 pc stars: T_eff from the spectral-type calibration, L scaled by measured absolute magnitude, dashed constant-radius lines from Stefan–Boltzmann, the Sun at the IAU 2015 nominal 5772 K / 1 L☉; Proxima selected.');
+  await page.goto('/#/cosmic/stars/hr?d=hr&sel=' + (await seqOf(page, 'alf CMa A')));
+  await expect(page.locator('.right-panel')).toContainText('placed with Johnson V');
+  await expect(page.locator('.right-panel')).toContainText('Hipparcos-converted G differs by +0.39 mag');
+  await page.getByRole('button', { name: 'Spectral classes' }).click();
+  const table = page.getByRole('table', { name: 'Spectral classes' });
+  await expect(table.locator('tbody tr')).toHaveCount(11);
+  await expect(table).toContainText('O3V');
+  await shot(page, '55c-spectral-classes', 'MK spectral classes O–Y with class V temperature, mass and radius ranges from the Mamajek dwarf sequence, counts of 10 pc objects per class, and the textbook description of the class criteria (OpenStax Astronomy 2e).');
+});
+
+async function seqOf(page: Page, name: string): Promise<number> {
+  await page.goto('/#/cosmic/stars');
+  await page.getByLabel('Filter systems').fill(name.split(' ')[0] + ' ' + name.split(' ')[1]);
+  await page.getByRole('listbox', { name: 'Nearby systems' }).getByRole('option').first().click();
+  const m = page.url().match(/sel=(\d+)/);
+  return Number(m![1]);
+}

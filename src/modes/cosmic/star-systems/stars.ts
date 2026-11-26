@@ -121,14 +121,14 @@ export function parseSpectralType(raw: string | null): ParsedSpt | null {
 /** Continuous subtype coordinate: O0 = 0, B0 = 10 … Y0 = 90. */
 export const sptIndex = (cls: string, sub: number) => CLASSES.indexOf(cls) * 10 + sub;
 
-export interface DwarfRow { spt: string; Teff: number | null; logL: number | null; R: number | null; Mv: number | null; BpRp: number | null; GRp: number | null; MG: number | null; Msun: number | null; preliminary: string[] }
+export interface DwarfRow { spt: string; Teff: number | null; logL: number | null; R: number | null; Mv: number | null; BpRp: number | null; GRp: number | null; GV: number | null; MG: number | null; Msun: number | null; preliminary: string[] }
 export const DWARF_SEQUENCE: (DwarfRow & { index: number })[] = (dwarfSeq as unknown as { rows: DwarfRow[] }).rows
   .map((r) => { const p = parseSpectralType(r.spt.replace(/V$/, '')); return { ...r, index: p?.cls && p.sub !== null ? sptIndex(p.cls, p.sub) : NaN }; })
   .filter((r) => Number.isFinite(r.index))
   .sort((a, b) => a.index - b.index);
 export const DWARF_SEQUENCE_VERSION = (dwarfSeq as unknown as { version: string }).version;
 
-export type CalibKey = 'Teff' | 'logL' | 'R' | 'MG' | 'BpRp' | 'GRp' | 'Msun';
+export type CalibKey = 'Teff' | 'logL' | 'R' | 'MG' | 'Mv' | 'BpRp' | 'GRp' | 'GV' | 'Msun';
 export interface Calibration { values: Record<CalibKey, number | null>; exact: boolean; between: [string, string] | null; caveats: string[] }
 /**
  * Mean dwarf (class V) parameters for a spectral type, linearly interpolated in subtype between the
@@ -145,7 +145,7 @@ export function calibrateDwarf(spt: ParsedSpt | null): Calibration | null {
   const exact = seq[i].index === x;
   const lo = exact ? seq[i] : seq[i - 1], hi = seq[i];
   const t = exact ? 0 : (x - lo.index) / (hi.index - lo.index);
-  const keys: CalibKey[] = ['Teff', 'logL', 'R', 'MG', 'BpRp', 'GRp', 'Msun'];
+  const keys: CalibKey[] = ['Teff', 'logL', 'R', 'MG', 'Mv', 'BpRp', 'GRp', 'GV', 'Msun'];
   const values = Object.fromEntries(keys.map((k) => {
     const a = lo[k], b = hi[k];
     return [k, a === null || b === null ? null : a + (b - a) * t];

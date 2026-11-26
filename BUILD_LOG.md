@@ -136,3 +136,17 @@ Findings:
 4. **A test caught a cross-match error:** CNS5 lists α Cen AB as one Hipparcos entry, and matching α Cen A to it would have given the star its pair's magnitude. Component matches to combined entries are now refused.
 5. Two of my test expectations were wrong (Proxima M_G is 13.41, not 11.41; the Hipparcos matrix is orthonormal only to 1e-10). The data were right.
 6. Screenshot review: the epoch printed as "2,000", the toolbar wrapped, labels crowded the centre, and systems were named after their first member (Proxima rather than α Cen). Now the epoch prints as J2000.0, frame names are shorter, fewer systems are labelled, and the list uses the brightest member and the system name.
+
+## 2026-11-26 — Phase 5, Gate 5.2 (stellar classes and HR diagrams)
+First, a live re-check of Gate 5.1 against production: 48/48 passed. New `hr.ts`: Stefan–Boltzmann radius lines, a luminosity scaling from measured absolute magnitude, HR and CMD points with refusals and flags, a Hipparcos-converted-G consistency check, and an MK class summary. New shared `ScatterPlot` (mandatory axis quantities and units, reversible and log axes, explicit ticks, click to select). New view `#/cosmic/stars/hr` with three tabs:
+- an observed colour–magnitude diagram of 2 610 CNS5 stars to 20 pc;
+- a luminosity–temperature diagram of 306 stars within 10 pc, with the IAU Sun;
+- a spectral-class table.
+
+Each tab links to the star map and back. The `G−V` column was added to the dwarf-sequence dataset. Source-index entry: OpenStax *Astronomy 2e* (authors and affiliations from openstax.org). 10 new science tests (357 total) and e2e test 55.
+
+Findings:
+1. **Data discrepancy found by a cross-check:** CNS5's Hipparcos-converted G for Sirius A (−1.06) is 0.39 mag fainter than its catalogue V plus the A1 V G−V colour predicts. The theoretical diagram therefore places stars too bright for Gaia with Johnson V. The CMD keeps the CNS5 value and shows a warning.
+2. The bolometric zero point (IAU 2015 B2) is not needed: scaling from the calibration row cancels it, so no new constant was introduced.
+3. Explanatory sentences about class criteria were checked against the textbook text before use. An unsourced remark about core hydrogen burning was removed.
+4. Screenshot review: the log temperature axis showed only "1e4", so explicit ticks were added at 2 000–10 000 K.

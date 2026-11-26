@@ -204,3 +204,16 @@ One `FieldLayer` interface (quantity, units, frame, resolution, sources, display
 * **Cross-match 10 pc ↔ CNS5:** by Gaia source id, then by Hipparcos number. A Hipparcos match is refused when CNS5 lists an unresolved pair ("AB") for a single component, so α Cen A does not inherit the combined α Cen AB magnitude.
 * **Display (Illustrative):** point colour is a hand-chosen ramp in calibrated T_eff, and point size follows absolute G. Neither is a physical rendering.
 * *Validation (tests/science/stars.test.ts, 24 tests):* κ and pc/ly; distance, interval and M at 1 and 10 pc; v_t of 1″/yr at 1 pc. N_Hip is a proper rotation to 1e-9, and the NGP and Galactic centre map to b = 90° and (0°, 0°) within 2 × 10⁻³°. Catalogue checks: every object inside 10 pc, or within 1σ for the candidates (seq ≥ 1001); Proxima is nearest at 1.30197 pc, M_G 13.41 and v_t 23.8 km/s; no estimated G is stored as measured; per-value references are present; Gaia σϖ/ϖ ≤ 0.011. CNS5 checks: ϖ ≥ 50; cross-match > 300 objects with ≥ 95 % parallax agreement; Sirius matched through Hipparcos; α Cen A refused. Calibration checks: exact rows, interpolation midpoint, refusals, G2V ≈ IAU Sun, and calibrated vs observed M_G within 1.5 mag for > 85 % of single dwarfs.
+
+## 14. HR diagrams and stellar classes (Phase 5, Gate 5.2): `src/modes/cosmic/star-systems/hr.ts`
+* **Colour–magnitude diagram (Observed + Derived):** M_G against G−RP from CNS5 *resulting* photometry, for every star within 20 pc that has both values. Hipparcos-converted points (flag 2) are drawn hollow.
+* **Luminosity–temperature diagram (Derived):** T_eff is the class V mean for the star's spectral type. L is scaled from that type's mean: log L = log L_cal − 0.4 (M_obs − M_cal). This assumes the star shares the mean bolometric correction of its type, and the solar M_bol zero point cancels. M_obs uses measured Gaia G (G_CODE 2/3) when present, otherwise Johnson V with the calibration's M_V. Converted or estimated G is never used. White dwarfs, uncalibratable types and objects without G or V are listed as not placed, with the reason.
+* **Sun:** IAU 2015 B3 nominal T_eff = 5772 K and L = L☉. The T_eff implied by the nominal L☉, R☉ and CODATA σ is 5772.0 K (tested < 1 K).
+* **Constant-radius lines:** L/L☉ = (R/R☉)²(T/T☉)⁴. The radius of each star is shown as R = √(L/L☉)(T☉/T)² R☉ (Derived).
+* **Converted-G check:** for Hipparcos-converted G the panel compares it with catalogue V + (G−V) of the type's dwarf mean, and warns above 0.2 mag. Sirius A is off by +0.39 mag. The value is shown unchanged, with the warning.
+* **Classes:** T_eff, mass and radius spans of class V per MK letter, from the same sequence. The class descriptions are from OpenStax *Astronomy 2e* §17.3.
+* *Validation (10 more tests in tests/science/stars.test.ts, 34 in all):*
+  * T☉ from Stefan–Boltzmann; the radius lines (R² and T⁴ scaling, round trip); the luminosity scaling (on-row identity, 2.5 mag = ×0.1);
+  * Proxima log L = −2.81 and R 0.13–0.17 R☉; Sirius A placed with V at log L ≈ 1.39;
+  * refusals for white dwarfs, planets and untyped objects; ≥ 300 stars placed, with the main sequence monotonic in the mean;
+  * white dwarfs > 5 mag below the main sequence on the CMD; the Sirius converted-G discrepancy (+0.3…+0.5 mag); MK class ordering.

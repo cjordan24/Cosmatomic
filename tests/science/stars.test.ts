@@ -180,3 +180,66 @@ describe('spectral types and the dwarf calibration (Pecaut & Mamajek)', () => {
     expect(ok / n).toBeGreaterThan(0.85);
   });
 });
+
+// ---------------------------------------------------------------- Gate 5.2: HR diagrams
+import { MK_CLASSES, TEFF_SUN_NOMINAL, TEFF_SUN_STEFAN, cmdPoint, convertedGCheck, hrPoint, logLForRadius, luminosityFromAbsMag, radiusFromLT, type HrStar } from '@/modes/cosmic/star-systems/hr';
+
+describe('HR diagram relations', () => {
+  it('IAU nominal L☉, R☉ and CODATA σ give T_eff☉ = 5772 K (B3 nominal) to < 1 K', () => {
+    expect(Math.abs(TEFF_SUN_STEFAN - TEFF_SUN_NOMINAL)).toBeLessThan(1);
+  });
+  it('constant-radius lines: R = 1 R☉ passes through the Sun; L ∝ R² at fixed T, ∝ T⁴ at fixed R', () => {
+    expect(logLForRadius(1, TEFF_SUN_STEFAN)).toBeCloseTo(0, 12);
+    expect(logLForRadius(10, 5000) - logLForRadius(1, 5000)).toBeCloseTo(2, 12);
+    expect(logLForRadius(1, 2 * 5000) - logLForRadius(1, 5000)).toBeCloseTo(4 * Math.log10(2), 12);
+    expect(radiusFromLT(logLForRadius(0.3, 3100), 3100)).toBeCloseTo(0.3, 12);
+  });
+  it('luminosity scaling returns the calibration row for a star exactly on it; 2.5 mag fainter = 0.1×', () => {
+    expect(luminosityFromAbsMag(4.635, 4.635, 0.01)).toBeCloseTo(0.01, 12);
+    expect(luminosityFromAbsMag(7.135, 4.635, 0.01)).toBeCloseTo(-0.99, 12);
+  });
+  it('Proxima: log L ≈ −2.81 (L ≈ 0.0015 L☉), R ≈ 0.15 R☉', () => {
+    const h = hrPoint(byName('Proxima Cen')) as HrStar;
+    expect(h.band).toBe('G');
+    expect(h.logL).toBeCloseTo(-2.81, 2);
+    expect(h.radius).toBeGreaterThan(0.13);
+    expect(h.radius).toBeLessThan(0.17);
+  });
+  it('Sirius A (too bright for Gaia) is placed with Johnson V: log L ≈ 1.39', () => {
+    const h = hrPoint(byName('alf CMa A')) as HrStar;
+    expect(h.band).toBe('V');
+    expect(h.logL).toBeCloseTo(1.39, 1);
+  });
+  it('white dwarfs, planets and untyped objects are refused with a reason', () => {
+    expect(hrPoint(OBJ.find((o) => o.type === 'white dwarf')!)).toHaveProperty('reason');
+    expect(hrPoint(OBJ.find((o) => o.type === 'exoplanet')!)).toHaveProperty('reason');
+    expect(hrPoint(OBJ.find((o) => o.type !== 'exoplanet' && !o.spt)!)).toHaveProperty('reason');
+  });
+  it('the theoretical diagram places most 10 pc stars (>= 300) and its main sequence is monotonic in the mean', () => {
+    const pts = OBJ.map(hrPoint).filter((h): h is HrStar => !('reason' in h));
+    expect(pts.length).toBeGreaterThanOrEqual(300);
+    const hot = pts.filter((p) => p.teff > 5000), cool = pts.filter((p) => p.teff < 3500);
+    const mean = (a: HrStar[]) => a.reduce((s, p) => s + p.logL, 0) / a.length;
+    expect(mean(hot)).toBeGreaterThan(mean(cool) + 1.5);
+  });
+  it('CMD: white dwarfs are > 5 mag below main-sequence stars of the same colour', () => {
+    const m = crossMatch(OBJ, CNS_ROWS);
+    const wd = OBJ.filter((o) => o.type === 'white dwarf').map((o) => m.get(o.seq)).filter(Boolean).map((c) => cmdPoint(c!)).filter((p) => p !== null);
+    expect(wd.length).toBeGreaterThan(10);
+    for (const p of wd) {
+      const ms = DWARF_SEQUENCE.filter((r) => r.GRp !== null && r.MG !== null).reduce((b, r) => (Math.abs(r.GRp! - p!.colour) < Math.abs(b.GRp! - p!.colour) ? r : b));
+      if (p!.colour > 0.1 && p!.colour < 0.9) expect(p!.absG - ms.MG!, `G−RP ${p!.colour}`).toBeGreaterThan(5);
+    }
+  });
+  it('the Hipparcos-converted G of Sirius A is flagged against V + (G−V)_A1V (about +0.4 mag)', () => {
+    const m = crossMatch(OBJ, CNS_ROWS);
+    const s = byName('alf CMa A');
+    const d = convertedGCheck(s, m.get(s.seq))!;
+    expect(d).toBeGreaterThan(0.3);
+    expect(d).toBeLessThan(0.5);
+  });
+  it('MK class table: temperatures decrease O → Y and every class has rows', () => {
+    expect(MK_CLASSES.map((k) => k.cls).join('')).toBe('OBAFGKMLTY');
+    for (let i = 1; i < MK_CLASSES.length; i++) expect(MK_CLASSES[i].teffHot).toBeLessThan(MK_CLASSES[i - 1].teffCool + 1);
+  });
+});

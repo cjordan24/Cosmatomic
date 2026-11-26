@@ -119,7 +119,7 @@ const seq = lines.slice(h0 + 1, h1).filter((l) => l.trim() && !l.startsWith('#')
   const c = l.trim().split(/\s+/);
   const n0 = prelim.length;
   const get = (col: string) => mv(c[header.indexOf(col)], c[0], col);
-  const row = { spt: c[0], Teff: get('Teff'), logL: get('logL'), R: get('R_Rsun'), Mv: get('Mv'), BpRp: get('Bp-Rp'), GRp: get('G-Rp'), MG: get('M_G'), Msun: get('Msun') };
+  const row = { spt: c[0], Teff: get('Teff'), logL: get('logL'), R: get('R_Rsun'), Mv: get('Mv'), BpRp: get('Bp-Rp'), GRp: get('G-Rp'), GV: get('G-V'), MG: get('M_G'), Msun: get('Msun') };
   return { ...row, preliminary: prelim.slice(n0).map((x) => x.split(' ')[1]) };
 });
 writeDataset('datasets/astronomical/mamajek-dwarf-sequence.json', { version, luminosityClass: 'V', rows: seq }, {
