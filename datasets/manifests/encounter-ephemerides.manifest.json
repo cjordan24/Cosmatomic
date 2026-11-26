@@ -1,0 +1,18 @@
+{
+  "dataset": "encounter-ephemerides",
+  "version": "1",
+  "records": 6,
+  "adapter": "scripts/ingestion/jpl-horizons.ts",
+  "warnings": [],
+  "sources": [
+    {
+      "institution": "NASA JPL Horizons (DE440 + satellite ephemerides)",
+      "url": "https://ssd.jpl.nasa.gov/horizons/",
+      "notes": "Planet ±10 d (2 h / 20 min / 5 min), major moons ±3 d hourly, around each Voyager encounter. Loaded lazily by the app."
+    }
+  ],
+  "output": "datasets/astronomical/encounter-ephemerides.json",
+  "retrievedAt": "2026-11-26T05:33:30.532Z",
+  "bytes": 656272,
+  "sha256": "9da33147b5104030d5c0dd3550e54028cd549158c7544b7ce2b5477e176a76cb"
+}

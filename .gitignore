@@ -1,0 +1,15 @@
+node_modules/
+dist/
+datasets/.cache/
+test-results/
+playwright-report/
+.env
+.env.local
+*.local
+.DS_Store
+
+# Blender auto-backups
+*.blend1
+*.blend2
+# Vercel CLI link
+.vercel

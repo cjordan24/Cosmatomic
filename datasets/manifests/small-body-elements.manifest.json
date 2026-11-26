@@ -1,0 +1,18 @@
+{
+  "dataset": "small-body-elements",
+  "version": "1",
+  "records": 27,
+  "adapter": "scripts/ingestion/jpl-horizons.ts",
+  "warnings": [],
+  "sources": [
+    {
+      "institution": "NASA JPL Horizons",
+      "url": "https://ssd.jpl.nasa.gov/horizons/",
+      "notes": "Geometric osculating elements at 2025-01-01 TDB. Two-body propagation of these elements degrades with distance from epoch."
+    }
+  ],
+  "output": "datasets/astronomical/small-body-elements.json",
+  "retrievedAt": "2026-11-26T05:33:30.607Z",
+  "bytes": 8766,
+  "sha256": "9e32e4ebe0229a05b8523465919b429c9486afcc8fe47d6791ee8b722391ed59"
+}

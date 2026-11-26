@@ -1,0 +1,18 @@
+{
+  "dataset": "planet-elements",
+  "version": "1",
+  "records": 8,
+  "adapter": "scripts/ingestion/jpl-horizons.ts",
+  "warnings": [],
+  "sources": [
+    {
+      "institution": "NASA JPL Solar System Dynamics",
+      "url": "https://ssd.jpl.nasa.gov/planets/approx_pos.html",
+      "notes": "Table 1: Keplerian elements and rates, valid 1800 AD – 2050 AD (E. M. Standish)."
+    }
+  ],
+  "output": "datasets/astronomical/planet-elements.json",
+  "retrievedAt": "2026-11-26T05:33:30.598Z",
+  "bytes": 2087,
+  "sha256": "750fbc86573fc23ef92625a766853ed36853c844d3980cf0acb2e617e1ef6779"
+}

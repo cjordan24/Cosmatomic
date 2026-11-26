@@ -1,0 +1,35 @@
+{
+  "dataset": "elements",
+  "version": "1",
+  "records": 118,
+  "sources": [
+    {
+      "institution": "PubChem (NCBI/NLM)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/periodictable/JSON",
+      "license": "https://www.ncbi.nlm.nih.gov/home/about/policies/",
+      "notes": "Periodic table summary properties"
+    },
+    {
+      "institution": "IUPAC CIAAW via PubChem",
+      "url": "https://www.ciaaw.org/",
+      "notes": "Isotopic masses and natural abundances"
+    },
+    {
+      "institution": "IAEA Atomic Mass Data Center (NUBASE) via PubChem",
+      "url": "https://www-nds.iaea.org/relnsd/nubase/nubase_min.html",
+      "license": "https://www-nds.iaea.org/disclaimer.html",
+      "notes": "Nuclide masses, half-lives, decay modes"
+    },
+    {
+      "institution": "CRC Handbook via PubChem",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/",
+      "notes": "Estimated crustal abundance"
+    }
+  ],
+  "adapter": "scripts/ingestion/pubchem-elements.ts",
+  "warnings": [],
+  "output": "datasets/atomic/elements.json",
+  "retrievedAt": "2026-11-26T05:23:21.647Z",
+  "bytes": 124566,
+  "sha256": "89d444b41ee4a09fd58f5f694486c7cc848988a102ded4949a611d906e4e3c7d"
+}

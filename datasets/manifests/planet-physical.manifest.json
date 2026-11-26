@@ -1,0 +1,19 @@
+{
+  "dataset": "planet-physical",
+  "version": "1",
+  "records": 10,
+  "adapter": "scripts/ingestion/jpl-horizons.ts",
+  "warnings": [],
+  "sources": [
+    {
+      "institution": "NASA Goddard NSSDC",
+      "url": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/",
+      "license": "US Government work (public domain)",
+      "notes": "Values are rounded as published (typically 3 significant figures)."
+    }
+  ],
+  "output": "datasets/astronomical/planet-physical.json",
+  "retrievedAt": "2026-11-26T05:33:30.600Z",
+  "bytes": 5485,
+  "sha256": "435d568648fd5871b25aa098a0d9180c6fda9233c6d8881aed3203bc85a66c5e"
+}

@@ -1,0 +1,24 @@
+{
+  "dataset": "nuclides",
+  "version": "1",
+  "records": 118,
+  "sources": [
+    {
+      "institution": "IUPAC CIAAW via PubChem",
+      "url": "https://www.ciaaw.org/",
+      "notes": "Isotopic masses and natural abundances"
+    },
+    {
+      "institution": "IAEA Atomic Mass Data Center (NUBASE) via PubChem",
+      "url": "https://www-nds.iaea.org/relnsd/nubase/nubase_min.html",
+      "license": "https://www-nds.iaea.org/disclaimer.html",
+      "notes": "Nuclide masses, half-lives, decay modes"
+    }
+  ],
+  "adapter": "scripts/ingestion/pubchem-elements.ts",
+  "warnings": [],
+  "output": "datasets/atomic/nuclides.json",
+  "retrievedAt": "2026-11-26T05:23:21.666Z",
+  "bytes": 867675,
+  "sha256": "3fe7ea33d9d5146e5a84dc884b8df8813b2e2a03c25d5de29439967b4a69c169"
+}

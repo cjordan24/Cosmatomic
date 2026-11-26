@@ -1,0 +1,18 @@
+{
+  "dataset": "horizons-reference-vectors",
+  "version": "1",
+  "records": 9,
+  "adapter": "scripts/ingestion/jpl-horizons.ts",
+  "warnings": [],
+  "sources": [
+    {
+      "institution": "NASA JPL Horizons (DE440/DE441)",
+      "url": "https://ssd.jpl.nasa.gov/horizons/",
+      "notes": "Used exclusively as ground truth by tests/science/ephemeris.test.ts."
+    }
+  ],
+  "output": "datasets/astronomical/horizons-reference-vectors.json",
+  "retrievedAt": "2026-11-26T05:33:30.609Z",
+  "bytes": 4187,
+  "sha256": "6292084cba49d6ee50d63332ac3b88c9815425f36878be5a45cd138f7bde54ff"
+}

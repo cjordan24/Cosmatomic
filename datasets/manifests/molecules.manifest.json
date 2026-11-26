@@ -1,0 +1,23 @@
+{
+  "dataset": "molecules",
+  "version": "1",
+  "records": 47,
+  "adapter": "scripts/ingestion/pubchem-molecules.ts",
+  "warnings": [
+    "hydrogen (CID 783): no PubChem 3D conformer (HTTP 404 for https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/783/record/JSON?record_type=3d); skipped",
+    "nitric oxide (CID 145068): no PubChem 3D conformer (HTTP 404 for https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/145068/record/JSON?record_type=3d); skipped",
+    "buckminsterfullerene (CID 123591): no PubChem 3D conformer (HTTP 404 for https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/123591/record/JSON?record_type=3d); skipped"
+  ],
+  "sources": [
+    {
+      "institution": "PubChem (NCBI/NLM)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/docs/pug-rest",
+      "license": "https://www.ncbi.nlm.nih.gov/home/about/policies/",
+      "notes": "3D coordinates are PubChem3D computed conformers, not experimental structures."
+    }
+  ],
+  "output": "datasets/molecular/molecules.json",
+  "retrievedAt": "2026-11-26T04:42:10.723Z",
+  "bytes": 75391,
+  "sha256": "98c7e1aabb2c0da3437f66d081435923d0a586859da76493d3d66593743e5b37"
+}

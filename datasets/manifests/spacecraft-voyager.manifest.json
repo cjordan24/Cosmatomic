@@ -1,0 +1,18 @@
+{
+  "dataset": "spacecraft-voyager",
+  "version": "1",
+  "records": 2,
+  "adapter": "scripts/ingestion/jpl-horizons.ts",
+  "warnings": [],
+  "sources": [
+    {
+      "institution": "NASA JPL Horizons (Voyager_1/2_ST+refit2022_m)",
+      "url": "https://ssd.jpl.nasa.gov/horizons/",
+      "notes": "Merged sections per Horizons: patched-conic mission-design arc (rough accuracy), then a 2022 fit to tracking data through 1992, then JPL prediction. Section list stored per craft. Positions rounded to 1 km, velocities to 0.1 m/s."
+    }
+  ],
+  "output": "datasets/astronomical/spacecraft-voyager.json",
+  "retrievedAt": "2026-11-26T05:33:30.590Z",
+  "bytes": 590756,
+  "sha256": "36ec4d912e21e1c6c48ede28e1df717a67910f868620236ea8165228a9e4ab0a"
+}

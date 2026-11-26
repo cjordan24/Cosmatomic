@@ -1,0 +1,18 @@
+{
+  "dataset": "moon-physical",
+  "version": "1",
+  "records": 22,
+  "adapter": "scripts/ingestion/jpl-horizons.ts",
+  "warnings": [],
+  "sources": [
+    {
+      "institution": "NASA JPL Solar System Dynamics",
+      "url": "https://ssd.jpl.nasa.gov/sats/phys_par/",
+      "notes": "GM, mean radius, density, geometric albedo with 1σ uncertainties."
+    }
+  ],
+  "output": "datasets/astronomical/moon-physical.json",
+  "retrievedAt": "2026-11-26T05:33:30.603Z",
+  "bytes": 5043,
+  "sha256": "9809cc51f87a6a3a9b342261f2b92023f03ed15f07a8a1b4c190d96bea97ce01"
+}

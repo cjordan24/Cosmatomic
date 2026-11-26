@@ -1,0 +1,18 @@
+{
+  "dataset": "dwarf-physical",
+  "version": "1",
+  "records": 4,
+  "adapter": "scripts/ingestion/jpl-horizons.ts",
+  "warnings": [],
+  "sources": [
+    {
+      "institution": "NASA JPL Small-Body Database",
+      "url": "https://ssd-api.jpl.nasa.gov/doc/sbdb.html",
+      "notes": "Physical parameters as published by SBDB (coverage varies; missing values remain unknown)."
+    }
+  ],
+  "output": "datasets/astronomical/dwarf-physical.json",
+  "retrievedAt": "2026-11-26T05:33:30.594Z",
+  "bytes": 2117,
+  "sha256": "68f0252903ae0aa49b51f58c8b5330aedd7229f1abfccd3b35a5626226febadd"
+}
