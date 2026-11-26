@@ -32,7 +32,31 @@ Written 2026-11-26 at the end of Phase 3. Read this first, then `ARCHITECTURE.md
    - a derived temperature field (e.g. analytic heat diffusion using JANAF/fluid data);
    - a layer toggle and opacity UI.
 
-   Three relationships to build: Element → atomic spectrum → Spectral; Sun (IAU 2015 nominal T_eff = 5772 K, already a source entry) → Planck spectrum → Spectral; Material → optical/acoustic properties → Spectral (the Wave Lab media and refractive index). Also: a landing page with four environments (Biologic shown as *planned, not clickable*); new docs `SPECTRAL_MODE_SPEC.md`, `FIELDS_ARCHITECTURE.md`, `BIOLOGIC_MODE_SPEC.md`, `SCIENTIFIC_RELATIONSHIPS.md`; and the spec-required mobile-layout screenshot.
+   Three relationships to build: Element → atomic spectrum → Spectral; Sun (IAU 2015 nominal T_eff = 5772 K, already a source entry) → Planck spectrum → Spectral; Material → optical/acoustic properties → Spectral (the Wave Lab media and refractive index). Also: new docs `SPECTRAL_MODE_SPEC.md`, `FIELDS_ARCHITECTURE.md`, `BIOLOGIC_MODE_SPEC.md`, `SCIENTIFIC_RELATIONSHIPS.md`; and the spec-required mobile-layout screenshot.
+
+   **Landing page: four portals (user request, 2026-11-26; this replaces the earlier "Biologic planned, not clickable" plan).** The intro page (`src/modes/landing/Landing.tsx`, route `#/`) currently has two live portals, ATOMIC and COSMIC. Add **SPECTRAL** and **CELLULAR** portals that work exactly like those two. Each portal is a `<button className="portal …">` with its own live `<Viewport>` scene, a title, a tagline and "ENTER →", plus the same zoom/fade transition through `enter(m)` and the reduced-motion shortcut.
+   - **SPECTRAL portal → `#/spectral` (the atlas).**
+     - Scene: a small animated E/B plane wave reusing `planeE`/`planeB` from `src/core/physics/em/em.ts`, optionally over a thin log-spectrum band strip. No new physics or values.
+     - Tagline: "waves, frequencies, radiation and energy" (matches README).
+     - Amber theme, like the SPECTRAL mode switch and `.mode-spectral`.
+   - **CELLULAR portal → `#/cellular` (new route).** Biologic Mode itself is Phase 11, so this portal opens a real **Cellular overview page**, not a feature that pretends to exist. The page has:
+     - what the environment will cover;
+     - the registry entities already waiting for it (`process:photosynthesis`, `process:cellular-respiration`, `process:glycolysis`, `structure:mitochondrion`, … from `registry.ts`), each linking back to the reactions that reference it (e.g. `#/atomic/reactions/photosynthesis-net`);
+     - the planned roadmap phases (11–12), with a clear **"Planned — Phase 11"** status;
+     - **No invented biology.** Any fact shown needs a Source-index entry (Berg *Biochemistry* is already indexed). Prefer linking to existing curated reactions over new claims.
+     - The portal scene should be clearly **Illustrative**: for example, the glucose molecule (`pubchem-5793`, already in `molecules.json`) rendered from its real coordinates, with a "Planned" badge on the portal.
+     - Add the route in `App.tsx`, the mode to the `TopBar` switch (CELLULAR, its own colour), and `document.title`.
+   - **Layout:**
+     - Desktop: a 2×2 grid (ATOMIC · COSMIC / SPECTRAL · CELLULAR) or four columns. All four must fit at 1440×900 without scrolling.
+     - Mobile (390×844): stacked. Update `.landing`/`.portal` CSS in `src/ui/theme.css`.
+     - The footer line (`landing-foot`) must describe all four scenes and their data provenance.
+     - Pause portal scenes that are off-screen if performance suffers on SwiftShader.
+   - **Tests:**
+     - Update `tests/e2e/phase1.spec.ts` tests `01` (landing + zoom into Atomic) and `18` (mobile landing) for four portals.
+     - Add a Phase 4 test that enters SPECTRAL and CELLULAR from the landing page. It must check the URL, that the Cellular page shows "Planned", and that its reaction links work.
+     - Regenerate `01-landing.png` and `18-mobile-landing.png`. This is the one case where Phase 1 screenshots *should* change; commit them, and update the description strings ("ATOMIC / COSMIC portals" → all four).
+   - **Docs:** README mode table (add CELLULAR as planned, with the overview page), ARCHITECTURE tree (`modes/cellular/`), BUILD_LOG, and `BIOLOGIC_MODE_SPEC.md` (state that `#/cellular` is the entry point).
+   - **Carry forward:** `HANDOFF_PHASE5.md` must repeat this: *the landing page has four portals, and every future environment must get a portal on the intro page that matches the existing ones (live scene, title, tagline, ENTER, transition, mobile stack, e2e test, screenshot).* When Biologic Mode is built (Phase 11), the Cellular overview page becomes its home and the "Planned" badge is removed.
 3. **Phase 4 close-out.** Write `HANDOFF_PHASE5.md`; update the roadmap, README and memory; give the user a plain-language report (summary, gate checklist, screenshots in `screenshots/phase-04/INDEX.md`, validation results, new sources, test counts, limitations, deployment status, revised roadmap). Then **stop for review** before Phase 5.
 
 **Hard-won conventions from this session:**

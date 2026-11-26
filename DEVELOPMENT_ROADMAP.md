@@ -37,6 +37,6 @@ The astronomy roadmap (Phases 5–8) keeps its place. It is not postponed until 
 | 4.4 | H₂O and CO₂ phase diagrams (IAPWS / Span–Wagner), intermolecular forces, qualitative Lennard-Jones fluid; phase ↔ wave-propagation links | **Done** |
 | 4.5 | Shared wave-physics engine and Wave Laboratory (`#/spectral/lab`) | **Done** |
 | 4.6 | Spectral Mode: EM spectrum atlas (`#/spectral`) with named band conventions (ITU-R V.431, CIE S 017, ISO 21348, detector IR), photon energy, 3D plane wave with polarisation, blackbody, NIST lines linked from the element view | **Done** |
-| 4.7 | FIELDS foundation (gravity, point charge, plane wave, temperature) and three cross-mode relationships; landing page with four environments; Biologic architecture documents only | Planned |
+| 4.7 | FIELDS foundation (gravity, point charge, plane wave, temperature) and three cross-mode relationships; landing page with four live portals (ATOMIC · COSMIC · SPECTRAL · CELLULAR; Cellular opens a sourced overview page marked Planned); Biologic architecture documents | Planned |
 
 If a gate turns out much larger than planned, it is split into documented sub-gates. Scientific quality is not reduced to make it fit.
