@@ -104,3 +104,30 @@ test('45 material properties: dispersion, heat capacity and sound speed with con
   await expect(page.getByLabel('Material properties')).toContainText('m/s');
   await shot(page, '45c-material-properties-water', 'Water at 293 K and 1 atm: speed of sound, density, cp, viscosity and thermal conductivity from the NIST reference equation of state (IAPWS-95), static permittivity from Malmberg & Maryott (1956), and Daimon & Masumura dispersion.');
 });
+
+// ---------------- Gate 4.4 ----------------
+test('46 phase diagram: water (IAPWS) probe at the normal boiling point; CO₂ with explicit gaps', async ({ page }) => {
+  await page.goto('/#/atomic/phases?s=water&T=373.124&p=101325');
+  await expect(page.getByRole('img', { name: 'Phase diagram of water' })).toBeVisible();
+  await expect(page.getByLabel('Phase probe')).toContainText('on the coexistence curve');
+  await expect(page.getByLabel('Coexisting liquid and vapour')).toContainText('958');
+  await shot(page, '46-phase-diagram-water', 'Water phase diagram: vaporisation from IAPWS SR1-86, melting curves of ice Ih/III/V/VI/VII and sublimation from IAPWS R14-08 (each drawn only within its validity range), triple and critical points. The probe at 373.124 K, 1 atm lists the coexisting liquid and vapour (IAPWS-95 via NIST): density, speed of sound and the latent heat.');
+  await page.getByRole('img', { name: 'Phase diagram of water' }).click({ position: { x: 300, y: 330 } });
+  await expect(page).toHaveURL(/T=/);
+  await page.goto('/#/atomic/phases?s=co2&T=250&p=3000000');
+  await expect(page.getByLabel('Phase probe')).toContainText('liquid');
+  await expect(page.getByLabel('Phase probe')).toContainText('uncertain');
+  await shot(page, '46b-phase-diagram-co2', 'CO₂ phase diagram: Span–Wagner coexistence curve, sublimation from the Antoine fit to Giauque & Egan (1937) only inside 154–196 K (the gap to the triple point is shown, not interpolated), and the melting curve marked “not bundled”. A liquid probe is flagged uncertain for that reason.');
+});
+
+test('47 intermolecular forces: Lennard-Jones liquid argon with live g(r)', async ({ page }) => {
+  await page.goto('/#/atomic/phases/lj?state=liquid');
+  await expect(page.getByRole('img', { name: 'Lennard-Jones potential' })).toBeVisible();
+  await page.waitForTimeout(4000);
+  const t = await page.locator('.right-panel dt', { hasText: 'Simulated time' }).locator('xpath=following-sibling::dd[1]').innerText();
+  expect(Number.parseFloat(t)).toBeGreaterThan(1);
+  await shot(page, '47-lennard-jones-liquid', 'Qualitative Lennard-Jones fluid (256 atoms, argon parameters from Rahman 1964), thermostatted at 120 K and ρ = 1.35 g/cm³. Shown: live liquid-like g(r), the LJ potential with its 2^{1/6}σ minimum, and observables. Labelled Simulated and qualitative, with playback speed kept separate from simulated time.');
+  await page.getByRole('button', { name: 'solid' }).click();
+  await page.waitForTimeout(3000);
+  await shot(page, '47b-lennard-jones-solid', 'Same model in the solid preset (ρ* = 1.1, T = 60 K): fcc lattice vibrations, and a g(r) with sharp crystalline peaks.');
+});

@@ -82,7 +82,7 @@ function Search() {
 export function currentScaleId(path: string[], query: URLSearchParams): string | null {
   if (path[0] === 'atomic') {
     if (path[1] === 'molecules' || path[1] === 'lab' || path[1] === 'reactions') return 'molecule';
-    if (path[1] === 'materials') return 'material';
+    if (path[1] === 'materials' || path[1] === 'phases') return 'material';
     if (path[1] === 'element') return query.get('view') === 'nucleus' ? 'nucleus' : 'atom';
     return 'atom';
   }
@@ -156,10 +156,11 @@ export function TopBar() {
         </nav>
         {mode === 'atomic' && (
           <nav className="chip-row hide-mobile" aria-label="Atomic sections">
-            <button className={`chip ${!['molecules', 'lab', 'reactions', 'materials'].includes(path[1]) ? 'active' : ''}`} onClick={() => navigate('/atomic')}>Elements</button>
+            <button className={`chip ${!['molecules', 'lab', 'reactions', 'materials', 'phases'].includes(path[1]) ? 'active' : ''}`} onClick={() => navigate('/atomic')}>Elements</button>
             <button className={`chip ${path[1] === 'molecules' ? 'active' : ''}`} onClick={() => navigate('/atomic/molecules')}>Molecules</button>
             <button className={`chip ${path[1] === 'reactions' ? 'active' : ''}`} onClick={() => navigate('/atomic/reactions')}>Reactions</button>
             <button className={`chip ${path[1] === 'materials' ? 'active' : ''}`} onClick={() => navigate('/atomic/materials')}>Materials</button>
+            <button className={`chip ${path[1] === 'phases' ? 'active' : ''}`} onClick={() => navigate('/atomic/phases')}>Phases</button>
             <button className={`chip ${path[1] === 'lab' ? 'active' : ''}`} onClick={() => navigate('/atomic/lab')}>Laboratory</button>
           </nav>
         )}

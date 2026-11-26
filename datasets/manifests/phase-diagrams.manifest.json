@@ -1,0 +1,39 @@
+{
+  "dataset": "phase-diagrams",
+  "version": "1.0.0",
+  "records": 2,
+  "sources": [
+    {
+      "institution": "IAPWS SR1-86(1992) Saturation properties of ordinary water substance",
+      "url": "https://iapws.org/technical-guidance/release/Supp-sat",
+      "notes": "coefficients transcribed from the PDF"
+    },
+    {
+      "institution": "IAPWS R14-08(2011) Melting and sublimation curves",
+      "url": "https://iapws.org/technical-guidance/release/MeltSub",
+      "notes": "coefficients transcribed from the PDF text"
+    },
+    {
+      "institution": "NIST WebBook — fluid saturation tables (IAPWS-95, Span–Wagner)",
+      "url": "https://webbook.nist.gov/chemistry/fluid/",
+      "license": "NIST SRD"
+    },
+    {
+      "institution": "NIST WebBook phase-change data for CO₂ (TRC triple point; Antoine fit to Giauque & Egan 1937)",
+      "url": "https://webbook.nist.gov/cgi/cbook.cgi?ID=C124389&Units=SI&Mask=4"
+    },
+    {
+      "institution": "Rahman (1964) Phys. Rev. 136, A405",
+      "url": "https://doi.org/10.1103/PhysRev.136.A405"
+    }
+  ],
+  "adapter": "scripts/ingestion/phases.ts",
+  "warnings": [
+    "IAPWS coefficients transcribed by hand (verified by tests against the WebBook IAPWS-95 table and triple points).",
+    "CO₂ melting curve not bundled."
+  ],
+  "output": "datasets/materials/phase-diagrams.json",
+  "retrievedAt": "2026-11-26T18:00:09.000Z",
+  "bytes": 136836,
+  "sha256": "122b73b6ad8c4043eebf5b201fbe63bbf3027c659d71e18e57b64df27a4bf0ed"
+}
