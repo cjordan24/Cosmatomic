@@ -48,6 +48,10 @@ Star entities are registered at run time when the 10 pc catalogue loads (`starRe
 | `body:sun` | located-in | `galaxy:milky-way` → `#/cosmic/galaxies?tab=mw` (context: R₀ = 8.2 kpc) | Bland-Hawthorn & Gerhard 2016 | Milky Way panel, Sun panel |
 | `compact-object:sgr-a-star` | located-in | `galaxy:milky-way` (at the Galactic Centre) | EHT 2022 Paper I | Milky Way panel, compact-objects panel |
 
+| `nebula:orion` | emits | `spectrum:H-I` (Hα, the red glow) | OpenStax Astronomy 2e §20.2 | Nebula panel ↔ atlas Lines tab |
+| `nebula:ring` | emits | `spectrum:N-II`, `spectrum:O-III` | OpenStax Astronomy 2e §22.4 | Nebula panel ↔ atlas Lines tab |
+| `nebula:*` (5) | located-in | `galaxy:milky-way` | ESA/Hubble, ESA/Webb image pages | Nebula panel, Milky Way panel |
+
 Neutron stars and black holes are registered as `compact-object:<id>` (route `#/cosmic/compact?sel=<id>`). The four white dwarfs with measured masses stay `star:<seq>`, so they are not duplicated.
 
 ## Earlier relationships (Gate 4.1)

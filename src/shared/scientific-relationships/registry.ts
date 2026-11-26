@@ -16,8 +16,9 @@ import { MEDIA } from '@/core/physics/waves/media';
 import { SOURCES } from '@/shared/sources/sources';
 import curated from '@datasets/curated/curated-reference.json';
 import compactData from '@datasets/astronomical/compact-objects.json';
+import nebulaData from '@datasets/astronomical/nebulae.json';
 
-export type EntityKind = 'element' | 'molecule' | 'reaction' | 'material' | 'body' | 'wave' | 'process' | 'context' | 'structure' | 'instrument' | 'spectrum' | 'field' | 'star' | 'stellar-class' | 'compact-object' | 'galaxy';
+export type EntityKind = 'element' | 'molecule' | 'reaction' | 'material' | 'body' | 'wave' | 'process' | 'context' | 'structure' | 'instrument' | 'spectrum' | 'field' | 'star' | 'stellar-class' | 'compact-object' | 'galaxy' | 'nebula';
 
 export interface Entity {
   id: string; // "kind:local-id"
@@ -167,6 +168,14 @@ for (const o of (compactData as { objects: { id: string; name: string; kind: str
 registerEntity(E('galaxy:milky-way', 'Milky Way', '#/cosmic/galaxies?tab=mw', 'Galactic parameters and rotation curve'));
 registerRelationship({ from: 'body:sun', to: 'galaxy:milky-way', type: 'located-in', context: 'R₀ = 8.2 ± 0.1 kpc from the Galactic Centre', source: 'bland-hawthorn-gerhard-2016' });
 registerRelationship({ from: 'compact-object:sgr-a-star', to: 'galaxy:milky-way', type: 'located-in', context: 'at the Galactic Centre', source: 'eht-2022-sgra-1' });
+
+// ---------------------------------------------------------------- Gate 6.5 nebulae
+for (const n of (nebulaData as { nebulae: { id: string; name: string; typeSource: string; lines: { spectrum: string; label: string; context: string; source: string }[] }[] }).nebulae) {
+  const id = `nebula:${n.id}`;
+  registerEntity(E(id, n.name, `#/cosmic/nebulae?sel=${n.id}`));
+  registerRelationship({ from: id, to: 'galaxy:milky-way', type: 'located-in', context: 'classified as a Milky Way nebula on the image page', source: n.typeSource });
+  for (const l of n.lines) if (NIST_SPECTRA.includes(l.spectrum)) registerRelationship({ from: id, to: spectrumId(l.spectrum), type: 'emits', context: `${l.label}: ${l.context}`, source: l.source });
+}
 
 export const getEntity = (id: string) => REGISTRY.get(id);
 export const allEntities = () => [...REGISTRY.values()];

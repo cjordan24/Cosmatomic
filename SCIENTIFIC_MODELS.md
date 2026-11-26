@@ -282,3 +282,16 @@ One `FieldLayer` interface (quantity, units, frame, resolution, sources, display
   * NFW: V(r₂₀₀) = V₂₀₀, and r₂₀₀ encloses 200 ρ_crit (to 10⁻⁸). The peak is at 2.163 r_s. V²r/G equals the numerically integrated NFW mass to 10⁻⁵.
   * Fit: recovers a synthetic halo (V₂₀₀ to 1 %, c to 10 %). For NGC 3198, χ²/N with the halo is more than 20× smaller than for baryons alone, and the fit is interior.
   * Milky Way: Eilers table integrity; the weighted slope over 5–20 kpc is within 0.5 of −1.7 km/s/kpc; v_c(8.19 kpc) agrees with Θ₀; the stars-only Keplerian speed at 20 kpc is below 60 % of the measurement; registry edges Sun → Milky Way and Sgr A* → Milky Way.
+
+## 21. Nebulae and image gallery (Phase 6, Gate 6.5): `src/modes/cosmic/nebulae`, `#/cosmic/nebulae`
+* **Images (Observed, processed):** seven images, each published under CC BY 4.0 by its publisher: four ESA/Hubble (Orion, Crab, Ring, Pillars of Creation), one ESA/Webb NIRCam (Cosmic Cliffs, NGC 3324) and two ESO/EHT (M87*, Sgr A*). They are downloaded once as 700-px renditions by `gallery-images.ts`, with per-file SHA-256 and size in `gallery.json`. Each image is shown with its credit line copied verbatim from the image page, its licence and a link to the page. Colours are assigned by the publishers and are not true colour (stated in the view). No image is generated, edited or cropped beyond CSS fitting.
+* **Nebula records (manually transcribed):** five objects with type, distance and line links.
+  * Orion: 414 ± 7 pc from VLBA parallaxes (Menten et al. 2007).
+  * Ring Nebula: "about 2000 light-years" (OpenStax §22.4). The ESA/Hubble page lists 2500 ly; both are shown.
+  * Crab, Eagle and NGC 3324: approximate distances printed by ESA/Hubble and ESA/Webb, flagged "≈".
+* **Emission lines → Spectral atlas:** registry edges *emits*:
+  * Orion → H I: "the red glow … is produced by the first line in the Balmer series", OpenStax §20.2;
+  * Ring → N II (ionized nitrogen) and → O III (oxygen; twice-ionized oxygen in planetary nebulae), OpenStax §22.4.
+
+  The bundled NIST spectra contain the lines: Hα 656.45 nm, [N II] 658.53 nm and [O III] 500.82 nm (vacuum; [N II] and [O III] are M1 forbidden transitions). Every nebula is *located-in* the Milky Way. The EHT images also appear in the Black holes panel.
+* *Validation (tests/science/nebulae.test.ts, 6 tests):* 7 stored images with size and SHA-256 equal to the dataset record, JPEG signature, < 300 KB each; CC BY 4.0 with a credit line and a page on the publisher's own site, including at least one Webb image; nebula sources indexed; Orion 414 ± 7 pc = 1350 ly, approximate values marked; the linked lines exist in the bundled NIST data (M1 for the forbidden lines); registry emits and located-in edges.

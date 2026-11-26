@@ -110,3 +110,8 @@
   * Five rotation-curve reference keys used in SPARC Table 1 (Ba06, Bm05, Fr02, VB99, VdH93) have no entry in the table's own legend. They are shown as keys only.
   * The Milky Way has no baryonic mass model bundled. The stars-only Keplerian curve is an illustrative lower bound, not a fit. Bland-Hawthorn & Gerhard (R₀ = 8.2 kpc) and Eilers et al. (8.122 kpc) assume slightly different R₀.
   * No galaxy images or 3D galaxy models.
+* **Nebulae and gallery (Gate 6.5):**
+  * Seven images only, at 700 px. There is no zoom into the full-resolution originals (linked on the publisher pages) and no image search. The NASA Image Library and MAST were not used.
+  * The distances of the Crab, Eagle and NGC 3324 are the approximate figures printed on the ESA image pages, not peer-reviewed measurements. Published distances for the Ring Nebula differ (≈2000 ly in OpenStax, 2500 ly at ESA/Hubble).
+  * Emission-line links exist only where a source names the emission: Orion → Hα, Ring → [N II] and [O III]. The Crab's synchrotron emission and Webb's molecular-hydrogen filters have no bundled spectra. [S II] is not in the NIST bundle.
+  * The Crab pulsar is not a compact-object record (no published mass bundled).

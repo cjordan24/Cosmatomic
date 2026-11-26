@@ -15,7 +15,7 @@ Treat each phase below as a proposal. Re-assess numerical methods, dataset acces
 | **3 Physics Sandbox** | N-body Explore/Experiment/Compare, molecular dynamics, instruments, IndexedDB notebook | **Complete** |
 | **4 Matter, Materials, Energy & Wave Foundations** | 4.1 reactions · 4.2 thermochemistry · 4.3 crystals & materials · 4.4 phases · 4.5 wave engine · 4.6 Spectral Mode · 4.7 FIELDS + cross-mode links | **Complete** (Gates 4.1–4.7) |
 | **5 Interstellar & Stellar** | 5.1 nearby stars · 5.2 stellar classes & HR diagram · 5.3 exoplanets · 5.4 stellar spectra & thermal radiation · 5.5 cross-links | **Complete** (Gates 5.1–5.5) |
-| **6 Deep Space & Invisible Gravity** | 6.1 relativity foundations · 6.2 compact objects & black holes · 6.3 gravitational lensing · 6.4 galaxies & rotation curves · 6.5 nebulae & image galleries | **In progress** (Gates 6.1–6.4 done) |
+| **6 Deep Space & Invisible Gravity** | 6.1 relativity foundations · 6.2 compact objects & black holes · 6.3 gravitational lensing · 6.4 galaxies & rotation curves · 6.5 nebulae & image galleries | **Complete** (Gates 6.1–6.5) |
 | 7 Cosmology & Observable Universe | clusters, large-scale structure, distances, CMB, dark-matter evidence explorer, dark energy, expansion history, GWOSC observations | Planned (FLRW module + tests exist) |
 | 8 Unified Scale & Relationships | universal scale navigation, relationship registry UI, integrated spectroscopy, shared instruments, unified notebook, pathways | Planned (registry started in 4.1) |
 | 9 Applied Waves & Communications | 9.1 EM fields & antennas · 9.2 RF/wireless atlas · 9.3 3D communications room · 9.4 modulation lab · 9.5 acoustic lab · 9.6 audio synthesis/FFT · 9.7 room acoustics & resonance | Planned |
@@ -57,6 +57,6 @@ The astronomy roadmap (Phases 5–8) keeps its place. It is not postponed until 
 | 6.2 | Compact objects and black holes (`#/cosmic/compact`): 4 white dwarfs of the 10 pc sample with dynamical/lensing masses, 3 neutron stars, 4 black holes (Sgr A*, M87*, Cyg X-1, GW150914), mass–radius diagram, Sirius B redshift and EHT shadow checks, measured presets in the Relativity view | **Done** |
 | 6.3 | Gravitational lensing (`#/cosmic/lensing`): point-lens equations (N&B 1996), lens plane by inverse ray shooting, microlensing light curves, Stein 2051 B astrometric deflection (Sahu et al. 2017) linked from the 10 pc sample; Cosmic chips grouped into Stars ▾ and Gravity ▾ menus | **Done** |
 | 6.4 | Galaxies and rotation curves (`#/cosmic/galaxies`): SPARC (175 galaxies) vs baryons-only Newtonian and a fitted NFW halo (labelled a model), adjustable Υ; Milky Way parameters (Bland-Hawthorn & Gerhard 2016) and rotation curve (Eilers et al. 2019); Galaxies scale level now interactive | **Done** |
-| 6.5 | Nebulae and image galleries with clear licences; emission-line cross-links | Planned |
+| 6.5 | Nebulae and image gallery (`#/cosmic/nebulae`): 7 CC BY 4.0 images (ESA/Hubble, ESA/Webb, ESO/EHT) with verbatim credits and checksums; 5 nebula records (Menten 2007, OpenStax §20.2/§22.4); Hα, [N II], [O III] links into the Spectral atlas; EHT images in the Black holes panel | **Done** |
 
 If a gate turns out much larger than planned, it is split into documented sub-gates. Scientific quality is not reduced to make it fit.

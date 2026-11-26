@@ -259,3 +259,19 @@ Findings:
 2. **A G unit slip was caught.** kpc had been written in metres instead of km, which would have made G 1000× too small. A test now pins G = 4.301 × 10⁻⁶ kpc (km/s)²/M☉.
 3. **The build failed while the unit tests passed.** `npm run build` also typechecks the ingestion scripts, and a spread in the SPARC adapter lost its record type. The first e2e attempt therefore ran against the previous build.
 4. **NGC 3198** (the classic case) with Υ_disk = 0.5: χ²/N = 759 for baryons alone and 1.39 with an NFW halo (c ≈ 9.4, V₂₀₀ ≈ 112 km/s, M₂₀₀ ≈ 4.5 × 10¹¹ M☉). This illustrates the missing-mass problem; it is not a measurement of dark matter.
+
+## 2026-11-26 — Phase 6, Gate 6.5 (nebulae and image gallery)
+First, a live re-check of Gate 6.4 against production: 56/56 passed.
+
+New view `#/cosmic/nebulae` (chip *Nebulae*):
+- a gallery of seven CC BY 4.0 images (ESA/Hubble ×4, ESA/Webb ×1, ESO/EHT ×2), each with its verbatim credit line, licence and publisher link;
+- five nebula records with type, distance (approximate values marked) and emission-line links into the Spectral atlas;
+- the EHT images of M87* and Sgr A*, which also appear in the Black holes panel.
+
+New datasets: `gallery-images` (images stored under `public/images/gallery`, SHA-256 recorded) and `nebulae` (transcribed). Registry: `nebula:*` entities that emit H I / N II / O III and lie in the Milky Way. New Source-index entries: Menten et al. 2007, ESA/Hubble, ESA/Webb and ESO/EHT image archives. The OpenStax entry now also cites §20.2 and §22.4. 6 new science tests (439 total) and e2e test 63.
+
+Findings:
+1. **Licences checked at the source.** ESA/Hubble's and ESA/Webb's copyright pages state CC BY 4.0 with clear and visible credit. ESO's states CC BY 4.0 for images and captions. esahubble.org and esawebb.org have no robots.txt.
+2. **Conflicting distances on one page.** The ESA/Hubble Orion page says "1,500 light-years" in its text and "1400 light years" in its metadata. The record uses the peer-reviewed VLBA parallax (414 ± 7 pc, Menten et al. 2007) instead. The Ring Nebula's 2000 ly (OpenStax) and 2500 ly (ESA) are both stated.
+3. **An unverified claim removed before commit.** A draft author note called ESO "one of the EHT partners"; this was not checked, so it was removed.
+4. **Typecheck of tests.** Science tests are typechecked without Node types, so the image-integrity test reads the files through Vite's `?inline` import and hashes them with Web Crypto.

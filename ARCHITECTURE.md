@@ -41,7 +41,8 @@ src/
 │       ├── relativity/             Schwarzschild radii, clocks, orbits, light paths, weak-field tests (#/cosmic/relativity)
 │       ├── compact/                white dwarfs, neutron stars, black holes with published values (#/cosmic/compact)
 │       ├── lensing/                point-lens plane, microlensing, astrometric deflection (#/cosmic/lensing)
-│       └── galaxies/               SPARC rotation curves, baryons vs NFW halo, Milky Way (#/cosmic/galaxies)
+│       ├── galaxies/               SPARC rotation curves, baryons vs NFW halo, Milky Way (#/cosmic/galaxies)
+│       └── nebulae/                licensed image gallery, nebula records, emission-line links (#/cosmic/nebulae)
 ├── core/fields/                    FIELDS layer interface + gravity, Coulomb, plane-wave, heat layers (FIELDS_ARCHITECTURE.md)
 ├── shared/scientific-relationships typed, sourced entity/edge registry; ui/RelatedLinks renders both directions (SCIENTIFIC_RELATIONSHIPS.md)
 ├── rendering/                      Viewport (adaptive DPR, log depth), PointCloud shader, labels, colours
@@ -50,7 +51,7 @@ src/
 └── ui/                             top bar, search, scale navigator, settings, panels, theme
 ```
 
-Reserved (empty) folders from the master spec — `modes/atomic/{reactions,laboratory}`, `modes/cosmic/{galaxies,nebulae,black-holes,universe}` — are the extension points for Phases 2–7.
+Reserved (empty) folders from the master spec: `modes/cosmic/{black-holes,universe}`. Black holes live in `compact/` (Gate 6.2); `universe/` is the extension point for Phase 7.
 
 ## Data flow
 

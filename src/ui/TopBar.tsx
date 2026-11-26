@@ -14,7 +14,7 @@ import { Logo, SearchGlyph } from './components';
 interface Hit { kind: 'element' | 'molecule' | 'body' | 'reaction' | 'material' | 'star' | 'exoplanet'; label: string; sub: string; to: string; score: number }
 
 /** Cosmic sub-routes that are not solar-system bodies (#/cosmic/<id> otherwise focuses a body). */
-const COSMIC_SECTIONS = ['stars', 'sandbox', 'relativity', 'compact', 'lensing', 'galaxies'];
+const COSMIC_SECTIONS = ['stars', 'sandbox', 'relativity', 'compact', 'lensing', 'galaxies', 'nebulae'];
 
 /** A chip that opens a small menu of related sections; it is highlighted when one of them is open. */
 function ChipMenu({ label, items }: { label: string; items: { label: string; to: string; active: boolean }[] }) {
@@ -124,7 +124,7 @@ export function currentScaleId(path: string[], query: URLSearchParams): string |
     if (path[1] === 'element') return query.get('view') === 'nucleus' ? 'nucleus' : 'atom';
     return 'atom';
   }
-  if (path[0] === 'cosmic') return path[1] === 'stars' ? 'stellar' : path[1] === 'galaxies' ? 'galaxy' : ['relativity', 'compact', 'lensing'].includes(path[1]) ? null : path[1] && path[1] !== 'sun' && path[1] !== 'sandbox' ? 'planet' : 'solar-system';
+  if (path[0] === 'cosmic') return path[1] === 'stars' ? 'stellar' : path[1] === 'galaxies' ? 'galaxy' : ['relativity', 'compact', 'lensing', 'nebulae'].includes(path[1]) ? null : path[1] && path[1] !== 'sun' && path[1] !== 'sandbox' ? 'planet' : 'solar-system';
   return null;
 }
 
@@ -217,6 +217,7 @@ export function TopBar() {
               { label: 'Lensing', to: '/cosmic/lensing', active: path[1] === 'lensing' },
             ]} />
             <button className={`chip ${path[1] === 'galaxies' ? 'active' : ''}`} onClick={() => navigate('/cosmic/galaxies')}>Galaxies</button>
+            <button className={`chip ${path[1] === 'nebulae' ? 'active' : ''}`} onClick={() => navigate('/cosmic/nebulae')}>Nebulae</button>
             <button className={`chip ${path[1] === 'sandbox' ? 'active' : ''}`} onClick={() => navigate('/cosmic/sandbox')}>Sandbox</button>
           </nav>
         )}

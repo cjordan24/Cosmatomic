@@ -13,6 +13,8 @@ import { ScatterPlot, type ScatterPoint } from '@/ui/plots';
 import { RelatedLinks } from '@/ui/RelatedLinks';
 import { SourceLinks } from '@/ui/SourcesView';
 import { loadTenParsec, type NearbyObject } from '@/modes/cosmic/star-systems/stars';
+import { CreditedImage } from '@/modes/cosmic/nebulae/NebulaeView';
+import { imageForObject } from '@/modes/cosmic/nebulae/nebulae';
 import { COMPACT_OBJECTS, KIND_LABEL, derive, radiusKm, shadowDiameterUas, type CompactKind, type CompactObject, type Val } from './compact';
 
 const KIND_COLOR: Record<CompactKind, string> = { 'white-dwarf': '#9ec5ff', 'neutron-star': '#5cf2a6', 'black-hole': '#ff7a90' };
@@ -55,6 +57,7 @@ function Selected({ o, star }: { o: CompactObject; star: NearbyObject | null }) 
     <>
       <h2 style={{ margin: '0 0 2px', fontWeight: 400 }}>{o.name}</h2>
       <div className="note">{KIND_LABEL[o.kind]}{star ? ` · ${star.spt ?? ''} · in the 10 pc sample` : ''}</div>
+      {imageForObject(o.id) && <div style={{ margin: '6px 0' }}><CreditedImage img={imageForObject(o.id)!} size="large" /></div>}
       <div className="section-title">Published <ProvenanceBadge cls="observed" /></div>
       <dl className="kv stack" aria-label="Published values">
         <KV k={`Mass (${o.massInterval})`} v={`${fmtScaled(o.mass)} M☉`} />

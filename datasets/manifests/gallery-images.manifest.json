@@ -1,0 +1,33 @@
+{
+  "dataset": "gallery-images",
+  "version": "1.0.0",
+  "records": 7,
+  "sources": [
+    {
+      "institution": "ESA/Hubble",
+      "url": "https://esahubble.org/copyright/",
+      "license": "CC BY 4.0",
+      "notes": "Orion Nebula, Crab Nebula, Ring Nebula, Pillars of Creation"
+    },
+    {
+      "institution": "ESA/Webb",
+      "url": "https://esawebb.org/copyright/",
+      "license": "CC BY 4.0",
+      "notes": "Cosmic Cliffs in Carina (NGC 3324)"
+    },
+    {
+      "institution": "ESO / EHT Collaboration",
+      "url": "https://www.eso.org/public/copyright/",
+      "license": "CC BY 4.0",
+      "notes": "M87* and Sgr A* images"
+    }
+  ],
+  "adapter": "scripts/ingestion/gallery-images.ts",
+  "warnings": [
+    "Images are stored under public/images/gallery with their SHA-256 in this dataset; credit lines are verbatim from the image pages and are displayed with every image."
+  ],
+  "output": "datasets/astronomical/gallery.json",
+  "retrievedAt": "2026-11-26T22:55:33.692Z",
+  "bytes": 4944,
+  "sha256": "504caf85da4695365471ac330ded8593a5eb039cc571e4da778a80e2edb86136"
+}

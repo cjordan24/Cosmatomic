@@ -135,3 +135,32 @@ test('62 galaxies: SPARC rotation curves vs baryons-only and an NFW halo fit; th
   await page.locator('.scale-nav').getByRole('button', { name: /Galaxies/ }).first().click();
   await expect(page).toHaveURL(/#\/cosmic\/galaxies\?tab=mw/);
 });
+
+// ---------------- Gate 6.5 ----------------
+test('63 nebulae and gallery: licensed images with credits, nebula records, emission lines into the Spectral atlas, EHT images', async ({ page }) => {
+  await page.goto('/#/cosmic');
+  await page.getByRole('navigation', { name: 'Cosmic sections' }).getByRole('button', { name: 'Nebulae' }).click();
+  await expect(page).toHaveURL(/#\/cosmic\/nebulae$/);
+  const neb = page.getByRole('list', { name: 'Nebula images' });
+  await expect(neb.getByRole('listitem')).toHaveCount(5);
+  await expect(neb).toContainText('Credit: NASA, ESA, CSA, and STScI');
+  await expect(page.getByRole('list', { name: 'Black hole images' })).toContainText('Credit: EHT Collaboration');
+  // images actually load (natural size > 0)
+  const ok = await page.locator('.gallery-figure img').evaluateAll((els) => els.map((e) => { const i = e as unknown as { complete: boolean; naturalWidth: number }; return i.complete && i.naturalWidth > 0; }));
+  expect(ok.length).toBe(7);
+  await shot(page, '63a-gallery', 'Nebulae & image gallery (#/cosmic/nebulae): Hubble images of the Orion, Crab and Ring Nebulae and the Pillars of Creation, Webb’s Cosmic Cliffs in Carina, and the EHT images of M87* and Sgr A*, each with its verbatim credit line, CC BY 4.0 licence and link to the publisher’s page.');
+  await neb.getByRole('button', { name: /Ring Nebula/ }).click();
+  const info = page.locator('.right-panel');
+  await expect(info.getByLabel('Nebula properties')).toContainText('planetary nebula');
+  await expect(info.getByLabel('Emission lines')).toContainText('[O III] 501 nm');
+  await shot(page, '63b-ring-nebula', 'The Ring Nebula: planetary nebula about 2000 light-years away (OpenStax), with its ionized-nitrogen and oxygen emission linked to the NIST [N II] and [O III] forbidden lines.');
+  await info.getByLabel('Emission lines').getByRole('button', { name: '[O III] 501 nm' }).click();
+  await expect(page).toHaveURL(/spectral\?tab=lines&spec=O%20III/);
+  await expect(page.locator('.related-links[data-entity="spectrum:O-III"]')).toContainText('Ring Nebula');
+  await page.goto('/#/cosmic/nebulae?sel=orion');
+  await expect(info.getByLabel('Nebula properties')).toContainText('414 ± 7 pc');
+  // the EHT image appears with Sgr A* among the compact objects
+  await page.goto('/#/cosmic/compact?sel=sgr-a-star');
+  await expect(page.locator('.right-panel')).toContainText('Credit: EHT Collaboration');
+  await shot(page, '63c-sgr-a-image', 'Sagittarius A* in the compact-objects view, now with the EHT image (credit EHT Collaboration, CC BY 4.0) above its measured ring diameter and the Schwarzschild shadow prediction.');
+});
