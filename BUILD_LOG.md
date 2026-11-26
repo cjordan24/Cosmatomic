@@ -275,3 +275,5 @@ Findings:
 2. **Conflicting distances on one page.** The ESA/Hubble Orion page says "1,500 light-years" in its text and "1400 light years" in its metadata. The record uses the peer-reviewed VLBA parallax (414 ± 7 pc, Menten et al. 2007) instead. The Ring Nebula's 2000 ly (OpenStax) and 2500 ly (ESA) are both stated.
 3. **An unverified claim removed before commit.** A draft author note called ESO "one of the EHT partners"; this was not checked, so it was removed.
 4. **Typecheck of tests.** Science tests are typechecked without Node types, so the image-integrity test reads the files through Vite's `?inline` import and hashes them with Web Crypto.
+
+Gate 6.5 verified against production: 57/57 passed. Phase 6 complete.

@@ -28,7 +28,7 @@ Gate	Production result
 6.2	52/52 (Phases 1–5); tests 59–60 failed only because phase6.spec.ts was edited mid-run, and passed 2/2 when re-run with the committed spec
 6.3	55/55
 6.4	56/56
-6.5	see BUILD_LOG.md
+6.5	57/57 (final run, whole suite)
 
 Landing page: four portals (carry forward)
 
