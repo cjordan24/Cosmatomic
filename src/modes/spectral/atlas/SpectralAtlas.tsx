@@ -24,6 +24,8 @@ import { MATERIALS, refractiveIndex } from '@/modes/atomic/materials/materials';
 import { wavelengthToColor } from '@/modes/atomic/atoms/spectrum';
 import { isForbidden, loadNistSpectra, type NistSpectra } from '@/modes/atomic/atoms/nistSpectra';
 import { elementBySymbol } from '@/modes/atomic/atoms/elements';
+import { RelatedLinks } from '@/ui/RelatedLinks';
+import { spectrumId } from '@/shared/scientific-relationships/registry';
 
 const C = CONSTANTS.c.value;
 type Tab = 'spectrum' | 'wave' | 'blackbody' | 'lines';
@@ -66,7 +68,8 @@ export default function SpectralAtlas() {
   const T = (() => { const v = Number(query.get('T')); return v > 0 && Number.isFinite(v) ? v : 5772; })();
   const ph = useMemo(() => photon('wavelength', lambda), [lambda]);
   const setLambda = (l: number) => setQuery({ lambda: Number(l.toPrecision(9)) });
-  const [mat, setMat] = useState('fused-silica');
+  const mat = (() => { const q = query.get('mat'); return q && MATERIALS.some((m) => m.id === q && m.refractiveIndex) ? q : 'fused-silica'; })();
+  const setMat = (id: string) => setQuery({ mat: id === 'fused-silica' ? null : id });
   const [E0, setE0] = useState(100);
 
   return (
@@ -194,6 +197,7 @@ function MediumReadout({ matId, ph }: { matId: string; ph: ReturnType<typeof pho
       </dl>
       {n === null && <p className="note warn" style={{ fontSize: 10.5 }}>Unknown: the cited dispersion formula is valid only from {ri.rangeUm?.[0]} to {ri.rangeUm?.[1]} µm and is not extrapolated.</p>}
       <p className="note" style={{ fontSize: 10.5 }}>{ri.references.slice(0, 140)}{ri.references.length > 140 ? '…' : ''} <SourceLinks ids={ri.sources} /> · <button className="link-btn" onClick={() => navigate(`/atomic/materials/${m.id}`)}>material card</button></p>
+      <RelatedLinks id={`spectrum:n-${m.id}`} title={null} />
     </>
   );
 }
@@ -398,6 +402,7 @@ function BlackbodyTab({ T, lambda, onPick }: { T: number; lambda: number; onPick
       </dl>
       <div className="chip-row"><button className="chip" onClick={() => onPick(lp)}>Select λ_max</button><button className="chip" onClick={() => onPick(C / np)}>Select c/ν_max</button></div>
       <p className="note" style={{ fontSize: 10.5 }}>Planck’s law for an ideal blackbody, with b and σ derived from h, c and k (they match the CODATA listed values exactly). Real bodies are not perfect blackbodies. The Sun’s spectrum has absorption lines and departs from a single 5772 K curve, so this is a model, not the observed solar spectrum. <SourceLinks ids={['codata-2018', 'iau-2015-b3', 'fixsen-2009']} /></p>
+      {Math.abs(T - 5772) < 0.5 && <RelatedLinks id="spectrum:blackbody-5772" />}
       <ProvenanceBadge cls={T === 5772 || T === 2.72548 ? 'derived' : 'hypothetical'} title={T === 5772 || T === 2.72548 ? 'Planck law at a sourced temperature' : 'Planck law at a user-chosen temperature'} />
     </div>
   );
@@ -443,6 +448,7 @@ function LinesTab({ lambda, onPick, spec }: { lambda: number; onPick: (l: number
           })}</tbody>
         </table>
         <p className="note" style={{ fontSize: 10.5 }}>{lines.length} of {data.totalInRange} NIST ASD lines in {lo}–{hi} nm (vacuum wavelengths; ᴿ = Ritz). Bar heights use the source’s relative intensities, which are not comparable between spectra. <SourceLinks ids={['nist-asd']} /></p>
+        <RelatedLinks id={spectrumId(spec)} />
         <ProvenanceBadge cls="observed" title="Measured/evaluated lines from the NIST Atomic Spectra Database" />
       </>)}
     </div>

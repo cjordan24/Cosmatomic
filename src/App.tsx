@@ -14,6 +14,7 @@ const SandboxView = lazy(() => import('@/modes/cosmic/sandbox/SandboxView'));
 const NotebookView = lazy(() => import('@/ui/NotebookView'));
 const WaveLab = lazy(() => import('@/modes/spectral/laboratory/WaveLab'));
 const SpectralAtlas = lazy(() => import('@/modes/spectral/atlas/SpectralAtlas'));
+const FieldsView = lazy(() => import('@/modes/spectral/fields/FieldsView'));
 const SourcesView = lazy(() => import('@/ui/SourcesView'));
 const MaterialsView = lazy(() => import('@/modes/atomic/materials/MaterialsView'));
 const PhasesView = lazy(() => import('@/modes/atomic/phases/PhasesView'));
@@ -49,7 +50,7 @@ export default function App() {
     else if (path[1] === 'phases') view = <PhasesView tab={path[2] ?? null} />;
     else view = <PeriodicTable />;
   } else if (mode === 'cosmic') view = path[1] === 'sandbox' ? <SandboxView /> : <CosmicView focusId={path[1] ?? 'sun'} />;
-  else if (mode === 'spectral') view = path[1] === 'lab' ? <WaveLab /> : <SpectralAtlas />;
+  else if (mode === 'spectral') view = path[1] === 'lab' ? <WaveLab /> : path[1] === 'fields' ? <FieldsView /> : <SpectralAtlas />;
   else if (mode === 'notebook') view = <NotebookView />;
   else if (mode === 'sources') view = <SourcesView id={path[1] ?? null} />;
   else view = <Landing />;

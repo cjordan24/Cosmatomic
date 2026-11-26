@@ -1,10 +1,12 @@
 /**
- * Landing page: two interactive portals.
- *  ATOMIC — a real hydrogen 3d(z²)+2p probability cloud sampled from ψ_nlm.
- *  COSMIC — the planets at their actual heliocentric longitudes today (JPL elements),
- *           with radial distances log-compressed for the thumbnail (labelled).
+ * Landing page: four portals (three live, one coming soon).
+ *  ATOMIC   — a real hydrogen 3d(z²) probability cloud sampled from ψ_nlm.
+ *  COSMIC   — the planets at their actual heliocentric longitudes today (JPL elements),
+ *             with radial distances log-compressed for the thumbnail (labelled).
+ *  SPECTRAL — the analytic vacuum plane wave (planeE/planeB from em.ts): E ⊥ B ⊥ k, |B| = |E|/c.
+ *  CELLULAR — Biologic Mode (Phase 11): greyed out, not interactive, "Coming soon" under the title.
  */
-import { useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 import { Viewport } from '@/rendering/Viewport';
@@ -17,6 +19,8 @@ import { BODIES } from '@/modes/cosmic/solar-system/bodies';
 import { navigate } from '@/shared/router';
 import { useVoyager } from '@/shared/store';
 import { Logo } from '@/ui/components';
+import { planeB, planeE, POLARISATIONS } from '@/core/physics/em/em';
+import { CONSTANTS } from '@/core/constants/constants';
 
 function Spin({ children, speed = 0.08 }: { children: React.ReactNode; speed?: number }) {
   const ref = useRef<THREE.Group>(null);
@@ -36,12 +40,12 @@ function AtomPortalScene() {
     return { positions: res.positions, colors: col };
   }, []);
   return (
-    <Spin speed={0.12}>
+    <group position={[1.1, 0.15, 0]}><Spin speed={0.12}>
       <group rotation={[0.35, 0, 0.2]}>
         <PointCloud positions={positions} colors={colors} size={0.045} opacity={0.5} scale={0.11} />
         <mesh><sphereGeometry args={[0.06, 16, 16]} /><meshBasicMaterial color="#ffffff" /></mesh>
       </group>
-    </Spin>
+    </Spin></group>
   );
 }
 
@@ -72,10 +76,44 @@ function CosmicPortalScene() {
   );
 }
 
-export default function Landing() {
-  const [leaving, setLeaving] = useState<'atomic' | 'cosmic' | null>(null);
+/** Linear-polarised vacuum plane wave, two wavelengths across the card. B is drawn ×c so it shares E's scale. */
+function SpectralPortalScene() {
+  const NS = 120, L = 7, A = 1.1, f = 1, c = CONSTANTS.c.value, lambda = c / f;
+  const geo = useMemo(() => {
+    const mk = () => { const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.Float32BufferAttribute(new Float32Array(NS * 6), 3)); return g; };
+    return { e: mk(), b: mk() };
+  }, []);
+  useEffect(() => () => { geo.e.dispose(); geo.b.dispose(); }, [geo]);
+  const phase = useRef(0);
   const reduced = useVoyager((s) => s.settings.reducedMotion);
-  const enter = (m: 'atomic' | 'cosmic') => {
+  useFrame((_, dt) => {
+    if (!reduced) phase.current += Math.min(dt, 0.1) * Math.PI * 0.6; // playback: one period per ~3.3 s
+    const t = phase.current / (2 * Math.PI * f);
+    const pe = geo.e.getAttribute('position') as THREE.BufferAttribute, pb = geo.b.getAttribute('position') as THREE.BufferAttribute;
+    for (let i = 0; i < NS; i++) {
+      const u = i / (NS - 1), X = -L / 2 + u * L;
+      const E = planeE(POLARISATIONS['linear-x'], 1, f, u * 2 * lambda, t), B = planeB(E);
+      // physics (x, y, z) → scene (y, z, x)
+      pe.setXYZ(2 * i, X, 0, 0); pe.setXYZ(2 * i + 1, X, A * E[0], A * E[1]);
+      pb.setXYZ(2 * i, X, 0, 0); pb.setXYZ(2 * i + 1, X, A * B[0] * c, A * B[1] * c);
+    }
+    pe.needsUpdate = true; pb.needsUpdate = true;
+  });
+  return (
+    <group position={[1.3, 0.45, 0]} rotation={[0.42, -0.62, 0]}>
+      <lineSegments geometry={geo.e}><lineBasicMaterial color="#ff8a6b" /></lineSegments>
+      <lineSegments geometry={geo.b}><lineBasicMaterial color="#ffd27a" transparent opacity={0.8} /></lineSegments>
+      <arrowHelper args={[new THREE.Vector3(1, 0, 0), new THREE.Vector3(-L / 2, 0, 0), L + 0.6, 0xf5c76b, 0.3, 0.16]} />
+    </group>
+  );
+}
+
+type Live = 'atomic' | 'cosmic' | 'spectral';
+
+export default function Landing() {
+  const [leaving, setLeaving] = useState<Live | null>(null);
+  const reduced = useVoyager((s) => s.settings.reducedMotion);
+  const enter = (m: Live) => {
     if (reduced) return navigate(`/${m}`);
     setLeaving(m);
     setTimeout(() => navigate(`/${m}`), 750);
@@ -102,7 +140,21 @@ export default function Landing() {
           <span className="cta">ENTER →</span>
         </div>
       </button>
-      <div className="landing-foot">Left: hydrogen 3d<sub>z²</sub> probability density (analytic ψ). Right: planets at today's heliocentric longitudes (JPL elements), distances log-compressed for display.</div>
+      <button className={`portal spectral ${leaving === 'spectral' ? 'zoom' : leaving ? 'fade' : ''}`} onClick={() => enter('spectral')} aria-label="Enter Spectral mode">
+        <Viewport className="portal-canvas" camera={{ position: [0, 0, 6.2], fov: 45 }}><SpectralPortalScene /></Viewport>
+        <div className="portal-text">
+          <h2>SPECTRAL</h2>
+          <p>Waves, frequencies, radiation and energy.</p>
+          <span className="cta">ENTER →</span>
+        </div>
+      </button>
+      <div className={`portal cellular disabled ${leaving ? 'fade' : ''}`} role="group" aria-disabled="true" aria-label="Cellular mode, coming soon">
+        <div className="portal-text">
+          <h2>CELLULAR</h2>
+          <p className="soon">Coming soon</p>
+        </div>
+      </div>
+      <div className="landing-foot">Atomic: hydrogen 3d<sub>z²</sub> probability density (analytic ψ). Cosmic: planets at today's heliocentric longitudes (JPL elements), distances log-compressed. Spectral: analytic vacuum plane wave, E ⊥ B ⊥ k, |B| = |E|/c.</div>
     </div>
   );
 }

@@ -6,6 +6,7 @@
  * speed comes from the selected MEDIUM; the "time scale" only changes playback (simulated seconds per
  * wall-clock second) — the physics advances by simulated time, independent of frame rate.
  */
+import { RelatedLinks } from '@/ui/RelatedLinks';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
@@ -287,6 +288,7 @@ export default function WaveLab() {
           {MEDIA.map((m) => <option key={m.id} value={m.id}>{m.name}</option>)}
         </select>
         <p className="note" style={{ fontSize: 10.5 }}>{s.med.model}. <SourceLinks ids={s.med.sources} /></p>
+        <RelatedLinks id={`wave:sound-${s.med.id}`} title={null} />
         {s.med.validity.map((v) => <p key={v} className="note" style={{ fontSize: 10.5, margin: '2px 0' }}>• {v}</p>)}
       </Panel>
 

@@ -185,3 +185,11 @@ CPK colours (PubChem), illustrative giant-planet banding (procedural, not imager
   * bands: ITU band algebra (17 contiguous bands, 0.3·10^N … 3·10^N Hz, symbols TLF…THF) and edge inclusivity; ISO 21348 overlaps and edges; CIE edge flagging; detector IR contiguity;
   * blackbody: b = 2.897771955 × 10⁻³ m K, b′ = 5.878925757 × 10¹⁰ Hz/K and σ = 5.670374419 × 10⁻⁸ W m⁻² K⁻⁴ (CODATA); the peaks are maxima; π∫B_λ dλ = σT⁴; Sun peak 502.04 nm and CMB peak 160.23 GHz;
   * materials: frequency invariance and λ/n in fused silica; normal dispersion in four materials; null outside the validity range.
+
+## 12. FIELDS foundation (Phase 4, Gate 4.7): `src/core/fields`
+One `FieldLayer` interface (quantity, units, frame, resolution, sources, display transform, fidelity, validity, provenance, `sample`, optional `vector`); see FIELDS_ARCHITECTURE.md.
+* **Gravity:** Φ = −Σ G mᵢ/√(|r − rᵢ|² + ε²) on the z = 0 plane (J/kg), ε = 1 % of the view. The Cosmic sandbox's potential map now evaluates this layer (contours unchanged: the old km-unit formula agrees to 1e-12).
+* **Coulomb:** V = Σ qᵢ/(4πε₀|r − rᵢ|), E = Σ qᵢ(r − rᵢ)/(4πε₀|r − rᵢ|³), CODATA ε₀ (OpenStax University Physics 2 §5.3). Shown with a symmetric-log colour scale and log-compressed direction arrows (directions exact).
+* **Plane wave:** Eₓ(x, t) from `em.ts` `planeE` with the frame x axis as the propagation direction.
+* **Heat diffusion:** instantaneous point source Q in an infinite still medium (Carslaw & Jaeger 1959): T = T₀ + Q/(ρcₚ(4παt)^{3/2}) e^{−r²/4αt}, α = k/(ρcₚ) with k, ρ, cₚ interpolated from the NIST WebBook 1 atm isobar at T₀. **Simulated**, idealised: no convection, constant properties.
+* *Validation (tests/science/fields.test.ts, 20 tests):* interface completeness; k = 8.9875517 × 10⁹; E = −∇V; Gauss's law; Φ = −GM/r and |g| = GM/r²; sandbox equivalence; plane-wave periods; heat energy conservation to 1e-6 and the PDE residual ∂T/∂t = α∇²T; water α ∈ [1.43, 1.48] × 10⁻⁷ m²/s; relationship integrity (NIST spectrum list matches the dataset, Sun at 5772 K from IAU 2015 B3, every edge sourced, optical edges cite the primary dispersion paper).

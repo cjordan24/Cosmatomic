@@ -3,6 +3,7 @@
  * Unit cells and supercells (3D), crystallographic quantities computed from the cited cell, and
  * condition-tagged material properties (optical, thermal, acoustic, electrical). Missing → unknown.
  */
+import { RelatedLinks } from '@/ui/RelatedLinks';
 import { useMemo, useState } from 'react';
 import { Viewport } from '@/rendering/Viewport';
 import { navigate, setQuery, useRoute } from '@/shared/router';
@@ -168,6 +169,7 @@ export default function MaterialsView({ id }: { id: string | null }) {
         <div className="slider-row"><span>T</span><input type="range" min={200} max={1500} step={1} value={T} onChange={(e) => setT(Number(e.target.value))} aria-label="Material temperature in kelvin" /><span style={{ fontFamily: 'var(--mono)' }}>{T.toFixed(0)} K</span></div>
         {x && <CrystalPanel m={m} />}
         <PropertyPanel m={m} T={T} />
+        <RelatedLinks id={`material:${m.id}`} />
         <p className="note" style={{ marginTop: 10 }}>Unknown means no cited value is bundled. Nothing is estimated or copied from another material. Each value is valid only under its stated conditions (temperature, pressure, wavelength).</p>
       </Panel>
     </>

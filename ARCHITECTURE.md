@@ -32,10 +32,13 @@ src/
 │   │   └── laboratory/             builder operations, valence model, RDKit-JS bridge, lab scene + view
 │   ├── spectral/
 │   │   ├── atlas/                  EM band conventions, atlas view (#/spectral)
-│   │   └── laboratory/             Wave Lab (#/spectral/lab)
+│   │   ├── laboratory/             Wave Lab (#/spectral/lab)
+│   │   └── fields/                 Fields explorer (#/spectral/fields): layer toggles, opacity, metadata
 │   └── cosmic/
 │       ├── solar-system/           ephemerides, catalogue, live clock, scene, timeline, view
 │       └── sandbox/                N-body physics, presets, instruments, Experiment/Compare view
+├── core/fields/                    FIELDS layer interface + gravity, Coulomb, plane-wave, heat layers (FIELDS_ARCHITECTURE.md)
+├── shared/scientific-relationships typed, sourced entity/edge registry; ui/RelatedLinks renders both directions (SCIENTIFIC_RELATIONSHIPS.md)
 ├── rendering/                      Viewport (adaptive DPR, log depth), PointCloud shader, labels, colours
 ├── workers/orbital.worker.ts       Monte-Carlo sampling off the UI thread
 ├── shared/{router,store}.ts        hash router (deep links) + Zustand store

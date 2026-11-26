@@ -101,3 +101,14 @@ Findings:
 5. The CIE column of the lines table printed "visible", which is not a CIE band name. It now prints "—".
 6. The 1000-unit-wide SVGs rendered with unreadable text and are now drawn at their real width.
 7. The Hellwig 1970 hydrogen 21 cm paper and the Hölzer 1997 Cu Kα paper are paywalled, so those examples were dropped rather than quoted from memory.
+
+## 2026-11-26 — Phase 4, Gate 4.7 (FIELDS foundation, cross-mode links, four-portal landing)
+New `src/core/fields/fields.ts` with one `FieldLayer` interface and four layers (gravity potential, Coulomb point charges, plane-wave Eₓ, analytic heat diffusion from NIST fluid data). New Fields explorer at `#/spectral/fields` (frame selector, per-layer toggle in the URL, opacity, inputs, legends, probe readout, full metadata); the Cosmic sandbox potential map now uses the shared gravity layer and gained an opacity slider. The relationship registry gained element/spectrum, Sun/Planck-model, material/optical and material/acoustic entities and edges, rendered in both directions by `RelatedLinks` in the element view, Sun panel, material card, atlas (Lines, Blackbody, material readout; material selection now in the URL as `mat=`) and Wave lab. Landing page: SPECTRAL portal (live plane wave from `planeE`/`planeB`) and a greyed-out CELLULAR portal ("Coming soon", not a button or link), 2×2 on desktop and stacked on mobile. Two new Source-index entries (OpenStax University Physics 2; Carslaw & Jaeger 1959). New docs: FIELDS_ARCHITECTURE.md, SCIENTIFIC_RELATIONSHIPS.md, SPECTRAL_MODE_SPEC.md, BIOLOGIC_MODE_SPEC.md. 20 new science tests (323 total) and e2e tests 50–53 (47 total); Phase 1 screenshots 01 and 18 regenerated for the new landing page.
+
+Findings:
+1. The `log10-magnitude` display transform returned values below 0 for magnitudes smaller than both range ends (caught by a test); transforms now clamp to [0, 1].
+2. A dipole test probe sat on the bisector where E_y = 0, giving 0/0; moved off-axis.
+3. Optical relationship edges first cited the refractiveindex.info database rather than the primary dispersion paper; they now cite the paper with the record's DOI (tested).
+4. Playwright will not click an `aria-disabled` element; the CELLULAR test uses a forced click to show that a real click does nothing.
+5. The OUP page for Carslaw & Jaeger returned an empty 202 response; the edition and publisher were confirmed from the Open Library record instead.
+6. Screenshot review: the atom cloud and plane wave sat behind their titles in the 2×2 layout (scenes shifted right), and the mobile subtitle wrapped into the atom cloud (hidden on narrow screens).

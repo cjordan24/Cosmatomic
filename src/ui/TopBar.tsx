@@ -167,8 +167,9 @@ export function TopBar() {
         )}
         {mode === 'spectral' && (
           <nav className="chip-row hide-mobile" aria-label="Spectral sections">
-            <button className={`chip ${path[1] !== 'lab' ? 'active' : ''}`} onClick={() => navigate('/spectral')}>Atlas</button>
+            <button className={`chip ${path[1] !== 'lab' && path[1] !== 'fields' ? 'active' : ''}`} onClick={() => navigate('/spectral')}>Atlas</button>
             <button className={`chip ${path[1] === 'lab' ? 'active' : ''}`} onClick={() => navigate('/spectral/lab')}>Wave lab</button>
+            <button className={`chip ${path[1] === 'fields' ? 'active' : ''}`} onClick={() => navigate('/spectral/fields')}>Fields</button>
           </nav>
         )}
         <div className="spacer" />

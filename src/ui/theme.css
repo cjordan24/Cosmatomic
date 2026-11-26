@@ -100,18 +100,24 @@ select, input[type='date'], input[type='datetime-local'], input[type='number'] {
 input[type='range'] { accent-color: var(--accent); }
 
 /* ---------- landing ---------- */
-.landing { position: absolute; inset: 0; display: grid; grid-template-columns: 1fr 1fr; }
+.landing { position: absolute; inset: 0; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; }
 .portal { position: relative; overflow: hidden; cursor: pointer; border: 0; padding: 0; background: none; text-align: left; transition: transform 900ms cubic-bezier(.2,.7,.1,1), opacity 700ms ease, filter 700ms ease; }
 .portal .portal-canvas { position: absolute; inset: 0; }
 .portal .portal-text { position: absolute; left: 8%; bottom: 12%; z-index: 2; pointer-events: none; }
-.portal h2 { margin: 0; font-size: clamp(36px, 6vw, 84px); font-weight: 200; letter-spacing: 0.32em; }
+.portal h2 { margin: 0; font-size: clamp(32px, 4.6vw, 68px); font-weight: 200; letter-spacing: 0.32em; }
 .portal p { margin: 10px 0 0; color: var(--text-dim); letter-spacing: 0.08em; font-size: 15px; }
-.portal .cta { display: inline-block; margin-top: 22px; padding: 10px 18px; border: 1px solid currentColor; border-radius: 999px; font-size: 11px; letter-spacing: 0.22em; }
+.portal .cta { display: inline-block; margin-top: 18px; padding: 10px 18px; border: 1px solid currentColor; border-radius: 999px; font-size: 11px; letter-spacing: 0.22em; }
 .portal.atomic { color: #7df9ff; background: radial-gradient(circle at 50% 45%, #06202b 0%, #03050c 70%); }
 .portal.cosmic { color: #c9b4ff; background: radial-gradient(circle at 50% 45%, #170d2e 0%, #03050c 70%); border-left: 1px solid var(--line); }
-.portal:hover h2 { text-shadow: 0 0 30px currentColor; }
+.portal.spectral { color: #f5c76b; background: radial-gradient(circle at 50% 45%, #241805 0%, #03050c 70%); border-top: 1px solid var(--line); }
+.portal.cellular { color: #8a8f99; background: radial-gradient(circle at 50% 45%, #15171c 0%, #05060a 70%); border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
+.portal.disabled { cursor: default; filter: grayscale(1); opacity: 0.55; }
+.portal.disabled h2 { font-weight: 200; }
+.portal.disabled .soon { margin-top: 6px; color: #9aa0aa; letter-spacing: 0.32em; text-transform: uppercase; font-size: 12px; }
+.portal:not(.disabled):hover h2 { text-shadow: 0 0 30px currentColor; }
 .portal.zoom { transform: scale(1.6); opacity: 0; filter: blur(6px); }
 .portal.fade { opacity: 0; }
+.portal.disabled.fade { opacity: 0; }
 .landing-title { position: absolute; top: 34px; left: 0; right: 0; z-index: 3; text-align: center; pointer-events: none; }
 .landing-title h1 { margin: 0; font-weight: 300; letter-spacing: 0.6em; font-size: 15px; }
 .landing-title p { margin: 8px 0 0; color: var(--text-faint); font-size: 12px; letter-spacing: 0.18em; }
@@ -226,9 +232,16 @@ input[type='range'] { accent-color: var(--accent); }
   .search { width: auto; flex: 1; }
   .mode-switch button { padding: 6px 9px; letter-spacing: 0.08em; }
   .topbar .hide-mobile { display: none; }
-  .landing { grid-template-columns: 1fr; grid-template-rows: 1fr 1fr; }
-  .portal.cosmic { border-left: 0; border-top: 1px solid var(--line); }
-  .portal h2 { font-size: 40px; }
+  .landing { grid-template-columns: 1fr; grid-template-rows: repeat(4, 1fr); }
+  .portal.cosmic, .portal.cellular { border-left: 0; border-top: 1px solid var(--line); }
+  .portal h2 { font-size: 30px; letter-spacing: 0.26em; }
+  .portal p { margin-top: 4px; font-size: 12px; }
+  .portal .cta { margin-top: 8px; padding: 6px 12px; font-size: 10px; }
+  .portal .portal-text { bottom: 10%; }
+  .landing-title { top: 14px; }
+  .landing-title p { display: none; }
+  .landing-foot { bottom: 6px; padding: 0 12px; font-size: 9.5px; letter-spacing: 0.04em; }
+  .portal.cellular .portal-text { bottom: 34%; }
   .left-panel { top: auto; bottom: 8px; left: 8px; right: 8px; width: auto; height: 40%; }
   .right-panel { display: none; }
   .right-panel.mobile-open { display: flex; top: auto; bottom: 8px; left: 8px; right: 8px; width: auto; height: 46%; }

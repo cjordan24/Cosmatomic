@@ -27,6 +27,8 @@ All datasets are produced by adapters in `scripts/ingestion/` through a shared l
 | `spectral/em-bands.json` | 5 conventions + 9 examples | **Transcribed by hand** from the documents: ITU-R V.431-9 Tables 1–3 (official .docx); CIE S 017:2020 e-ILV terms 17-21-002…011 (free online); ISO 21348 category table (Space Environment Technologies summary, Internet Archive copy of 2016-03-04, read as a rendered image); Rogalski & Chrzanowski 2014 Table 1 (CC BY-NC-ND). ISO 20473 **not** transcribed (iso.org blocks automated access). Examples: NIST ASD lines, IAU 2015 B3 T_eff, Fixsen 2009 CMB temperature; Lyman-α and the 511 keV line are computed at run time. Adapter `em-bands.ts` (manifest + sha256) | docx / HTML / PDF image | Cited per convention |
 | `curated/curated-reference.json` | — | **Manually transcribed** (flagged in UI): IAU WGCCRE rotation (Archinal 2018/2011), IAU 2015 nominal solar values, Asplund et al. 2009 photospheric abundances (28 elements), NSSDC atmospheric compositions, NSSDC Saturn ring radii, Huber & Herzberg diatomic r_e, Hedberg et al. 1991 C₆₀ bond lengths, Cordero et al. 2008 covalent radii (connectivity inference only) | — | Cited per block |
 
+No new dataset in Gate 4.7: the FIELDS heat layer reuses the NIST WebBook fluid isobars already in `materials/materials.json`. New Source-index entries: OpenStax *University Physics* Vol. 2 §5.3 (Coulomb’s law) and Carslaw & Jaeger (1959) *Conduction of Heat in Solids* (point-source solution).
+
 ## Software dependencies with scientific roles
 | Package | Role | License |
 |---|---|---|

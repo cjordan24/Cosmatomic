@@ -250,6 +250,16 @@ export const SOURCES: Source[] = [
     institution: 'University of Maryland / NASA Goddard Space Flight Center', url: 'https://doi.org/10.1088/0004-637X/707/2/916', doi: '10.1088/0004-637X/707/2/916',
     authorBio: 'Dale J. Fixsen, University of Maryland at NASA Goddard Space Flight Center (as listed on the article, arXiv:0911.1955). The paper recalibrates the FIRAS data against WMAP and reviews the published measurements.',
     usedFor: ['CMB temperature 2.72548 ± 0.00057 K (blackbody example)'], datasets: ['em-bands'] },
+
+  // ---------------- Phase 4: FIELDS foundation ----------------
+  { id: 'openstax-university-physics-2', kind: 'book', citation: 'Ling, S. J., Moebs, W. and Sanny, J. (2016) University Physics, Volume 2, §5.3 Coulomb’s Law. OpenStax, Houston, Texas.', title: 'University Physics Volume 2', authors: 'S. J. Ling, W. Moebs, J. Sanny', year: 2016,
+    institution: 'OpenStax, Rice University', url: 'https://openstax.org/books/university-physics-volume-2/pages/5-3-coulombs-law', license: 'CC BY-NC-SA 4.0 (as stated in the page footer)',
+    authorBio: 'Peer-reviewed open textbook from OpenStax (Rice University); senior contributing authors Samuel J. Ling, William Moebs and Jeff Sanny, as listed in the book’s citation block.',
+    usedFor: ['Coulomb’s law F = q₁q₂/(4πε₀r²) and the point-charge field and potential (Fields explorer)'] },
+  { id: 'carslaw-jaeger-1959', kind: 'book', citation: 'Carslaw, H. S. and Jaeger, J. C. (1959) Conduction of Heat in Solids, 2nd edition. Clarendon Press, Oxford (reprinted 1986, ISBN 0-19-853368-3).', title: 'Conduction of Heat in Solids', authors: 'H. S. Carslaw, J. C. Jaeger', year: 1959,
+    institution: 'Clarendon Press / Oxford University Press', url: 'https://openlibrary.org/books/OL2545146M',
+    authorBio: 'Horatio Scott Carslaw was Professor of Pure and Applied Mathematics at the University of Sydney (1903–1935); John Conrad Jaeger taught mathematics at the University of Tasmania and later headed the Department of Geophysics at the Australian National University (1951–1972).',
+    usedFor: ['instantaneous point-source solution of the heat-conduction equation (temperature field layer)'] },
 ];
 
 const BY_ID = new Map(SOURCES.map((s) => [s.id, s]));

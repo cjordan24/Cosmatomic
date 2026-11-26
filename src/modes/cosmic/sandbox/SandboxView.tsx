@@ -45,8 +45,8 @@ function pushTrails(L: Live) {
 
 const MAX_STEPS_PER_FRAME = 4000;
 
-function SimScene({ live, running, dt, speedDaysPerSec, integrator, showL, lPair, compare, jd0, onTick, achieved, showVectors, showField }: {
-  live: React.MutableRefObject<Live>; running: boolean; dt: number; speedDaysPerSec: number; integrator: Integrator; showL: boolean; lPair: [string, string] | null; compare: boolean; jd0: number; onTick: () => void; showVectors: boolean; showField: boolean;
+function SimScene({ live, running, dt, speedDaysPerSec, integrator, showL, lPair, compare, jd0, onTick, achieved, showVectors, showField, fieldOpacity }: {
+  live: React.MutableRefObject<Live>; running: boolean; dt: number; speedDaysPerSec: number; integrator: Integrator; showL: boolean; lPair: [string, string] | null; compare: boolean; jd0: number; onTick: () => void; showVectors: boolean; showField: boolean; fieldOpacity: number;
   achieved: React.MutableRefObject<{ rate: number; capped: boolean }>;
 }) {
   const groups = useRef(new Map<string, THREE.Group>());
@@ -136,7 +136,7 @@ function SimScene({ live, running, dt, speedDaysPerSec, integrator, showL, lPair
       <gridHelper args={[Math.ceil(ext * 3) * 2, Math.ceil(ext * 3) * 2, '#1c2a4a', '#0e1630']} />
       <FrameCamera extent={ext} />
       {showVectors && <VectorField getSim={() => live.current.sim} extentAu={ext} />}
-      {showField && <PotentialMap getSim={() => live.current.sim} extentAu={ext} />}
+      {showField && <PotentialMap getSim={() => live.current.sim} extentAu={ext} opacity={fieldOpacity} />}
       {bodies.map((b) => (
         <group key={b.id}>
           <group ref={(g) => { if (g) groups.current.set(b.id, g); else groups.current.delete(b.id); }}>
@@ -199,6 +199,7 @@ export default function SandboxView() {
   const [form, setForm] = useState({ name: 'New planet', massEarths: 1, au: 1.5, circular: true });
   const [showVectors, setShowVectors] = useState(false);
   const [showField, setShowField] = useState(false);
+  const [fieldOpacity, setFieldOpacity] = useState(1);
   const [measureB, setMeasureB] = useState<string>('');
   const [expName, setExpName] = useState('');
   const [expNotes, setExpNotes] = useState('');
@@ -286,7 +287,7 @@ export default function SandboxView() {
     <>
       <Viewport camera={{ position: [0, 9, 6], fov: 45, near: 0.001, far: 2000 }}>
         <color attach="background" args={['#020309']} />
-        <SimScene live={live} running={running} dt={dt} speedDaysPerSec={speed} achieved={achieved} integrator={integrator} showL={showL} lPair={lPair} compare={compare} jd0={jd0} onTick={() => setTick((t) => t + 1)} showVectors={showVectors} showField={showField} />
+        <SimScene live={live} running={running} dt={dt} speedDaysPerSec={speed} achieved={achieved} integrator={integrator} showL={showL} lPair={lPair} compare={compare} jd0={jd0} onTick={() => setTick((t) => t + 1)} showVectors={showVectors} showField={showField} fieldOpacity={fieldOpacity} />
       </Viewport>
 
       <nav className="view-switch" aria-label="Cosmic environment">
@@ -420,6 +421,8 @@ export default function SandboxView() {
         <div className="section-title">Overlays</div>
         <label className="toggle-row" style={{ borderBottom: 0 }}><span>Velocity (cyan) & acceleration (gold) vectors</span><input type="checkbox" checked={showVectors} onChange={(e) => setShowVectors(e.target.checked)} aria-label="Show vectors" /></label>
         <label className="toggle-row" style={{ borderBottom: 0 }}><span>Gravitational potential map (log Φ, contours 0.25 dex)</span><input type="checkbox" checked={showField} onChange={(e) => setShowField(e.target.checked)} aria-label="Show potential map" /></label>
+        {showField && <div className="slider-row"><span style={{ minWidth: 60 }}>opacity</span><input type="range" min={0.1} max={1} step={0.05} value={fieldOpacity} onChange={(e) => setFieldOpacity(Number(e.target.value))} aria-label="Potential map opacity" /><span style={{ fontFamily: 'var(--mono)', fontSize: 11 }}>{Math.round(fieldOpacity * 100)}%</span></div>}
+        {showField && <p className="note" style={{ fontSize: 10.5, margin: '2px 0 6px' }}>Shared FIELDS layer “Gravitational potential” (J/kg, Newtonian, CODATA G). <button className="link-btn" onClick={() => navigate('/spectral/fields?frame=system')}>Open in the Fields explorer →</button></p>}
         <label className="toggle-row" style={{ borderBottom: 0 }}><span>Show Lagrange points{lPair ? ` (${L.sim.bodies.find((b) => b.id === lPair[0])?.name}–${L.sim.bodies.find((b) => b.id === lPair[1])?.name})` : ''}</span><input type="checkbox" checked={showL} onChange={(e) => setShowL(e.target.checked)} /></label>
 
         {compare && (

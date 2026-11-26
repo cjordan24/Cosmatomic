@@ -10,6 +10,10 @@
  * See SCIENTIFIC_RELATIONSHIPS.md.
  */
 import { REACTIONS } from '@/modes/atomic/reactions/library';
+import { elementBySymbol } from '@/modes/atomic/atoms/elements';
+import { MATERIALS } from '@/modes/atomic/materials/materials';
+import { MEDIA } from '@/core/physics/waves/media';
+import { SOURCES } from '@/shared/sources/sources';
 
 export type EntityKind = 'element' | 'molecule' | 'reaction' | 'material' | 'body' | 'wave' | 'process' | 'context' | 'structure' | 'instrument' | 'spectrum' | 'field';
 
@@ -68,6 +72,54 @@ for (const r of REACTIONS) {
   registerEntity(E(`reaction:${r.id}`, r.name, `#/atomic/reactions/${r.id}`));
   for (const to of r.relationships ?? []) registerRelationship({ from: `reaction:${r.id}`, to, type: 'participates-in', source: r.citation });
 }
+
+// ---------------------------------------------------------------- Gate 4.7 cross-mode links
+
+/** Spectra bundled in datasets/atomic/spectra-nist.json (kept in sync by tests/science/fields.test.ts). */
+export const NIST_SPECTRA = ['H I', 'D I', 'He I', 'He II', 'Li I', 'C I', 'C II', 'N I', 'N II', 'O I', 'O III', 'Ne I', 'Na I', 'Mg I', 'Mg II', 'Al I', 'Si I', 'S I', 'Ar I', 'K I', 'Ca I', 'Ca II', 'Ti I', 'Fe I', 'Fe II', 'Ni I', 'Cu I', 'Zn I', 'Sr I', 'Ba I', 'Kr I', 'Xe I', 'Hg I'];
+export const spectrumId = (spec: string) => `spectrum:${spec.replace(' ', '-')}`;
+/** Element of a spectrum label ("D I" is deuterium, i.e. hydrogen). */
+export const spectrumElement = (spec: string) => elementBySymbol(spec.split(' ')[0] === 'D' ? 'H' : spec.split(' ')[0]);
+
+// 1. Element → atomic spectrum → Spectral atlas (NIST ASD lines)
+for (const spec of NIST_SPECTRA) {
+  const el = spectrumElement(spec);
+  if (!el) continue;
+  registerEntity(E(`element:${el.Z}`, el.name, `#/atomic/element/${el.Z}`));
+  registerEntity(E(spectrumId(spec), `${spec} atomic line spectrum`, `#/spectral?tab=lines&spec=${encodeURIComponent(spec)}`, 'NIST ASD lines in the Spectral atlas'));
+  registerRelationship({ from: `element:${el.Z}`, to: spectrumId(spec), type: 'has-spectrum', context: spec === 'D I' ? 'deuterium' : undefined, source: 'nist-asd' });
+}
+
+// 2. Sun → Planck spectrum (IAU 2015 nominal T_eff = 5772 K) → Spectral atlas
+registerEntity(E('body:sun', 'Sun', '#/cosmic/sun'));
+registerEntity(E('spectrum:blackbody-5772', 'Planck spectrum at 5772 K (model of the Sun)', '#/spectral?tab=blackbody&T=5772', 'Ideal blackbody at the IAU 2015 nominal solar effective temperature; the real solar spectrum deviates'));
+registerRelationship({ from: 'body:sun', to: 'spectrum:blackbody-5772', type: 'has-spectrum', context: 'blackbody model at T_eff', source: 'iau-2015-b3' });
+registerRelationship({ from: 'body:sun', to: 'context:sunlight', type: 'emits', source: 'iau-2015-b3' });
+
+// 3. Material → optical (n(λ)) and acoustic (speed of sound) properties → Spectral atlas / Wave lab
+for (const m of MATERIALS) {
+  const ri = m.refractiveIndex;
+  const medium = MEDIA.find((x) => x.id === m.id && x.kind !== 'vacuum');
+  if (!ri && !medium) continue;
+  registerEntity(E(`material:${m.id}`, m.name, `#/atomic/materials/${m.id}`));
+  if (ri) {
+    registerEntity(E(`spectrum:n-${m.id}`, `Refractive index n(λ) of ${m.name}`, `#/spectral?mat=${m.id}&lambda=5.893e-7`, `Dispersion formula valid ${ri.rangeUm?.join('–')} µm`));
+    registerRelationship({ from: `material:${m.id}`, to: `spectrum:n-${m.id}`, type: 'has-property', context: 'optical', source: SOURCES.find((x) => ri.doi && x.doi === ri.doi)?.id ?? ri.sources[0] });
+  }
+  if (medium) {
+    registerEntity(E(`wave:sound-${m.id}`, `Sound waves in ${medium.name}`, `#/spectral/lab?demo=traveling&medium=${m.id}&wave=longitudinal&f=440&A=1e-6`, 'Wave lab: speed of sound from the NIST reference equation of state'));
+    registerRelationship({ from: `material:${m.id}`, to: `wave:sound-${m.id}`, type: 'has-property', context: 'acoustic', source: medium.sources[0] });
+  }
+}
+
+// 4. Field layers (FIELDS foundation)
+for (const [id, label, route] of [
+  ['field:gravity-potential', 'Gravitational potential field', '#/spectral/fields?frame=system'],
+  ['field:coulomb-potential', 'Electrostatic (Coulomb) field', '#/spectral/fields'],
+  ['field:plane-wave-ex', 'EM plane-wave field', '#/spectral/fields?layers=wave'],
+  ['field:heat-diffusion', 'Temperature field (heat diffusion)', '#/spectral/fields?layers=heat'],
+] as const) registerEntity(E(id, label, route));
+registerRelationship({ from: 'field:plane-wave-ex', to: 'wave:em-visible', type: 'explains', context: 'same analytic plane wave as the atlas', source: 'codata-2018' });
 
 export const getEntity = (id: string) => REGISTRY.get(id);
 export const allEntities = () => [...REGISTRY.values()];

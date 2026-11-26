@@ -3,12 +3,14 @@
  * simulation state (never drawn freehand):
  *   - VectorField: velocity (cyan) and gravitational acceleration (gold) arrows per body
  *   - PotentialMap: Newtonian potential Φ = −Σ G mᵢ/|r − rᵢ| sampled on the reference plane,
- *     log-scaled colour with contour bands every 0.25 dex
+ *     log-scaled colour with contour bands every 0.25 dex. The potential itself is the shared FIELDS
+ *     layer (src/core/fields/fields.ts, GRAVITY_LAYER), evaluated in SI on the barycentric plane.
  */
 import { useEffect, useMemo, useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
-import { accelerations, G_KM, type SimState } from './nbody';
+import { accelerations, type SimState } from './nbody';
+import { GRAVITY_LAYER, type GravityCtx } from '@/core/fields/fields';
 
 const AU = 149_597_870.7;
 
@@ -44,7 +46,7 @@ export function VectorField({ getSim, extentAu }: { getSim: () => SimState; exte
   return <group ref={group} />;
 }
 
-export function PotentialMap({ getSim, extentAu }: { getSim: () => SimState; extentAu: number }) {
+export function PotentialMap({ getSim, extentAu, opacity = 1 }: { getSim: () => SimState; extentAu: number; opacity?: number }) {
   const N = 160;
   const half = extentAu * 1.6;
   const { canvas, texture } = useMemo(() => {
@@ -61,15 +63,15 @@ export function PotentialMap({ getSim, extentAu }: { getSim: () => SimState; ext
     const g = canvas.getContext('2d')!;
     const img = g.createImageData(N, N);
     const bodies = getSim().bodies;
-    const soft = (extentAu * 0.01 * AU) ** 2;
+    // SI context for the shared gravity layer (sim positions are km)
+    const ctx: GravityCtx = { masses: bodies.map((b) => ({ x: b.x[0] * 1e3, y: b.x[1] * 1e3, z: b.x[2] * 1e3, massKg: b.mass })), soft: extentAu * 0.01 * AU * 1e3 };
     const vals = new Float32Array(N * N);
     let lo = Infinity, hi = -Infinity;
     for (let j = 0; j < N; j++) for (let i = 0; i < N; i++) {
       // plane through the centre of mass (z = 0); scene x = phys x, scene −z = phys y
       const x = ((i + 0.5) / N * 2 - 1) * half * AU, y = (1 - (j + 0.5) / N * 2) * half * AU;
-      let phi = 0;
-      for (const b of bodies) phi -= (G_KM * b.mass) / Math.sqrt((x - b.x[0]) ** 2 + (y - b.x[1]) ** 2 + b.x[2] ** 2 + soft);
-      const v = Math.log10(-phi);
+      const phi = GRAVITY_LAYER.sample(ctx, x * 1e3, y * 1e3); // J/kg
+      const v = Math.log10(-phi) - 6; // log10 of −Φ in km²/s² (same contour levels as before)
       vals[j * N + i] = v; lo = Math.min(lo, v); hi = Math.max(hi, v);
     }
     for (let k = 0; k < N * N; k++) {
@@ -84,7 +86,7 @@ export function PotentialMap({ getSim, extentAu }: { getSim: () => SimState; ext
   return (
     <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.001, 0]}>
       <planeGeometry args={[half * 2, half * 2]} />
-      <meshBasicMaterial map={texture} transparent depthWrite={false} />
+      <meshBasicMaterial map={texture} transparent depthWrite={false} opacity={opacity} />
     </mesh>
   );
 }

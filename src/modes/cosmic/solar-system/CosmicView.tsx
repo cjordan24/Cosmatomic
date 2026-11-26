@@ -1,3 +1,4 @@
+import { RelatedLinks } from '@/ui/RelatedLinks';
 import { Fragment, useEffect, useMemo, useState } from 'react';
 import { Viewport } from '@/rendering/Viewport';
 import { navigate, useRoute } from '@/shared/router';
@@ -117,6 +118,8 @@ function InfoPanel({ body, jd, measureId, setMeasureId }: { body: CelestialBody;
 
       {body.kind !== 'spacecraft' && <><div className="section-title">Missions & imagery</div>
       <p className="note">Mission histories and telescope image galleries are not yet curated (Phase 6). Nothing is shown rather than placeholder content.</p></>}
+
+      {body.id === 'sun' && <RelatedLinks id="body:sun" />}
 
       <div className="section-title">Data provenance</div>
       <SourceList sources={body.provenance} />

@@ -1,3 +1,4 @@
+import { RelatedLinks } from '@/ui/RelatedLinks';
 import { useMemo, useState } from 'react';
 import curated from '@datasets/curated/curated-reference.json';
 import { Viewport } from '@/rendering/Viewport';
@@ -169,6 +170,8 @@ export default function ElementView({ Z }: { Z: number }) {
             </div>
           </>
         )}
+
+        <RelatedLinks id={`element:${element.Z}`} />
 
         {element.description && <><div className="section-title">About</div><p className="note">{element.description}</p></>}
         <div className="section-title">Provenance</div>
