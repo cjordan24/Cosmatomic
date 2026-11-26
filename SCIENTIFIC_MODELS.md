@@ -75,6 +75,15 @@ Perception: hybridisation from bond orders; aromatic 6-rings (3 alternating doub
 * **Hill sphere** (gravity overlay): r_H = a·(m/3M)^⅓ (circular approximation).
 * Timeline playback is **ephemeris playback**, not an N-body integration (stated in the UI).
 
+## 6a. Gravitational sandbox (Phase 3.1) — Explore / Experiment / Compare
+* **Physics:** Newtonian point masses, G = CODATA 2018 (km³ kg⁻¹ s⁻²). Integrators: leapfrog KDK (2nd order) and **Yoshida (1990) 4th-order** symplectic composition (w₁ = 1/(2 − 2^⅓), w₀ = −2^⅓/(2 − 2^⅓)); fixed step, suggested as 0.2 % of the shortest pairwise orbital period.
+* **Initial conditions:** "real" presets take positions from the validated Explore ephemerides and velocities by central differences of the same models, then move to the barycentric frame; without the Moon, Earth is represented by the **Earth–Moon barycentre** with the combined mass (Earth's own state contains its monthly ±4 670 km / ±12.5 m/s wobble). Textbook presets (binary star, Trojans, Chenciner–Montgomery figure-eight) are Hypothetical.
+* **Collisions:** perfectly inelastic mergers (mass and momentum conserved, radius from volume conservation); dissipated kinetic energy is reported.
+* **Instruments:** conservation (ΔE/E, ΔL/L, |p|) with drift plot; speeds, distances, surface and orbital escape velocities; CR3BP Lagrange points (collinear by Newton iteration, L4/L5 at ±60°); event log. Edits re-centre on the barycentre and reset baselines; any edit relabels the system Hypothetical.
+* **Compare:** simulated heliocentric positions vs the Explore (JPL-element) model with per-body divergence.
+* *Validation (tests/science/sandbox.test.ts):* convergence order (halving dt: leapfrog ×3.2–4.8, Yoshida ×11–22 reduction of the max energy error); 100-yr solar system |ΔE/E| < 10⁻⁸, |ΔL/L| < 10⁻¹²; 1-yr agreement with the ephemeris < 0.002 au (Earth, Mars, Jupiter); Sun–Earth L1/L2 at 0.00997 R / 0.01004 R; Trojans stay within 0.05 au of L4/L5 for 20 Jovian years; figure-eight periodic to 10⁻³ au; Earth escape velocity 11.19 km/s; merger conservation.
+* **Display:** trails sampled in *simulated* time (~60 per shortest orbit) so shapes don't depend on frame rate; the speed control honours wall-clock time and shows the achieved rate (capped at 4 000 steps/frame).
+
 ## 6. N-body foundation (for Phase 3)
 Kick-drift-kick leapfrog (symplectic, time-reversible), optional Plummer softening, energy/momentum/angular-momentum diagnostics, deterministic snapshots & replay. *Tests:* Sun–Earth–Jupiter, 100 yr at dt = 0.5 d: |ΔE/E| < 10⁻⁶, |ΔL/L| < 10⁻¹², momentum conserved to 10⁻¹²; snapshot replay bit-identical. Validity: Newtonian, non-relativistic, no collisions.
 

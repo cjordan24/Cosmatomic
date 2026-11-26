@@ -22,7 +22,7 @@
   "14-saturn-rings.png": "Saturn at true scale: D/C/B/A/F rings (NSSDC radii) in Saturn’s equatorial plane from the IAU pole; illustrative banding; sunlit hemisphere follows the real Sun direction.",
   "15-info-panel-earth.png": "Object information panel (Earth): NSSDC physical data, atmospheric composition with clickable species, modelled position, distance and light-time tool, provenance list.",
   "15b-cross-mode-o2.png": "Cross-mode link: clicking O₂ in Earth’s atmosphere opens the oxygen molecule in Atomic mode (shared PubChem identifier).",
-  "16-timeline.png": "Simulation timeline after playing at 1 month/s then pausing (2026-11-26 07:12 UTC → 2026-12-25 14:09 UTC), stepping one day, with bookmarks open. Range clamped to JPL Table-1 validity 1800–2050.",
+  "16-timeline.png": "Simulation timeline after playing at 1 month/s then pausing (2026-11-26 07:33 UTC → 2026-12-25 11:09 UTC), stepping one day, with bookmarks open. Range clamped to JPL Table-1 validity 1800–2050.",
   "17-universal-search.png": "Universal search across elements, molecules and celestial bodies (“tita” → Titanium, Titan, Titania).",
   "17b-scale-navigator.png": "Logarithmic scale navigator (10⁻¹⁶ m → 10²⁷ m): interactive, educational and planned scales labelled honestly.",
   "18-mobile-landing.png": "Mobile layout (390×844): stacked ATOMIC / COSMIC portals.",

@@ -17,6 +17,10 @@ async function shot(page: Page, name: string, description: string) {
   log[`${name}.png`] = description;
   writeFileSync(INDEX, JSON.stringify(log, null, 2));
 }
+// Tests 22 and 25 call the LIVE PubChem service (not mocked). PubChem occasionally runs at high load
+// (X-Throttling-Control "Service status: Yellow/Red"), so this file allows retries; Playwright reports any
+// retried test as "flaky" in its summary rather than silently passing it.
+test.describe.configure({ retries: 2 });
 const errors: string[] = [];
 test.beforeEach(({ page }) => { page.on('pageerror', (e) => errors.push(e.message)); });
 test.afterEach(() => { expect(errors, errors.join(' | ')).toEqual([]); });

@@ -1,0 +1,7 @@
+{
+  "31-sandbox-inner-solar-system.png": "Experiment environment: Sun, Mercury–Mars and Jupiter seeded from today’s validated ephemeris (Derived), integrated with the Yoshida 4th-order symplectic integrator; orbit trails, energy-error plot (bounded, < 10⁻⁶) and angular-momentum conservation.",
+  "32-compare-heavy-jupiter.png": "Compare environment: Jupiter’s mass ×10 (now labelled Hypothetical). White wireframes = reference JPL-element positions; the table quantifies how far each planet’s simulated orbit departs from reality.",
+  "33-trojans-lagrange.png": "Sun–Jupiter Lagrange points L1–L5 (CR3BP, violet markers) with Trojan bodies held at L4/L5 and a displaced Trojan librating — tadpole stability verified in tests over 20 Jupiter years. Instruments show speed, distance and escape velocities.",
+  "34-figure-eight.png": "Chenciner–Montgomery figure-eight: three equal solar masses on one shared orbit (periodicity verified in tests to 10⁻³ au after one period). Hypothetical configuration.",
+  "34b-binary-added-planet.png": "Binary star (2 × 1 M☉, 0.5 au) with a circumbinary planet and a user-added world at 5 au (circular velocity computed about the primary, logged in the event list)."
+}

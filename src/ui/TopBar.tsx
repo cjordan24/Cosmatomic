@@ -81,7 +81,7 @@ export function currentScaleId(path: string[], query: URLSearchParams): string |
     if (path[1] === 'element') return query.get('view') === 'nucleus' ? 'nucleus' : 'atom';
     return 'atom';
   }
-  if (path[0] === 'cosmic') return path[1] && path[1] !== 'sun' ? 'planet' : 'solar-system';
+  if (path[0] === 'cosmic') return path[1] && path[1] !== 'sun' && path[1] !== 'sandbox' ? 'planet' : 'solar-system';
   return null;
 }
 

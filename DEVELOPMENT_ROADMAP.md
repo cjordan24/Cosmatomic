@@ -6,7 +6,7 @@ The master specification (8 phases) is the long-term product plan. Status after 
 |---|---|---|
 | **1 Foundations** | architecture, VPE core, landing, periodic table, atomic diagrams & 3D models, orbitals, molecule viewer, solar system, time controls, data adapters, screenshots | **Complete** (+ Voyager 1/2 with Blender model, encounter ephemerides) |
 | 2 Molecular Laboratory | builder, validation, geometry optimisation, 100-molecule library, PubChem search, import/export, comparison, expanded isotopes/orbitals | **Gate 2.1 done** (library 140, search, formats, comparison) · **Gate 2.2 done** (builder + two validators + identity) · **Gate 2.3 done** (VGFF-1 optimisation) · **Gate 2.4 done** (NIST spectra, isotope chart) — **Phase 2 complete** · 2.3 optimisation · 2.4 NIST spectra |
-| 3 Physics Sandbox | interactive N-body (solver + diagnostics already in `core/physics/gravity.ts`), editable systems, MD foundations, instruments, experiment manager (IndexedDB) | Foundations in place |
+| 3 Physics Sandbox | interactive N-body, editable systems, MD foundations, instruments, experiment manager (IndexedDB) | **Gate 3.1 done** (gravitational sandbox: Explore/Experiment/Compare) · 3.2 molecular dynamics · 3.3 instruments · 3.4 experiment notebook |
 | 4 Chemical & Material Science | curated reactions (unsupported → explicit state), thermodynamics, lattices, phases | Planned |
 | 5 Beyond the Solar System | nearby stars, Gaia, Exoplanet Archive, HR diagram, Milky Way | Planned (scale ladder entries reserved) |
 | 6 Deep Space | nebulae, compact objects, galaxies, JWST/Hubble galleries, relativistic visuals | Planned |

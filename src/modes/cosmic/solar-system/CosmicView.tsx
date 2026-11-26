@@ -171,6 +171,7 @@ export default function CosmicView({ focusId: focusParam }: { focusId: string })
             {[1, 10, 50, 200, 1000].map((k) => <option key={k} value={k}>{k === 1 ? 'true scale' : `×${k}`}</option>)}
           </select>
         </label>
+        <button className="icon-btn" onClick={() => navigate('/cosmic/sandbox')} title="Experiment: editable N-body sandbox (never alters the real solar system)">Experiment ⟶</button>
         <button className="icon-btn mobile-only" onClick={() => setListOpen((o) => !o)}>Objects</button>
       </div>
       {settings.sizeExaggeration > 1 && (
