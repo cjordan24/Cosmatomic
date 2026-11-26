@@ -14,14 +14,18 @@ const VERB: Partial<Record<Relationship['type'], [string, string]>> = {
   emits: ['emits', 'emitted by'],
   explains: ['explains', 'explained by'],
   'participates-in': ['part of', 'involves'],
+  absorbs: ['absorbs', 'absorbed by'],
+  'part-of': ['member of', 'includes'],
 };
 
-export function RelatedLinks({ id, title = 'Related across modes', filter }: { id: string; title?: string | null; filter?: (r: Relationship, dir: 'out' | 'in') => boolean }) {
-  const rows = [
+export function RelatedLinks({ id, title = 'Related across modes', filter, limit, first }: { id: string; title?: string | null; filter?: (r: Relationship, dir: 'out' | 'in') => boolean; limit?: number; first?: string }) {
+  const all = [
     ...relationshipsFrom(id).filter((r) => !filter || filter(r, 'out')).map((r) => ({ r, other: r.to, verb: VERB[r.type]?.[0] ?? r.type })),
     ...relationshipsTo(id).filter((r) => !filter || filter(r, 'in')).map((r) => ({ r, other: r.from, verb: VERB[r.type]?.[1] ?? r.type })),
   ];
-  if (!rows.length) return null;
+  if (!all.length) return null;
+  if (first) all.sort((a, b) => Number(b.other === first) - Number(a.other === first));
+  const rows = limit ? all.slice(0, limit) : all;
   return (
     <div className="related-links" data-entity={id}>
       {title && <div className="section-title">{title}</div>}
@@ -37,6 +41,7 @@ export function RelatedLinks({ id, title = 'Related across modes', filter }: { i
             </li>
           );
         })}
+        {rows.length < all.length && <li style={{ color: 'var(--text-faint)', listStyle: 'none' }}>… and {all.length - rows.length} more</li>}
       </ul>
     </div>
   );

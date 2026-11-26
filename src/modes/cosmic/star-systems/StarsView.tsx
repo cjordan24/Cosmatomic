@@ -11,6 +11,9 @@ import { navigate, setQuery, useRoute } from '@/shared/router';
 import { KV, Loading, Panel, ProvenanceBadge } from '@/ui/components';
 import { SourceLinks } from '@/ui/SourcesView';
 import { RelatedLinks } from '@/ui/RelatedLinks';
+import { LinePlot } from '@/ui/plots';
+import { SIGMA_SB, peakWavelength, planckLambda } from '@/core/physics/em/em';
+import { blackbodyRoute, modelTeff } from './starRegistry';
 import { StarScene, type ScenePoint, type StarFrame } from './StarScene';
 import {
   PC_IN_LY, absoluteMag, adsUrl, calibrateDwarf, crossMatch, displayColor, distancePc, distanceRangePc, galacticLB, icrsCartesian,
@@ -33,6 +36,35 @@ function framePos(o: { ra: number | null; dec: number | null; plx: number | null
   if (d === null || o.ra === null || o.dec === null) return null;
   const v = icrsCartesian(o.ra, o.dec, d);
   return frame === 'galactic' ? icrsToGalactic(v) : v;
+}
+
+/** Planck model at the class V mean T_eff (Gate 5.4): a model of the continuum, not the observed spectrum. */
+function ThermalModel({ o }: { o: NearbyObject }) {
+  const T = modelTeff(o);
+  const pts = useMemo(() => {
+    if (T === null) return [] as [number, number][];
+    const lp = peakWavelength(T), peak = planckLambda(lp, T);
+    return Array.from({ length: 160 }, (_, i) => { const l = 0.1e-6 * 10 ** ((i * 2.2) / 159); return [l * 1e6, planckLambda(l, T) / peak] as [number, number]; });
+  }, [T]);
+  if (T === null) return null;
+  const lp = peakWavelength(T);
+  const cls = parseSpectralType(o.spt)?.cls;
+  return (
+    <>
+      <div className="section-title">Thermal radiation model <ProvenanceBadge cls="derived" title="Planck law at the class V mean T_eff (CODATA constants)" /></div>
+      <LinePlot ariaLabel="Blackbody model of this star" width={360} height={150} xLog series={[{ points: pts, color: '#f5c76b' }]} xLabel="vacuum wavelength λ (µm)" yLabel="B_λ / B_λ,max" yDomain={[0, 1.25]} vLines={[{ x: 0.38, label: '380', color: 'rgba(180,140,255,0.6)' }, { x: 0.75, label: '750', color: 'rgba(255,120,120,0.6)' }]} markers={[{ x: lp * 1e6, y: 1, label: `peak ${(lp * 1e9).toFixed(0)} nm` }]} />
+      <dl className="kv" aria-label="Thermal model">
+        <KV k="Model temperature (class V mean T_eff)" v={T} unit="K" sig={4} />
+        <KV k="Peak wavelength λ_max = b/T" v={lp * 1e9} unit="nm" sig={4} />
+        <KV k="Surface flux σT⁴" v={SIGMA_SB * T ** 4} unit="W/m²" sig={4} />
+      </dl>
+      <p className="note" style={{ fontSize: 10.5 }}>Dashed lines mark 380 and 750 nm. A real stellar spectrum is not a blackbody: it carries absorption lines and, in M dwarfs, strong molecular (TiO) bands <SourceLinks ids={['openstax-astronomy-2e']} />. Planck law and constants: <SourceLinks ids={['codata-2018']} />.</p>
+      <div className="chip-row">
+        <button className="chip" onClick={() => navigate(blackbodyRoute(T, o.seq).slice(1))}>Open the {T} K blackbody in the Spectral atlas →</button>
+      </div>
+      {cls && <RelatedLinks id={`stellar-class:${cls}`} title={`Typical lines of class ${cls}`} filter={(r) => r.type === 'absorbs'} />}
+    </>
+  );
 }
 
 function ObjectPanel({ o, all, cns }: { o: NearbyObject; all: NearbyObject[]; cns: CnsStar | undefined }) {
@@ -106,6 +138,8 @@ function ObjectPanel({ o, all, cns }: { o: NearbyObject; all: NearbyObject[]; cn
           <p className="note" style={{ fontSize: 10.5 }}>{cal.exact ? 'Table row' : `Interpolated between ${cal.between!.join(' and ')}`}. {cal.caveats.join(' ')} <SourceLinks ids={['pecaut-mamajek-2013']} /></p>
         </> : <p className="note">Not calibrated: {o.type === 'white dwarf' ? 'the dwarf sequence does not cover white dwarfs' : !spt ? 'no spectral type' : spt.limit ? 'only a bound on the type is known' : spt.subdwarf ? 'subdwarfs (metal-poor) lie below the dwarf sequence' : 'type outside the table'}.</p>}
       </>}
+
+      {o.type !== 'exoplanet' && <ThermalModel o={o} />}
 
       {members.length > 1 && <>
         <div className="section-title">System {o.system} · {members.length} catalogue objects</div>

@@ -24,6 +24,16 @@ Field layers are registered as `field:*` entities routed to the Fields explorer.
 
 The Sun's blackbody is labelled a *model*: the real solar spectrum has absorption lines and departs from a single 5772 K Planck curve.
 
+## Phase 5 relationships
+
+| From | Edge | To (route) | Source | Shown in |
+|---|---|---|---|---|
+| `stellar-class:O…K` | absorbs | `spectrum:He-II`, `He-I`, `H-I`, `Ca-II`, `Fe-II`, `Ca-I`, `Fe-I` | OpenStax Astronomy 2e §17.3 | Star panel ("typical lines"), class table, atlas Lines tab |
+| `star:<seq>` (10 pc) | part-of | `stellar-class:<letter>` → `#/cosmic/stars/hr?d=classes&cls=…` | Reylé et al. 2021 (spectral type) | Star panel, class table |
+| `star:<seq>` | has-spectrum | `spectrum:blackbody-<T>` → `#/spectral?tab=blackbody&T=…&star=…` | Pecaut & Mamajek 2013 (class V mean T_eff) | Star panel ↔ atlas Blackbody tab |
+
+Star entities are registered at run time when the 10 pc catalogue loads (`starRegistry.ts`). The atlas loads the catalogue itself when opened with `star=`.
+
 ## Earlier relationships (Gate 4.1)
 
 Reaction → process/context (`participates-in`), e.g. net photosynthesis → `process:photosynthesis` (planned, Biologic Mode Phase 11), combustion → `context:energy-production`.

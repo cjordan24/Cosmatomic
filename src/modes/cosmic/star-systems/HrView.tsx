@@ -9,6 +9,7 @@ import { KV, Loading, Panel, ProvenanceBadge } from '@/ui/components';
 import { ScatterPlot, type ScatterPoint } from '@/ui/plots';
 import { SourceLinks } from '@/ui/SourcesView';
 import { DWARF_SEQUENCE, DWARF_SEQUENCE_VERSION, crossMatch, loadCns5, loadTenParsec, parseSpectralType, type CnsStar, type NearbyObject, type ObjectType } from './stars';
+import { CLASS_LINES } from '@/shared/scientific-relationships/registry';
 import { MK_CLASSES, TEFF_SUN_NOMINAL, cmdPoint, convertedGCheck, hrPoint, logLForRadius, type HrStar } from './hr';
 
 const TYPE_COLOR: Record<ObjectType, string> = { star: '#ffd27a', 'low-mass star': '#ff8a5c', 'white dwarf': '#9ec5ff', 'brown dwarf': '#d0608a', exoplanet: '#5cf2a6', unknown: '#888' };
@@ -56,7 +57,7 @@ function SelectedPanel({ o, hr, cns }: { o: NearbyObject; hr: HrStar | { reason:
   );
 }
 
-function ClassTable({ ten }: { ten: NearbyObject[] }) {
+function ClassTable({ ten, hl }: { ten: NearbyObject[]; hl: string | null }) {
   const counts = useMemo(() => {
     const c: Record<string, number> = {};
     for (const o of ten) { if (o.type === 'exoplanet') continue; const p = parseSpectralType(o.spt); const k = p?.kind === 'white-dwarf' ? 'D' : p?.cls ?? '?'; c[k] = (c[k] ?? 0) + 1; }
@@ -65,19 +66,20 @@ function ClassTable({ ten }: { ten: NearbyObject[] }) {
   return (
     <>
       <table className="table-mini" aria-label="Spectral classes" style={{ width: '100%' }}>
-        <thead><tr><th>Class</th><th>Rows</th><th>T_eff, class V (K)</th><th>Mass (M☉)</th><th>Radius (R☉)</th><th>Within 10 pc</th></tr></thead>
+        <thead><tr><th>Class</th><th>Rows</th><th>T_eff, class V (K)</th><th>Mass (M☉)</th><th>Radius (R☉)</th><th>Within 10 pc</th><th>Strongest lines</th></tr></thead>
         <tbody>
           {MK_CLASSES.map((k) => (
-            <tr key={k.cls}>
+            <tr key={k.cls} className={hl === k.cls ? 'active' : ''} style={hl === k.cls ? { background: 'rgba(177,140,255,0.16)' } : undefined}>
               <td style={{ fontFamily: 'var(--mono)', fontSize: 15 }}>{k.cls}</td>
               <td>{k.first}–{k.last}</td>
               <td>{k.teffHot.toLocaleString('en-US')} – {k.teffCool.toLocaleString('en-US')}</td>
               <td>{k.massHi !== null ? `${k.massHi} – ${k.massLo}` : 'unknown'}</td>
               <td>{k.rHi !== null ? `${k.rHi} – ${k.rLo}` : 'unknown'}</td>
               <td>{counts[k.cls] ?? 0}</td>
+              <td style={{ fontSize: 10.5 }}>{CLASS_LINES[k.cls] ? <>{CLASS_LINES[k.cls].note}{CLASS_LINES[k.cls].spectra.map((s) => <span key={s}> · <button className="link-btn" onClick={() => navigate(`/spectral?tab=lines&spec=${encodeURIComponent(s)}`)}>{s}</button></span>)}</> : '—'}</td>
             </tr>
           ))}
-          <tr><td style={{ fontFamily: 'var(--mono)', fontSize: 15 }}>D</td><td>white dwarfs</td><td colSpan={3} className="unknown">not on the main-sequence calibration</td><td>{counts.D ?? 0}</td></tr>
+          <tr><td style={{ fontFamily: 'var(--mono)', fontSize: 15 }}>D</td><td>white dwarfs</td><td colSpan={3} className="unknown">not on the main-sequence calibration</td><td>{counts.D ?? 0}</td><td>—</td></tr>
         </tbody>
       </table>
       <p className="note" style={{ fontSize: 10.5 }}>Rows from E. Mamajek’s mean dwarf sequence (version {DWARF_SEQUENCE_VERSION}), whose content is published in part as Pecaut &amp; Mamajek (2013) Table 5 <SourceLinks ids={['pecaut-mamajek-2013']} />. Masses and radii are mean values for luminosity class V; blank cells are not tabulated. Counts use the catalogue spectral types (<SourceLinks ids={['reyle-2021']} />), {counts['?'] ?? 0} objects have none.</p>
@@ -155,7 +157,7 @@ export default function HrView() {
         </>}
         {d === 'classes' && <>
           <div className="stage-head"><h1>Stellar spectral classes</h1></div>
-          <ClassTable ten={ten} />
+          <ClassTable ten={ten} hl={query.get('cls')} />
         </>}
       </div>
       <Panel id="hr-controls" className="left-panel" title="HR diagram">

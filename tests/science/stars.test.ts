@@ -295,3 +295,48 @@ describe('exoplanets within 10 pc', () => {
     expect(Math.max(...r)).toBeCloseTo(3, 9);
   });
 });
+
+// ---------------------------------------------------------------- Gate 5.4: stellar spectra and relationships
+import { registerStars, modelTeff, blackbodyId } from '@/modes/cosmic/star-systems/starRegistry';
+import { CLASS_LINES, NIST_SPECTRA, allEntities, allRelationships, getEntity, relationshipsFrom, relationshipsTo, spectrumId } from '@/shared/scientific-relationships/registry';
+import { getSource } from '@/shared/sources/sources';
+import { peakWavelength } from '@/core/physics/em/em';
+
+describe('stellar spectra and cross-links (Gate 5.4)', () => {
+  registerStars(OBJ);
+  it('class → line edges only point at bundled NIST spectra and follow O→He II, B→He I, A→H I', () => {
+    for (const { spectra } of Object.values(CLASS_LINES)) for (const s of spectra) expect(NIST_SPECTRA, s).toContain(s);
+    expect(relationshipsFrom('stellar-class:O').map((r) => r.to)).toEqual([spectrumId('He II')]);
+    expect(relationshipsFrom('stellar-class:B').map((r) => r.to)).toEqual([spectrumId('He I')]);
+    expect(relationshipsFrom('stellar-class:A').map((r) => r.to)).toEqual([spectrumId('H I')]);
+    expect(relationshipsFrom('stellar-class:M').filter((r) => r.type === 'absorbs')).toHaveLength(0); // TiO bands: no data, no edge
+  });
+  it('every star with a calibrated T_eff links to a Planck model at that temperature, and back', () => {
+    const prox = byName('Proxima Cen');
+    const T = modelTeff(prox)!;
+    expect(T).toBe(2930);
+    const r = relationshipsFrom(`star:${prox.seq}`).find((x) => x.type === 'has-spectrum')!;
+    expect(r.to).toBe(blackbodyId(2930));
+    expect(getEntity(r.to)!.route).toMatch(/#\/spectral\?tab=blackbody&T=2930/);
+    expect(relationshipsTo(blackbodyId(2930)).some((x) => x.from === `star:${prox.seq}`)).toBe(true);
+    expect(relationshipsFrom(`star:${prox.seq}`).some((x) => x.to === 'stellar-class:M')).toBe(true);
+    // a Proxima-like 2930 K blackbody peaks in the near infrared (≈ 989 nm), not in the visible
+    expect(peakWavelength(T) * 1e9).toBeCloseTo(989, 0);
+  });
+  it('white dwarfs and planets get no blackbody model; stars of class G reach Ca II through their class', () => {
+    expect(modelTeff(OBJ.find((o) => o.type === 'white dwarf')!)).toBeNull();
+    expect(modelTeff(OBJ.find((o) => o.type === 'exoplanet')!)).toBeNull();
+    const gStar = OBJ.find((o) => o.spt?.startsWith('G2'))!;
+    expect(relationshipsFrom(`star:${gStar.seq}`).some((r) => r.to === 'stellar-class:G')).toBe(true);
+    expect(relationshipsTo(spectrumId('Ca II')).some((r) => r.from === 'stellar-class:G')).toBe(true);
+  });
+  it('after star registration every edge is sourced, both ends exist and available entities have routes', () => {
+    for (const r of allRelationships()) {
+      expect(getEntity(r.from), r.from).toBeDefined();
+      expect(getEntity(r.to), `${r.from} → ${r.to}`).toBeDefined();
+      if (!r.from.startsWith('reaction:')) expect(getSource(r.source), `${r.from} → ${r.to}: ${r.source}`).toBeDefined();
+    }
+    for (const e of allEntities()) expect(e.status === 'available' ? !!e.route : e.route === null, e.id).toBe(true);
+    expect(allEntities().filter((e) => e.kind === 'star').length).toBeGreaterThan(450);
+  });
+});

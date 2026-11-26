@@ -170,3 +170,10 @@ Findings:
 2. **Data errors caught by a test:** four periastron times in the compilation are not valid Julian dates (Proxima b 245813.5, Teegarden's Star c, HD 20794 b, GJ 849 b). They are shown as unknown, with a warning.
 3. Name matching needed host-plus-letter fallbacks (Lalande 21185 b is HD 95735 b; GJ 393 b is BD+01 2447 b) and apostrophe handling ("Teegarden's b"). Three planets stay unmatched rather than being guessed (one letter differs and one is disputed).
 4. Screenshot review: the Solar System overlay forced a 1.7 au view that shrank close-in systems, and Earth's orbit was missing (JPL lists the Earth–Moon barycentre). The view now always includes Mercury but no more, and Earth is drawn.
+
+## 2026-11-26 — Phase 5, Gate 5.4 (stellar spectra and thermal radiation)
+The registry gained `star` and `stellar-class` entity kinds. Class O–K → NIST line spectra edges follow OpenStax §17.3, and the Sun's class is checked against the same text ("the spectral class assigned to the Sun is G2"). New `starRegistry.ts` registers about 470 stars on catalogue load (star → class, star → Planck model). Star panel: a thermal-radiation section with a normalised Planck plot (380/750 nm marked), λ_max and σT⁴, an atlas button and the class's typical lines. Spectral atlas: the blackbody tab shows reverse links for any registered temperature (6 shown, originating star first) and loads the catalogue when opened with `star=`. The class table has a line column and highlighting from `cls=`. RelatedLinks gained `limit`/`first` and the verbs *absorbs* and *member of*. 4 new science tests (369 total) and e2e test 57.
+
+Findings:
+1. A 2930 K star peaks at 989 nm, in the near infrared. The panel marks the visible range so this is visible at a glance; it is not stated as a "colour".
+2. Screenshot review: the atlas listed every star sharing a temperature (30 or more for common M subtypes), so the list is now capped with "… and N more". The Planck plot's peak label was clipped (y range raised). Empty-string labels on reference lines gave duplicate React keys (now labelled 380/750).

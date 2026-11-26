@@ -118,3 +118,27 @@ test('56 exoplanets: published orbits with uncertainty bands, element table, che
   expect(await mp.locator('circle').count()).toBeGreaterThan(60);
   await shot(page, '56b-gj876-mass-period', 'GJ 876 (four planets, two of them in resonance) with the mass–period diagram of all planets within 10 pc against the Solar System planets; hollow points are minimum masses.');
 });
+
+// ---------------- Gate 5.4 ----------------
+test('57 stellar spectra: Planck model per star, star ↔ blackbody and class ↔ NIST line links in both directions', async ({ page }) => {
+  await page.goto('/#/cosmic/stars?sel=1');
+  const info = page.locator('.right-panel');
+  await expect(info.getByLabel('Thermal model')).toContainText('989');
+  await expect(info.getByRole('img', { name: 'Blackbody model of this star' })).toBeVisible();
+  await expect(info).toContainText('not a blackbody');
+  await expect(info.locator('.related-links').first()).toContainText('Class M stars');
+  await info.getByLabel('Thermal model').scrollIntoViewIfNeeded();
+  await shot(page, '57a-star-thermal-model', 'Proxima Centauri: Planck model at the M5.5 V mean T_eff (2930 K, peak 989 nm in the near infrared) with the visible range marked, the caveat that real M-dwarf spectra are dominated by molecular bands, and registry links to its class and its blackbody model.');
+  await info.getByRole('button', { name: /Open the 2930 K blackbody in the Spectral atlas/ }).click();
+  await expect(page).toHaveURL(/#\/spectral\?tab=blackbody&T=2930&star=1/);
+  const back = page.locator('.related-links[data-entity="spectrum:blackbody-2930"]');
+  await expect(back).toContainText('Proxima Cen');
+  await expect(page.locator('main')).toContainText('Opened from a nearby star');
+  await shot(page, '57b-atlas-from-star', 'Spectral atlas opened from Proxima Centauri: the 2930 K Planck curve, the note that it models the continuum at the class mean temperature, and reverse links to every 10 pc star modelled at this temperature.');
+  await page.goto('/#/spectral?tab=lines&spec=Ca%20II');
+  await expect(page.locator(`.related-links[data-entity="spectrum:Ca-II"]`)).toContainText('Class G stars');
+  await page.locator(`.related-links[data-entity="spectrum:Ca-II"]`).getByRole('button', { name: 'Class G stars' }).click();
+  await expect(page).toHaveURL(/stars\/hr\?d=classes&cls=G/);
+  await expect(page.getByRole('table', { name: 'Spectral classes' })).toContainText('ionised metals');
+  await shot(page, '57c-classes-lines', 'Spectral-class table reached from the Ca II lines in the Spectral atlas, with class G highlighted and each class linked to the NIST line spectra that dominate it (OpenStax Astronomy 2e §17.3).');
+});

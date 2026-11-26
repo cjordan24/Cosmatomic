@@ -25,7 +25,7 @@ import { wavelengthToColor } from '@/modes/atomic/atoms/spectrum';
 import { isForbidden, loadNistSpectra, type NistSpectra } from '@/modes/atomic/atoms/nistSpectra';
 import { elementBySymbol } from '@/modes/atomic/atoms/elements';
 import { RelatedLinks } from '@/ui/RelatedLinks';
-import { spectrumId } from '@/shared/scientific-relationships/registry';
+import { spectrumId , getEntity } from '@/shared/scientific-relationships/registry';
 
 const C = CONSTANTS.c.value;
 type Tab = 'spectrum' | 'wave' | 'blackbody' | 'lines';
@@ -372,6 +372,10 @@ function WaveTab({ ph, pol, E0, setE0 }: { ph: ReturnType<typeof photon>; pol: P
 
 // ---------------------------------------------------------------- blackbody
 function BlackbodyTab({ T, lambda, onPick }: { T: number; lambda: number; onPick: (l: number) => void }) {
+  const starSeq = Number(useRoute().query.get('star')) || null;
+  const [, bump] = useState(0);
+  // deep link from a star: load the 10 pc catalogue so the star ↔ blackbody links are registered
+  useEffect(() => { if (starSeq !== null) import('@/modes/cosmic/star-systems/stars').then((m) => m.loadTenParsec()).then(() => bump((x) => x + 1)); }, [starSeq]);
   const lp = peakWavelength(T), np = peakFrequency(T);
   // plot unit: W sr⁻¹ m⁻² nm⁻¹ with an SI prefix chosen so the peak lies in [1, 1000)
   const peakSI = planckLambda(lp, T) * 1e-9;
@@ -402,8 +406,9 @@ function BlackbodyTab({ T, lambda, onPick }: { T: number; lambda: number; onPick
       </dl>
       <div className="chip-row"><button className="chip" onClick={() => onPick(lp)}>Select λ_max</button><button className="chip" onClick={() => onPick(C / np)}>Select c/ν_max</button></div>
       <p className="note" style={{ fontSize: 10.5 }}>Planck’s law for an ideal blackbody, with b and σ derived from h, c and k (they match the CODATA listed values exactly). Real bodies are not perfect blackbodies. The Sun’s spectrum has absorption lines and departs from a single 5772 K curve, so this is a model, not the observed solar spectrum. <SourceLinks ids={['codata-2018', 'iau-2015-b3', 'fixsen-2009']} /></p>
-      {Math.abs(T - 5772) < 0.5 && <RelatedLinks id="spectrum:blackbody-5772" />}
-      <ProvenanceBadge cls={T === 5772 || T === 2.72548 ? 'derived' : 'hypothetical'} title={T === 5772 || T === 2.72548 ? 'Planck law at a sourced temperature' : 'Planck law at a user-chosen temperature'} />
+      {getEntity(`spectrum:blackbody-${Math.round(T)}`) && Math.abs(T - Math.round(T)) < 1e-9 && <RelatedLinks id={`spectrum:blackbody-${Math.round(T)}`} limit={6} first={starSeq !== null ? `star:${starSeq}` : undefined} />}
+      {starSeq !== null && <p className="note" style={{ fontSize: 10.5 }}>Opened from a nearby star: {T} K is the class V mean T_eff for its spectral type (Pecaut &amp; Mamajek), so this curve models its continuum only. <SourceLinks ids={['pecaut-mamajek-2013']} /></p>}
+      <ProvenanceBadge cls={T === 5772 || T === 2.72548 || starSeq !== null ? 'derived' : 'hypothetical'} title={T === 5772 || T === 2.72548 || starSeq !== null ? 'Planck law at a sourced temperature' : 'Planck law at a user-chosen temperature'} />
     </div>
   );
 }

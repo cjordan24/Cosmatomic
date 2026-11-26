@@ -8,6 +8,7 @@
  */
 import { CONSTANTS, LIGHT_YEAR_M, PARSEC_M } from '@/core/constants/constants';
 import dwarfSeq from '@datasets/astronomical/mamajek-dwarf-sequence.json';
+import { registerStars } from './starRegistry';
 
 // ------------------------------------------------------------------ types
 export type ObjectType = 'star' | 'low-mass star' | 'white dwarf' | 'brown dwarf' | 'exoplanet' | 'unknown';
@@ -39,7 +40,11 @@ export interface CnsStar {
 let tenPromise: Promise<NearbyObject[]> | null = null;
 let cnsPromise: Promise<CnsStar[]> | null = null;
 export function loadTenParsec(): Promise<NearbyObject[]> {
-  tenPromise ??= import('@datasets/astronomical/nearby-stars-10pc.json').then((m) => ((m.default ?? m) as unknown as { objects: NearbyObject[] }).objects);
+  tenPromise ??= import('@datasets/astronomical/nearby-stars-10pc.json').then((m) => {
+    const objs = ((m.default ?? m) as unknown as { objects: NearbyObject[] }).objects;
+    registerStars(objs);
+    return objs;
+  });
   return tenPromise;
 }
 export function loadCns5(): Promise<CnsStar[]> {

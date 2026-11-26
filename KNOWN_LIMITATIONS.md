@@ -80,3 +80,7 @@
   * Orbits are face-on schematics with no sky orientation (Ω is not bundled). Planet positions along their orbits are not computed: periastron times are missing or invalid for about half of the planets.
   * Three catalogued planets have no elements. Planets announced after the catalogue's 2023 update are not included.
   * No habitable-zone model yet.
+* **Stellar spectra (Gate 5.4):**
+  * Each star's spectrum is a single Planck curve at a class-mean temperature. There are no observed stellar spectra, line strengths or molecular bands.
+  * Class → line links are qualitative (where each family of lines peaks), with Ca and Fe standing in for the metals.
+  * Star links appear only after the catalogue has loaded in the session, or when the atlas is opened from a star.

@@ -15,7 +15,7 @@ import { MATERIALS } from '@/modes/atomic/materials/materials';
 import { MEDIA } from '@/core/physics/waves/media';
 import { SOURCES } from '@/shared/sources/sources';
 
-export type EntityKind = 'element' | 'molecule' | 'reaction' | 'material' | 'body' | 'wave' | 'process' | 'context' | 'structure' | 'instrument' | 'spectrum' | 'field';
+export type EntityKind = 'element' | 'molecule' | 'reaction' | 'material' | 'body' | 'wave' | 'process' | 'context' | 'structure' | 'instrument' | 'spectrum' | 'field' | 'star' | 'stellar-class';
 
 export interface Entity {
   id: string; // "kind:local-id"
@@ -120,6 +120,25 @@ for (const [id, label, route] of [
   ['field:heat-diffusion', 'Temperature field (heat diffusion)', '#/spectral/fields?layers=heat'],
 ] as const) registerEntity(E(id, label, route));
 registerRelationship({ from: 'field:plane-wave-ex', to: 'wave:em-visible', type: 'explains', context: 'same analytic plane wave as the atlas', source: 'codata-2018' });
+
+// 5. Stellar classes (Gate 5.4) → the atomic line spectra that dominate them (OpenStax Astronomy 2e §17.3:
+// ionised helium peaks at O, neutral helium at B, hydrogen at about A, ionised metals between F and G,
+// neutral metals at K, molecules beyond M). Calcium and iron stand in for "metals" because both
+// ionisation stages are in the bundled NIST set. Star entities are registered when the 10 pc
+// catalogue loads (src/modes/cosmic/star-systems/starRegistry.ts).
+export const CLASS_LINES: Record<string, { spectra: string[]; note: string }> = {
+  O: { spectra: ['He II'], note: 'ionised helium' },
+  B: { spectra: ['He I'], note: 'neutral helium' },
+  A: { spectra: ['H I'], note: 'hydrogen (Balmer lines)' },
+  F: { spectra: ['Ca II', 'Fe II'], note: 'ionised metals' },
+  G: { spectra: ['Ca II', 'Fe II'], note: 'ionised metals' },
+  K: { spectra: ['Ca I', 'Fe I'], note: 'neutral metals' },
+  M: { spectra: [], note: 'molecular bands such as TiO (no molecular band data bundled)' },
+};
+for (const [cls, { spectra, note }] of Object.entries(CLASS_LINES)) {
+  registerEntity(E(`stellar-class:${cls}`, `Class ${cls} stars`, `#/cosmic/stars/hr?d=classes&cls=${cls}`));
+  for (const spec of spectra) registerRelationship({ from: `stellar-class:${cls}`, to: spectrumId(spec), type: 'absorbs', context: `strongest lines: ${note}`, source: 'openstax-astronomy-2e' });
+}
 
 export const getEntity = (id: string) => REGISTRY.get(id);
 export const allEntities = () => [...REGISTRY.values()];
