@@ -21,9 +21,12 @@
     "data:validate": "node --experimental-strip-types scripts/validation/validate-datasets.ts",
     "screenshots": "playwright test --config tests/e2e/playwright.config.ts",
     "models:build": "/Applications/Blender.app/Contents/MacOS/Blender -b --factory-startup --python scripts/blender/build_voyager.py -- \"$PWD\"",
-    "test:e2e": "playwright test --config tests/e2e/playwright.config.ts"
+    "test:e2e": "playwright test --config tests/e2e/playwright.config.ts",
+    "predev": "node scripts/build/copy-vendor.mjs",
+    "prebuild": "node scripts/build/copy-vendor.mjs"
   },
   "dependencies": {
+    "@rdkit/rdkit": "^2026.9.2",
     "@react-three/drei": "^10.7.9",
     "@react-three/fiber": "^9.8.2",
     "react": "^19.3.1",

@@ -2,5 +2,7 @@
   "23-import-xyz.png": "Imported XYZ file: connectivity inferred from covalent radii (stated), provenance “user-supplied, unverified”; exported back to MDL MOL V2000.",
   "24-compare-isomers.png": "Comparison view: ethanol vs dimethyl ether (both C₂H₆O) — side-by-side 3D models, descriptors (XLogP3, TPSA, H-bond donors) and bond-length statistics by element pair.",
   "21-library-c60.png": "Expanded library (≥100 records, biomolecules filter shown): C₆₀ built from gas-phase electron-diffraction bond lengths (1.401 / 1.458 Å) — observed provenance.",
-  "22-pubchem-search-vanillin.png": "On-demand PubChem search: “vanillin” → CID 1183 fetched live (properties + PubChem3D conformer), cached in IndexedDB and saved to “my library”."
+  "22-pubchem-search-vanillin.png": "On-demand PubChem search: “vanillin” → CID 1183 fetched live (properties + PubChem3D conformer), cached in IndexedDB and saved to “my library”.",
+  "25-lab-methanol.png": "Laboratory: methanol built by clicking (place C, grow O, add hydrogens). In-house valence rules ✓, RDKit sanitisation ✓, canonical SMILES/InChIKey, identified live in PubChem by InChIKey (CID 887).",
+  "26-lab-sandbox-hypothetical.png": "Experimental sandbox: an over-valent atom (CH₅O) is allowed only in the sandbox; both validators flag it and the structure is labelled hypothetical. Strict mode refused the same edit."
 }

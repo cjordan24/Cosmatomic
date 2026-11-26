@@ -2,7 +2,7 @@
  * Molecular 3D renderer. Coordinates are used exactly as stored (Å, 1 Å = 1 scene unit);
  * only atom/bond *drawing radii* depend on the display mode.
  */
-import { useMemo } from 'react';
+import { memo, useMemo } from 'react';
 import { OrbitControls } from '@react-three/drei';
 import { TextSprite } from '@/rendering/labels';
 import * as THREE from 'three';
@@ -12,9 +12,10 @@ import { centroid, type MoleculeRecord } from './molecules';
 
 export type MolDisplay = 'ball-stick' | 'space-fill' | 'stick' | 'wireframe';
 
-const vdwAngstrom = (Z: number) => (ELEMENTS[Z - 1].vanDerWaalsRadiusPm ?? 170) / 100;
+export const vdwAngstrom = (Z: number) => (ELEMENTS[Z - 1].vanDerWaalsRadiusPm ?? 170) / 100;
 
-function Bond({ a, b, order, radius, colorA, colorB, wire }: { a: THREE.Vector3; b: THREE.Vector3; order: number; radius: number; colorA: string; colorB: string; wire: boolean }) {
+/** Bond cylinder(s) between two points; multiple bonds drawn as parallel cylinders. Memoised. */
+export const Bond = memo(function Bond({ a, b, order, radius, colorA, colorB, wire }: { a: THREE.Vector3; b: THREE.Vector3; order: number; radius: number; colorA: string; colorB: string; wire: boolean }) {
   const dir = new THREE.Vector3().subVectors(b, a);
   const len = dir.length();
   const mid = new THREE.Vector3().addVectors(a, b).multiplyScalar(0.5);
@@ -53,7 +54,7 @@ function Bond({ a, b, order, radius, colorA, colorB, wire }: { a: THREE.Vector3;
       })}
     </>
   );
-}
+});
 
 export function MoleculeSceneContents({ mol, display, selected, onPick, showLabels }: { mol: MoleculeRecord; display: MolDisplay; selected: number[]; onPick: (i: number) => void; showLabels: boolean }) {
   const c = useMemo(() => centroid(mol), [mol]);

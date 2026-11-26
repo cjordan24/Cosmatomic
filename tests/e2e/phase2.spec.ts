@@ -76,3 +76,44 @@ test('24 comparison view: structural isomers', async ({ page }) => {
   await page.waitForTimeout(2500);
   await shot(page, '24-compare-isomers', 'Comparison view: ethanol vs dimethyl ether (both C₂H₆O) — side-by-side 3D models, descriptors (XLogP3, TPSA, H-bond donors) and bond-length statistics by element pair.');
 });
+
+test('25 laboratory: build methanol, validate with RDKit, identify via PubChem InChIKey', async ({ page }) => {
+  await page.goto('/#/atomic/lab');
+  await page.evaluate(() => localStorage.removeItem('vv.lab.structure'));
+  await page.reload();
+  await page.waitForTimeout(2500); // lazy chunk + first WebGL frame
+  const canvas = page.locator('.viewport canvas');
+  const box = (await canvas.boundingBox())!;
+  const cx = box.x + box.width / 2, cy = box.y + box.height / 2;
+  await page.getByRole('group', { name: 'Element palette' }).getByRole('button', { name: 'C', exact: true }).click();
+  await page.mouse.click(cx, cy); // place C at the work-plane origin
+  await page.waitForTimeout(400);
+  await page.getByRole('group', { name: 'Element palette' }).getByRole('button', { name: 'O', exact: true }).click();
+  await page.mouse.click(cx, cy); // click the C → grow a bonded O
+  await page.waitForTimeout(400);
+  await page.getByRole('button', { name: 'Add hydrogens' }).click();
+  const info = page.locator('.right-panel');
+  await expect(info).toContainText('CH₄O');
+  await expect(info).toContainText('Sanitised by RDKit', { timeout: 60_000 });
+  await expect(info).toContainText('OKKJLVBELUTLKV-UHFFFAOYSA-N');
+  await expect(info).toContainText('Methanol', { timeout: 30_000 });
+  await expect(info).toContainText('passes both validators');
+  await page.waitForTimeout(1000);
+  await shot(page, '25-lab-methanol', 'Laboratory: methanol built by clicking (place C, grow O, add hydrogens). In-house valence rules ✓, RDKit sanitisation ✓, canonical SMILES/InChIKey, identified live in PubChem by InChIKey (CID 887).');
+
+  // strict mode refuses a 5th bond on carbon
+  await page.getByRole('group', { name: 'Element palette' }).getByRole('button', { name: 'H', exact: true }).click();
+  await page.mouse.click(cx, cy);
+  await expect(page.locator('.left-panel [role=alert]')).toContainText(/exceeds maximum valence [14]/);
+  await expect(info).toContainText('CH₄O');
+  // sandbox allows it, labelled hypothetical
+  await page.getByLabel(/Experimental sandbox/).check();
+  await page.mouse.click(cx, cy);
+  await expect(info).toContainText('CH₅O');
+  await expect(info).toContainText('fails validation — hypothetical');
+  await expect(info).toContainText('could not sanitise');
+  await page.waitForTimeout(800);
+  await shot(page, '26-lab-sandbox-hypothetical', 'Experimental sandbox: an over-valent atom (CH₅O) is allowed only in the sandbox; both validators flag it and the structure is labelled hypothetical. Strict mode refused the same edit.');
+  await page.getByRole('button', { name: 'Undo' }).click();
+  await expect(info).toContainText('passes both validators');
+});

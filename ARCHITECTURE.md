@@ -28,7 +28,8 @@ src/
 │   │   ├── periodic-table/         layout + 13 colour schemes
 │   │   ├── atoms/                  elements, configuration engine, isotopes, spectra, AtomState, 3D scene, diagrams
 │   │   ├── orbitals/               analytic ψ_nlm, exact |ψ|² sampler, worker hook
-│   │   └── molecules/              records, formula/mass/geometry, 3D renderer, viewer
+│   │   ├── molecules/              records, formats (XYZ/MOL/SDF/PDB), PubChem client, user library, viewer, comparison
+│   │   └── laboratory/             builder operations, valence model, RDKit-JS bridge, lab scene + view
 │   └── cosmic/solar-system/        ephemerides, catalogue, live clock, scene, timeline, view
 ├── rendering/                      Viewport (adaptive DPR, log depth), PointCloud shader, labels, colours
 ├── workers/orbital.worker.ts       Monte-Carlo sampling off the UI thread

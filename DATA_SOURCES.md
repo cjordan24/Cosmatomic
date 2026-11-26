@@ -18,6 +18,11 @@ All datasets are produced by adapters in `scripts/ingestion/` through a shared l
 | `astronomical/encounter-ephemerides.json` | 6 windows | JPL Horizons planet + major-moon vectors around each Voyager encounter | REST | NASA/JPL public |
 | `curated/curated-reference.json` | — | **Manually transcribed** (flagged in UI): IAU WGCCRE rotation (Archinal 2018/2011), IAU 2015 nominal solar values, Asplund et al. 2009 photospheric abundances (28 elements), NSSDC atmospheric compositions, NSSDC Saturn ring radii, Huber & Herzberg diatomic r_e, Hedberg et al. 1991 C₆₀ bond lengths, Cordero et al. 2008 covalent radii (connectivity inference only) | — | Cited per block |
 
+## Software dependencies with scientific roles
+| Package | Role | License |
+|---|---|---|
+| @rdkit/rdkit 2026.9.2 (MinimalLib WASM) | sanitisation, canonical SMILES, InChI/InChIKey in the Laboratory; vendored to `public/vendor/rdkit` at build time, loaded on demand | BSD-3-Clause |
+
 ## 3D assets
 | Asset | Origin |
 |---|---|

@@ -96,3 +96,15 @@ export async function fetchPubChemMolecule(cid: number): Promise<MoleculeRecord>
     sourceUrl: `https://pubchem.ncbi.nlm.nih.gov/compound/${cid}`,
   };
 }
+
+/** Identify a structure by InChIKey (exact identity incl. stereo layer). Returns null if PubChem has no match. */
+export async function lookupByInChIKey(inchiKey: string): Promise<{ cid: number; title: string } | null> {
+  try {
+    const props = await getJson<{ PropertyTable: { Properties: { CID: number; Title?: string }[] } }>(`/compound/inchikey/${encodeURIComponent(inchiKey)}/property/Title/JSON`);
+    const p = props.PropertyTable.Properties[0];
+    return p ? { cid: p.CID, title: p.Title ?? `CID ${p.CID}` } : null;
+  } catch (e) {
+    if ((e as PubChemError).kind === 'not-found') return null;
+    throw e;
+  }
+}

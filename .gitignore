@@ -13,3 +13,6 @@ playwright-report/
 *.blend2
 # Vercel CLI link
 .vercel
+
+# copied from node_modules at build time
+public/vendor/

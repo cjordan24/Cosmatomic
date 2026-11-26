@@ -34,6 +34,14 @@ Every model below states its assumptions, validity range and the test that check
 * **Comparison statistics:** bond lengths grouped by element pair and order (mean ± population sd); mass-weighted radius of gyration.
 * **Imported structures** carry *Hypothetical* provenance (user-supplied, unverified) until validated in the laboratory (Phase 2.2).
 
+### 4c. Molecular builder and validation (Phase 2.2)
+* **Builder geometry** is a starting guess: new atoms at covalent-radius bond lengths (×0.87 double, ×0.78 triple) along VSEPR-like free directions; hydrogens fill open valences. Labelled "unoptimised" until Gate 2.3.
+* **In-house valence model:** allowed bond-order sums per main-group element (hypervalent P, S, Se, Te, halogens, Xe listed), shifted by formal charge isoelectronically (N⁺/O⁺ +1, O⁻/N⁻ −1, C±→3, B⁻→4). Transition metals: "no simple rule — not checked". *Test:* all 139 closed-shell library molecules raise zero errors; the only warning is the NO radical.
+* **Independent validator:** RDKit-JS MinimalLib 2026.09.2 sanitisation; canonical SMILES and InChI/InChIKey. *Tests:* InChIKey connectivity layer equals PubChem's for all 137 records; full keys equal except where a 3D conformer necessarily fixes stereocentres PubChem leaves undefined (racemates, anomeric carbons) — asserted per mismatch; RDKit and the in-house model both reject pentavalent carbon.
+* **Identity:** InChIKey → PubChem compound lookup (exact incl. stereo layer).
+* **Strict vs sandbox:** strict mode refuses edits that add valence errors; the experimental sandbox allows them and labels the structure failing validation (provenance class Hypothetical).
+* **Dihedral rotation:** Rodrigues rotation of one side of a non-ring single bond; bond lengths preserved to 1e-9 Å (test).
+
 ## 5. Solar-system dynamics
 | Body set | Model | Validated accuracy (1900–2049, vs JPL Horizons DE440/441) |
 |---|---|---|
