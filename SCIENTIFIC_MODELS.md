@@ -84,6 +84,11 @@ Perception: hybridisation from bond orders; aromatic 6-rings (3 alternating doub
 * *Validation (tests/science/sandbox.test.ts):* convergence order (halving dt: leapfrog ×3.2–4.8, Yoshida ×11–22 reduction of the max energy error); 100-yr solar system |ΔE/E| < 10⁻⁸, |ΔL/L| < 10⁻¹²; 1-yr agreement with the ephemeris < 0.002 au (Earth, Mars, Jupiter); Sun–Earth L1/L2 at 0.00997 R / 0.01004 R; Trojans stay within 0.05 au of L4/L5 for 20 Jovian years; figure-eight periodic to 10⁻³ au; Earth escape velocity 11.19 km/s; merger conservation.
 * **Display:** trails sampled in *simulated* time (~60 per shortest orbit) so shapes don't depend on frame rate; the speed control honours wall-clock time and shows the achieved rate (capped at 4 000 steps/frame).
 
+## 6b. Molecular dynamics (Phase 3.2)
+* **Model:** classical velocity-Verlet MD on the VGFF-1 potential (§4d); units Å, fs, u, kcal/mol; a[Å/fs²] = 4.184 × 10⁻⁴ · F/m; k_B = 0.0019872043 kcal mol⁻¹ K⁻¹. Maxwell–Boltzmann initial velocities (seeded), centre-of-mass motion removed, rescaled to exactly the target T; T from equipartition over 3N − 6 (linear: 3N − 5) degrees of freedom. Ensembles: NVE, or Berendsen weak coupling (τ = 100 fs; not an exact canonical sampler). Runs start from the VGFF-1 minimum.
+* *Validation (tests/science/md.test.ts):* a two-atom oscillator's simulated period equals the analytic 2π√(μ/2k) within 0.5 % (validates integrator + unit conversion); NVE energy fluctuation scales as dt² (halving dt → 3–5× smaller) with no secular drift (< 5 × 10⁻⁴ of K over 4 ps); momentum conserved to 10⁻⁹; Berendsen ⟨T⟩ within 5 % of 500 K; bit-identical trajectories for equal seeds.
+* **Fidelity label:** "Classical MD · VGFF-1 · qualitative" — VGFF-1 force constants are not fitted to vibrational spectra.
+
 ## 6. N-body foundation (for Phase 3)
 Kick-drift-kick leapfrog (symplectic, time-reversible), optional Plummer softening, energy/momentum/angular-momentum diagnostics, deterministic snapshots & replay. *Tests:* Sun–Earth–Jupiter, 100 yr at dt = 0.5 d: |ΔE/E| < 10⁻⁶, |ΔL/L| < 10⁻¹², momentum conserved to 10⁻¹²; snapshot replay bit-identical. Validity: Newtonian, non-relativistic, no collisions.
 

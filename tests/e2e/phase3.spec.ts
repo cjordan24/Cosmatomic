@@ -97,3 +97,19 @@ test('35 edits re-centre on the barycentre (net momentum stays ≈ 0)', async ({
   const p = await kv(page, 'Total momentum');
   expect(p).toBeLessThan(1e20); // vs ~2e29 without re-centring (Jupiter's momentum ~ 2.5e30 kg·km/s)
 });
+
+test('36 molecular dynamics: thermostatted ethanol at 500 K', async ({ page }) => {
+  await page.goto('/#/atomic/molecules/pubchem-702?md=1');
+  await expect(page.locator('.right-panel')).toContainText('Classical MD · VGFF-1 · qualitative', { timeout: 30_000 });
+  await page.getByLabel('Target temperature in kelvin').fill('500');
+  await page.getByRole('button', { name: /Re-initialise at 500 K/ }).click();
+  await page.waitForTimeout(6000);
+  const t = await kv(page, 'Simulated time');
+  expect(t).toBeGreaterThan(0.05); // ps
+  const T = await kv(page, 'Mean T');
+  expect(T).toBeGreaterThan(300); expect(T).toBeLessThan(700);
+  await shot(page, '36-md-ethanol-500K', 'Molecular dynamics (velocity Verlet on VGFF-1) of ethanol, Berendsen thermostat at 500 K: atoms vibrate in real time; instantaneous/mean temperature, kinetic and strain energy, and temperature/energy traces. Labelled Simulated and qualitative.');
+  await page.getByLabel('Ensemble').selectOption('nve');
+  await page.waitForTimeout(3000);
+  await shot(page, '36b-md-ethanol-nve', 'Same molecule in the NVE ensemble: total energy fluctuates (∝ dt²) around a constant value instead of being thermostatted.');
+});

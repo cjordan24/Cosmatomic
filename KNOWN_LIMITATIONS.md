@@ -20,6 +20,8 @@
 
 * **Sandbox:** point-mass Newtonian gravity only (no tides, spin, GR, radiation pressure); fixed-step integrators (very close encounters need a smaller step — the energy plot reveals it); inelastic merging is the only collision model; O(N²) forces on the main thread (fine for tens of bodies).
 
+* **Molecular dynamics:** single molecules in vacuum (no solvent, no periodic boxes, no intermolecular forces yet); qualitative VGFF-1 force constants; Berendsen thermostat; bonds drawn as single cylinders in dynamics mode.
+
 ## Visual / UX
 * Planets use flat colours and illustrative banding (no imagery/textures yet). No starfield background — catalog stars arrive with Gaia in Phase 5.
 * Saturn's rings are uniform-opacity annuli per ring (no radial optical-depth profile); no Uranian/Neptunian rings.

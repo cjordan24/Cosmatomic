@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { lazy, Suspense, useEffect, useMemo, useRef, useState } from 'react';
 import { Viewport } from '@/rendering/Viewport';
 import { navigate, setQuery, useRoute } from '@/shared/router';
 import { KV, Panel, ProvenanceBadge } from '@/ui/components';
@@ -9,6 +9,7 @@ import { toMolV2000, toPDB, toSDF, toXYZ, parseByExtension, FormatError } from '
 import { fetchPubChemMolecule, searchPubChem, PubChemError, type SearchHit } from './pubchem';
 import { useMoleculeLibrary, findMolecule } from './library';
 import manifest from '@datasets/manifests/molecules.manifest.json';
+const MoleculeDynamics = lazy(() => import('./MoleculeDynamics'));
 
 const DISPLAYS: { id: MolDisplay; label: string }[] = [
   { id: 'ball-stick', label: 'Ball & stick' }, { id: 'space-fill', label: 'Space filling' }, { id: 'stick', label: 'Stick' }, { id: 'wireframe', label: 'Wireframe' },
@@ -143,6 +144,7 @@ export default function MoleculeView({ id }: { id: string | null }) {
 
   const mol = findMolecule(id, lib.user) ?? (id && !lib.loaded ? undefined : MOLECULES.find((m) => m.name === 'Water')!);
   if (!mol) return <div className="loading">LOADING…</div>;
+  const dynamics = query.get('md') === '1';
 
   const g = GROUPS.find((x) => x.id === group)!;
   const list = all.filter((m) => g.match(m) && (!filter || `${m.name} ${m.formula} ${m.iupacName ?? ''}`.toLowerCase().includes(filter.toLowerCase())));
@@ -169,12 +171,15 @@ export default function MoleculeView({ id }: { id: string | null }) {
 
   return (
     <>
-      <Viewport key={mol.id} camera={{ position: [0, 0, cameraDistanceFor(mol)], fov: 40 }} onPointerMissed={() => setSel([])}>
-        <MoleculeSceneContents mol={mol} display={display} selected={sel} onPick={pick} showLabels={labels} />
-      </Viewport>
+      {dynamics ? <Suspense fallback={null}><MoleculeDynamics mol={mol} /></Suspense> : (
+        <Viewport key={mol.id} camera={{ position: [0, 0, cameraDistanceFor(mol)], fov: 40 }} onPointerMissed={() => setSel([])}>
+          <MoleculeSceneContents mol={mol} display={display} selected={sel} onPick={pick} showLabels={labels} />
+        </Viewport>
+      )}
 
       <nav className="view-switch" aria-label="Molecular display mode">
-        {DISPLAYS.map((d) => <button key={d.id} className={display === d.id ? 'active' : ''} onClick={() => setQuery({ display: d.id })}>{d.label}</button>)}
+        {DISPLAYS.map((d) => <button key={d.id} className={!dynamics && display === d.id ? 'active' : ''} onClick={() => setQuery({ display: d.id, md: null })}>{d.label}</button>)}
+        <button className={dynamics ? 'active' : ''} onClick={() => setQuery({ md: dynamics ? null : '1' })} title="Classical molecular dynamics (VGFF-1)">Dynamics</button>
         <button className={labels ? 'active' : ''} onClick={() => setLabels((l) => !l)} aria-pressed={labels}>Labels</button>
         <button onClick={() => navigate(`/atomic/molecules/compare?a=${mol.id}&b=${mol.id === 'pubchem-702' ? 'pubchem-8254' : 'pubchem-702'}`)}>Compare…</button>
       </nav>
@@ -200,7 +205,7 @@ export default function MoleculeView({ id }: { id: string | null }) {
         <p className="note" style={{ marginTop: 10 }}>Curated set: {manifest.records} PubChem records + experimental H₂, NO and C₆₀ ({manifest.retrievedAt.slice(0, 10)}). Salts, metals and minerals are extended lattices and arrive with the materials models (Phase 4).</p>
       </Panel>
 
-      <Panel id="mol-info" className="right-panel" title="Molecule">
+      {!dynamics && <Panel id="mol-info" className="right-panel" title="Molecule">
         <h2 style={{ margin: '0 0 2px', fontWeight: 400 }}>{mol.name}</h2>
         <div style={{ fontFamily: 'var(--mono)', fontSize: 18, color: 'var(--accent)' }}>{prettyFormula(mol.formula)}</div>
         {mol.iupacName && <div className="note">IUPAC: {mol.iupacName}</div>}
@@ -255,7 +260,7 @@ export default function MoleculeView({ id }: { id: string | null }) {
           <button className="chip" onClick={() => { const c = document.querySelector<HTMLCanvasElement>('.viewport canvas'); if (c) { const a = document.createElement('a'); a.href = c.toDataURL('image/png'); a.download = `${safeName(mol)}.png`; a.click(); } }}>PNG</button>
           {isUser && <button className="chip" onClick={async () => { await lib.remove(mol.id); navigate('/atomic/molecules'); }}>Remove from my library</button>}
         </div>
-      </Panel>
+      </Panel>}
     </>
   );
 }
