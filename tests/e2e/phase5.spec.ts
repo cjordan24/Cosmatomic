@@ -142,3 +142,34 @@ test('57 stellar spectra: Planck model per star, star ↔ blackbody and class �
   await expect(page.getByRole('table', { name: 'Spectral classes' })).toContainText('ionised metals');
   await shot(page, '57c-classes-lines', 'Spectral-class table reached from the Ca II lines in the Spectral atlas, with class G highlighted and each class linked to the NIST line spectra that dominate it (OpenStax Astronomy 2e §17.3).');
 });
+
+// ---------------- Gate 5.5 ----------------
+test('58 cross-links: star search, Sun ↔ class G and composition, Sun on the HR diagram, scale ladder', async ({ page }) => {
+  await page.goto('/#/cosmic');
+  const search = page.getByLabel('Universal search');
+  await search.fill('Sirius');
+  const hit = page.getByRole('option', { name: /Sirius A/ }).first();
+  await expect(hit).toBeVisible({ timeout: 15000 });
+  await expect(hit).toContainText('star');
+  await shot(page, '58a-search-stars', 'Universal search now finds nearby stars and exoplanets (the 10 pc catalogue loads on the first query): “Sirius” → Sirius A and B with type, spectral type and distance.');
+  await hit.click();
+  await expect(page).toHaveURL(/cosmic\/stars\?sel=\d+/);
+  await expect(page.locator('.right-panel h2')).toHaveText('alf CMa A');
+  // Sun panel: class, composition, HR link
+  await page.goto('/#/cosmic/sun');
+  const sun = page.locator('.right-panel');
+  await expect(sun.locator('.related-links')).toContainText('Class G stars');
+  await expect(sun.getByLabel('Solar photospheric elements')).toContainText('Fe');
+  await sun.getByLabel('Solar photospheric elements').scrollIntoViewIfNeeded();
+  await shot(page, '58b-sun-crosslinks', 'Sun info panel: member of class G (OpenStax: G2), Planck model link, photospheric composition (Asplund et al. 2009 log ε, each element linked to its atomic view) and links to the HR diagram and nearby stars.');
+  await sun.getByRole('button', { name: 'The Sun on the HR diagram →' }).click();
+  await expect(page).toHaveURL(/stars\/hr\?d=hr/);
+  await expect(page.getByRole('img', { name: 'Luminosity–temperature diagram' })).toContainText('Sun');
+  // element view still links to the Sun once (hand-wired line), not twice
+  await page.goto('/#/atomic/element/26');
+  await expect(page.getByRole('button', { name: /Present in the solar photosphere/ })).toBeVisible();
+  // the stellar scale level is interactive and routes to the star map
+  await page.getByTitle('Universal scale navigator').click();
+  await page.locator('.scale-nav').getByRole('button', { name: /Stellar neighbourhood/ }).click();
+  await expect(page).toHaveURL(/#\/cosmic\/stars$/);
+});

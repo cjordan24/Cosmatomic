@@ -340,3 +340,21 @@ describe('stellar spectra and cross-links (Gate 5.4)', () => {
     expect(allEntities().filter((e) => e.kind === 'star').length).toBeGreaterThan(450);
   });
 });
+
+// ---------------------------------------------------------------- Gate 5.5: the Sun among the stars
+import { SOLAR_LOG_EPS } from '@/shared/scientific-relationships/registry';
+describe('Sun cross-links (Gate 5.5)', () => {
+  it('the Sun is linked to class G (OpenStax: “G2”) and to every transcribed photospheric element', () => {
+    expect(relationshipsFrom('body:sun').find((r) => r.to === 'stellar-class:G')?.context).toBe('G2');
+    const comp = relationshipsFrom('body:sun').filter((r) => r.context === 'photospheric abundance');
+    expect(comp.length).toBe(Object.keys(SOLAR_LOG_EPS).length);
+    expect(comp.every((r) => r.source === 'asplund-2009')).toBe(true);
+    expect(relationshipsTo('element:26').some((r) => r.from === 'body:sun')).toBe(true); // iron, log ε = 7.50
+    expect(SOLAR_LOG_EPS.Fe).toBe(7.5);
+  });
+  it('class G now reaches both the Sun and 10 pc G stars', () => {
+    const into = relationshipsTo('stellar-class:G').map((r) => r.from);
+    expect(into).toContain('body:sun');
+    expect(into.filter((x) => x.startsWith('star:')).length).toBeGreaterThan(10);
+  });
+});

@@ -32,6 +32,9 @@ The Sun's blackbody is labelled a *model*: the real solar spectrum has absorptio
 | `star:<seq>` (10 pc) | part-of | `stellar-class:<letter>` → `#/cosmic/stars/hr?d=classes&cls=…` | Reylé et al. 2021 (spectral type) | Star panel, class table |
 | `star:<seq>` | has-spectrum | `spectrum:blackbody-<T>` → `#/spectral?tab=blackbody&T=…&star=…` | Pecaut & Mamajek 2013 (class V mean T_eff) | Star panel ↔ atlas Blackbody tab |
 
+| `body:sun` | part-of | `stellar-class:G` (context G2) | OpenStax Astronomy 2e §17.3 | Sun panel ↔ class table |
+| `body:sun` | has-property (photospheric abundance) | `element:<Z>` × 28 | Asplund et al. 2009 | Sun panel composition strip (element views keep their own Sun line; the duplicate edge is filtered there) |
+
 Star entities are registered at run time when the 10 pc catalogue loads (`starRegistry.ts`). The atlas loads the catalogue itself when opened with `star=`.
 
 ## Earlier relationships (Gate 4.1)

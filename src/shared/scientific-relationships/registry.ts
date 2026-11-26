@@ -14,6 +14,7 @@ import { elementBySymbol } from '@/modes/atomic/atoms/elements';
 import { MATERIALS } from '@/modes/atomic/materials/materials';
 import { MEDIA } from '@/core/physics/waves/media';
 import { SOURCES } from '@/shared/sources/sources';
+import curated from '@datasets/curated/curated-reference.json';
 
 export type EntityKind = 'element' | 'molecule' | 'reaction' | 'material' | 'body' | 'wave' | 'process' | 'context' | 'structure' | 'instrument' | 'spectrum' | 'field' | 'star' | 'stellar-class';
 
@@ -138,6 +139,18 @@ export const CLASS_LINES: Record<string, { spectra: string[]; note: string }> = 
 for (const [cls, { spectra, note }] of Object.entries(CLASS_LINES)) {
   registerEntity(E(`stellar-class:${cls}`, `Class ${cls} stars`, `#/cosmic/stars/hr?d=classes&cls=${cls}`));
   for (const spec of spectra) registerRelationship({ from: `stellar-class:${cls}`, to: spectrumId(spec), type: 'absorbs', context: `strongest lines: ${note}`, source: 'openstax-astronomy-2e' });
+}
+
+// 6. The Sun among the stars (Gate 5.5): its class (OpenStax §17.3: "the spectral class assigned to
+// the Sun is G2") and its photospheric composition (Asplund et al. 2009, the abundances already shown
+// in the element views). Planned link texts are not needed: every target here has a route.
+registerRelationship({ from: 'body:sun', to: 'stellar-class:G', type: 'part-of', context: 'G2', source: 'openstax-astronomy-2e' });
+export const SOLAR_LOG_EPS = curated.solarPhotosphericAbundances.logEpsilon as Record<string, number>;
+for (const sym of Object.keys(SOLAR_LOG_EPS)) {
+  const el = elementBySymbol(sym);
+  if (!el) continue;
+  registerEntity(E(`element:${el.Z}`, el.name, `#/atomic/element/${el.Z}`));
+  registerRelationship({ from: 'body:sun', to: `element:${el.Z}`, type: 'has-property', context: 'photospheric abundance', source: 'asplund-2009' });
 }
 
 export const getEntity = (id: string) => REGISTRY.get(id);

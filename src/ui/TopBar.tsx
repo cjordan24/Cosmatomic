@@ -1,4 +1,5 @@
-import { useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import type { NearbyObject } from '@/modes/cosmic/star-systems/stars';
 import { ELEMENTS } from '@/modes/atomic/atoms/elements';
 import { MOLECULES, prettyFormula } from '@/modes/atomic/molecules/molecules';
 import { BODIES } from '@/modes/cosmic/solar-system/bodies';
@@ -10,21 +11,31 @@ import { SCALE_LEVELS, type ScaleLevel } from '@/core/scale/scale';
 import { PHYSICS_MODULES } from '@/core/physics/modules';
 import { Logo, SearchGlyph } from './components';
 
-interface Hit { kind: 'element' | 'molecule' | 'body' | 'reaction' | 'material'; label: string; sub: string; to: string; score: number }
+interface Hit { kind: 'element' | 'molecule' | 'body' | 'reaction' | 'material' | 'star' | 'exoplanet'; label: string; sub: string; to: string; score: number }
 
-function useSearchIndex() {
+function useSearchIndex(stars: NearbyObject[] | null) {
   return useMemo(() => [
+    // nearby stars and exoplanets: the 10 pc catalogue is loaded lazily on the first search (Gate 5.5)
+    ...(stars ?? []).map((o) => ({
+      kind: o.type === 'exoplanet' ? 'exoplanet' as const : 'star' as const,
+      label: o.common && o.common !== o.name ? `${o.common} (${o.name})` : o.name,
+      sub: `${o.type}${o.spt ? ` · ${o.spt}` : ''} · ${o.plx ? (1000 / o.plx).toFixed(2) : '?'} pc`,
+      to: o.type === 'exoplanet' ? `/cosmic/stars/planets?sys=${o.sys}&pl=${o.seq}` : `/cosmic/stars?sel=${o.seq}`,
+      keys: [o.name, o.common ?? '', o.system, o.gj ?? '', o.hd ?? '', o.hip ?? ''],
+    })),
     ...ELEMENTS.map((e) => ({ kind: 'element' as const, label: `${e.name}`, sub: `${e.symbol} · Z = ${e.Z}`, to: `/atomic/element/${e.Z}`, keys: [e.name, e.symbol, String(e.Z)] })),
     ...MOLECULES.map((m) => ({ kind: 'molecule' as const, label: m.name, sub: prettyFormula(m.formula), to: `/atomic/molecules/${m.id}`, keys: [m.name, m.formula, m.iupacName ?? ''] })),
     ...BODIES.map((b) => ({ kind: 'body' as const, label: b.name, sub: b.classification, to: `/cosmic/${b.id}`, keys: [b.name, b.id] })),
     ...MATERIALS.map((m) => ({ kind: 'material' as const, label: m.name, sub: m.category, to: `/atomic/materials/${m.id}`, keys: [m.name, m.formula, m.id] })),
     ...REACTIONS.map((r) => ({ kind: 'reaction' as const, label: r.name, sub: r.contexts.join(', '), to: `/atomic/reactions/${r.id}`, keys: [r.name, r.id.replace(/-/g, ' ')] })),
-  ], []);
+  ], [stars]);
 }
 
 function Search() {
-  const index = useSearchIndex();
   const [q, setQ] = useState('');
+  const [stars, setStars] = useState<NearbyObject[] | null>(null);
+  useEffect(() => { if (q.trim().length >= 2 && !stars) import('@/modes/cosmic/star-systems/stars').then((m) => m.loadTenParsec()).then(setStars); }, [q, stars]);
+  const index = useSearchIndex(stars);
   const [open, setOpen] = useState(false);
   const [sel, setSel] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -53,7 +64,7 @@ function Search() {
       <input
         ref={inputRef}
         value={q}
-        placeholder="Search elements, molecules, worlds…"
+        placeholder="Search elements, molecules, worlds, stars…"
         aria-label="Universal search"
         onChange={(e) => { setQ(e.target.value); setOpen(true); setSel(0); }}
         onFocus={() => setOpen(true)}

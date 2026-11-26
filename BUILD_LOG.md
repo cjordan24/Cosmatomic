@@ -177,3 +177,15 @@ The registry gained `star` and `stellar-class` entity kinds. Class O–K → NIS
 Findings:
 1. A 2930 K star peaks at 989 nm, in the near infrared. The panel marks the visible range so this is visible at a glance; it is not stated as a "colour".
 2. Screenshot review: the atlas listed every star sharing a temperature (30 or more for common M subtypes), so the list is now capped with "… and N more". The Planck plot's peak label was clipped (y range raised). Empty-string labels on reference lines gave duplicate React keys (now labelled 380/750).
+
+## 2026-11-26 — Phase 5, Gate 5.5 (cross-links and portal check)
+First, a live re-check of Gate 5.4 against production: 51/51 passed. Changes:
+- Registry: body:sun → stellar-class:G (OpenStax: "the spectral class assigned to the Sun is G2") and body:sun → element:Z for the 28 transcribed Asplund et al. (2009) photospheric abundances.
+- Sun panel: related links without the composition edges, a composition strip (each element links to its atomic view, log ε shown) and buttons to the HR diagram and the star map. Element views filter the duplicate composition edge and keep their existing Sun line.
+- Universal search: nearby stars and exoplanets, with the catalogue loaded lazily on the first query of two or more characters.
+
+Landing page checked: unchanged, with four portals (stars live inside COSMIC, as planned). The scale ladder's *Stellar neighbourhood* level routes to the star map. 2 new science tests (371 total) and e2e test 58.
+
+Findings:
+1. The element view already had a hand-wired "present in the solar photosphere" line. The new edge would have duplicated it in RelatedLinks, so it is filtered there.
+2. The search index was static. Making it depend on a lazily loaded catalogue keeps the 330 kB star chunk out of every other page.

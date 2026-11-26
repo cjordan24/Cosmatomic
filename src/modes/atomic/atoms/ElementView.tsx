@@ -171,7 +171,7 @@ export default function ElementView({ Z }: { Z: number }) {
           </>
         )}
 
-        <RelatedLinks id={`element:${element.Z}`} />
+        <RelatedLinks id={`element:${element.Z}`} filter={(r) => r.context !== 'photospheric abundance'} />
 
         {element.description && <><div className="section-title">About</div><p className="note">{element.description}</p></>}
         <div className="section-title">Provenance</div>

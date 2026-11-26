@@ -1,3 +1,6 @@
+import { SOLAR_LOG_EPS, relationshipsFrom } from '@/shared/scientific-relationships/registry';
+import { getElement } from '@/modes/atomic/atoms/elements';
+import { SourceLinks } from '@/ui/SourcesView';
 import { RelatedLinks } from '@/ui/RelatedLinks';
 import { Fragment, useEffect, useMemo, useState } from 'react';
 import { Viewport } from '@/rendering/Viewport';
@@ -119,7 +122,13 @@ function InfoPanel({ body, jd, measureId, setMeasureId }: { body: CelestialBody;
       {body.kind !== 'spacecraft' && <><div className="section-title">Missions & imagery</div>
       <p className="note">Mission histories and telescope image galleries are not yet curated (Phase 6). Nothing is shown rather than placeholder content.</p></>}
 
-      {body.id === 'sun' && <RelatedLinks id="body:sun" />}
+      {body.id === 'sun' && <>
+        <RelatedLinks id="body:sun" filter={(r) => r.context !== 'photospheric abundance'} />
+        <div className="section-title">Photospheric composition <ProvenanceBadge cls="observed" title="log ε, log ε(H) = 12 (manually transcribed)" /></div>
+        <p className="note" style={{ lineHeight: 1.9 }} aria-label="Solar photospheric elements">{relationshipsFrom('body:sun').filter((r) => r.context === 'photospheric abundance').map((r) => { const Z = Number(r.to.split(':')[1]); const el = getElement(Z)!; return <span key={Z}><button className="link-btn" onClick={() => navigate(`/atomic/element/${Z}`)} title={`${el.name}: log ε = ${SOLAR_LOG_EPS[el.symbol]}`}>{el.symbol}</button> <span style={{ color: 'var(--text-faint)', fontSize: 10 }}>{SOLAR_LOG_EPS[el.symbol]}</span>{'  '}</span>; })}</p>
+        <p className="note" style={{ fontSize: 10.5 }}>log ε(X) = log₁₀(N_X/N_H) + 12 for the {Object.keys(SOLAR_LOG_EPS).length} transcribed elements; others are unknown here, not absent. <SourceLinks ids={['asplund-2009']} /></p>
+        <div className="chip-row"><button className="chip" onClick={() => navigate('/cosmic/stars/hr?d=hr')}>The Sun on the HR diagram →</button><button className="chip" onClick={() => navigate('/cosmic/stars')}>Nearby stars →</button></div>
+      </>}
 
       <div className="section-title">Data provenance</div>
       <SourceList sources={body.provenance} />

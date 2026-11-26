@@ -9,5 +9,7 @@
   "56b-gj876-mass-period.png": "GJ 876 (four planets, two of them in resonance) with the mass–period diagram of all planets within 10 pc against the Solar System planets; hollow points are minimum masses.",
   "57a-star-thermal-model.png": "Proxima Centauri: Planck model at the M5.5 V mean T_eff (2930 K, peak 989 nm in the near infrared) with the visible range marked, the caveat that real M-dwarf spectra are dominated by molecular bands, and registry links to its class and its blackbody model.",
   "57b-atlas-from-star.png": "Spectral atlas opened from Proxima Centauri: the 2930 K Planck curve, the note that it models the continuum at the class mean temperature, and reverse links to every 10 pc star modelled at this temperature.",
-  "57c-classes-lines.png": "Spectral-class table reached from the Ca II lines in the Spectral atlas, with class G highlighted and each class linked to the NIST line spectra that dominate it (OpenStax Astronomy 2e §17.3)."
+  "57c-classes-lines.png": "Spectral-class table reached from the Ca II lines in the Spectral atlas, with class G highlighted and each class linked to the NIST line spectra that dominate it (OpenStax Astronomy 2e §17.3).",
+  "58a-search-stars.png": "Universal search now finds nearby stars and exoplanets (the 10 pc catalogue loads on the first query): “Sirius” → Sirius A and B with type, spectral type and distance.",
+  "58b-sun-crosslinks.png": "Sun info panel: member of class G (OpenStax: G2), Planck model link, photospheric composition (Asplund et al. 2009 log ε, each element linked to its atomic view) and links to the HR diagram and nearby stars."
 }

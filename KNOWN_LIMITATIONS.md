@@ -84,3 +84,4 @@
   * Each star's spectrum is a single Planck curve at a class-mean temperature. There are no observed stellar spectra, line strengths or molecular bands.
   * Class → line links are qualitative (where each family of lines peaks), with Ca and Fe standing in for the metals.
   * Star links appear only after the catalogue has loaded in the session, or when the atlas is opened from a star.
+* **Cross-links (Gate 5.5):** stars appear in universal search only after the first query has loaded the 10 pc catalogue (about 70 kB gzipped), so the very first keystroke may show them a moment later. The Sun is the only star with a composition. Other stars have no metallicities or abundances bundled.
