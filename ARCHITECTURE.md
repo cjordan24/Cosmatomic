@@ -36,7 +36,8 @@ src/
 │   │   └── fields/                 Fields explorer (#/spectral/fields): layer toggles, opacity, metadata
 │   └── cosmic/
 │       ├── solar-system/           ephemerides, catalogue, live clock, scene, timeline, view
-│       └── sandbox/                N-body physics, presets, instruments, Experiment/Compare view
+│       ├── sandbox/                N-body physics, presets, instruments, Experiment/Compare view
+│       └── star-systems/           nearby-star catalogues, astrometry, calibrations, 3D map (#/cosmic/stars)
 ├── core/fields/                    FIELDS layer interface + gravity, Coulomb, plane-wave, heat layers (FIELDS_ARCHITECTURE.md)
 ├── shared/scientific-relationships typed, sourced entity/edge registry; ui/RelatedLinks renders both directions (SCIENTIFIC_RELATIONSHIPS.md)
 ├── rendering/                      Viewport (adaptive DPR, log depth), PointCloud shader, labels, colours
@@ -45,7 +46,7 @@ src/
 └── ui/                             top bar, search, scale navigator, settings, panels, theme
 ```
 
-Reserved (empty) folders from the master spec — `modes/atomic/{reactions,laboratory}`, `modes/cosmic/{star-systems,galaxies,nebulae,black-holes,universe}` — are the extension points for Phases 2–7.
+Reserved (empty) folders from the master spec — `modes/atomic/{reactions,laboratory}`, `modes/cosmic/{galaxies,nebulae,black-holes,universe}` — are the extension points for Phases 2–7.
 
 ## Data flow
 

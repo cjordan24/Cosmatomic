@@ -112,3 +112,27 @@ Findings:
 4. Playwright will not click an `aria-disabled` element; the CELLULAR test uses a forced click to show that a real click does nothing.
 5. The OUP page for Carslaw & Jaeger returned an empty 202 response; the edition and publisher were confirmed from the Open Library record instead.
 6. Screenshot review: the atom cloud and plane wave sat behind their titles in the 2×2 layout (scenes shifted right), and the mobile subtitle wrapped into the atom cloud (hidden on narrow screens).
+
+## 2026-11-26 — Phase 5, Gate 5.1 (nearby-star catalogue)
+New adapter `nearby-stars.ts` with three datasets:
+- the 10 pc sample (Reylé et al. 2021, 2023 update): 562 objects with per-value bibcodes;
+- CNS5 within 20 pc: 2 986 objects with resulting G and G−RP;
+- the Mamajek / Pecaut & Mamajek dwarf sequence.
+
+New science module `star-systems/stars.ts`: parallax distance with 1σ interval, absolute magnitude, κμ/ϖ tangential velocity, ICRS→galactic Hipparcos matrix, spectral-type parser, class V calibration with refusals, and a 10 pc ↔ CNS5 cross-match.
+
+New view `#/cosmic/stars`:
+- a 3D map in parsecs with the Sun at the origin, galactic or ICRS frame (in the URL), rings, drop lines and labels;
+- the CNS5 20 pc layer (in the URL);
+- type filters and a system list by distance;
+- an object panel showing every value with an ADS link to its original reference, derived quantities, the calibration labelled as a typical value, system members and planets.
+
+Also: Cosmic chips (Solar system · Nearby stars · Sandbox); the "Stellar neighbourhood" scale level is now interactive; a Stellar physics module was added to the engine registry; six Source-index entries (Reylé 2021, Golovin 2023, Pecaut & Mamajek 2013, Gaia EDR3, Liu et al. 2011, VizieR), with DOIs checked on Crossref and affiliations read from the papers' first pages. 24 new science tests (347 total) and e2e test 54.
+
+Findings:
+1. CDS Strasbourg (VizieR, SIMBAD) was offline after a cybersecurity incident. Its notice lists official mirrors, and the Harvard CfA VizieR mirror serves the same catalogues. The SIMBAD mirror's robots.txt disallows automated access, so SIMBAD was not used.
+2. The Gaia archive documentation returned only a placeholder page, so the galactic matrix comes from Liu et al. (2011), which quotes the Hipparcos matrix and the pole values.
+3. The catalogue's object-type codes (*, LM, BD, WD, Planet) and its G_CODE convention were confirmed from the paper text (arXiv PDF read with PDFKit). Its authors state that estimated G values are not for scientific use, so they are shown as estimates only.
+4. **A test caught a cross-match error:** CNS5 lists α Cen AB as one Hipparcos entry, and matching α Cen A to it would have given the star its pair's magnitude. Component matches to combined entries are now refused.
+5. Two of my test expectations were wrong (Proxima M_G is 13.41, not 11.41; the Hipparcos matrix is orthonormal only to 1e-10). The data were right.
+6. Screenshot review: the epoch printed as "2,000", the toolbar wrapped, labels crowded the centre, and systems were named after their first member (Proxima rather than α Cen). Now the epoch prints as J2000.0, frame names are shorter, fewer systems are labelled, and the list uses the brightest member and the system name.

@@ -1,0 +1,28 @@
+{
+  "dataset": "nearby-stars-10pc",
+  "version": "2023-08-25",
+  "records": 562,
+  "sources": [
+    {
+      "institution": "Reylé, C. et al. (2021) A&A 650, A201 — The 10 parsec sample in the Gaia era",
+      "url": "https://doi.org/10.1051/0004-6361/202140985",
+      "license": "CC BY 4.0",
+      "notes": "catalogue Table A.1, update of 25 Aug 2023 (Reylé et al. 2023, Cool Stars 21)"
+    },
+    {
+      "institution": "CDS VizieR (mirror at Harvard–Smithsonian CfA)",
+      "url": "https://vizier.cfa.harvard.edu/viz-bin/asu-tsv?-source=J/A%2bA/650/A201/tablea1&-out.max=unlimited&-out.all",
+      "license": "VizieR rules of usage: free for scientific use with citation"
+    }
+  ],
+  "adapter": "scripts/ingestion/nearby-stars.ts",
+  "warnings": [
+    "Object counts in this catalogue version: low-mass star: 286, exoplanet: 85, star: 68, brown dwarf: 102, white dwarf: 21.",
+    "G_ESTIMATE (gCode 10/20) values are estimates the authors say should not be used for scientific purposes; they are shown as estimates and excluded from diagrams.",
+    "Planets inherit the host position and parallax (r_plx = “FROM:host”)."
+  ],
+  "output": "datasets/astronomical/nearby-stars-10pc.json",
+  "retrievedAt": "2026-11-26T20:11:17.078Z",
+  "bytes": 380090,
+  "sha256": "7c29718f298173d2d130a485a834bee83dd7ff9ba32155bc63bc80946807cdd6"
+}

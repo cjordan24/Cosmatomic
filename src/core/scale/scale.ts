@@ -27,7 +27,7 @@ export const SCALE_LEVELS: ScaleLevel[] = [
   { id: 'surface', label: 'Planetary surfaces', log10m: 4, support: 'planned', route: null, example: 'Olympus Mons ≈ 600 km wide' },
   { id: 'planet', label: 'Planets', log10m: 7.1, support: 'interactive', route: '#/cosmic/earth', example: 'Earth diameter 12 756 km' },
   { id: 'solar-system', label: 'Solar system', log10m: 12.7, support: 'interactive', route: '#/cosmic', example: 'Neptune orbit ≈ 60 au across' },
-  { id: 'stellar', label: 'Stellar neighbourhood', log10m: 17, support: 'planned', route: null, example: 'Alpha Centauri at 1.34 pc' },
+  { id: 'stellar', label: 'Stellar neighbourhood', log10m: 17, support: 'interactive', route: '#/cosmic/stars', example: 'Proxima Centauri at 1.30 pc; 10 pc ≈ 3.1 × 10¹⁷ m' },
   { id: 'galaxy', label: 'Galaxies', log10m: 21, support: 'planned', route: null, example: 'Milky Way disc ≈ 30 kpc' },
   { id: 'cluster', label: 'Galaxy clusters', log10m: 23, support: 'planned', route: null, example: 'Virgo Cluster ≈ 2 Mpc' },
   { id: 'web', label: 'Cosmic web', log10m: 24.7, support: 'planned', route: null, example: 'Laniakea ≈ 160 Mpc' },

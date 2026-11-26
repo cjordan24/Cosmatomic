@@ -86,7 +86,7 @@ export function currentScaleId(path: string[], query: URLSearchParams): string |
     if (path[1] === 'element') return query.get('view') === 'nucleus' ? 'nucleus' : 'atom';
     return 'atom';
   }
-  if (path[0] === 'cosmic') return path[1] && path[1] !== 'sun' && path[1] !== 'sandbox' ? 'planet' : 'solar-system';
+  if (path[0] === 'cosmic') return path[1] === 'stars' ? 'stellar' : path[1] && path[1] !== 'sun' && path[1] !== 'sandbox' ? 'planet' : 'solar-system';
   return null;
 }
 
@@ -163,6 +163,13 @@ export function TopBar() {
             <button className={`chip ${path[1] === 'materials' ? 'active' : ''}`} onClick={() => navigate('/atomic/materials')}>Materials</button>
             <button className={`chip ${path[1] === 'phases' ? 'active' : ''}`} onClick={() => navigate('/atomic/phases')}>Phases</button>
             <button className={`chip ${path[1] === 'lab' ? 'active' : ''}`} onClick={() => navigate('/atomic/lab')}>Laboratory</button>
+          </nav>
+        )}
+        {mode === 'cosmic' && (
+          <nav className="chip-row hide-mobile" aria-label="Cosmic sections">
+            <button className={`chip ${path[1] !== 'stars' && path[1] !== 'sandbox' ? 'active' : ''}`} onClick={() => navigate('/cosmic')}>Solar system</button>
+            <button className={`chip ${path[1] === 'stars' ? 'active' : ''}`} onClick={() => navigate('/cosmic/stars')}>Nearby stars</button>
+            <button className={`chip ${path[1] === 'sandbox' ? 'active' : ''}`} onClick={() => navigate('/cosmic/sandbox')}>Sandbox</button>
           </nav>
         )}
         {mode === 'spectral' && (

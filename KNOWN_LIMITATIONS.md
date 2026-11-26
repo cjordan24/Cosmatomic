@@ -58,3 +58,13 @@
 * **FIELDS:** four layers only, all analytic. The gravity map is softened near each body and Newtonian. Coulomb charges are ideal points in vacuum (no dielectrics, no conductors, no magnetostatics yet). The plane wave is infinite and unbounded. Heat diffusion ignores convection, which dominates quickly in real fluids, and holds k, ρ and cₚ fixed at T₀; only the six NIST fluids at 1 atm have thermal data (solids show no temperature layer). Layers of different frames (lab metres vs au) cannot be drawn together.
 * **Cross-mode links:** three relationship families (element ↔ spectrum, Sun ↔ Planck model, material ↔ optical/acoustic). Other stars, absorption spectra of molecules and solids, and real solar irradiance are not linked yet.
 * **Landing page:** CELLULAR is a disabled placeholder until Biologic Mode (Phase 11).
+
+## Phase 5
+* **Nearby stars (Gate 5.1):**
+  * Positions are at each catalogue epoch (J2016.0 for Gaia, J2000.0 or J1991.25 for others). Stellar motion over time is not propagated yet.
+  * Within 10 pc the census is the published one: some cool brown dwarfs are certainly still missing (Reylé et al. 2021).
+  * CNS5 between 10 and 20 pc is shown as points only (no spectral types). Objects near 20 pc may scatter across the boundary within their errors.
+  * Stars too bright for Gaia (α Cen A/B and others) have no measured G in the 10 pc catalogue. Where CNS5 has a resolved Hipparcos-converted G it is shown; unresolved pairs are not split.
+  * Spectral-type calibrations assume luminosity class V. Subgiants such as δ Eri or β Hyi get dwarf values (stated in the panel). White dwarfs and subdwarfs are not calibrated.
+  * Point colours and sizes are illustrative.
+  * Data were fetched from the CDS mirror at Harvard CfA while CDS Strasbourg was offline. The content is the same VizieR catalogue.

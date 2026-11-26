@@ -294,3 +294,8 @@ input[type='range'] { accent-color: var(--accent); }
 .mode-switch button.spectral.active { background: #f5c76b; color: #1a1205; }
 .wave-canvas { display: block; width: 100%; max-width: 760px; height: auto; border-radius: 12px; border: 1px solid var(--line); background: #03050c; }
 .no-propagation { padding: 28px; border: 1px dashed var(--warn); border-radius: 12px; color: var(--text); font-size: 14px; line-height: 1.6; }
+
+/* ---------- Phase 5: nearby stars ---------- */
+.cosmic-tools.stars-tools { left: 354px; }
+.star-legend { position: absolute; z-index: 6; left: 354px; right: 444px; bottom: 12px; font-size: 10.5px; line-height: 1.45; padding: 6px 10px; border-radius: 10px; background: var(--glass); border: 1px solid var(--line); backdrop-filter: blur(12px); }
+@media (max-width: 900px) { .star-legend { display: none; } .cosmic-tools.stars-tools { left: 8px; } }

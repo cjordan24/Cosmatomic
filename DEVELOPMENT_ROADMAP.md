@@ -14,7 +14,7 @@ Treat each phase below as a proposal. Re-assess numerical methods, dataset acces
 | **2 Molecular Laboratory** | builder, two validators, VGFF-1 optimisation, 140-molecule library, PubChem search, formats, comparison, NIST spectra | **Complete** |
 | **3 Physics Sandbox** | N-body Explore/Experiment/Compare, molecular dynamics, instruments, IndexedDB notebook | **Complete** |
 | **4 Matter, Materials, Energy & Wave Foundations** | 4.1 reactions · 4.2 thermochemistry · 4.3 crystals & materials · 4.4 phases · 4.5 wave engine · 4.6 Spectral Mode · 4.7 FIELDS + cross-mode links | **Complete** (Gates 4.1–4.7) |
-| 5 Interstellar & Stellar | nearby stars, exoplanets, Gaia, stellar classes, HR diagram, stellar spectroscopy and thermal radiation, links to composition | Planned |
+| **5 Interstellar & Stellar** | 5.1 nearby stars · 5.2 stellar classes & HR diagram · 5.3 exoplanets · 5.4 stellar spectra & thermal radiation · 5.5 cross-links | **In progress** (Gate 5.1 done) |
 | 6 Deep Space & Invisible Gravity | nebulae, galaxies, compact objects, black holes, relativity foundations, lensing, JWST/Hubble galleries, rotation curves, first dark-matter halo models | Planned |
 | 7 Cosmology & Observable Universe | clusters, large-scale structure, distances, CMB, dark-matter evidence explorer, dark energy, expansion history, GWOSC observations | Planned (FLRW module + tests exist) |
 | 8 Unified Scale & Relationships | universal scale navigation, relationship registry UI, integrated spectroscopy, shared instruments, unified notebook, pathways | Planned (registry started in 4.1) |
@@ -38,5 +38,15 @@ The astronomy roadmap (Phases 5–8) keeps its place. It is not postponed until 
 | 4.5 | Shared wave-physics engine and Wave Laboratory (`#/spectral/lab`) | **Done** |
 | 4.6 | Spectral Mode: EM spectrum atlas (`#/spectral`) with named band conventions (ITU-R V.431, CIE S 017, ISO 21348, detector IR), photon energy, 3D plane wave with polarisation, blackbody, NIST lines linked from the element view | **Done** |
 | 4.7 | FIELDS foundation (gravity, point charge, plane wave, temperature) and three cross-mode relationships; landing page with four portals (ATOMIC · COSMIC · SPECTRAL live; CELLULAR greyed out, “Coming soon”); Biologic architecture documents | **Done** |
+
+## Phase 5 gates
+
+| Gate | Deliverable | Status |
+|---|---|---|
+| 5.1 | Nearby-star catalogue: 10 pc sample (Reylé et al. 2021/2023) with per-value references, CNS5 to 20 pc, 3D map in galactic/ICRS frames (`#/cosmic/stars`), derived distance, M, v_t, dwarf calibrations, stellar scale level | **Done** |
+| 5.2 | Stellar classes and HR diagram (observational CMD + theoretical HR), Sun from IAU 2015 values | Planned |
+| 5.3 | Exoplanets from published elements with uncertainties | Planned |
+| 5.4 | Stellar spectra and thermal radiation; star ↔ spectrum and element-line links | Planned |
+| 5.5 | Cross-links and portal check | Planned |
 
 If a gate turns out much larger than planned, it is split into documented sub-gates. Scientific quality is not reduced to make it fit.

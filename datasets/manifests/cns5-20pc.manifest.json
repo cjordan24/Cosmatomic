@@ -1,0 +1,27 @@
+{
+  "dataset": "cns5-20pc",
+  "version": "corrected version 13-Dec-2023",
+  "records": 2986,
+  "sources": [
+    {
+      "institution": "Golovin, A. et al. (2023) A&A 670, A19 — The Fifth Catalogue of Nearby Stars (CNS5)",
+      "url": "https://doi.org/10.1051/0004-6361/202244250",
+      "license": "CC BY 4.0"
+    },
+    {
+      "institution": "CDS VizieR (mirror at Harvard–Smithsonian CfA)",
+      "url": "https://vizier.cfa.harvard.edu/viz-bin/asu-tsv?-source=J/A%2bA/670/A19/cns5&plx=%3E%3D50&-out.max=unlimited&-out=CNS5,GJ,Comp,NComp,GaiaDR3,HIP,RAJ2000,DEJ2000,Epoch,plx,e_plx,r_plx,pmRA,pmDE,RV,Gmagr,e_Gmagr,(G-RP)r,e_(G-RP)r,f_(G-RP)r",
+      "license": "VizieR rules of usage: free for scientific use with citation"
+    }
+  ],
+  "adapter": "scripts/ingestion/nearby-stars.ts",
+  "warnings": [
+    "Selection: parallax ≥ 50 mas (smallest kept 50 mas). Objects near 20 pc may scatter across the boundary within their parallax errors.",
+    "fGRP: 0 = deblended Gaia EDR3 G−RP, 1 = uncorrected EDR3 value, 2 = converted from Hipparcos (Golovin et al. 2023, Table 3 note a).",
+    "Objects without Gaia or Hipparcos photometry (mostly cool brown dwarfs) have no resulting G and are absent from the colour–magnitude diagram."
+  ],
+  "output": "datasets/astronomical/cns5-20pc.json",
+  "retrievedAt": "2026-11-26T20:11:18.972Z",
+  "bytes": 503358,
+  "sha256": "d2ec2c92a6be8b35c6ac4fcfd4bc7f536201708c4f5b5ec61a7a978151e1d807"
+}
