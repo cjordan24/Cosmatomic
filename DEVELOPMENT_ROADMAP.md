@@ -1,38 +1,42 @@
 # Development roadmap
 
-The master specification (8 phases) is the long-term product plan. Status after Phase 1:
+**Mission:** an interactive, scientifically grounded representation of matter, energy, space, waves, fields and life, so users can explore the connected physical processes that shape reality.
+
+Four environments share one set of records, data services, renderers and solvers: **ATOMIC** (cyan) · **COSMIC** (violet) · **SPECTRAL** (amber) · **BIOLOGIC** (emerald). A fifth system, **FIELDS**, is contextual and is not a separate mode. Focused specifications: [SPECTRAL_MODE_SPEC](SPECTRAL_MODE_SPEC.md) · [FIELDS_ARCHITECTURE](FIELDS_ARCHITECTURE.md) · [BIOLOGIC_MODE_SPEC](BIOLOGIC_MODE_SPEC.md) · [SCIENTIFIC_RELATIONSHIPS](SCIENTIFIC_RELATIONSHIPS.md).
+
+Treat each phase below as a proposal. Re-assess numerical methods, dataset access and compute cost before starting it. A feature listed here does not exist until its gate is marked done.
+
+## Status
 
 | Phase | Scope | Status |
 |---|---|---|
-| **1 Foundations** | architecture, VPE core, landing, periodic table, atomic diagrams & 3D models, orbitals, molecule viewer, solar system, time controls, data adapters, screenshots | **Complete** (+ Voyager 1/2 with Blender model, encounter ephemerides) |
-| 2 Molecular Laboratory | builder, validation, geometry optimisation, 100-molecule library, PubChem search, import/export, comparison, expanded isotopes/orbitals | **Gate 2.1 done** (library 140, search, formats, comparison) · **Gate 2.2 done** (builder + two validators + identity) · **Gate 2.3 done** (VGFF-1 optimisation) · **Gate 2.4 done** (NIST spectra, isotope chart) — **Phase 2 complete** · 2.3 optimisation · 2.4 NIST spectra |
-| 3 Physics Sandbox | interactive N-body, editable systems, MD foundations, instruments, experiment manager (IndexedDB) | **Gate 3.1 done** (gravitational sandbox: Explore/Experiment/Compare) · **Gate 3.2 done** (molecular dynamics) · **Gates 3.3–3.4 done** (instruments, notebook) — **Phase 3 complete** |
-| 4 Chemical & Material Science | curated reactions (unsupported → explicit state), thermodynamics, lattices, phases | Planned |
-| 5 Beyond the Solar System | nearby stars, Gaia, Exoplanet Archive, HR diagram, Milky Way | Planned (scale ladder entries reserved) |
-| 6 Deep Space | nebulae, compact objects, galaxies, JWST/Hubble galleries, relativistic visuals | Planned |
-| 7 Observable Universe | catalog streaming, cosmic web, redshift distances (FLRW module + tests exist) | Foundations in place |
-| 8 Unified Scale Explorer | continuous multiscale navigation, spectroscopy, nucleosynthesis | Cross-links (Sun→H, atmosphere→molecules) already working |
+| **1 Foundations** | architecture, physics core, landing, periodic table, atomic models, orbitals, molecule viewer, solar system, timeline, data adapters | **Complete** |
+| **2 Molecular Laboratory** | builder, two validators, VGFF-1 optimisation, 140-molecule library, PubChem search, formats, comparison, NIST spectra | **Complete** |
+| **3 Physics Sandbox** | N-body Explore/Experiment/Compare, molecular dynamics, instruments, IndexedDB notebook | **Complete** |
+| **4 Matter, Materials, Energy & Wave Foundations** | 4.1 reactions · 4.2 thermochemistry · 4.3 crystals & materials · 4.4 phases · 4.5 wave engine · 4.6 Spectral Mode · 4.7 FIELDS + cross-mode links | **In progress**: Gate 4.1 done |
+| 5 Interstellar & Stellar | nearby stars, exoplanets, Gaia, stellar classes, HR diagram, stellar spectroscopy and thermal radiation, links to composition | Planned |
+| 6 Deep Space & Invisible Gravity | nebulae, galaxies, compact objects, black holes, relativity foundations, lensing, JWST/Hubble galleries, rotation curves, first dark-matter halo models | Planned |
+| 7 Cosmology & Observable Universe | clusters, large-scale structure, distances, CMB, dark-matter evidence explorer, dark energy, expansion history, GWOSC observations | Planned (FLRW module + tests exist) |
+| 8 Unified Scale & Relationships | universal scale navigation, relationship registry UI, integrated spectroscopy, shared instruments, unified notebook, pathways | Planned (registry started in 4.1) |
+| 9 Applied Waves & Communications | 9.1 EM fields & antennas · 9.2 RF/wireless atlas · 9.3 3D communications room · 9.4 modulation lab · 9.5 acoustic lab · 9.6 audio synthesis/FFT · 9.7 room acoustics & resonance | Planned |
+| 10 Optics, Radiation & Energy | 10.1 geometric optics · 10.2 wave optics · 10.3 polarisation & optical materials · 10.4 atomic/molecular spectroscopy · 10.5 thermal radiation & energy transfer · 10.6 camera/telescope instruments · 10.7 atmospheric radiation & remote sensing | Planned |
+| 11 Biologic Foundations | 11.1 bio data infrastructure & atlas · 11.2 biomolecular encyclopedia · 11.3 protein structures · 11.4 cells · 11.5 organelles & membranes · 11.6 transport & biochemistry · 11.7 plant cells & microorganisms | Planned |
+| 12 Human Anatomy & Physiology | 12.1 reference model · 12.2 skeletal/muscular · 12.3 cardiovascular/respiratory · 12.4 nervous system & electrophysiology · 12.5 digestive/urinary/endocrine · 12.6 immune/reproductive/integumentary · 12.7 organ-to-cell navigation | Planned |
+| 13 Waves, Life & Imaging | 13.1 vision · 13.2 hearing · 13.3 bioelectricity · 13.4 EM–tissue interactions · 13.5 optical & electron microscopy · 13.6 ultrasound/X-ray/MRI · 13.7 integrated visualisations | Planned |
+| 14 Advanced Foundations | 14.1 Standard Model atlas · 14.2 quantum lab · 14.3 nuclear physics & nucleosynthesis · 14.4 plasma/MHD · 14.5 advanced relativity · 14.6 cosmology & dark-matter model comparison · 14.7 unified pathways | Planned |
 
-## Implemented vs planned (Phase 1 detail)
+The astronomy roadmap (Phases 5–8) keeps its place. It is not postponed until every new field is finished.
 
-**Implemented:** constants registry & dimension-checked units · TDB clock with leap seconds · seeded RNG · snapshots/replay · leapfrog N-body + conservation diagnostics · FLRW distances · module registry with validity limits · provenance classes · 16-level scale navigator · landing portals with zoom transition · universal search · settings (reduced motion, high contrast) · keyboard navigation · 118-element table, 13 colour schemes with legends/units/no-data hatching, filters · isotopes (CIAAW + NUBASE) and ion states · 5 3D atom views · 8 2D diagrams · excitation/emission (one-electron) · 49 molecules: 4 display modes, measurement, XYZ/JSON/PNG export · solar system: Sun, 8 planets, 5 dwarf planets, 22 moons, Voyager 1 & 2 · IAU orientations · Saturn rings · orbit paths · Hill-sphere overlay · two reference frames · size exaggeration (disclosed) · distance & light-time tool · timeline (play/reverse/rate/step/date/now/slider/bookmarks) · cross-mode links · 11 data adapters + validator · 73 scientific tests · 18 browser tests / 33 screenshots.
+## Phase 4 gates (expanded)
 
-**Planned (not in Phase 1):** molecular builder & reactions · NIST spectra · asteroid/Kuiper belts, comets, Trojans, Oort-cloud population model, further spacecraft · planetary imagery/textures · experiment notebook (IndexedDB) · stars, galaxies, cosmology visualisation · WebGPU path · optional Python/RDKit backend.
+| Gate | Deliverable | Status |
+|---|---|---|
+| 4.1 | Curated reaction library (52 cited equations), atom/charge conservation, exact stoichiometry solver, explicit *unsupported* state, molecule-viewer links, reaction → biology/atmosphere relationships | **Done** |
+| 4.2 | Standard-state thermochemistry (CODATA Key Values + NIST WebBook), ΔrH°/ΔrS°/ΔrG°(T)/K, Hess's law, energy diagrams, reusable energy-transfer interfaces | Planned |
+| 4.3 | Crystal lattices (unit cells, supercells, coordination, packing, density, Bragg spacings); material records with condition-tagged optical/electrical/thermal/acoustic properties | Planned |
+| 4.4 | H₂O and CO₂ phase diagrams (IAPWS / Span–Wagner), intermolecular forces, qualitative Lennard-Jones fluid; phase ↔ wave-propagation links | Planned |
+| 4.5 | Shared wave-physics engine and Wave Laboratory (`#/spectral/lab`) | Planned |
+| 4.6 | Spectral Mode: EM spectrum atlas, photon energy, plane-wave visualisation, atomic spectroscopy link | Planned |
+| 4.7 | FIELDS foundation (gravity, point charge, plane wave, temperature) and three cross-mode relationships; landing page with four environments; Biologic architecture documents only | Planned |
 
----
-
-## Recommended implementation prompt for Phase 2
-
-> **Voyager Ventures — Phase 2: Molecular Laboratory.**
-> Continue the existing repository (read ARCHITECTURE.md, SCIENTIFIC_MODELS.md, KNOWN_LIMITATIONS.md first; do not rewrite working systems; keep science / data / rendering separation and the provenance rules).
->
-> 1. **Library to ≥ 100 validated molecules:** extend `scripts/ingestion/pubchem-molecules.ts` (amino acids ×20, nucleobases/nucleotides, fatty acids, ATP/NADH, common minerals' formula units, interstellar molecules from a cited ISM census). Add experimental geometries where available (NIST CCCBDB) and keep computed-vs-experimental badges. Add C₆₀ from an experimental structure source with citation.
-> 2. **On-demand PubChem search** (name/formula/SMILES → CID → 3D record) with caching in IndexedDB, rate limiting ≤ 5 req/s, and an explicit "no 3D conformer available" state.
-> 3. **Molecular builder** in `src/modes/atomic/laboratory/`: place atoms from the periodic table, bond/unbond, bond orders 1–3 + aromatic, formal charges, delete/replace, move/duplicate fragments, bond rotation; live Hill formula & mass; undo/redo.
-> 4. **Validation:** valence/charge rules with clear warnings; a clearly labelled *Hypothetical* sandbox for disallowed structures. Evaluate RDKit-JS (WASM) for sanitisation/SMILES/InChI; if adopted, document size and load lazily.
-> 5. **Geometry optimisation:** implement UFF (or MMFF94 via RDKit-JS) in a Web Worker with convergence criteria, energy reporting and validity limits; label results *Simulated*.
-> 6. **Import/export:** XYZ, MOL/SDF V2000, PDB (small molecules), SMILES; round-trip tests.
-> 7. **Comparison view:** two molecules side by side with bond-length/angle tables.
-> 8. **Expanded atomic models:** ingest NIST ASD lines for ≥ 20 elements and show real emission/absorption spectra; add isotope comparison charts.
-> 9. **Tests:** extend `tests/science` (valence validation, optimiser reproduces water/methane/benzene geometries within stated tolerances, format round-trips) and `tests/e2e` with screenshots to `screenshots/phase-02/`.
-> 10. Update all docs, BUILD_LOG.md and KNOWN_LIMITATIONS.md; return screenshots, validation results and a Phase 3 prompt.
+If a gate turns out much larger than planned, it is split into documented sub-gates. Scientific quality is not reduced to make it fit.

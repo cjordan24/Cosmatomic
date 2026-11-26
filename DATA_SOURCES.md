@@ -1,5 +1,7 @@
 # Data sources
 
+**Source index.** Every source (data services, papers, books, standards) is registered in `src/shared/sources/sources.ts` and listed on the website at `#/sources`. Each entry has the full citation, a DOI or official link, the institution, the licence, a short note on the authors (verified affiliations only, otherwise "not verified") and what it is used for. Records link to their entries. `tests/science/sources.test.ts` fails if a dataset manifest or a curated record has no indexed source. All DOIs were checked against Crossref (title, authors, year) and all URLs were fetched before publishing.
+
 All datasets are produced by adapters in `scripts/ingestion/` through a shared library providing per-host rate limiting, exponential backoff on 429/5xx, an on-disk cache (`datasets/.cache/`, git-ignored), per-response and per-dataset storage budgets, and a manifest (`datasets/manifests/*.manifest.json`) recording sources, retrieval time, record count, size and SHA-256. `npm run data:validate` re-verifies every file. Adapters send a generic client name only — no personal data. All endpoints used are official documented APIs or public-domain tables; no credentials are required.
 
 | Dataset (`datasets/…`) | Records | Source | Access | Terms |
@@ -17,6 +19,7 @@ All datasets are produced by adapters in `scripts/ingestion/` through a shared l
 | `astronomical/horizons-reference-vectors.json` | 9 bodies × 5 epochs | JPL Horizons state vectors — **test ground truth only** | REST | NASA/JPL public |
 | `astronomical/spacecraft-voyager.json` | 2 | JPL Horizons `-31`, `-32` vectors + trajectory section metadata parsed from the Horizons header | REST | NASA/JPL public |
 | `astronomical/encounter-ephemerides.json` | 6 windows | JPL Horizons planet + major-moon vectors around each Voyager encounter | REST | NASA/JPL public |
+| `chemistry/reactions.json` | 52 | **Hand-curated** stoichiometric equations, each cited: OpenStax Chemistry 2e (CC BY 4.0), Greenwood & Earnshaw, Seinfeld & Pandis, Chapman 1930, Molina & Rowland 1974, Tielens 2013, Gould & Salpeter 1963, Berg et al. *Biochemistry*. No numeric values. Written by `scripts/ingestion/curated-reactions.ts` (manifest + sha256) | — | Equations are facts; sources cited per entry |
 | `curated/curated-reference.json` | — | **Manually transcribed** (flagged in UI): IAU WGCCRE rotation (Archinal 2018/2011), IAU 2015 nominal solar values, Asplund et al. 2009 photospheric abundances (28 elements), NSSDC atmospheric compositions, NSSDC Saturn ring radii, Huber & Herzberg diatomic r_e, Hedberg et al. 1991 C₆₀ bond lengths, Cordero et al. 2008 covalent radii (connectivity inference only) | — | Cited per block |
 
 ## Software dependencies with scientific roles

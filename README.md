@@ -4,10 +4,10 @@ An interactive, scientifically grounded sandbox for exploring the physical unive
 
 | Mode | What you can do in Phase 1 |
 |---|---|
-| **ATOMIC** — *explore the building blocks of existence* | 118-element periodic table with 13 data colour schemes · per-element atomic models driven by one validated dataset (shell model, \|ψ\|² clouds, analytic s/p/d/f orbitals, nucleus, size) · 8 linked 2D diagrams · isotope & ion switching · excitation/emission for one-electron atoms · 49-molecule 3D viewer with measurement and export |
+| **ATOMIC** — *explore the building blocks of existence* | **Phase 4:** curated reaction library with exact balancing and conservation checks (`#/atomic/reactions`) · 118-element periodic table with 13 data colour schemes · per-element atomic models driven by one validated dataset (shell model, \|ψ\|² clouds, analytic s/p/d/f orbitals, nucleus, size) · 8 linked 2D diagrams · isotope & ion switching · excitation/emission for one-electron atoms · 49-molecule 3D viewer with measurement and export |
 | **COSMIC** — *explore the structure of the universe* | Navigable solar system (Sun, 8 planets, Pluto + 4 dwarf planets, 22 major moons, Voyager 1 & 2) at true scale with floating-origin rendering · JPL-validated positions 1800–2050 · Horizons encounter ephemerides for the Voyager flybys · info panels with provenance · universal timeline with reverse playback, stepping and bookmarks |
 
-Every value is traceable to a source and a reliability class (**Observed · Derived · Simulated · Illustrative · Hypothetical**). Missing data is shown as *unknown* — never invented.
+A **Source Index** (`#/sources`) lists every source with its link, institution and a verified note on its authors. Every value is traceable to a source and a reliability class (**Observed · Derived · Simulated · Illustrative · Hypothetical**). Missing data is shown as *unknown* — never invented.
 
 ---
 
@@ -25,7 +25,7 @@ npm run dev          # http://localhost:5173
 | `npm run dev` | Vite dev server with HMR |
 | `npm run build` | Type-check (`tsc -b`) + production build to `dist/` |
 | `npm run preview` | Serve the production build at http://localhost:4173 |
-| `npm test` | **Scientific validation suite** (Vitest, 73 tests) |
+| `npm test` | **Scientific validation suite** (Vitest) |
 | `npm run test:e2e` | Browser verification + milestone screenshots (Playwright; run `npx playwright install chromium` once) |
 | `npm run data:all` | Re-ingest all datasets from PubChem / JPL / NASA (rate-limited, cached in `datasets/.cache/`) |
 | `npm run data:validate` | Verify every dataset against its manifest (SHA-256, size, JSON) |
@@ -44,7 +44,7 @@ The built app is fully static — the curated datasets ship with it, so it works
 ## Deployment
 
 The app is a static site (`dist/`). A `vercel.json` is included (`npm run build`, output `dist`, immutable asset caching). Any static host works (Netlify, GitHub Pages with a relative base, S3/CloudFront).
-**Nothing has been deployed** and no external resources were provisioned — deploy only with explicit approval.
+Production: https://voyager-ventures.vercel.app (Vercel Hobby, deployed after each gate).
 
 Environment variables: none required. See `.env.example` for the optional (server-side only) NASA API key placeholder for future adapters.
 

@@ -39,3 +39,6 @@
 * Cosmic labels live in a DOM overlay above the canvas; wheel events over labels are forwarded to the canvas so zoom still works.
 * drei `<Html>` caused "removeChild" errors on canvas teardown under React 19 and was replaced by `src/rendering/labels.tsx`; avoid reintroducing it.
 * Console shows a `THREE.Clock` deprecation warning originating inside @react-three/fiber (harmless).
+
+## Phase 4
+* **Reactions:** the library holds 52 curated equations. Balancing proves conservation only. Voyager predicts no products, kinetics or mechanisms. Equations not in the library are shown as *not verified*. The solver ignores the coefficients the user typed for photons and third bodies (always 1). Net biological equations hide their pathways (stated in each record). Surface catalysts (dust grains, Fe, V₂O₅, Pt–Rh) are given as conditions, not as species.

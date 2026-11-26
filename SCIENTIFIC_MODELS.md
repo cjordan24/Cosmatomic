@@ -102,3 +102,13 @@ FLRW with matter, Λ and curvature (radiation neglected, < 0.1 % for z < 10); Si
 
 ## 8. Visual conventions (never used in physics)
 CPK colours (PubChem), illustrative giant-planet banding (procedural, not imagery), size exaggeration with on-screen disclosure (radii ×k, Sun capped ×20, moon distances expanded per system only as needed to clear the enlarged planet (factor max(1, 1.6·k·R/a_min))), sunward default camera, photon wave-packet animation (illustrative).
+
+## 9. Chemistry and materials (Phase 4)
+
+### 9a. Reactions and conservation (Gate 4.1)
+* **Library:** 52 hand-curated equations (`datasets/chemistry/reactions.json`): combustion, industrial synthesis, acid–base, precipitation, redox, the atmospheric Chapman and Cl/NOₓ cycles, interstellar ion–molecule chemistry, and net biological equations. Each entry cites its source and states whether it is an *elementary step*, an *equilibrium* or a *net equation* (multi-step pathway). Photosynthesis, respiration and fermentation carry caveats that they are not single reactions.
+* **Species syntax:** `formula[^charge][(phase)]`, where `hν` is a photon and `M` an unspecified third body (both carry no atoms and no charge). Element symbols are validated against all 118 elements.
+* **Conservation:** per-element atom totals and net charge, compared exactly.
+* **Stoichiometry solver:** the composition matrix A (elements + charge × species, products negated) is reduced with exact BigInt rational arithmetic, and the null space classifies the input. Nullity 0 means *unbalanceable*. Nullity 1 gives the unique smallest positive integers, or *infeasible* if a sign is wrong. Nullity > 1 means *ambiguous*: several reactions are mixed and conservation alone cannot fix them.
+* **No product prediction.** Reactant-only input returns an explicit *unsupported* state, plus a lookup (not a prediction) of curated reactions that contain those reactants. A balanced equation that is not in the library is labelled *balanced · not verified*: conservation is necessary for a real reaction, but it doesn't show the reaction occurs.
+* *Validation (tests/science/reactions.test.ts):* every curated reaction conserves atoms and charge, and the solver reproduces each curated set of coefficients. Textbook checks: octane 2/25/16/18; KMnO₄ + HCl 2/16/2/2/8/5; Ca₃(PO₄)₂ + SiO₂ + C 2/6/10/6/1/10; ionic MnO₄⁻/Fe²⁺ 1/5/8/1/5/4; Cr₂O₇²⁻ half-reaction 1/14/6/2/7. Ambiguous and unbalanceable sets are detected, and so is reactant-only input.

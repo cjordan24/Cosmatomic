@@ -9,6 +9,7 @@ import { toMolV2000, toPDB, toSDF, toXYZ, parseByExtension, FormatError } from '
 import { fetchPubChemMolecule, searchPubChem, PubChemError, type SearchHit } from './pubchem';
 import { useMoleculeLibrary, findMolecule } from './library';
 import manifest from '@datasets/manifests/molecules.manifest.json';
+import { reactionsForMolecule } from '../reactions/library';
 const MoleculeDynamics = lazy(() => import('./MoleculeDynamics'));
 
 const DISPLAYS: { id: MolDisplay; label: string }[] = [
@@ -154,6 +155,7 @@ export default function MoleculeView({ id }: { id: string | null }) {
   const composition = (() => { const c = new Map<number, number>(); mol.atoms.forEach((a) => c.set(a.Z, (c.get(a.Z) ?? 0) + 1)); return [...c.entries()].sort((x, y) => x[0] - y[0]); })();
   const formulaOk = hillFormula(mol.atoms) === mol.formula;
   const isUser = lib.user.some((m) => m.id === mol.id);
+  const molReactions = reactionsForMolecule(mol.id);
 
   const openRecord = async (m: MoleculeRecord) => { await lib.add(m); setSel([]); navigate(`/atomic/molecules/${m.id}`); };
   const onFile = async (f: File) => {
@@ -249,6 +251,16 @@ export default function MoleculeView({ id }: { id: string | null }) {
         <div className="chip-row">
           {composition.map(([Z, n]) => <button key={Z} className="chip" onClick={() => navigate(`/atomic/element/${Z}`)}>{ELEMENTS[Z - 1].symbol} × {n}</button>)}
         </div>
+
+        {molReactions.length > 0 && (
+          <>
+            <div className="section-title">Reactions · curated library</div>
+            <div className="chip-row">
+              {molReactions.slice(0, 12).map((r) => <button key={r.id} className="chip" onClick={() => navigate(`/atomic/reactions/${r.id}`)}>{r.name}</button>)}
+              {molReactions.length > 12 && <span className="note">+{molReactions.length - 12} more</span>}
+            </div>
+          </>
+        )}
 
         <div className="section-title">Geometry & provenance</div>
         <p className="note">{mol.geometry.source}{mol.geometry.experimental || mol.geometry.provenance === 'hypothetical' ? '' : ' — force-field bond lengths can deviate by a few hundredths of an ångström from experiment.'} Bond orders are Kekulé.</p>

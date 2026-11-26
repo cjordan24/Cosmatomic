@@ -1,0 +1,41 @@
+{
+  "dataset": "reactions",
+  "version": "1.0.0",
+  "records": 52,
+  "sources": [
+    {
+      "institution": "OpenStax Chemistry 2e",
+      "url": "https://openstax.org/details/books/chemistry-2e",
+      "license": "CC BY 4.0",
+      "notes": "stoichiometry, acid–base, precipitation, redox"
+    },
+    {
+      "institution": "Greenwood & Earnshaw, Chemistry of the Elements (2nd ed.)",
+      "url": "https://doi.org/10.1016/C2009-0-30414-6",
+      "notes": "industrial processes (cited, not reproduced)"
+    },
+    {
+      "institution": "Seinfeld & Pandis (2016); Chapman (1930); Molina & Rowland (1974)",
+      "url": "https://doi.org/10.1038/249810a0",
+      "notes": "atmospheric chemistry"
+    },
+    {
+      "institution": "Tielens (2013) Rev. Mod. Phys. 85, 1021; Gould & Salpeter (1963)",
+      "url": "https://doi.org/10.1103/RevModPhys.85.1021",
+      "notes": "interstellar chemistry"
+    },
+    {
+      "institution": "Berg et al., Biochemistry (9th ed.)",
+      "url": "https://www.macmillanlearning.com/college/us/product/Biochemistry/p/1319114679",
+      "notes": "net biological equations"
+    }
+  ],
+  "adapter": "scripts/ingestion/curated-reactions.ts",
+  "warnings": [
+    "Hand-curated stoichiometric equations (no numeric values). Balance and charge are verified by tests/science/reactions.test.ts."
+  ],
+  "output": "datasets/chemistry/reactions.json",
+  "retrievedAt": "2026-11-26T16:33:31.942Z",
+  "bytes": 33001,
+  "sha256": "67a73b1382330b51d34ec2d257f92efdfa4672cdf49791e93481cef55250c8ed"
+}
