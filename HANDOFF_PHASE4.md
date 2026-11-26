@@ -2,7 +2,9 @@
 
 Written 2026-11-26 at the end of Phase 3. Read this first, then `ARCHITECTURE.md`, `SCIENTIFIC_MODELS.md`, `DATA_SOURCES.md`, `KNOWN_LIMITATIONS.md` and the tail of `BUILD_LOG.md`.
 
-## ▶ RESUME HERE (after Gate 4.6)
+> **Phase 4 is complete** (Gate 4.7 = commit 54ddae8, deployed, 47/47 browser tests passed live). **Read HANDOFF_PHASE5.md instead.** Everything below is history.
+
+## ▶ RESUME HERE (after Gate 4.6) — superseded
 
 **State:** Gates 4.1–4.6 are done, committed, pushed and deployed. Gate 4.5's live re-run passed 42/42 at the start of this session. Gate 4.6 is commit `b88c85a`, deployed and verified live (43/43). The next step is **Gate 4.7**.
 

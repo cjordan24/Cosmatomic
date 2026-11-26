@@ -4,7 +4,7 @@ Written 2026-11-26 at the end of Phase 4. Read this first, then `DEVELOPMENT_ROA
 
 ## ▶ RESUME HERE
 
-**State:** Phases 1–4 are complete (Phase 4 = Gates 4.1–4.7). **Phase 5 has not started. The user asked to review Phase 4 before Phase 5 begins: do not start Phase 5 until they say so.**
+**State:** Phases 1–4 are complete (Phase 4 = Gates 4.1–4.7; Gate 4.7 is commit 54ddae8, deployed, 47/47 browser tests passed against production). **Phase 5 has not started. The user asked to review Phase 4 before Phase 5 begins: do not start Phase 5 until they say so.**
 
 **Counts at the end of Phase 4:** 323 science tests (Vitest), 47 browser tests (Playwright), 18 dataset manifests, 67 Source-index entries.
 
