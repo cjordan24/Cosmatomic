@@ -113,3 +113,49 @@ test('36 molecular dynamics: thermostatted ethanol at 500 K', async ({ page }) =
   await page.waitForTimeout(3000);
   await shot(page, '36b-md-ethanol-nve', 'Same molecule in the NVE ensemble: total energy fluctuates (∝ dt²) around a constant value instead of being thermostatted.');
 });
+
+test('37 instruments: orbital analyser, measurement, vectors and potential map', async ({ page }) => {
+  await page.goto('/#/cosmic/sandbox?preset=inner');
+  await page.waitForTimeout(1200);
+  await page.locator('.left-panel .mol-list').getByRole('button', { name: /Earth/ }).click();
+  const a = await kv(page, 'Semi-major axis');
+  expect(Math.abs(a - 1)).toBeLessThan(0.002);
+  expect(Math.abs((await kv(page, 'Eccentricity')) - 0.0167)).toBeLessThan(0.002);
+  await page.getByLabel('Second body to measure to').selectOption({ label: 'Mars' });
+  expect(await kv(page, 'Light time')).toBeGreaterThan(3);
+  await page.getByLabel('Show vectors').check();
+  await page.getByLabel('Show potential map').check();
+  await page.getByLabel('Simulated days per second').fill('200');
+  await page.getByRole('button', { name: 'Run simulation' }).click();
+  await page.waitForTimeout(3500);
+  await page.getByRole('button', { name: 'Pause simulation' }).click();
+  await shot(page, '37-instruments', 'Virtual instruments reading the live simulation: orbital analyser (osculating a = 1.000 au, e = 0.0167 for Earth), Earth–Mars distance/relative speed/light time, velocity (cyan) and acceleration (gold) vectors, and the gravitational potential map (log Φ with 0.25-dex contours).');
+});
+
+test('38 notebook: save, list, export CSV, restore and restart reproducibly', async ({ page }) => {
+  await page.goto('/#/cosmic/sandbox?preset=binary');
+  await page.waitForTimeout(1200);
+  await page.getByLabel('Simulated days per second').fill('300');
+  await page.getByRole('button', { name: 'Run simulation' }).click();
+  await page.waitForTimeout(3000);
+  await page.getByRole('button', { name: 'Pause simulation' }).click();
+  await page.getByLabel('Experiment name').fill('Circumbinary stability run');
+  await page.getByLabel('Experiment notes').fill('Planet at 3 au stays bound to the 0.5 au binary.');
+  await page.getByRole('button', { name: 'Save experiment' }).click();
+  await expect(page.getByRole('status')).toContainText('Saved');
+  await page.getByRole('button', { name: /Notebook/ }).first().click();
+  await expect(page).toHaveURL(/#\/notebook/);
+  const card = page.getByRole('article', { name: /Circumbinary stability run/ });
+  await expect(card).toContainText('Planet at 3 au stays bound');
+  const dl = page.waitForEvent('download');
+  await card.getByRole('button', { name: 'CSV' }).click();
+  const csv = readFileSync((await (await dl).path())!, 'utf8');
+  expect(csv).toContain('initial,a,"Star A"');
+  await shot(page, '38-notebook', 'Scientific notebook: saved experiment with screenshot, solver/version, simulated time, energy error, notes, event log and data sources; JSON/CSV export; Restore.');
+  await card.getByRole('button', { name: 'Restore' }).click();
+  await expect(page.locator('.left-panel')).toContainText('Restored “Circumbinary stability run”');
+  const t = await kv(page, 'Simulated time');
+  expect(t).toBeGreaterThan(0.1);
+  await page.getByRole('button', { name: 'Restart from initial conditions' }).click();
+  expect(await kv(page, 'Simulated time')).toBe(0);
+});

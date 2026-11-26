@@ -22,6 +22,8 @@
 
 * **Molecular dynamics:** single molecules in vacuum (no solvent, no periodic boxes, no intermolecular forces yet); qualitative VGFF-1 force constants; Berendsen thermostat; bonds drawn as single cylinders in dynamics mode.
 
+* **Notebook:** stored per browser only (no accounts, sync or sharing yet); laboratory structures are saved to the molecule library rather than as notebook experiments; electric/magnetic field instruments await the electromagnetic module.
+
 ## Visual / UX
 * Planets use flat colours and illustrative banding (no imagery/textures yet). No starfield background — catalog stars arrive with Gaia in Phase 5.
 * Saturn's rings are uniform-opacity annuli per ring (no radial optical-depth profile); no Uranian/Neptunian rings.
@@ -32,7 +34,7 @@
 ## Engineering
 * Ingestion tools are TypeScript, not Python (no Python interpreter in the build environment); RDKit/Astropy-based tooling is deferred to Phase 2 with an optional backend.
 * No git repository was initialised: the machine has no git (Xcode Command Line Tools not installed). Run `xcode-select --install`, then `git init`.
-* IndexedDB experiment storage is not implemented yet (settings and timeline bookmarks use localStorage).
+* Settings and timeline bookmarks use localStorage; experiments, molecule library and API cache use IndexedDB.
 * Headless screenshots use SwiftShader software WebGL; real-GPU frame rates are not measured in this report.
 * Cosmic labels live in a DOM overlay above the canvas; wheel events over labels are forwarded to the canvas so zoom still works.
 * drei `<Html>` caused "removeChild" errors on canvas teardown under React 19 and was replaced by `src/rendering/labels.tsx`; avoid reintroducing it.

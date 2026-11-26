@@ -158,6 +158,7 @@ export function TopBar() {
         )}
         <div className="spacer" />
         <Search />
+        <button className="icon-btn" onClick={() => navigate('/notebook')} title="Scientific notebook (saved experiments)">📓 <span className="hide-mobile">Notebook</span></button>
         <button className={`icon-btn ${scaleOpen ? 'active' : ''}`} onClick={() => setScaleOpen((o) => !o)} aria-pressed={scaleOpen} title="Universal scale navigator">⟷ <span className="hide-mobile">Scale</span></button>
         <button className="icon-btn" onClick={() => setSettingsOpen(true)} title="Settings & engine status" aria-label="Settings">⚙</button>
       </header>

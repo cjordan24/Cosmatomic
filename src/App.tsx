@@ -11,6 +11,7 @@ const MoleculeView = lazy(() => import('@/modes/atomic/molecules/MoleculeView'))
 const CosmicView = lazy(() => import('@/modes/cosmic/solar-system/CosmicView'));
 const LaboratoryView = lazy(() => import('@/modes/atomic/laboratory/LaboratoryView'));
 const SandboxView = lazy(() => import('@/modes/cosmic/sandbox/SandboxView'));
+const NotebookView = lazy(() => import('@/ui/NotebookView'));
 
 export default function App() {
   const { path } = useRoute();
@@ -39,6 +40,7 @@ export default function App() {
     else if (path[1] === 'lab') view = <LaboratoryView />;
     else view = <PeriodicTable />;
   } else if (mode === 'cosmic') view = path[1] === 'sandbox' ? <SandboxView /> : <CosmicView focusId={path[1] ?? 'sun'} />;
+  else if (mode === 'notebook') view = <NotebookView />;
   else view = <Landing />;
 
   return (

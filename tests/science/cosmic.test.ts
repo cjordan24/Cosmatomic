@@ -212,3 +212,32 @@ describe('Spacecraft trajectories (Voyager, JPL Horizons + cubic Hermite)', () =
     expect(spacecraftState('voyager-1', 2443000)).toBeNull();
   });
 });
+
+describe('Orbital analyser (state vector → osculating elements)', async () => {
+  const { stateToElements, elementsToPosition } = await import('@/core/mathematics/kepler');
+  it('round-trips random elliptic orbits: elements → (r, v) → elements (a, e to 1e-9 rel.; angles to 1e-7°)', () => {
+    const mu = 1.32712440018e11;
+    for (const el of [{ a: 1.496e8, e: 0.0167, i: 0.5, Omega: 30, omega: 100, M: 40 }, { a: 7.78e8, e: 0.3, i: 12, Omega: 250, omega: 300, M: 200 }, { a: 4e8, e: 0.85, i: 70, Omega: 10, omega: 45, M: 5 }]) {
+      const r = elementsToPosition(el);
+      // velocity by central difference in mean anomaly: dM/dt = n
+      const n = Math.sqrt(mu / el.a ** 3) * (180 / Math.PI);
+      const h = 1e-4;
+      const rp = elementsToPosition({ ...el, M: el.M + h }), rm = elementsToPosition({ ...el, M: el.M - h });
+      const v = [0, 1, 2].map((k) => ((rp[k] - rm[k]) / (2 * h)) * n) as [number, number, number];
+      const back = stateToElements(r, v, mu);
+      expect(Math.abs(back.a / el.a - 1)).toBeLessThan(1e-7);
+      expect(Math.abs(back.e - el.e)).toBeLessThan(1e-7);
+      for (const k of ['i', 'Omega', 'omega', 'M'] as const) expect(Math.abs(((back[k] - el[k] + 540) % 360) - 180), k).toBeLessThan(1e-4);
+    }
+  });
+  it('Earth’s state from the ephemeris gives a ≈ 1.000 au, e ≈ 0.0167, period ≈ 365.26 d', () => {
+    const jd = 2_460_676.5, hh = 0.01;
+    const r = planetHeliocentric('earth-moon-barycenter', jd);
+    const rp = planetHeliocentric('earth-moon-barycenter', jd + hh), rm = planetHeliocentric('earth-moon-barycenter', jd - hh);
+    const v = [0, 1, 2].map((k) => (rp[k] - rm[k]) / (2 * hh * 86400)) as [number, number, number];
+    const el = stateToElements(r, v, (CONSTANTS.GMsun.value + CONSTANTS.GMearth.value * 1.0123) / 1e9);
+    expect(Math.abs(el.a / AU_KM - 1)).toBeLessThan(1e-3);
+    expect(Math.abs(el.e - 0.0167)).toBeLessThan(5e-4);
+    expect(Math.abs(el.period! / 86400 - 365.26)).toBeLessThan(0.5);
+  });
+});

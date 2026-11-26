@@ -89,6 +89,11 @@ Perception: hybridisation from bond orders; aromatic 6-rings (3 alternating doub
 * *Validation (tests/science/md.test.ts):* a two-atom oscillator's simulated period equals the analytic 2π√(μ/2k) within 0.5 % (validates integrator + unit conversion); NVE energy fluctuation scales as dt² (halving dt → 3–5× smaller) with no secular drift (< 5 × 10⁻⁴ of K over 4 ps); momentum conserved to 10⁻⁹; Berendsen ⟨T⟩ within 5 % of 500 K; bit-identical trajectories for equal seeds.
 * **Fidelity label:** "Classical MD · VGFF-1 · qualitative" — VGFF-1 force constants are not fitted to vibrational spectra.
 
+## 6c. Instruments and notebook (Phases 3.3–3.4)
+* **Orbital analyser:** osculating classical elements from the instantaneous state vector (μ = G(M + m)); elliptic and hyperbolic cases. *Tests:* elements → state → elements round trip (a, e to 10⁻⁷; angles to 10⁻⁴°) for e = 0.0167–0.85; Earth's ephemeris state gives a = 1.000 au, e = 0.0167, P = 365.26 d.
+* **Measurement:** inter-body distance, relative speed, light time (c exact). **Vector overlay:** velocity and gravitational acceleration directions exact, lengths log-compressed (labelled). **Potential map:** Φ = −Σ G mᵢ / √(|r − rᵢ|² + ε²) on the reference plane (ε = 1 % of system extent to avoid singular pixels), log colour scale with contours every 0.25 dex — computed from the live state every 0.4 s.
+* **Notebook:** IndexedDB records with initial conditions, solver identity/version, integrator and step, saved state, event log, diagnostics, energy-drift graph, notes, screenshot and data sources; JSON/CSV export. Every edit becomes a new initial-conditions checkpoint, so "Restart from initial conditions" reproduces the run bit-for-bit (deterministic integrators; tested).
+
 ## 6. N-body foundation (for Phase 3)
 Kick-drift-kick leapfrog (symplectic, time-reversible), optional Plummer softening, energy/momentum/angular-momentum diagnostics, deterministic snapshots & replay. *Tests:* Sun–Earth–Jupiter, 100 yr at dt = 0.5 d: |ΔE/E| < 10⁻⁶, |ΔL/L| < 10⁻¹², momentum conserved to 10⁻¹²; snapshot replay bit-identical. Validity: Newtonian, non-relativistic, no collisions.
 

@@ -30,7 +30,9 @@ src/
 │   │   ├── orbitals/               analytic ψ_nlm, exact |ψ|² sampler, worker hook
 │   │   ├── molecules/              records, formats (XYZ/MOL/SDF/PDB), PubChem client, user library, viewer, comparison
 │   │   └── laboratory/             builder operations, valence model, RDKit-JS bridge, lab scene + view
-│   └── cosmic/solar-system/        ephemerides, catalogue, live clock, scene, timeline, view
+│   └── cosmic/
+│       ├── solar-system/           ephemerides, catalogue, live clock, scene, timeline, view
+│       └── sandbox/                N-body physics, presets, instruments, Experiment/Compare view
 ├── rendering/                      Viewport (adaptive DPR, log depth), PointCloud shader, labels, colours
 ├── workers/orbital.worker.ts       Monte-Carlo sampling off the UI thread
 ├── shared/{router,store}.ts        hash router (deep links) + Zustand store

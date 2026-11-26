@@ -105,3 +105,13 @@ describe('Collisions and special solutions', () => {
     for (let i = 0; i < 3; i++) expect(Math.hypot(...s.bodies[i].x.map((x, k) => x - s0.bodies[i].x[k])) / L).toBeLessThan(1e-3);
   });
 });
+
+describe('Reproducibility (notebook restore)', () => {
+  it('re-running from stored initial conditions with the same solver settings reproduces the saved state bit-for-bit', () => {
+    const s0 = preset('inner');
+    const stored = JSON.parse(JSON.stringify(s0)) as SimState; // what IndexedDB stores (structured clone ≈ JSON here)
+    const a = run(s0, 3 * 3600, 2000, 'yoshida4');
+    const b = run(stored, 3 * 3600, 2000, 'yoshida4');
+    expect(b.bodies.map((x) => x.x)).toEqual(a.bodies.map((x) => x.x));
+  });
+});

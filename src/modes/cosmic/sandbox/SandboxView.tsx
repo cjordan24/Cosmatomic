@@ -14,6 +14,10 @@ import { useVoyager } from '@/shared/store';
 import { formatJdUtc } from '@/core/simulation/clock';
 import { heliocentric } from '../solar-system/ephemeris';
 import { PRESETS } from './presets';
+import { VectorField, PotentialMap } from './instruments';
+import { stateToElements } from '@/core/mathematics/kepler';
+import { listExperiments, saveExperiment, SANDBOX_SOLVER_VERSION, type Experiment } from '@/shared/notebook';
+import { CONSTANTS } from '@/core/constants/constants';
 import { cloneState, diagnostics, escapeVelocity, G_KM, lagrangePoints, step, suggestDt, toBarycentric, type Integrator, type SimState } from './nbody';
 
 const AU = 149_597_870.7;
@@ -41,8 +45,8 @@ function pushTrails(L: Live) {
 
 const MAX_STEPS_PER_FRAME = 4000;
 
-function SimScene({ live, running, dt, speedDaysPerSec, integrator, showL, lPair, compare, jd0, onTick, achieved }: {
-  live: React.MutableRefObject<Live>; running: boolean; dt: number; speedDaysPerSec: number; integrator: Integrator; showL: boolean; lPair: [string, string] | null; compare: boolean; jd0: number; onTick: () => void;
+function SimScene({ live, running, dt, speedDaysPerSec, integrator, showL, lPair, compare, jd0, onTick, achieved, showVectors, showField }: {
+  live: React.MutableRefObject<Live>; running: boolean; dt: number; speedDaysPerSec: number; integrator: Integrator; showL: boolean; lPair: [string, string] | null; compare: boolean; jd0: number; onTick: () => void; showVectors: boolean; showField: boolean;
   achieved: React.MutableRefObject<{ rate: number; capped: boolean }>;
 }) {
   const groups = useRef(new Map<string, THREE.Group>());
@@ -131,6 +135,8 @@ function SimScene({ live, running, dt, speedDaysPerSec, integrator, showL, lPair
       <pointLight position={[0, 0, 0]} intensity={2} decay={0} />
       <gridHelper args={[Math.ceil(ext * 3) * 2, Math.ceil(ext * 3) * 2, '#1c2a4a', '#0e1630']} />
       <FrameCamera extent={ext} />
+      {showVectors && <VectorField getSim={() => live.current.sim} extentAu={ext} />}
+      {showField && <PotentialMap getSim={() => live.current.sim} extentAu={ext} />}
       {bodies.map((b) => (
         <group key={b.id}>
           <group ref={(g) => { if (g) groups.current.set(b.id, g); else groups.current.delete(b.id); }}>
@@ -191,6 +197,13 @@ export default function SandboxView() {
   const [, setTick] = useState(0);
   const [sel, setSel] = useState<string | null>(null);
   const [form, setForm] = useState({ name: 'New planet', massEarths: 1, au: 1.5, circular: true });
+  const [showVectors, setShowVectors] = useState(false);
+  const [showField, setShowField] = useState(false);
+  const [measureB, setMeasureB] = useState<string>('');
+  const [expName, setExpName] = useState('');
+  const [expNotes, setExpNotes] = useState('');
+  const [savedMsg, setSavedMsg] = useState<string | null>(null);
+  const expId = query.get('exp');
 
   const reset = (id = presetId) => {
     const p = PRESETS.find((x) => x.id === id)!;
@@ -200,7 +213,36 @@ export default function SandboxView() {
     const bodies = sim.bodies;
     setLPair(bodies.length >= 2 ? [bodies.reduce((a, b) => (b.mass > a.mass ? b : a)).id, bodies.filter((b) => b.mass < bodies.reduce((x, y) => Math.max(x, y.mass), 0)).sort((a, b) => b.mass - a.mass)[0]?.id ?? bodies[1].id] : null);
   };
-  useEffect(() => { reset(presetId); }, [presetId]); // eslint-disable-line react-hooks/exhaustive-deps
+  useEffect(() => { if (!expId) reset(presetId); }, [presetId]); // eslint-disable-line react-hooks/exhaustive-deps
+  useEffect(() => {
+    if (!expId) return;
+    listExperiments().then((all) => {
+      const e = all.find((x) => x.id === expId);
+      if (!e) return;
+      live.current = makeLive(cloneState(e.saved));
+      live.current.initial = cloneState(e.initial);
+      live.current.modified = e.provenance === 'hypothetical';
+      setPresetId(e.presetId); setJd0(e.epochJd); setDt(e.solver.dt); setIntegrator(e.solver.integrator as Integrator); setRunning(false);
+      setExpName(e.name); setExpNotes(e.notes);
+      setSavedMsg(`Restored “${e.name}” at t = ${(e.saved.t / 86400 / 365.25).toFixed(3)} yr. “Restart from initial conditions” re-runs it reproducibly.`);
+    });
+  }, [expId]); // eslint-disable-line react-hooks/exhaustive-deps
+  const restartFromInitial = () => { const init = cloneState(live.current.initial); const mod = live.current.modified; live.current = makeLive(init); live.current.initial = cloneState(init); live.current.modified = mod; setRunning(false); setTick((t) => t + 1); };
+  const saveExp = async () => {
+    const Ld = live.current, dd = diagnostics(Ld.sim.bodies);
+    const canvas = document.querySelector<HTMLCanvasElement>('.viewport canvas');
+    const e: Experiment = {
+      id: `exp-${Date.now().toString(36)}`, name: expName.trim() || `${preset.name} @ ${(Ld.sim.t / 86400 / 365.25).toFixed(2)} yr`, mode: 'gravitational-sandbox', createdAt: new Date().toISOString(),
+      solver: { module: 'gravitational', integrator, dt, version: SANDBOX_SOLVER_VERSION }, presetId, epochJd: jd0,
+      provenance: Ld.modified || preset.provenance === 'hypothetical' ? 'hypothetical' : 'derived',
+      initial: cloneState(Ld.initial), saved: cloneState(Ld.sim), events: [...Ld.sim.events], notes: expNotes,
+      observations: { simYears: Ld.sim.t / 86400 / 365.25, relEnergyError: (dd.E - Ld.E0) / Math.abs(Ld.E0), relAngMomError: Math.hypot(...dd.L) / Ld.L0 - 1, bodies: Ld.sim.bodies.length },
+      graphs: { energyDrift: [...Ld.drift] }, screenshot: canvas ? canvas.toDataURL('image/png') : null,
+      dataSources: preset.provenance === 'derived' ? ['JPL Keplerian elements (Table 1) / ELP-2000 lunar theory via the Explore ephemerides', 'NASA NSSDC & JPL SSD physical data (masses)'] : ['Textbook configuration (hypothetical)'],
+    };
+    await saveExperiment(e);
+    setSavedMsg(`Saved “${e.name}” to the notebook.`);
+  };
 
   const L = live.current;
   const d = diagnostics(L.sim.bodies);
@@ -217,6 +259,8 @@ export default function SandboxView() {
     L.sim.events.push(`t = ${(L.sim.t / 86400).toFixed(1)} d: frame re-centred on the new barycentre; conservation baselines reset.`);
     L.modified = true; L.E0 = diagnostics(L.sim.bodies).E; L.L0 = Math.hypot(...diagnostics(L.sim.bodies).L) || 1; L.drift = [0];
     L.trails.clear(); L.trailN.clear();
+    // every edit becomes the new initial-conditions checkpoint, so a restart reproduces the edited run exactly
+    L.initial = cloneState(L.sim);
   };
   const primary = L.sim.bodies.reduce((a, b) => (b.mass > a.mass ? b : a), L.sim.bodies[0]);
   const divergence = useMemo(() => compare && preset.provenance === 'derived' ? L.sim.bodies.filter((b) => b.id !== 'sun').map((b) => {
@@ -242,7 +286,7 @@ export default function SandboxView() {
     <>
       <Viewport camera={{ position: [0, 9, 6], fov: 45, near: 0.001, far: 2000 }}>
         <color attach="background" args={['#020309']} />
-        <SimScene live={live} running={running} dt={dt} speedDaysPerSec={speed} achieved={achieved} integrator={integrator} showL={showL} lPair={lPair} compare={compare} jd0={jd0} onTick={() => setTick((t) => t + 1)} />
+        <SimScene live={live} running={running} dt={dt} speedDaysPerSec={speed} achieved={achieved} integrator={integrator} showL={showL} lPair={lPair} compare={compare} jd0={jd0} onTick={() => setTick((t) => t + 1)} showVectors={showVectors} showField={showField} />
       </Viewport>
 
       <nav className="view-switch" aria-label="Cosmic environment">
@@ -302,6 +346,16 @@ export default function SandboxView() {
           <dt>Circular orbit</dt><dd><input type="checkbox" checked={form.circular} onChange={(e) => setForm({ ...form, circular: e.target.checked })} /></dd>
         </div>
         <button className="icon-btn" onClick={addBody} style={{ marginTop: 6 }}>+ Add around {primary?.name}</button>
+
+        <div className="section-title">Notebook</div>
+        <input value={expName} onChange={(e) => setExpName(e.target.value)} placeholder="Experiment name" aria-label="Experiment name" style={{ width: '100%', height: 28, marginBottom: 6, padding: '0 8px', borderRadius: 8, border: '1px solid var(--line)', background: 'rgba(255,255,255,0.05)', color: 'var(--text)' }} />
+        <textarea value={expNotes} onChange={(e) => setExpNotes(e.target.value)} placeholder="Notes and observations" aria-label="Experiment notes" rows={3} style={{ width: '100%', padding: 8, borderRadius: 8, border: '1px solid var(--line)', background: 'rgba(255,255,255,0.05)', color: 'var(--text)', font: 'inherit', fontSize: 12 }} />
+        <div className="chip-row" style={{ marginTop: 6 }}>
+          <button className="chip" onClick={saveExp}>Save experiment</button>
+          <button className="chip" onClick={restartFromInitial} title="Re-run from the stored initial conditions (deterministic)">Restart from initial conditions</button>
+          <button className="chip" onClick={() => navigate('/notebook')}>Open notebook →</button>
+        </div>
+        {savedMsg && <p className="note" role="status">{savedMsg}</p>}
       </Panel>
 
       <Panel id="sandbox-diag" className="right-panel" title={compare ? 'Compare · reference vs simulation' : 'Conservation & instruments'}>
@@ -326,6 +380,46 @@ export default function SandboxView() {
             </dl>
           </>
         )}
+        {selected && selected.id !== primary.id && (() => {
+          const r = selected.x.map((x, k) => x - primary.x[k]) as [number, number, number];
+          const v = selected.v.map((x, k) => x - primary.v[k]) as [number, number, number];
+          const el = stateToElements(r, v, G_KM * (primary.mass + selected.mass));
+          return (
+            <>
+              <div className="section-title">Orbital analyser · {selected.name} about {primary.name}</div>
+              <dl className="kv">
+                <KV k="Semi-major axis" v={el.e < 1 ? el.a / AU : null} unit="au" sig={6} />
+                <KV k="Eccentricity" v={el.e} sig={4} />
+                <KV k="Inclination (to sim frame)" v={el.i} unit="°" sig={4} />
+                <KV k="Period" v={el.period ? el.period / 86400 : null} unit="d" sig={6} />
+                <KV k="Periapsis / apoapsis" v={`${(el.rPeri / AU).toFixed(4)} / ${el.rApo ? (el.rApo / AU).toFixed(4) : '∞ (unbound)'}`} unit="au" />
+                <KV k="Specific orbital energy" v={el.energy} unit="km²/s²" sig={4} />
+              </dl>
+              <p className="note">Osculating two-body elements from the instantaneous state vector (μ = G(M + m)); they evolve as other bodies perturb the orbit.</p>
+            </>
+          );
+        })()}
+        {selected && (
+          <>
+            <div className="section-title">Measure</div>
+            <label className="note" style={{ display: 'flex', gap: 6, alignItems: 'center' }}>{selected.name} ↔
+              <select value={measureB} onChange={(e) => setMeasureB(e.target.value)} aria-label="Second body to measure to">
+                <option value="">choose…</option>
+                {L.sim.bodies.filter((b) => b.id !== selected.id).map((b) => <option key={b.id} value={b.id}>{b.name}</option>)}
+              </select>
+            </label>
+            {(() => { const B = L.sim.bodies.find((b) => b.id === measureB); if (!B) return null; const dKm = Math.hypot(...selected.x.map((x, k) => x - B.x[k])); return (
+              <dl className="kv">
+                <KV k="Distance" v={dKm / AU} unit="au" sig={6} />
+                <KV k="Relative speed" v={Math.hypot(...selected.v.map((x, k) => x - B.v[k]))} unit="km/s" sig={5} />
+                <KV k="Light time" v={(dKm * 1000) / CONSTANTS.c.value / 60} unit="min" sig={4} />
+              </dl>
+            ); })()}
+          </>
+        )}
+        <div className="section-title">Overlays</div>
+        <label className="toggle-row" style={{ borderBottom: 0 }}><span>Velocity (cyan) & acceleration (gold) vectors</span><input type="checkbox" checked={showVectors} onChange={(e) => setShowVectors(e.target.checked)} aria-label="Show vectors" /></label>
+        <label className="toggle-row" style={{ borderBottom: 0 }}><span>Gravitational potential map (log Φ, contours 0.25 dex)</span><input type="checkbox" checked={showField} onChange={(e) => setShowField(e.target.checked)} aria-label="Show potential map" /></label>
         <label className="toggle-row" style={{ borderBottom: 0 }}><span>Show Lagrange points{lPair ? ` (${L.sim.bodies.find((b) => b.id === lPair[0])?.name}–${L.sim.bodies.find((b) => b.id === lPair[1])?.name})` : ''}</span><input type="checkbox" checked={showL} onChange={(e) => setShowL(e.target.checked)} /></label>
 
         {compare && (

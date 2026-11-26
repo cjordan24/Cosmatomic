@@ -57,3 +57,7 @@ Findings: Earth seeded without the Moon must be the Earth–Moon barycentre (0.0
 ## 2026-11-26 — Phase 3, Gate 3.2 (molecular dynamics foundations)
 Velocity-Verlet MD on VGFF-1 with Maxwell–Boltzmann start, NVE/Berendsen, equipartition temperature; "Dynamics" mode in the molecule viewer (ref-driven animation, live T/E traces).
 Finding: a fixed NVE energy threshold was the wrong test — symplectic integrators fluctuate ∝ dt² without drifting; the test now checks dt² scaling and absence of drift. The oscillator-period test independently validates the kcal/mol-Å-u-fs unit conversion.
+
+## 2026-11-26 — Phase 3, Gates 3.3 + 3.4 (instruments, notebook) — Phase 3 complete
+Orbital analyser (state → elements, round-trip tested), measurement tool, vector and potential-map overlays computed from the live state; IndexedDB notebook with save/list/restore/restart, JSON/CSV export, screenshots.
+Finding: restarting from the preset's original state would silently drop mid-run edits → every edit now becomes the initial-conditions checkpoint (reproducibility test added).

@@ -5,5 +5,7 @@
   "34-figure-eight.png": "Chenciner–Montgomery figure-eight: three equal solar masses on one shared orbit (periodicity verified in tests to 10⁻³ au after one period). Hypothetical configuration.",
   "34b-binary-added-planet.png": "Binary star (2 × 1 M☉, 0.5 au) with a circumbinary planet and a user-added world at 5 au (circular velocity computed about the primary, logged in the event list).",
   "36-md-ethanol-500K.png": "Molecular dynamics (velocity Verlet on VGFF-1) of ethanol, Berendsen thermostat at 500 K: atoms vibrate in real time; instantaneous/mean temperature, kinetic and strain energy, and temperature/energy traces. Labelled Simulated and qualitative.",
-  "36b-md-ethanol-nve.png": "Same molecule in the NVE ensemble: total energy fluctuates (∝ dt²) around a constant value instead of being thermostatted."
+  "36b-md-ethanol-nve.png": "Same molecule in the NVE ensemble: total energy fluctuates (∝ dt²) around a constant value instead of being thermostatted.",
+  "37-instruments.png": "Virtual instruments reading the live simulation: orbital analyser (osculating a = 1.000 au, e = 0.0167 for Earth), Earth–Mars distance/relative speed/light time, velocity (cyan) and acceleration (gold) vectors, and the gravitational potential map (log Φ with 0.25-dex contours).",
+  "38-notebook.png": "Scientific notebook: saved experiment with screenshot, solver/version, simulated time, energy error, notes, event log and data sources; JSON/CSV export; Restore."
 }
