@@ -355,6 +355,10 @@ export const SOURCES: Source[] = [
     institution: "LIGO Scientific Collaboration and Virgo Collaboration", url: 'https://arxiv.org/abs/1602.03837', doi: '10.1103/PhysRevLett.116.061102', license: "CC BY 3.0 (open access)",
     authorBio: "The LIGO Scientific Collaboration and the Virgo Collaboration, which operate the LIGO and Virgo gravitational-wave detectors; the full author list is given in the article.",
     usedFor: ["GW150914 source-frame masses (36, 29 → 62 M☉), radiated energy, final spin and distance (90 % credible intervals)"], datasets: ['compact-objects'] },
+  { id: 'sahu-2017', kind: 'journal-article', citation: 'Sahu, K. C., Anderson, J., Casertano, S., Bond, H. E., Bergeron, P. et al. (2017) Relativistic deflection of background starlight measures the mass of a nearby white dwarf star. Science 356, 1046–1050.', title: 'Relativistic deflection of background starlight measures the mass of a nearby white dwarf star', authors: 'K. C. Sahu et al.', year: 2017,
+    institution: 'Space Telescope Science Institute (lead author)', url: 'https://arxiv.org/abs/1706.02037', doi: '10.1126/science.aal2879', license: 'Journal article (Science); arXiv preprint free to read',
+    authorBio: 'Lead author Kailash C. Sahu (Space Telescope Science Institute, Baltimore), with co-authors from STScI, Penn State, Université de Montréal, St Andrews and UNLV, as listed on the preprint.',
+    usedFor: ['Stein 2051 B: Einstein radius 31.53 ± 1.20 mas, lensing mass 0.675 ± 0.051 M☉, radius, parallaxes', 'Einstein radius with the reduced distance (eq. 1) and the displacement of the major image (eq. 2)'], datasets: ['compact-objects'] },
 ];
 
 const BY_ID = new Map(SOURCES.map((s) => [s.id, s]));

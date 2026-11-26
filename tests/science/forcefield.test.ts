@@ -125,5 +125,5 @@ describe('VGFF-1 optimiser behaviour', () => {
       if (rmsd < 0.04) good++;
     }
     expect(good / organic.length).toBeGreaterThanOrEqual(0.9);
-  });
+  }, 30_000); // compute-bound; parallel Phase 6 workers can push it past the 5 s default
 });

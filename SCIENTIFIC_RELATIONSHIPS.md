@@ -43,6 +43,8 @@ Star entities are registered at run time when the 10 pc catalogue loads (`starRe
 |---|---|---|---|---|
 | `star:14` (Sirius B) | has-spectrum | `spectrum:H-I` (context: Hα gravitationally redshifted by 80.65 ± 0.77 km/s) | Joyce et al. 2018 | Compact-objects panel, star panel, atlas Lines tab |
 
+| `star:129` (Stein 2051 B) | observed-with | `context:gravitational-lensing` → `#/cosmic/lensing` | Sahu et al. 2017 | Lensing view, star panel |
+
 Neutron stars and black holes are registered as `compact-object:<id>` (route `#/cosmic/compact?sel=<id>`). The four white dwarfs with measured masses stay `star:<seq>`, so they are not duplicated.
 
 ## Earlier relationships (Gate 4.1)

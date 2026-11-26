@@ -28,6 +28,8 @@ export function registerStars(objs: NearbyObject[]) {
     if (p?.kind === 'mk' && p.cls && getEntity(`stellar-class:${p.cls}`)) registerRelationship({ from: id, to: `stellar-class:${p.cls}`, type: 'part-of', context: `spectral type ${o.spt}`, source: 'reyle-2021' });
     // Gate 6.2: Sirius B's Hα line is measurably redshifted by its gravity (Joyce et al. 2018)
     if (o.seq === 14 && o.type === 'white dwarf') registerRelationship({ from: id, to: spectrumId('H I'), type: 'has-spectrum', context: 'Hα gravitationally redshifted by 80.65 ± 0.77 km/s', source: 'joyce-2018' });
+    // Gate 6.3: Stein 2051 B (GJ 169.1 B) was weighed by astrometric microlensing (Sahu et al. 2017)
+    if (o.seq === 129 && o.type === 'white dwarf') registerRelationship({ from: id, to: 'context:gravitational-lensing', type: 'observed-with', context: 'mass measured from the deflection of a background star (HST)', source: 'sahu-2017' });
     const T = modelTeff(o);
     if (T !== null) {
       const bb = blackbodyId(T);

@@ -99,3 +99,8 @@
   * Neutron-star radii differ between analyses of the same data. Only Miller et al. (2021) is bundled for J0740+6620.
   * The EHT ring is not the shadow: emission, spin and resolution change its size by factors of order unity. The comparison is shown as a check, not as a test of general relativity.
   * Values are transcribed by hand; uncertainties keep each paper's interval type (1σ, 68 % or 90 %), so they are not directly comparable.
+* **Lensing (Gate 6.3):**
+  * Point lenses only: no binary lenses or caustics, no extended mass distributions (galaxies, clusters) and no finite-source effects in the light curves.
+  * The galaxy-scale preset is a point mass at an effective distance, following Narayan & Bartelmann's order-of-magnitude example. It is not a model of a real lens system, and no observed strong-lens system is bundled.
+  * The lens-plane brightness and colour are illustrative. Only the image geometry is computed.
+* **Navigation:** the Cosmic chips are grouped into *Stars ▾* (Nearby stars, HR diagram, Exoplanets) and *Gravity ▾* (Relativity, Black holes, Lensing) so the top bar fits at 1440 px.

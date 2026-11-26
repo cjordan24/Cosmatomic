@@ -229,3 +229,18 @@ Findings:
 3. **Wrong paper caught.** The arXiv number first used for "Riley 2021" (2105.06979) is actually Miller et al. 2021, a different analysis of the same J0740 data. The dataset cites Miller et al. explicitly and notes that the two analyses disagree.
 4. **Access:** four searches were sent to export.arxiv.org before its robots.txt was checked; it disallows all agents. It was not used again. Papers were then fetched only from arxiv.org/pdf and /abs, which robots.txt allows, at its 15 s crawl-delay, and searched through Crossref.
 5. **White dwarfs are not duplicated.** They are the same objects as the `star:<seq>` entities, so they get no separate `compact-object` entity (rule 3 of SCIENTIFIC_RELATIONSHIPS).
+
+## 2026-11-26 — Phase 6, Gate 6.3 (gravitational lensing)
+First, a live re-check of Gate 6.2 against production: 52/52 for Phases 1–5, then 2/2 for tests 59–60. Tests 59–60 first failed because `phase6.spec.ts` was edited (new Gravity menu) while the live run was in progress, and Playwright loaded the edited spec against the old site. They passed when re-run against production with the spec as committed for 6.2.
+
+New module `src/core/physics/lensing.ts` (part of the relativistic module) and the view `#/cosmic/lensing`, with three tabs:
+- **Lens plane:** inverse ray shooting of a draggable circular source, with the Einstein ring and the point-source images, magnifications, image separation and centroid shift.
+- **Microlensing light curves:** after Narayan & Bartelmann's Fig. 9, with the Einstein time for each lens.
+- **Stein 2051 B deflection:** the HST astrometric-microlensing measurement of Sahu et al. (2017). Its θ_E = 31.53 mas and relative parallax reproduce the published 0.675 M☉.
+
+Stein 2051 B (GJ 169.1 B in the 10 pc sample) now links to the lensing view through the registry, and its compact-object record cites Sahu et al. directly. New Source-index entry: Sahu et al. 2017 (Science; Crossref-verified; affiliations from the arXiv PDF). The Cosmic chips were grouped into two menus, because eight chips overflowed the top bar at 1440 px. 13 new science tests (418 total) and e2e test 61.
+
+Findings:
+1. **Top-bar overflow.** With Relativity, Black holes and Lensing added, the Search and Sources buttons overlapped (screenshot 61a, first run). The new `ChipMenu` groups related sections and shows the active one in its label.
+3. **VGFF timeout.** The VGFF-1 conformer test now has an explicit 30 s timeout. The new CPU-heavy Phase 6 tests (photon-path integrations) run in parallel workers and pushed this compute-bound test past Vitest’s 5 s default in every full run (it passes alone).
+2. **Test unit slip.** A first test computed π_rel in µas instead of mas; the code was right. The distance form and the parallax form of θ_E now agree to 10⁻⁶.

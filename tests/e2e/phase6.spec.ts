@@ -24,7 +24,8 @@ test.afterEach(() => { expect(errors, errors.join(' | ')).toEqual([]); });
 // ---------------- Gate 6.1 ----------------
 test('59 relativity: Schwarzschild radii and clocks, orbits, light paths, weak-field tests', async ({ page }) => {
   await page.goto('/#/cosmic');
-  await page.getByRole('navigation', { name: 'Cosmic sections' }).getByRole('button', { name: 'Relativity' }).click();
+  await page.getByRole('navigation', { name: 'Cosmic sections' }).getByRole('button', { name: /^Gravity/ }).click();
+  await page.getByRole('menu', { name: 'Gravity' }).getByRole('menuitem', { name: 'Relativity' }).click();
   await expect(page).toHaveURL(/#\/cosmic\/relativity$/);
   const info = page.locator('.right-panel');
   await expect(info.getByLabel('Characteristic radii')).toContainText('2.953 km');
@@ -56,7 +57,8 @@ test('59 relativity: Schwarzschild radii and clocks, orbits, light paths, weak-f
 // ---------------- Gate 6.2 ----------------
 test('60 compact objects: white dwarfs, neutron stars and black holes with published values and Schwarzschild checks', async ({ page }) => {
   await page.goto('/#/cosmic');
-  await page.getByRole('navigation', { name: 'Cosmic sections' }).getByRole('button', { name: 'Black holes' }).click();
+  await page.getByRole('navigation', { name: 'Cosmic sections' }).getByRole('button', { name: /^Gravity/ }).click();
+  await page.getByRole('menu', { name: 'Gravity' }).getByRole('menuitem', { name: 'Black holes' }).click();
   await expect(page).toHaveURL(/#\/cosmic\/compact$/);
   await expect(page.getByRole('img', { name: 'Mass–radius diagram of compact objects' })).toBeVisible();
   await expect(page.getByRole('table', { name: 'Compact objects' })).toContainText('PSR J0740+6620');
@@ -80,4 +82,29 @@ test('60 compact objects: white dwarfs, neutron stars and black holes with publi
   // the star map shows the measured mass of Sirius B
   await page.goto('/#/cosmic/stars?sel=14');
   await expect(page.locator('.right-panel').getByLabel('White dwarf mass')).toContainText('1.018 ± 0.011');
+});
+
+// ---------------- Gate 6.3 ----------------
+test('61 lensing: lens plane by inverse ray shooting, microlensing light curves, Stein 2051 B deflection', async ({ page }) => {
+  await page.goto('/#/cosmic');
+  await page.getByRole('navigation', { name: 'Cosmic sections' }).getByRole('button', { name: /^Gravity/ }).click();
+  await page.getByRole('menu', { name: 'Gravity' }).getByRole('menuitem', { name: 'Lensing' }).click();
+  await expect(page).toHaveURL(/#\/cosmic\/lensing$/);
+  const info = page.locator('.right-panel');
+  await expect(info.getByLabel('Lens values')).toContainText('31.53 mas');
+  await expect(page.getByRole('img', { name: 'Lens plane: lensed image of a circular source' })).toBeVisible();
+  await expect(info.getByLabel('Images')).toContainText('Total magnification');
+  await shot(page, '61a-lens-plane', 'Lensing view (#/cosmic/lensing): a circular source behind Stein 2051 B (measured θ_E = 31.53 mas) rendered by inverse ray shooting into two arcs, with the Einstein ring, the true source position and the point-source images.');
+  await page.getByRole('button', { name: 'Align: Einstein ring' }).click();
+  await expect(info).toContainText('Perfect alignment');
+  await shot(page, '61b-einstein-ring', 'Perfect alignment: the source is imaged as an Einstein ring.');
+  await page.goto('/#/cosmic/lensing?tab=curve&umin=1');
+  await expect(page.locator('main')).toContainText('µ = 1.342');
+  await expect(page.getByLabel('Einstein time')).toContainText('days');
+  await shot(page, '61c-light-curves', 'Microlensing light curves for u_min = 0.1 … 1.1 (as in Narayan & Bartelmann Fig. 9) and the selected u_min = 1, peaking at µ = 1.34 (0.32 mag).');
+  await page.getByRole('button', { name: 'Stein 2051 B deflection' }).click();
+  await expect(page.getByRole('img', { name: 'Astrometric deflection by Stein 2051 B' })).toBeVisible();
+  await expect(page.getByLabel('Stein 2051 B lensing')).toContainText('180.45');
+  await expect(info.locator('.related-links')).toContainText('GJ 169.1 B');
+  await shot(page, '61d-stein-2051b', 'Astrometric microlensing by the white dwarf Stein 2051 B: displacement of the background star against separation (Sahu et al. 2017 eq. 2), ~2 mas at 0.″5, and the mass from θ_E and the relative parallax.');
 });

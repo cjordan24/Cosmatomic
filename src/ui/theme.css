@@ -97,6 +97,11 @@ a { color: var(--accent); }
 .chip:hover { color: var(--text); border-color: var(--line-strong); }
 .chip.active { color: #04101a; background: var(--accent); border-color: var(--accent); }
 .chip:disabled { opacity: 0.35; cursor: not-allowed; }
+.chip-menu { position: relative; display: inline-flex; }
+.chip-menu-list { position: absolute; z-index: 60; top: calc(100% + 6px); left: 0; min-width: 160px; display: flex; flex-direction: column; padding: 4px; border-radius: 10px; border: 1px solid var(--line); background: var(--glass); backdrop-filter: blur(14px); box-shadow: 0 8px 24px rgba(0,0,0,0.45); }
+.chip-menu-list button { text-align: left; border: 0; background: none; padding: 7px 10px; border-radius: 7px; font-size: 12px; color: var(--text-dim); cursor: pointer; white-space: nowrap; }
+.chip-menu-list button:hover { color: var(--text); background: rgba(255,255,255,0.06); }
+.chip-menu-list button.active { color: var(--accent); }
 
 select, input[type='date'], input[type='datetime-local'], input[type='number'] { height: 30px; padding: 0 8px; border-radius: 8px; border: 1px solid var(--line); background: rgba(255, 255, 255, 0.05); color: var(--text); font: inherit; font-size: 12px; }
 input[type='range'] { accent-color: var(--accent); }
@@ -290,6 +295,7 @@ input[type='range'] { accent-color: var(--accent); }
 .source-list .kind { font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); }
 .source-list .cite { margin: 4px 0; font-size: 13px; color: var(--text); }
 .topbar .chip-row { flex-wrap: nowrap; }
+.topbar .chip { white-space: nowrap; }
 @media (max-width: 1500px) { .search { width: min(280px, 24vw); } }
 @media (max-width: 1280px) { .topbar .icon-btn .hide-mobile { display: none; } }
 .mode-spectral { --accent: #f5c76b; --accent-2: #ffb347; --accent-3: #ffe2a8; --accent-glow: rgba(245, 199, 107, 0.35); --bg-2: #160f05; }

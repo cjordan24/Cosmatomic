@@ -48,10 +48,15 @@ const objects: Obj[] = [
     distance: null, distanceUnit: null, distanceSource: null, shadowMass: null, shadowMassMethod: null,
     measurements: [], caveats: [], sources: [BBB] },
   { id: 'stein-2051-b', name: 'Stein 2051 B', kind: 'white-dwarf', starSeq: 129,
-    mass: [0.675, 0.051, 0.051], massInterval: '1σ', massMethod: 'relativistic deflection of a background star’s image (astrometric microlensing, Sahu et al. 2017), as tabulated', massSource: BBB,
-    radius: [0.0114, 0.0004, 0.0004], radiusUnit: 'R☉', radiusInterval: '1σ', radiusMethod: 'Sahu et al. (2017), as tabulated', radiusSource: BBB,
+    mass: [0.675, 0.051, 0.051], massInterval: '1σ', massMethod: 'relativistic deflection of a background star’s image measured with HST (astrometric microlensing)', massSource: 'sahu-2017',
+    radius: [0.0114, 0.0004, 0.0004], radiusUnit: 'R☉', radiusInterval: '1σ', radiusMethod: 'from broad-band photometry, model atmospheres and the parallax', radiusSource: 'sahu-2017',
     distance: null, distanceUnit: null, distanceSource: null, shadowMass: null, shadowMassMethod: null,
-    measurements: [], caveats: ['The mass comes from gravitational lensing, the effect modelled in Gate 6.3.'], sources: [BBB] },
+    measurements: [
+      { quantity: 'Einstein ring radius θ_E', value: [31.53, 1.20, 1.20], unit: 'mas', interval: '1σ', method: 'fit to the deflected positions of the background star at four HST epochs', source: 'sahu-2017' },
+      { quantity: 'parallax of Stein 2051 B relative to the reference frame', value: [180.7, 1.0, 1.0], unit: 'mas', interval: '1σ', method: 'HST astrometry, eight epochs', source: 'sahu-2017' },
+      { quantity: 'parallax of the background star relative to the reference frame', value: [0.25, 0.1, 0.1], unit: 'mas', interval: '1σ', method: 'same model fit', source: 'sahu-2017' },
+    ],
+    caveats: ['The mass comes from gravitational lensing, the effect modelled in the Lensing view.'], sources: ['sahu-2017', BBB] },
   // ---------------- neutron stars ----------------
   { id: 'psr-j0740', name: 'PSR J0740+6620', kind: 'neutron-star', starSeq: null,
     mass: [2.08, 0.07, 0.07], massInterval: '68%', massMethod: 'Shapiro delay in radio timing of the binary pulsar (68.3 % credibility)', massSource: 'fonseca-2021',
@@ -127,6 +132,7 @@ writeDataset('datasets/astronomical/compact-objects.json', { version: '1.0.0', v
   records: objects.length,
   sources: [
     { institution: 'Bond et al. (2015, 2017); Bond, Bergeron & Bédard (2017); Joyce et al. (2018)', url: 'https://doi.org/10.3847/1538-4357/aa8a63', notes: 'white-dwarf dynamical masses, radii and the Sirius B gravitational redshift' },
+    { institution: 'Sahu et al. (2017) Science 356, 1046', url: 'https://doi.org/10.1126/science.aal2879', notes: 'Stein 2051 B lensing mass, Einstein radius and parallaxes' },
     { institution: 'Fonseca et al. (2021); Miller et al. (2021); Riley et al. (2019); Weisberg & Huang (2016)', url: 'https://doi.org/10.3847/2041-8213/ac03b8', notes: 'neutron-star masses and radii' },
     { institution: 'Event Horizon Telescope Collaboration (2019, 2022)', url: 'https://doi.org/10.3847/2041-8213/ab0ec7', license: 'M87 Paper I: CC BY 3.0 (as stated in the article)', notes: 'M87* and Sgr A* ring diameters, masses and distances' },
     { institution: 'Miller-Jones et al. (2021); LIGO Scientific and Virgo Collaborations (Abbott et al. 2016)', url: 'https://doi.org/10.1103/PhysRevLett.116.061102', notes: 'stellar-mass black holes' },
