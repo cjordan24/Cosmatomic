@@ -5,7 +5,7 @@ Written 2026-11-26 at the end of Phase 3. Read this first, then `ARCHITECTURE.md
 ## 0. Expanded Phase 4 (added 2026-11-26)
 The user replaced the 4-gate plan with an expanded directive: Phase 4 is now **Gates 4.1–4.7** (reactions, thermochemistry, crystals and materials, phases, wave engine, Spectral Mode, FIELDS plus cross-mode links), and Phases 9–14 were added. See DEVELOPMENT_ROADMAP.md for the gate table and live status. The standing authorisation and conventions below still apply. Stop at the Phase 4 boundary and write HANDOFF_PHASE5.md.
 
-**Progress:** Gate 4.1 done. **New standing user rule:** every item must cite accredited sources registered in the Source Index (`src/shared/sources/sources.ts`, `#/sources`) with a link and a verified author note; never guess a biography.
+**Progress:** Gates 4.1–4.2 done. **New standing user rule:** every item must cite accredited sources registered in the Source Index (`src/shared/sources/sources.ts`, `#/sources`) with a link and a verified author note; never guess a biography.
 
 ## 1. Current state
 

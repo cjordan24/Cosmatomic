@@ -274,3 +274,6 @@ input[type='range'] { accent-color: var(--accent); }
 .source-list li.sel { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
 .source-list .kind { font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); }
 .source-list .cite { margin: 4px 0; font-size: 13px; color: var(--text); }
+.topbar .chip-row { flex-wrap: nowrap; }
+@media (max-width: 1500px) { .search { width: min(280px, 24vw); } }
+@media (max-width: 1280px) { .topbar .icon-btn .hide-mobile { display: none; } }

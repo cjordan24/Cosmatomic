@@ -110,6 +110,24 @@ export const SOURCES: Source[] = [
     institution: 'Princeton University / Annals of Mathematics', url: 'https://doi.org/10.2307/2661357', doi: '10.2307/2661357',
     authorBio: 'Alain Chenciner (Université Paris 7 / IMCCE) and Richard Montgomery (University of California, Santa Cruz), mathematicians working on celestial mechanics.', usedFor: ['figure-eight preset'] },
 
+  // ---------------- Phase 4: thermochemistry ----------------
+  { id: 'codata-key-values', kind: 'book', citation: 'Cox, J. D., Wagman, D. D. and Medvedev, V. A. (1989) CODATA Key Values for Thermodynamics. Hemisphere Publishing Corp., New York.', title: 'CODATA Key Values for Thermodynamics', authors: 'J. D. Cox, D. D. Wagman, V. A. Medvedev', year: 1989,
+    institution: 'Committee on Data of the International Science Council (CODATA)', url: 'https://www.codata.info/resources/databases/key1.html',
+    authorBio: 'An international CODATA task group of thermochemists; its recommended values are internally consistent and represent the consensus judgement of the group, with stated uncertainty limits.',
+    usedFor: ['standard enthalpies of formation and entropies (priority source)', 'reaction thermochemistry'], datasets: ['thermochemistry'] },
+  { id: 'nist-webbook', kind: 'database', citation: 'Linstrom, P. J. and Mallard, W. G. (eds.) NIST Chemistry WebBook, NIST Standard Reference Database Number 69. National Institute of Standards and Technology, Gaithersburg, MD.', title: 'NIST Chemistry WebBook (SRD 69)', authors: 'P. J. Linstrom, W. G. Mallard (eds.)', year: 2025,
+    institution: 'National Institute of Standards and Technology (NIST)', url: 'https://webbook.nist.gov/chemistry/', doi: '10.18434/T4D303', license: 'NIST Standard Reference Data (cite per value)',
+    authorBio: 'Edited by NIST chemists Peter Linstrom and William Mallard; the WebBook compiles evaluated data with the original literature reference given for every value (stored with each value in Voyager).',
+    usedFor: ['enthalpies of formation/combustion and entropies of species absent from CODATA (per-value literature reference retained)'], datasets: ['thermochemistry'] },
+  { id: 'nist-janaf', kind: 'standard', citation: 'Chase, M. W., Jr. (1998) NIST-JANAF Thermochemical Tables, 4th ed. Journal of Physical and Chemical Reference Data, Monograph 9.', title: 'NIST-JANAF Thermochemical Tables', authors: 'M. W. Chase, Jr.', year: 1998,
+    institution: 'National Institute of Standards and Technology / American Chemical Society & AIP', url: 'https://janaf.nist.gov/', doi: '10.18434/T42S31',
+    authorBio: 'Malcolm W. Chase Jr. of NIST compiled the fourth edition of the JANAF tables, the standard reference for high-temperature thermochemistry. Many WebBook values marked “Chase, 1998” come from it.',
+    usedFor: ['gas-phase ΔfH° and S° of radicals, NOₓ, SO₃, O₃ (via the WebBook)'], datasets: ['thermochemistry'] },
+  { id: 'manion-2002', kind: 'journal-article', citation: 'Manion, J. A. (2002) Evaluated enthalpies of formation of the stable closed shell C1 and C2 chlorinated hydrocarbons. Journal of Physical and Chemical Reference Data 31, 123–172.', title: 'Evaluated enthalpies of formation of C1 and C2 chlorinated hydrocarbons', authors: 'J. A. Manion', year: 2002,
+    institution: 'NIST / Journal of Physical and Chemical Reference Data', url: 'https://doi.org/10.1063/1.1420703', doi: '10.1063/1.1420703',
+    authorBio: 'Jeffrey A. Manion is a research chemist at NIST working on chemical kinetics and thermochemistry; the paper also re-evaluates key hydrocarbon reference values (CH₄, C₂H₆, C₂H₂).',
+    usedFor: ['ΔfH° of methane, ethane and acetylene (via the WebBook)'], datasets: ['thermochemistry'] },
+
   // ---------------- Phase 4: chemistry ----------------
   { id: 'openstax-chemistry-2e', kind: 'book', citation: 'Flowers, P., Theopold, K., Langley, R. and Robinson, W. R. (2019) Chemistry 2e. OpenStax, Rice University.', title: 'Chemistry 2e', authors: 'P. Flowers, K. Theopold, R. Langley, W. R. Robinson', year: 2019,
     institution: 'OpenStax, Rice University', url: 'https://openstax.org/details/books/chemistry-2e', license: 'CC BY 4.0',

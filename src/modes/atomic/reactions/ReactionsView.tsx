@@ -3,7 +3,7 @@
  * Curated reactions with atom/charge conservation, plus a balancer for user-entered equations
  * that reports explicit states (curated / balanced-unverified / unsupported / …) and never invents products.
  */
-import { useMemo, useState } from 'react';
+import { lazy, Suspense, useMemo, useState } from 'react';
 import { navigate, setQuery, useRoute } from '@/shared/router';
 import { Panel, ProvenanceBadge } from '@/ui/components';
 import { getEntity, relationshipsFrom } from '@/shared/scientific-relationships/registry';
@@ -12,6 +12,8 @@ import { prettySpecies } from './formula';
 import { REACTIONS, analyseInput, getReaction, toEquation, type Analysis, type CuratedReaction } from './library';
 import { SourceLinks } from '@/ui/SourcesView';
 import manifest from '@datasets/manifests/reactions.manifest.json';
+
+const Thermo = lazy(() => import('./ThermoPanel'));
 
 const CONTEXTS = ['all', 'combustion', 'industrial', 'acid-base', 'precipitation', 'redox', 'atmospheric', 'interstellar', 'biological', 'geochemical'];
 
@@ -142,6 +144,7 @@ export default function ReactionsView({ id }: { id: string | null }) {
                 <div className="section-title">Conservation check</div>
                 <BalanceTable eq={eq} />
               </div>
+              <Suspense fallback={null}><Thermo reaction={r} /></Suspense>
             </div>
           </>
         ) : (

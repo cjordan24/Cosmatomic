@@ -1,0 +1,29 @@
+{
+  "dataset": "thermochemistry",
+  "version": "1.0.0",
+  "records": 168,
+  "sources": [
+    {
+      "institution": "CODATA Key Values for Thermodynamics (Cox, Wagman & Medvedev, Hemisphere 1989)",
+      "url": "https://www.codata.info/resources/databases/key1.html",
+      "license": "Published reference values; cite CODATA",
+      "notes": "priority source"
+    },
+    {
+      "institution": "NIST Chemistry WebBook, SRD 69 (Linstrom & Mallard, eds.)",
+      "url": "https://webbook.nist.gov/chemistry/",
+      "license": "NIST Standard Reference Data; cite per value",
+      "notes": "17 species absent from CODATA; per-value reference stored"
+    }
+  ],
+  "adapter": "scripts/ingestion/thermochemistry.ts",
+  "warnings": [
+    "C2H6(g): S° not available — shown as unknown",
+    "C3H8(g): S° not available — shown as unknown",
+    "CH3OH(g): S° not available — shown as unknown"
+  ],
+  "output": "datasets/chemistry/thermochemistry.json",
+  "retrievedAt": "2026-11-26T16:58:48.047Z",
+  "bytes": 71959,
+  "sha256": "1483cf1099d1a23da9ba084eed61b643c5ed2bc040b08c51c6441a19af8da8f9"
+}

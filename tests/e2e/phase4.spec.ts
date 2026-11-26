@@ -60,3 +60,18 @@ test('40 source index: every source with link, institution and author note', asy
   await expect(entry).toContainText('Sydney Chapman');
   await shot(page, '40-source-index', 'Source index (#/sources): every citation behind the app — peer-reviewed articles, academic texts, national laboratories and standards bodies — with DOI/official link, institution, licence, a verified author note and what it is used for. Reached here from a reaction’s source link.');
 });
+
+// ---------------- Gate 4.2 ----------------
+test('43 thermochemistry: Haber–Bosch ΔrH°, ΔrS°, ΔrG°(T), K and energy diagram', async ({ page }) => {
+  await page.goto('/#/atomic/reactions/haber-bosch');
+  const thermo = page.getByLabel('Thermochemistry');
+  await expect(thermo).toContainText('-91.88');
+  await expect(page.getByRole('img', { name: /Energy diagram/ })).toBeVisible();
+  await shot(page, '43-thermochemistry-energy-diagram', 'Haber–Bosch thermochemistry at 298.15 K from CODATA Key Values: ΔrH° = −91.88 ± 0.70 kJ/mol, ΔrS°, ΔrG°, K; the energy diagram puts elements, reactants and products on one enthalpy axis (Derived), while the dashed path is Illustrative and has no barrier value. Each species row lists its value, uncertainty and source.');
+  await page.getByLabel('Temperature in kelvin').fill('700');
+  await expect(thermo).toContainText('ΔrCp° = 0');
+  await expect(thermo).toContainText('ΔrG° (700 K)');
+  await shot(page, '43b-thermochemistry-700K', 'Same reaction at 700 K: ΔrG° becomes positive (K < 1). This is why industrial ammonia synthesis trades yield for rate, and the panel warns that the constant-ΔH/ΔS approximation applies.');
+  await page.goto('/#/atomic/reactions/baso4-precipitation');
+  await expect(page.getByLabel('Thermochemistry')).toContainText('Nothing is estimated');
+});
