@@ -168,6 +168,12 @@ export const SOURCES: Source[] = [
   { id: 'malmberg-maryott-1956', kind: 'journal-article', citation: 'Malmberg, C. G. and Maryott, A. A. (1956) Dielectric constant of water from 0° to 100 °C. Journal of Research of the National Bureau of Standards 56, 1–8.', title: 'Dielectric constant of water from 0 to 100 °C', authors: 'C. G. Malmberg, A. A. Maryott', year: 1956,
     institution: 'National Bureau of Standards', url: 'https://doi.org/10.6028/jres.056.001', doi: '10.6028/jres.056.001', license: 'U.S. Government work (public domain)', authorBio: 'C. G. Malmberg and Arthur A. Maryott were physicists at the National Bureau of Standards; the fitted equation used here was checked against the paper’s text.', usedFor: ['static relative permittivity of water vs temperature'], datasets: ['materials'] },
 
+  // ---------------- Phase 4: waves ----------------
+  { id: 'openstax-university-physics-1', kind: 'book', citation: 'Ling, S. J., Sanny, J. and Moebs, W. (2016) University Physics, Volume 1, chs. 16–17 (Waves; Sound). OpenStax, Rice University.', title: 'University Physics Volume 1', authors: 'S. J. Ling, J. Sanny, W. Moebs', year: 2016,
+    institution: 'OpenStax, Rice University', url: 'https://openstax.org/details/books/university-physics-volume-1', license: 'CC BY 4.0',
+    authorBio: 'Peer-reviewed open textbook from OpenStax (Rice University); senior contributing authors Samuel J. Ling (Truman State University), Jeff Sanny (Loyola Marymount University) and William Moebs.',
+    usedFor: ['wave kinematics, string wave speed, standing waves and harmonics, beats, Doppler effect, speed of sound in gases'] },
+
   // ---------------- Phase 4: phase behaviour ----------------
   { id: 'iapws-sr1-86', kind: 'standard', citation: 'IAPWS SR1-86(1992) Revised Supplementary Release on Saturation Properties of Ordinary Water Substance. International Association for the Properties of Water and Steam.', title: 'Saturation properties of ordinary water substance', authors: 'IAPWS (equations of W. Wagner & A. Pruß)', year: 1992,
     institution: 'International Association for the Properties of Water and Steam', url: 'https://iapws.org/technical-guidance/release/Supp-sat',

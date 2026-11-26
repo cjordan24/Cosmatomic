@@ -131,3 +131,35 @@ test('47 intermolecular forces: Lennard-Jones liquid argon with live g(r)', asyn
   await page.waitForTimeout(3000);
   await shot(page, '47b-lennard-jones-solid', 'Same model in the solid preset (ρ* = 1.1, T = 60 K): fcc lattice vibrations, and a g(r) with sharp crystalline peaks.');
 });
+
+// ---------------- Gate 4.5 ----------------
+test('48 wave laboratory: transverse, longitudinal, interference, standing wave, vacuum, save', async ({ page }) => {
+  await page.goto('/#/spectral/lab?demo=traveling&medium=string&f=25&ts=0.04');
+  await expect(page.getByLabel('Wave quantities')).toContainText('100');      // v = √(100 N / 0.01 kg/m)
+  await expect(page.getByLabel('Wave quantities')).toContainText('4');        // λ = 4 m
+  await page.waitForTimeout(1500);
+  await shot(page, '48-wave-lab-transverse', 'Wave laboratory: a transverse travelling wave on a string. v = √(T/μ) = 100 m/s comes from the medium, so λ = v/f = 4 m is derived and not independently adjustable. Shown: a snapshot y(x), the probe trace y(t), and playback (slow motion) kept separate from physical time.');
+  await page.goto('/#/spectral/lab?demo=traveling&medium=air&wave=longitudinal&f=440');
+  await expect(page.getByLabel('Wave quantities')).toContainText('343');
+  await page.waitForTimeout(1500);
+  await shot(page, '48b-wave-lab-longitudinal', 'Longitudinal 440 Hz sound wave in dry air at 20 °C: c = √(γRT/M) = 343 m/s, with M derived from the NSSDC composition. Particles oscillate along the direction of travel, and colour marks compression and rarefaction. λ = 0.780 m.');
+  await page.goto('/#/spectral/lab?demo=superposition&medium=string&f=25&f2=25&phi2=3.1416&A2=0.003');
+  await page.waitForTimeout(1500);
+  await shot(page, '48c-wave-lab-interference', 'Superposition of two co-propagating 25 Hz waves with a phase difference of π (destructive interference): amplitudes 5 mm and 3 mm leave a 2 mm resultant.');
+  await page.goto('/#/spectral/lab?demo=standing&medium=string&bc=fixed-fixed&n=3&L=1.2');
+  await expect(page.getByLabel('Wave quantities')).toContainText('125');      // f3 = 3·100/(2·1.2)
+  await page.waitForTimeout(1500);
+  await shot(page, '48d-wave-lab-standing', 'Standing wave: third harmonic of a 1.2 m string fixed at both ends. f₃ = 3v/2L = 125 Hz, with nodes at both ends and two interior nodes.');
+  await page.goto('/#/spectral/lab?demo=interference&medium=water&f=50000&d=3&view=intensity');
+  await page.waitForTimeout(1500);
+  await shot(page, '48e-wave-lab-two-source', 'Two coherent 50 kHz ultrasound sources in water (c from IAPWS-95 via NIST) 3λ apart: the time-averaged intensity shows bright fringes where the path difference is mλ and dark fringes at (m + ½)λ.');
+  await page.goto('/#/spectral/lab?demo=traveling&medium=vacuum');
+  await expect(page.getByRole('status')).toContainText('No propagation');
+  await page.goto('/#/spectral/lab?demo=pulse&medium=string&fdbc=fixed');
+  await expect(page.getByLabel('Wave quantities')).toContainText('0.8');      // Courant number
+  await page.getByLabel('Wave experiment name').fill('Pulse reflection, fixed ends');
+  await page.getByRole('button', { name: 'Save wave experiment' }).click();
+  await expect(page.getByText('Saved “Pulse reflection, fixed ends”')).toBeVisible();
+  await page.goto('/#/notebook');
+  await expect(page.getByRole('article', { name: /Pulse reflection, fixed ends/ })).toContainText('wave-lab');
+});

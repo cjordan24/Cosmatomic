@@ -277,3 +277,7 @@ input[type='range'] { accent-color: var(--accent); }
 .topbar .chip-row { flex-wrap: nowrap; }
 @media (max-width: 1500px) { .search { width: min(280px, 24vw); } }
 @media (max-width: 1280px) { .topbar .icon-btn .hide-mobile { display: none; } }
+.mode-spectral { --accent: #f5c76b; --accent-2: #ffb347; --accent-3: #ffe2a8; --accent-glow: rgba(245, 199, 107, 0.35); --bg-2: #160f05; }
+.mode-switch button.spectral.active { background: #f5c76b; color: #1a1205; }
+.wave-canvas { display: block; width: 100%; max-width: 760px; height: auto; border-radius: 12px; border: 1px solid var(--line); background: #03050c; }
+.no-propagation { padding: 28px; border: 1px dashed var(--warn); border-radius: 12px; color: var(--text); font-size: 14px; line-height: 1.6; }

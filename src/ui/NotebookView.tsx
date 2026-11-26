@@ -1,21 +1,21 @@
 import { useEffect, useState } from 'react';
 import { navigate } from '@/shared/router';
-import { deleteExperiment, download, experimentToCSV, listExperiments, type Experiment } from '@/shared/notebook';
+import { deleteExperiment, download, experimentToCSV, listAllExperiments, type AnyExperiment, type WaveExperiment } from '@/shared/notebook';
 import { ProvenanceBadge } from './components';
 
 /** Scientific notebook: saved experiments with reproducible restore and data export. */
 export default function NotebookView() {
-  const [items, setItems] = useState<Experiment[] | null>(null);
-  const load = () => listExperiments().then(setItems);
+  const [items, setItems] = useState<AnyExperiment[] | null>(null);
+  const load = () => listAllExperiments().then(setItems);
   useEffect(() => { load(); }, []);
   return (
     <div className="ptable-wrap">
       <div className="ptable-toolbar"><h1>SCIENTIFIC NOTEBOOK</h1><span className="note">Experiments are stored only in this browser (IndexedDB). Each keeps its initial conditions and solver settings so it can be re-run reproducibly.</span></div>
       {items === null ? <p className="note">Loading…</p> : items.length === 0 ? (
-        <p className="note">No experiments yet. Open the <button className="link-btn" onClick={() => navigate('/cosmic/sandbox')}>gravitational sandbox</button>, run something, and press “Save experiment”.</p>
+        <p className="note">No experiments yet. Open the <button className="link-btn" onClick={() => navigate('/cosmic/sandbox')}>gravitational sandbox</button>, run something, and press “Save experiment”. The <button className="link-btn" onClick={() => navigate('/spectral/lab')}>wave laboratory</button> can be saved the same way.</p>
       ) : (
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: 14 }}>
-          {items.map((e) => (
+          {items.map((e) => e.kind === 'wave' ? <WaveCard key={e.id} e={e} onDelete={load} /> : (
             <article key={e.id} className="panel" style={{ position: 'relative' }} aria-label={`Experiment ${e.name}`}>
               {e.screenshot && <img src={e.screenshot} alt={`Screenshot of ${e.name}`} style={{ width: '100%', aspectRatio: '16 / 9', objectFit: 'cover', display: 'block', borderBottom: '1px solid var(--line)' }} />}
               <div className="panel-body">
@@ -42,5 +42,32 @@ export default function NotebookView() {
         </div>
       )}
     </div>
+  );
+}
+
+function WaveCard({ e, onDelete }: { e: WaveExperiment; onDelete: () => void }) {
+  return (
+    <article className="panel" style={{ position: 'relative' }} aria-label={`Experiment ${e.name}`}>
+      {e.screenshot && <img src={e.screenshot} alt={`Screenshot of ${e.name}`} style={{ width: '100%', aspectRatio: '16 / 9', objectFit: 'cover', display: 'block', borderBottom: '1px solid var(--line)' }} />}
+      <div className="panel-body">
+        <h2 style={{ margin: '0 0 4px', fontWeight: 400, fontSize: 17 }}>{e.name}</h2>
+        <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginBottom: 6 }}><ProvenanceBadge cls={e.provenance} /><span className="badge" style={{ color: 'var(--warn)' }}>{e.mode}</span></div>
+        <dl className="kv">
+          <dt>Saved</dt><dd>{e.createdAt.slice(0, 16).replace('T', ' ')}</dd>
+          <dt>Model</dt><dd>{e.model}</dd>
+          <dt>Solver</dt><dd style={{ fontSize: 10.5 }}>{e.solver.version}{e.solver.courant !== null ? ` · C = ${e.solver.courant.toFixed(2)}` : ''}</dd>
+          <dt>Medium</dt><dd>{e.medium.name}{e.medium.speed !== null ? ` · v = ${e.medium.speed.toPrecision(5)} m/s` : ' · no propagation'}</dd>
+          <dt>Simulated</dt><dd>{e.simulatedTime.toPrecision(4)} s</dd>
+          {Object.entries(e.observations).map(([k, v]) => <><dt key={k}>{k}</dt><dd key={k + 'v'}>{v === null ? 'unknown' : v.toPrecision(5)}</dd></>)}
+        </dl>
+        {e.notes && <p className="note" style={{ whiteSpace: 'pre-wrap' }}>{e.notes}</p>}
+        <p className="note" style={{ fontSize: 10.5 }}>Sources: {e.dataSources.join('; ')}</p>
+        <div className="chip-row">
+          <button className="chip active" onClick={() => navigate(`/spectral/lab?${new URLSearchParams(e.params).toString()}`)}>Restore</button>
+          <button className="chip" onClick={() => download(`${e.id}.json`, JSON.stringify(e, null, 2), 'application/json')}>JSON</button>
+          <button className="chip" onClick={async () => { await deleteExperiment(e.id); onDelete(); }}>Delete</button>
+        </div>
+      </div>
+    </article>
   );
 }
