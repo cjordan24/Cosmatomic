@@ -7,7 +7,8 @@
 * **Cosmic abundances**: only 28 elements (Asplund 2009) were transcribed; others show "no data". Values are manually transcribed and should be re-verified against the publication table by an automated adapter.
 * **Molecule geometries** are MMFF94s conformers (e.g. CO₂ C=O 1.197 Å vs 1.160 Å experimental); H₂, NO and C₆₀ use experimental bond lengths. Bond orders are Kekulé. NO₂, SF₆ and stearic acid are absent (PubChem has no 3D conformer). 140 curated records.
 * **PubChem search** needs network access and returns only compounds with a PubChem3D conformer (salts, metals, radicals and very large/flexible molecules are refused with an explanation). Interstellar-detection flags are a curated subset of the McGuire (2022) census, not an automated cross-match.
-* **Builder:** geometry is unoptimised until Gate 2.3; no aromatic bond type (Kekulé only); no stereo editing (stereo is whatever the 3D placement implies); valence rules cover main-group elements only; identity lookup needs network access.
+* **VGFF-1 optimiser:** approximate generic force field (no electrostatics, no dispersion attraction, no conformer search — finds the nearest local minimum). Poor for homonuclear diatomics, peroxides, P/S oxoacids, fused aromatics, fullerenes and transition-metal species; > 4-coordinate centres get no angle terms. Energies are relative strain only.
+* **Builder:** no aromatic bond type (Kekulé only); no stereo editing (stereo is whatever the 3D placement implies); valence rules cover main-group elements only; identity lookup needs network access.
 * **RDKit-JS** adds a ~7.4 MB one-time download when the Laboratory first opens.
 * **File import:** XYZ/PDB-without-CONECT get single bonds only (no bond-order perception until the Phase 2.2 validator); MOL V3000 and aromatic bond type 4 are not supported.
 * **Planet ephemeris** is JPL Table 1 (errors up to ~9′ for Saturn); the timeline is clamped to its 1800–2050 validity.

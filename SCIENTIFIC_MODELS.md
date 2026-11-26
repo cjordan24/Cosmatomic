@@ -42,6 +42,17 @@ Every model below states its assumptions, validity range and the test that check
 * **Strict vs sandbox:** strict mode refuses edits that add valence errors; the experimental sandbox allows them and labels the structure failing validation (provenance class Hypothetical).
 * **Dihedral rotation:** Rodrigues rotation of one side of a non-ring single bond; bond lengths preserved to 1e-9 Å (test).
 
+### 4d. Geometry optimisation — VGFF-1 (Phase 2.3)
+A deliberately small, fully traceable **generic valence force field** (`src/modes/atomic/laboratory/forcefield.ts`); results are labelled *Simulated*.
+| Term | Form | Parameters (source) |
+|---|---|---|
+| Bond | k(r − r₀)², k = 700 | r₀ = Cordero 2008 radii; heavy-atom single bonds use hybrid carbon radii sp³ 0.76 / sp² 0.73 / sp 0.69 Å; multiple bonds r₁ − 0.71·log₁₀ n (Pauling); aromatic n = 1.5 (→ 1.395 Å C–C); resonance n = 1.25 for sp² C–N/O(lone pair) — **calibrated** on formamide C–N 1.352 Å and formic acid C–OH 1.343 Å |
+| Angle | K(cos θ − cos θ₀)², K = 120 | sp 180°, sp² 120°, sp³ 109.47°; lone-pair sp³ centres use parent-hydride experimental angles (H₂O 104.5°, NH₃ 106.7°, H₂S 92.1°, PH₃ 93.8°); none for > 4 neighbours |
+| Torsion | V/2(1 − cos 2φ) double/aromatic (V 12), conjugated single (V 2.5); V/2(1 + cos 3φ) sp³–sp³ (V 0.35) | planarity / staggering |
+| Non-bonded | K(d₀ − r)² for r < d₀, ≥ 3 bonds apart (1-4 × 0.5) | d₀ = 0.8 × Σ PubChem vdW radii; repulsion only |
+Perception: hybridisation from bond orders; aromatic 6-rings (3 alternating doubles) and 5-rings (2 doubles + N/O/S); amide/aniline N planarised. Optimiser: L-BFGS (m = 8), Armijo backtracking, 0.3 Å step cap, convergence at RMS gradient ≤ 10⁻³; runs in a Web Worker with live progress.
+*Validation (tests/science/forcefield.test.ts):* analytic gradient vs central differences (relative error < 10⁻⁵, 7 molecules); rigid-motion invariance; monotone convergence. From crude builder guesses it reproduces **experimental** geometries: water 0.958 Å / 104.5°, ammonia 106.7°, methane 109.47° / 1.087 Å, ethane 1.535 Å, ethylene 1.339 Å (planar), acetylene 1.203 Å (linear), benzene six equal bonds 1.397 Å (spread < 0.005 Å). Against PubChem MMFF94s conformers: **91 % of 133 organic molecules keep bond-length RMS change < 0.04 Å (median 0.021 Å)**. Known failures of additive radii: H₂, O₂, HF, H₂O₂, P/S oxoacids, SO₂, fused aromatics (anthracene), C₆₀, heterocumulenes. Energies are relative strain within one structure, not thermochemistry.
+
 ## 5. Solar-system dynamics
 | Body set | Model | Validated accuracy (1900–2049, vs JPL Horizons DE440/441) |
 |---|---|---|

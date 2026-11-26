@@ -10,7 +10,37 @@ import { useMoleculeLibrary } from '../molecules/library';
 import { addHydrogens, centroidOf, rotateAboutBond, translateAtoms, validateValence, type Structure } from './builder';
 import { identify, loadRDKit, type Identity } from './rdkit';
 import { LabScene } from './LabScene';
-import { useLab, type Tool } from './store';
+import { useLab, type Tool, type OptInfo } from './store';
+import { VGFF_VERSION } from './forcefield';
+import type { Structure as S } from './builder';
+
+let optWorker: Worker | null = null;
+let optRun = 0;
+function runOptimiser(s: S, onProgress: (coords: number[], E: number, it: number) => void): Promise<{ structure: S; info: OptInfo }> {
+  optWorker ??= new Worker(new URL('../../../workers/optimise.worker.ts', import.meta.url), { type: 'module' });
+  const id = ++optRun;
+  return new Promise((resolve) => {
+    optWorker!.onmessage = (ev: MessageEvent) => {
+      if (ev.data.id !== id) return;
+      if (ev.data.type === 'progress') onProgress(ev.data.coords, ev.data.E, ev.data.it);
+      else { const r = ev.data.result; resolve({ structure: r.structure, info: { version: r.version, initialEnergy: r.initialEnergy, energy: r.energy, iterations: r.iterations, gradRms: r.gradRms, converged: r.converged, history: r.history } }); }
+    };
+    optWorker!.postMessage({ id, structure: s });
+  });
+}
+
+function EnergyPlot({ history }: { history: number[] }) {
+  if (history.length < 2) return null;
+  const w = 380, h = 70, lo = Math.min(...history), hi = Math.max(...history);
+  const xs = (i: number) => (i / (history.length - 1)) * w;
+  const ys = (e: number) => h - 4 - ((Math.log10(e - lo + 1e-3) - Math.log10(1e-3)) / (Math.log10(hi - lo + 1e-3) - Math.log10(1e-3) || 1)) * (h - 8);
+  return (
+    <svg viewBox={`0 0 ${w} ${h}`} role="img" aria-label="Energy versus iteration (log scale above the final value)" style={{ width: '100%', height: 'auto' }}>
+      <polyline fill="none" stroke="#b18cff" strokeWidth="1.6" points={history.map((e, i) => `${xs(i).toFixed(1)},${ys(e).toFixed(1)}`).join(' ')} />
+      <text x={4} y={12} fontSize="10" opacity="0.7">E − E_final (log) vs iteration</text>
+    </svg>
+  );
+}
 
 const TOOLS: { id: Tool; label: string; hint: string }[] = [
   { id: 'grow', label: 'Add / grow', hint: 'Click empty space to place an atom; click an atom to bond a new atom to it.' },
@@ -69,7 +99,9 @@ export default function LaboratoryView() {
       formula: hillFormula(s.atoms), molecularWeight: molecularMass(s.atoms), netCharge: s.atoms.reduce((t, a) => t + a.charge, 0),
       smiles: id?.smiles ?? null, inchi: id?.inchi ?? null, inchiKey: id?.inchiKey ?? null, pubchemCid: kn?.cid ?? null,
       atoms: s.atoms, bonds: s.bonds,
-      geometry: { source: `Built in the Voyager laboratory — starting-guess geometry (covalent radii, VSEPR-like directions), not optimised${hypothetical ? '; FAILS validation (hypothetical)' : ''}.`, units: 'angstrom', provenance: 'hypothetical', experimental: false },
+      geometry: lab.opt && !hypothetical
+        ? { source: `Built in the Voyager laboratory; geometry optimised with ${lab.opt.version} (generic valence force field, approximate; ${lab.opt.converged ? 'converged' : 'not converged'} in ${lab.opt.iterations} L-BFGS steps).`, units: 'angstrom', provenance: 'simulated', experimental: false }
+        : { source: `Built in the Voyager laboratory — starting-guess geometry (covalent radii, VSEPR-like directions), not optimised${hypothetical ? '; FAILS validation (hypothetical)' : ''}.`, units: 'angstrom', provenance: 'hypothetical', experimental: false },
       sourceUrl: kn ? `https://pubchem.ncbi.nlm.nih.gov/compound/${kn.cid}` : '',
     };
   };
@@ -121,6 +153,30 @@ export default function LaboratoryView() {
           </select>
         </label>
 
+        <div className="section-title">Geometry</div>
+        <div className="chip-row">
+          <button className="chip" disabled={!s.atoms.length || lab.running || errors.length > 0} title={errors.length ? 'Fix valence errors first' : 'Relax the structure with the VGFF-1 force field (runs in a background worker)'}
+            onClick={async () => {
+              lab.set({ running: true, notice: null });
+              const start = s;
+              const { structure, info } = await runOptimiser(start, (coords) => lab.preview({ atoms: start.atoms.map((a, i) => ({ ...a, x: coords[3 * i], y: coords[3 * i + 1], z: coords[3 * i + 2] })), bonds: start.bonds }));
+              useLab.setState({ s: start }); // restore pre-optimisation state so history records the step correctly
+              lab.applyOptimised(structure, info);
+            }}>{lab.running ? 'Optimising…' : `Optimise geometry (${VGFF_VERSION})`}</button>
+        </div>
+        {lab.opt && (
+          <>
+            <dl className="kv">
+              <KV k="Strain energy" v={`${lab.opt.initialEnergy.toFixed(1)} → ${lab.opt.energy.toFixed(2)}`} unit="kcal/mol (relative)" />
+              <KV k="Iterations (L-BFGS)" v={lab.opt.iterations} />
+              <KV k="RMS gradient" v={lab.opt.gradRms} unit="kcal/mol/Å" sig={2} />
+              <KV k="Converged" v={lab.opt.converged ? 'yes (≤ 1e-3)' : 'no — iteration limit'} />
+            </dl>
+            <EnergyPlot history={lab.opt.history} />
+            <p className="note">Relative strain energy within one structure — not a heat of formation; do not compare between molecules.</p>
+          </>
+        )}
+
         <div className="section-title">Mode</div>
         <label className="toggle-row" style={{ borderBottom: 0 }}>
           <span>Experimental sandbox <span className="note">(allow impossible valences; result is labelled Hypothetical)</span></span>
@@ -137,7 +193,7 @@ export default function LaboratoryView() {
             ? <span className="badge" style={{ color: '#ff7a90' }}>fails validation — hypothetical</span>
             : warnings.length ? <span className="badge" style={{ color: '#f5c76b' }}>valid bonding, open valences</span>
             : <span className="badge" style={{ color: '#5cf2a6' }}>passes both validators</span>)}
-          <span className="badge" style={{ color: '#f5c76b' }}>unoptimised geometry</span>
+          {lab.opt ? <span className="badge" style={{ color: '#b18cff' }} title="Simulated: output of an identified physical model"><span className="dot" />simulated · {lab.opt.version} optimised</span> : <span className="badge" style={{ color: '#f5c76b' }}>unoptimised geometry</span>}
         </div>
         <dl className="kv">
           <KV k="Atoms / bonds" v={`${s.atoms.length} / ${s.bonds.length}`} />
@@ -183,7 +239,7 @@ export default function LaboratoryView() {
           <button className="chip" disabled={!s.atoms.length} onClick={() => download('built.mol', toMolV2000(asRecord()))}>MOL</button>
           <button className="chip" disabled={!s.atoms.length} onClick={() => download('built.xyz', toXYZ(asRecord()))}>XYZ</button>
         </div>
-        <p className="note" style={{ marginTop: 10 }}>Geometry is a starting guess (covalent-radius bond lengths, VSEPR-like directions). Force-field optimisation arrives in the next gate. Two validators are shown because they can disagree: RDKit also checks aromaticity and charge perception.</p>
+        <p className="note" style={{ marginTop: 10 }}>Builder geometry starts as a guess (covalent-radius bond lengths, VSEPR-like directions); “Optimise geometry” relaxes it with {VGFF_VERSION}. Two validators are shown because they can disagree: RDKit also checks aromaticity and charge perception.</p>
       </Panel>
     </>
   );

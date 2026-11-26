@@ -6,6 +6,7 @@
 import { create } from 'zustand';
 import { EMPTY, validateValence, type Structure } from './builder';
 
+export interface OptInfo { version: string; initialEnergy: number; energy: number; iterations: number; gradRms: number; converged: boolean; history: number[] }
 export type Tool = 'grow' | 'bond' | 'charge' | 'replace' | 'delete' | 'move' | 'move-fragment' | 'rotate' | 'duplicate';
 
 interface LabState {
@@ -18,6 +19,9 @@ interface LabState {
   pendingAtom: number | null;
   selectedBond: number | null;
   notice: string | null;
+  /** set when the current geometry is the output of the optimiser; cleared by any edit */
+  opt: OptInfo | null;
+  running: boolean;
   /** apply an edit; in strict mode refuse it if it introduces a valence error */
   apply: (next: Structure, label?: string) => boolean;
   /** replace without validation/history (live drag/rotate previews) */
@@ -28,7 +32,8 @@ interface LabState {
   redo: () => void;
   clear: () => void;
   load: (s: Structure) => void;
-  set: (patch: Partial<Pick<LabState, 'tool' | 'Z' | 'sandbox' | 'pendingAtom' | 'selectedBond' | 'notice'>>) => void;
+  set: (patch: Partial<Pick<LabState, 'tool' | 'Z' | 'sandbox' | 'pendingAtom' | 'selectedBond' | 'notice' | 'opt' | 'running'>>) => void;
+  applyOptimised: (s: Structure, info: OptInfo) => void;
 }
 
 const KEY = 'vv.lab.structure';
@@ -46,6 +51,8 @@ export const useLab = create<LabState>((set, get) => ({
   pendingAtom: null,
   selectedBond: null,
   notice: null,
+  opt: null,
+  running: false,
   apply: (next, label) => {
     const { s, sandbox, past } = get();
     if (!sandbox && errorsIn(next) > errorsIn(s)) {
@@ -54,14 +61,15 @@ export const useLab = create<LabState>((set, get) => ({
       return false;
     }
     persist(next);
-    set({ s: next, past: [...past, s].slice(-100), future: [], notice: null });
+    set({ s: next, past: [...past, s].slice(-100), future: [], notice: null, opt: null });
     return true;
   },
   preview: (next) => set({ s: next }),
-  commit: (from) => { const { s, past } = get(); persist(s); set({ past: [...past, from].slice(-100), future: [] }); },
-  undo: () => { const { past, s, future } = get(); if (!past.length) return; const prev = past[past.length - 1]; persist(prev); set({ s: prev, past: past.slice(0, -1), future: [s, ...future], pendingAtom: null, selectedBond: null }); },
-  redo: () => { const { past, s, future } = get(); if (!future.length) return; const next = future[0]; persist(next); set({ s: next, past: [...past, s], future: future.slice(1), pendingAtom: null, selectedBond: null }); },
+  commit: (from) => { const { s, past } = get(); persist(s); set({ past: [...past, from].slice(-100), future: [], opt: null }); },
+  applyOptimised: (next, info) => { const { s, past } = get(); persist(next); set({ s: next, past: [...past, s].slice(-100), future: [], opt: info, running: false }); },
+  undo: () => { const { past, s, future } = get(); if (!past.length) return; const prev = past[past.length - 1]; persist(prev); set({ s: prev, past: past.slice(0, -1), future: [s, ...future], pendingAtom: null, selectedBond: null, opt: null }); },
+  redo: () => { const { past, s, future } = get(); if (!future.length) return; const next = future[0]; persist(next); set({ s: next, past: [...past, s], future: future.slice(1), pendingAtom: null, selectedBond: null, opt: null }); },
   clear: () => get().apply(EMPTY, 'clear'),
-  load: (s) => { const { past, s: cur } = get(); persist(s); set({ s, past: [...past, cur].slice(-100), future: [], pendingAtom: null, selectedBond: null, notice: null }); },
+  load: (s) => { const { past, s: cur } = get(); persist(s); set({ s, past: [...past, cur].slice(-100), future: [], pendingAtom: null, selectedBond: null, notice: null, opt: null }); },
   set: (patch) => set(patch),
 }));

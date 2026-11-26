@@ -117,3 +117,22 @@ test('25 laboratory: build methanol, validate with RDKit, identify via PubChem I
   await page.getByRole('button', { name: 'Undo' }).click();
   await expect(info).toContainText('passes both validators');
 });
+
+test('27 laboratory: VGFF-1 geometry optimisation of a builder structure', async ({ page }) => {
+  await page.goto('/#/atomic/lab');
+  // crude starting guess: ethanol heavy atoms only, deliberately distorted
+  await page.evaluate(() => localStorage.setItem('vv.lab.structure', JSON.stringify({
+    atoms: [{ Z: 6, x: -1.2, y: 0.3, z: 0, charge: 0 }, { Z: 6, x: 0.4, y: -0.2, z: 0.4, charge: 0 }, { Z: 8, x: 1.1, y: 1.4, z: -0.3, charge: 0 }],
+    bonds: [{ a: 0, b: 1, order: 1 }, { a: 1, b: 2, order: 1 }],
+  })));
+  await page.reload();
+  await page.waitForTimeout(2500);
+  await page.getByRole('button', { name: 'Add hydrogens' }).click();
+  await page.getByRole('button', { name: /Optimise geometry/ }).click();
+  const tools = page.locator('.left-panel');
+  await expect(tools).toContainText('yes (≤ 1e-3)', { timeout: 60_000 });
+  await expect(page.locator('.right-panel')).toContainText('VGFF-1.0 optimised');
+  await expect(page.locator('.right-panel')).toContainText('Ethanol', { timeout: 30_000 });
+  await page.waitForTimeout(1200);
+  await shot(page, '27-lab-optimised-ethanol', 'VGFF-1 optimisation in a Web Worker: a distorted ethanol starting guess relaxes (L-BFGS, converged, energy-vs-iteration plot); geometry now labelled Simulated; identity confirmed as ethanol.');
+});
