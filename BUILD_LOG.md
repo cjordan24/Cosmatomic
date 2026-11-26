@@ -242,5 +242,20 @@ Stein 2051 B (GJ 169.1 B in the 10 pc sample) now links to the lensing view thro
 
 Findings:
 1. **Top-bar overflow.** With Relativity, Black holes and Lensing added, the Search and Sources buttons overlapped (screenshot 61a, first run). The new `ChipMenu` groups related sections and shows the active one in its label.
-3. **VGFF timeout.** The VGFF-1 conformer test now has an explicit 30 s timeout. The new CPU-heavy Phase 6 tests (photon-path integrations) run in parallel workers and pushed this compute-bound test past Vitest’s 5 s default in every full run (it passes alone).
 2. **Test unit slip.** A first test computed π_rel in µas instead of mas; the code was right. The distance form and the parallax form of θ_E now agree to 10⁻⁶.
+3. **VGFF timeout.** The VGFF-1 conformer test now has an explicit 30 s timeout. The new CPU-heavy Phase 6 tests (photon-path integrations) run in parallel workers and pushed this compute-bound test past Vitest’s 5 s default in every full run (it passes alone).
+
+## 2026-11-26 — Phase 6, Gate 6.4 (galaxies and rotation curves)
+First, a live re-check of Gate 6.3 against production: 55/55 passed.
+
+New view `#/cosmic/galaxies` (chip *Galaxies*) with two tabs:
+- **SPARC rotation curves:** all 175 galaxies, filterable by quality. Each shows the observed curve with errors, the gas, disc and bulge contributions, and the Newtonian baryon sum with adjustable Υ. A least-squares NFW halo is fitted (labelled as a model fit), and its χ² is compared with baryons alone.
+- **Milky Way:** the Eilers et al. rotation curve, Θ₀ at the Sun, a stars-only Keplerian lower bound and the adopted Galactic parameters.
+
+New datasets: `sparc-galaxies` (adapter) and `milky-way` (transcribed). Registry: galaxy:milky-way, with the Sun and Sgr A* located in it. The scale ladder's *Galaxies* level is now interactive. LinePlot gained error bars. New Source-index entries, all Crossref-verified with affiliations from the arXiv PDFs: SPARC (Lelli et al. 2016), NFW 1996 and 1997, Bland-Hawthorn & Gerhard 2016, Eilers et al. 2019. 15 new science tests (433 total) and e2e test 62.
+
+Findings:
+1. **SPARC rows are not aligned to the byte ranges in their own headers.** The first parse put NGC 3198's distance in the wrong column. The adapter now splits on whitespace (names and reference lists contain no spaces) and throws on any row with the wrong number of fields.
+2. **A G unit slip was caught.** kpc had been written in metres instead of km, which would have made G 1000× too small. A test now pins G = 4.301 × 10⁻⁶ kpc (km/s)²/M☉.
+3. **The build failed while the unit tests passed.** `npm run build` also typechecks the ingestion scripts, and a spread in the SPARC adapter lost its record type. The first e2e attempt therefore ran against the previous build.
+4. **NGC 3198** (the classic case) with Υ_disk = 0.5: χ²/N = 759 for baryons alone and 1.39 with an NFW halo (c ≈ 9.4, V₂₀₀ ≈ 112 km/s, M₂₀₀ ≈ 4.5 × 10¹¹ M☉). This illustrates the missing-mass problem; it is not a measurement of dark matter.

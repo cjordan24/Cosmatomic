@@ -28,7 +28,7 @@ export const SCALE_LEVELS: ScaleLevel[] = [
   { id: 'planet', label: 'Planets', log10m: 7.1, support: 'interactive', route: '#/cosmic/earth', example: 'Earth diameter 12 756 km' },
   { id: 'solar-system', label: 'Solar system', log10m: 12.7, support: 'interactive', route: '#/cosmic', example: 'Neptune orbit ≈ 60 au across' },
   { id: 'stellar', label: 'Stellar neighbourhood', log10m: 17, support: 'interactive', route: '#/cosmic/stars', example: 'Proxima Centauri at 1.30 pc; 10 pc ≈ 3.1 × 10¹⁷ m' },
-  { id: 'galaxy', label: 'Galaxies', log10m: 21, support: 'planned', route: null, example: 'Milky Way disc ≈ 30 kpc' },
+  { id: 'galaxy', label: 'Galaxies', log10m: 21, support: 'interactive', route: '#/cosmic/galaxies?tab=mw', example: 'The Sun is 8.2 kpc from the Galactic Centre (Bland-Hawthorn & Gerhard 2016)' },
   { id: 'cluster', label: 'Galaxy clusters', log10m: 23, support: 'planned', route: null, example: 'Virgo Cluster ≈ 2 Mpc' },
   { id: 'web', label: 'Cosmic web', log10m: 24.7, support: 'planned', route: null, example: 'Laniakea ≈ 160 Mpc' },
   { id: 'observable', label: 'Observable universe', log10m: 26.9, support: 'planned', route: null, example: 'Comoving diameter ≈ 28.5 Gpc' },

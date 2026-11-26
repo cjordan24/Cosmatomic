@@ -1,0 +1,22 @@
+{
+  "dataset": "sparc-galaxies",
+  "version": "2016",
+  "records": 175,
+  "sources": [
+    {
+      "institution": "SPARC (Lelli, McGaugh & Schombert 2016, AJ 152, 157), Case Western Reserve University",
+      "url": "https://astroweb.case.edu/SPARC/",
+      "license": "Free to use with citation of the SPARC master paper (website)",
+      "notes": "Table 1 (galaxy sample) and Table 2 (Newtonian mass models)"
+    }
+  ],
+  "adapter": "scripts/ingestion/sparc.ts",
+  "warnings": [
+    "Vflat = 0 in Table 1 means no flat part was measured; stored as null.",
+    "reference keys without a note: Fr02, Bm05, Ba06, VB99, VdH93"
+  ],
+  "output": "datasets/astronomical/sparc-galaxies.json",
+  "retrievedAt": "2026-11-26T22:47:10.939Z",
+  "bytes": 151205,
+  "sha256": "817bd96ae2176c89cf06a3998ddd2e93f774b74efa4c234250e11c726e267fb8"
+}

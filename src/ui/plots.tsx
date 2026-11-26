@@ -18,6 +18,8 @@ export interface PlotProps {
   children?: ReactNode;
   /** corner for the series legend (default top-left) */
   legend?: 'tl' | 'tr' | 'bl' | 'br';
+  /** data points with vertical error bars [y − lo, y + hi] */
+  errorBars?: { x: number; y: number; lo: number; hi: number; color?: string; title?: string }[];
 }
 
 const nice = (v: number) => { const e = Math.floor(Math.log10(Math.abs(v) || 1)); const f = v / 10 ** e; return (f < 1.5 ? 1 : f < 3.5 ? 2 : f < 7.5 ? 5 : 10) * 10 ** e; };
@@ -30,8 +32,8 @@ function ticks(lo: number, hi: number, log: boolean): number[] {
   return out;
 }
 
-export function LinePlot({ series, xLabel, yLabel, xLog, yLog, xDomain, yDomain, width = 380, height = 200, hLines = [], vLines = [], markers = [], ariaLabel, children, legend = 'tl' }: PlotProps) {
-  const all = series.flatMap((s) => s.points).filter(([x, y]) => Number.isFinite(x) && Number.isFinite(y) && (!xLog || x > 0) && (!yLog || y > 0));
+export function LinePlot({ series, xLabel, yLabel, xLog, yLog, xDomain, yDomain, width = 380, height = 200, hLines = [], vLines = [], markers = [], ariaLabel, children, legend = 'tl', errorBars = [] }: PlotProps) {
+  const all = [...series.flatMap((s) => s.points), ...errorBars.map((e) => [e.x, e.y] as [number, number])].filter(([x, y]) => Number.isFinite(x) && Number.isFinite(y) && (!xLog || x > 0) && (!yLog || y > 0));
   if (!all.length) return <p className="note">No data in range.</p>;
   const [x0, x1] = xDomain ?? [Math.min(...all.map((p) => p[0])), Math.max(...all.map((p) => p[0]))];
   let [y0, y1] = yDomain ?? [Math.min(...all.map((p) => p[1]), ...hLines.map((h) => h.y)), Math.max(...all.map((p) => p[1]), ...hLines.map((h) => h.y))];
@@ -55,6 +57,7 @@ export function LinePlot({ series, xLabel, yLabel, xLog, yLog, xDomain, yDomain,
           <polyline key={i} fill="none" stroke={s.color} strokeWidth={s.width ?? 1.6} strokeDasharray={s.dashed ? '5 4' : undefined}
             points={s.points.filter(([x, y]) => Number.isFinite(x) && Number.isFinite(y)).map(([x, y]) => `${sx(x).toFixed(1)},${sy(y).toFixed(1)}`).join(' ')} />
         ))}
+        {errorBars.map((e, i) => <g key={`e${i}`} className="errbar"><line x1={sx(e.x)} x2={sx(e.x)} y1={sy(Math.max(e.y - e.lo, yLog ? 1e-300 : -Infinity))} y2={sy(e.y + e.hi)} stroke={e.color ?? 'var(--text)'} strokeWidth={1} /><circle cx={sx(e.x)} cy={sy(e.y)} r={2.4} fill={e.color ?? 'var(--text)'}>{e.title && <title>{e.title}</title>}</circle></g>)}
         {markers.map((m, i) => <g key={i}><circle cx={sx(m.x)} cy={sy(m.y)} r={3.2} fill={m.color ?? 'var(--accent)'} />{m.label && <text x={sx(m.x) + 5} y={sy(m.y) - 5} style={{ fill: m.color ?? 'var(--accent)' }}>{m.label}</text>}</g>)}
         {children}
       </g>

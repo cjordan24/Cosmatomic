@@ -45,6 +45,9 @@ Star entities are registered at run time when the 10 pc catalogue loads (`starRe
 
 | `star:129` (Stein 2051 B) | observed-with | `context:gravitational-lensing` → `#/cosmic/lensing` | Sahu et al. 2017 | Lensing view, star panel |
 
+| `body:sun` | located-in | `galaxy:milky-way` → `#/cosmic/galaxies?tab=mw` (context: R₀ = 8.2 kpc) | Bland-Hawthorn & Gerhard 2016 | Milky Way panel, Sun panel |
+| `compact-object:sgr-a-star` | located-in | `galaxy:milky-way` (at the Galactic Centre) | EHT 2022 Paper I | Milky Way panel, compact-objects panel |
+
 Neutron stars and black holes are registered as `compact-object:<id>` (route `#/cosmic/compact?sel=<id>`). The four white dwarfs with measured masses stay `star:<seq>`, so they are not duplicated.
 
 ## Earlier relationships (Gate 4.1)

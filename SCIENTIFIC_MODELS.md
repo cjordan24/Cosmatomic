@@ -264,3 +264,21 @@ One `FieldLayer` interface (quantity, units, frame, resolution, sources, display
   * Ray shooting: the Einstein ring maps to β = 0 and the images map back to the source.
   * Light curves are symmetric, with the peak at µ(u_min) and µ → 1 far away. N&B eq. 30: t₀ = 0.214 yr.
   * Stein 2051 B: θ_E and π_rel give 0.675 M☉; the predicted shift is ≈ 2 mas at 0.″5 (as stated by Sahu et al.); the HST lens parallax agrees with the 10 pc catalogue parallax.
+
+## 20. Galaxies and rotation curves (Phase 6, Gate 6.4): `src/modes/cosmic/galaxies/galaxies.ts`, `#/cosmic/galaxies`
+* **Data (Observed):** SPARC (Lelli, McGaugh & Schombert 2016): 175 disc galaxies and 3391 radii (`sparc-galaxies.json`, adapter `sparc.ts`). Table 1 gives type, distance and method, inclination, L[3.6], H I mass, V_flat, quality and rotation-curve references. Table 2 gives R, V_obs ± e_V (random errors only), V_gas (×1.33 for helium), and V_disk and V_bul at Υ = 1.
+* **Baryons only (Derived, Newtonian):** V_bar² = |V_gas|V_gas + Υ_disk|V_disk|V_disk + Υ_bul|V_bul|V_bul (SPARC eq. 2), with defaults Υ_disk = 0.5 and Υ_bul = 0.7 M☉/L☉ (their Fig. 5); both are user-adjustable. Negative V² from inner gas depressions keeps its sign.
+* **NFW halo (Simulated, a model fit):** ρ ∝ 1/[(r/r_s)(1 + r/r_s)²]. V² = V₂₀₀²[ln(1 + cx) − cx/(1 + cx)]/(x[ln(1 + c) − c/(1 + c)]) with x = r/r₂₀₀ (NFW 1997 eq. 3). r₂₀₀ has mean density 200 ρ_crit, so V₂₀₀ = 10 H r₂₀₀ and M₂₀₀ = V₂₀₀³/(10 G H). H₀ = 73 km/s/Mpc, as SPARC adopts for Hubble-flow distances. G = GM☉/(M☉ kpc) = 4.301 × 10⁻⁶ kpc (km/s)²/M☉.
+  * **Fit:** minimise Σ((V_obs − √(V_bar² + V_NFW²))/e_V)² over V₂₀₀ ∈ [10, 500] km/s and c ∈ [1, 50]. The search runs on an 80 × 80 log grid with two zoomed refinements, and Υ is held fixed. A minimum on the boundary is flagged as unconstrained. Only random errors are used, and the fit does not detect dark matter.
+* **Milky Way (Observed, manually transcribed):** best estimates from Bland-Hawthorn & Gerhard 2016:
+  * R₀ = 8.2 ± 0.1 kpc, z₀ = 25 ± 5 pc and Θ₀ = 238 ± 15 km/s;
+  * thin-disc scale length 2.6 ± 0.5 kpc and heights ≈ 300 and 900 pc (to within 20 %);
+  * M⋆ = 5 ± 1 × 10¹⁰ M☉, stellar halo 4–7 × 10⁸ M☉, M₂₀₀ = 1.1 ± 0.3 × 10¹² M☉ and M_vir = 1.3 ± 0.3 × 10¹² M☉.
+
+  The circular-velocity curve is Eilers et al. 2019 Table 1: 38 radii from 5.27 to 24.82 kpc with asymmetric errors, and R⊙ = 8.122 kpc. The view also shows a stars-only Keplerian √(GM⋆/R), as an illustrative lower bound, not a model.
+* *Validation (tests/science/galaxies.test.ts, 15 tests):*
+  * SPARC: 175 galaxies, 3391 points, valid flags. Exactly five reference keys are missing from the published legend. NGC 3198 matches Table 1.
+  * Signed-square baryon sum and Υ scaling; NGC 3198's outer baryons are below 70 % of V_obs. G = 4.301 × 10⁻⁶.
+  * NFW: V(r₂₀₀) = V₂₀₀, and r₂₀₀ encloses 200 ρ_crit (to 10⁻⁸). The peak is at 2.163 r_s. V²r/G equals the numerically integrated NFW mass to 10⁻⁵.
+  * Fit: recovers a synthetic halo (V₂₀₀ to 1 %, c to 10 %). For NGC 3198, χ²/N with the halo is more than 20× smaller than for baryons alone, and the fit is interior.
+  * Milky Way: Eilers table integrity; the weighted slope over 5–20 kpc is within 0.5 of −1.7 km/s/kpc; v_c(8.19 kpc) agrees with Θ₀; the stars-only Keplerian speed at 20 kpc is below 60 % of the measurement; registry edges Sun → Milky Way and Sgr A* → Milky Way.

@@ -1,0 +1,26 @@
+{
+  "dataset": "milky-way",
+  "version": "1.0.0",
+  "records": 48,
+  "sources": [
+    {
+      "institution": "Bland-Hawthorn & Gerhard (2016), ARA&A 54, 529",
+      "url": "https://doi.org/10.1146/annurev-astro-081915-023441",
+      "notes": "adopted Galactic parameters"
+    },
+    {
+      "institution": "Eilers, Hogg, Rix & Ness (2019), ApJ 871, 120",
+      "url": "https://doi.org/10.3847/1538-4357/aaf648",
+      "notes": "circular velocity curve 5–25 kpc (Table 1)"
+    }
+  ],
+  "adapter": "scripts/ingestion/curated-milky-way.ts",
+  "warnings": [
+    "Hand-transcribed (manually transcribed values; checked against the PDF text).",
+    "The two papers assume slightly different R₀ (8.2 vs 8.122 kpc)."
+  ],
+  "output": "datasets/astronomical/milky-way.json",
+  "retrievedAt": "2026-11-26T22:34:38.691Z",
+  "bytes": 3433,
+  "sha256": "f4610606ac38408c8b77fbde80137f602b61520cd6e158f388c2c25a90077cf7"
+}

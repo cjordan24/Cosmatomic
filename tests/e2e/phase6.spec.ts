@@ -108,3 +108,30 @@ test('61 lensing: lens plane by inverse ray shooting, microlensing light curves,
   await expect(info.locator('.related-links')).toContainText('GJ 169.1 B');
   await shot(page, '61d-stein-2051b', 'Astrometric microlensing by the white dwarf Stein 2051 B: displacement of the background star against separation (Sahu et al. 2017 eq. 2), ~2 mas at 0.″5, and the mass from θ_E and the relative parallax.');
 });
+
+// ---------------- Gate 6.4 ----------------
+test('62 galaxies: SPARC rotation curves vs baryons-only and an NFW halo fit; the Milky Way', async ({ page }) => {
+  await page.goto('/#/cosmic');
+  await page.getByRole('navigation', { name: 'Cosmic sections' }).getByRole('button', { name: 'Galaxies' }).click();
+  await expect(page).toHaveURL(/#\/cosmic\/galaxies$/);
+  await expect(page.getByRole('img', { name: 'Rotation curve' })).toBeVisible({ timeout: 15000 });
+  const info = page.locator('.right-panel');
+  await expect(info.getByLabel('Galaxy properties')).toContainText('13.8 ± 1.4 Mpc');
+  await expect(info.getByLabel('Galaxy properties')).toContainText('150.1 ± 3.9 km/s');
+  await expect(info.getByLabel('Model comparison')).toContainText('Baryons + NFW');
+  await shot(page, '62a-ngc3198', 'Rotation curve of NGC 3198 (SPARC): observed speeds with errors, gas, stellar disc and the summed baryons under Newtonian gravity (Υ_disk = 0.5), and a fitted NFW halo whose sum with the baryons matches the flat outer curve; χ²/N compared.');
+  await page.getByLabel('Filter galaxies').fill('DDO154');
+  await page.getByRole('listbox', { name: 'Galaxies' }).getByRole('option', { name: /DDO154/ }).click();
+  await expect(page).toHaveURL(/g=DDO154/);
+  await expect(info.getByLabel('Galaxy properties')).toContainText('tip of the red giant branch');
+  await shot(page, '62b-ddo154', 'DDO 154, a gas-rich dwarf irregular: here even the gas outweighs the stars, and the baryons fall far short of the observed rotation.');
+  await page.getByRole('button', { name: 'Milky Way' }).click();
+  await expect(page.getByRole('img', { name: 'Milky Way circular velocity curve' })).toBeVisible();
+  await expect(page.getByRole('table', { name: 'Milky Way parameters' })).toContainText('8.2 ± 0.1 kpc');
+  await expect(page.locator('.right-panel .related-links')).toContainText('Sagittarius A*');
+  await shot(page, '62c-milky-way', 'The Milky Way: circular velocity from 5 to 25 kpc (Eilers et al. 2019) against a stars-only Keplerian lower bound, Θ₀ at the Sun, and the adopted Galactic parameters (Bland-Hawthorn & Gerhard 2016).');
+  // the scale ladder's Galaxies level now routes here
+  await page.getByTitle('Universal scale navigator').click();
+  await page.locator('.scale-nav').getByRole('button', { name: /Galaxies/ }).first().click();
+  await expect(page).toHaveURL(/#\/cosmic\/galaxies\?tab=mw/);
+});

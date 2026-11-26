@@ -104,3 +104,9 @@
   * The galaxy-scale preset is a point mass at an effective distance, following Narayan & Bartelmann's order-of-magnitude example. It is not a model of a real lens system, and no observed strong-lens system is bundled.
   * The lens-plane brightness and colour are illustrative. Only the image geometry is computed.
 * **Navigation:** the Cosmic chips are grouped into *Stars ▾* (Nearby stars, HR diagram, Exoplanets) and *Gravity ▾* (Relativity, Black holes, Lensing) so the top bar fits at 1440 px.
+* **Galaxies (Gate 6.4):**
+  * The NFW fit holds Υ fixed and uses SPARC's random errors only (no inclination or distance systematics). V₂₀₀, c and Υ are degenerate, so the fitted halo parameters are indicative only. No other halo profiles (Burkert, pseudo-isothermal, Einasto) and no MOND/RAR comparison yet (planned for Phase 14.6).
+  * H₀ = 73 km/s/Mpc is used for r₂₀₀ for consistency with the SPARC distances. Other H₀ values shift M₂₀₀.
+  * Five rotation-curve reference keys used in SPARC Table 1 (Ba06, Bm05, Fr02, VB99, VdH93) have no entry in the table's own legend. They are shown as keys only.
+  * The Milky Way has no baryonic mass model bundled. The stars-only Keplerian curve is an illustrative lower bound, not a fit. Bland-Hawthorn & Gerhard (R₀ = 8.2 kpc) and Eilers et al. (8.122 kpc) assume slightly different R₀.
+  * No galaxy images or 3D galaxy models.

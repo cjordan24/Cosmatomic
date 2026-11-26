@@ -40,7 +40,8 @@ src/
 │       ├── star-systems/           nearby-star catalogues, astrometry, calibrations, 3D map (#/cosmic/stars)
 │       ├── relativity/             Schwarzschild radii, clocks, orbits, light paths, weak-field tests (#/cosmic/relativity)
 │       ├── compact/                white dwarfs, neutron stars, black holes with published values (#/cosmic/compact)
-│       └── lensing/                point-lens plane, microlensing, astrometric deflection (#/cosmic/lensing)
+│       ├── lensing/                point-lens plane, microlensing, astrometric deflection (#/cosmic/lensing)
+│       └── galaxies/               SPARC rotation curves, baryons vs NFW halo, Milky Way (#/cosmic/galaxies)
 ├── core/fields/                    FIELDS layer interface + gravity, Coulomb, plane-wave, heat layers (FIELDS_ARCHITECTURE.md)
 ├── shared/scientific-relationships typed, sourced entity/edge registry; ui/RelatedLinks renders both directions (SCIENTIFIC_RELATIONSHIPS.md)
 ├── rendering/                      Viewport (adaptive DPR, log depth), PointCloud shader, labels, colours
