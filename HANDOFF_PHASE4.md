@@ -2,6 +2,43 @@
 
 Written 2026-11-26 at the end of Phase 3. Read this first, then `ARCHITECTURE.md`, `SCIENTIFIC_MODELS.md`, `DATA_SOURCES.md`, `KNOWN_LIMITATIONS.md` and the tail of `BUILD_LOG.md`.
 
+## ▶ RESUME HERE (context cleared mid-Phase 4, after Gate 4.5)
+
+**State:** Gates 4.1–4.5 are done, committed and pushed. HEAD is `7b89321` ("Phase 4 Gate 4.5 …") and the working tree is clean. Gate 4.5 is **deployed** to production (site returns 200), but its **live Playwright run was stopped part-way** at the user's request. The first step next session is to re-run the live suite (§3 procedure) and confirm 42/42. Gates 4.1–4.4 each passed the full live suite (36 → 41 tests).
+
+**Counts at the stop:** 277 science tests (Vitest), 42 browser tests (Playwright), 17 dataset manifests, 63 Source-index entries. The full e2e suite takes ~7.5 min locally and ~7.5 min live.
+
+**What is left in Phase 4:**
+1. **Gate 4.6, Spectral Mode and the EM atlas.** `#/spectral` currently renders the Wave Lab, so make it the atlas and keep `#/spectral/lab`. Contents:
+   - log navigation by frequency, wavelength and energy;
+   - an EM band dataset with *named conventions*: ITU-R V.431 radio bands ELF…THF; ISO 20473 and CIE IR-A/B/C for infrared, plus an industry NIR/SWIR/MWIR/LWIR scheme; ISO 21348 for UV, X-ray and gamma. Verify each value from the source document, the way the IAPWS pages were read;
+   - photon energy E = hf = hc/λ from CODATA;
+   - a 3D vacuum plane wave with E ⊥ B ⊥ k, B₀ = E₀/c, and linear, circular and elliptical polarisation;
+   - visible-colour comparison (label the colours Illustrative; perceived colour ≠ one wavelength);
+   - representative radio, IR and UV examples;
+   - NIST lines from `datasets/atomic/spectra-nist.json` on the spectrum, linked from ElementView.
+   
+   Required tests: vacuum wavelength, photon energy, E/B relation, band mapping per convention, and frequency-dependent material data (refractiveindex records). Also enable the registry entities `wave:em-visible`, `wave:em-ultraviolet` and `context:sunlight`, which currently have `route: null` in `src/shared/scientific-relationships/registry.ts`, and add a Spectral chip "Atlas" in `TopBar.tsx`.
+2. **Gate 4.7, FIELDS foundation and cross-mode links.** A minimal field-layer interface (quantity, units, frame, resolution, source, transform, fidelity, validity, provenance) covering:
+   - the existing sandbox gravity potential (`cosmic/sandbox/instruments.tsx`);
+   - a point-charge Coulomb field using CODATA ε₀;
+   - the analytic plane wave;
+   - a derived temperature field (e.g. analytic heat diffusion using JANAF/fluid data);
+   - a layer toggle and opacity UI.
+
+   Three relationships to build: Element → atomic spectrum → Spectral; Sun (IAU 2015 nominal T_eff = 5772 K, already a source entry) → Planck spectrum → Spectral; Material → optical/acoustic properties → Spectral (the Wave Lab media and refractive index). Also: a landing page with four environments (Biologic shown as *planned, not clickable*); new docs `SPECTRAL_MODE_SPEC.md`, `FIELDS_ARCHITECTURE.md`, `BIOLOGIC_MODE_SPEC.md`, `SCIENTIFIC_RELATIONSHIPS.md`; and the spec-required mobile-layout screenshot.
+3. **Phase 4 close-out.** Write `HANDOFF_PHASE5.md`; update the roadmap, README and memory; give the user a plain-language report (summary, gate checklist, screenshots in `screenshots/phase-04/INDEX.md`, validation results, new sources, test counts, limitations, deployment status, revised roadmap). Then **stop for review** before Phase 5.
+
+**Hard-won conventions from this session:**
+- **Source Index (user rule):** every new value needs an entry in `src/shared/sources/sources.ts`, with a `datasets: [...]` link for each manifest and `sources: [ids]` on records. Check each DOI with `curl https://api.crossref.org/works/<doi>` (title, authors, year) and fetch each URL. A bio states only verified affiliations, otherwise `authorBio: null`. `tests/science/sources.test.ts` enforces coverage.
+- Don't scrape sites whose robots.txt or bot walls forbid it: COD (robots disallow) and AMCSD (bot wall) are off-limits. The NIST WebBook (crawl-delay 5), CODATA (3), JANAF, IAPWS and refractiveindex.info (GitHub raw, CC0) are fine.
+- **Reading scanned PDFs without poppler:** the Swift PDFKit scripts in the session scratchpad are gone, so recreate them. Text extraction is `PDFDocument(url:).page(at:).string`; page rendering is `page.draw(with:.mediaBox,to:)` into an NSImage, saved as PNG, then read with the Read tool.
+- WebBook fluid tool: `Type=SatP` gives saturation rows evenly spaced in T; `SatT` ignores the T range. `Action=Data&Wide=on` returns TSV.
+- Full e2e runs regenerate Phase 1–3 screenshots: run `git checkout -- screenshots/phase-01 screenshots/phase-02 screenshots/phase-03` before committing. Only `screenshots/phase-04/` changes.
+- Avoid perl substitutions with `|` as the delimiter on code that contains `|` (they corrupted TopBar once). Never write `*/` inside a block comment (`U*/N` broke a build).
+- New views use the `center-stage` area between `left-panel` and `right-panel`, and must not nest a `right-panel` inside `center-stage`. Plots use `src/ui/LinePlot` (`xLabel` and `yLabel` must name the quantity and unit).
+- Simulations step in simulated time with a carried remainder (`advance`/`advanceFD`), and each has a chunking-independence test.
+
 ## 0. Expanded Phase 4 (added 2026-11-26)
 The user replaced the 4-gate plan with an expanded directive: Phase 4 is now **Gates 4.1–4.7** (reactions, thermochemistry, crystals and materials, phases, wave engine, Spectral Mode, FIELDS plus cross-mode links), and Phases 9–14 were added. See DEVELOPMENT_ROADMAP.md for the gate table and live status. The standing authorisation and conventions below still apply. Stop at the Phase 4 boundary and write HANDOFF_PHASE5.md.
 
