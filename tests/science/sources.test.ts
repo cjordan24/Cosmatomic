@@ -33,3 +33,20 @@ describe('source index', () => {
     }
   });
 });
+
+import { CRYSTALS } from '@/modes/atomic/materials/crystal';
+import { MATERIALS } from '@/modes/atomic/materials/materials';
+import { SOURCES as ALL } from '@/shared/sources/sources';
+
+describe('crystal and material sources', () => {
+  it('every crystal and material property cites indexed sources', () => {
+    for (const c of CRYSTALS) for (const id of c.sources) expect(getSource(id), `${c.id} → ${id}`).toBeDefined();
+    for (const m of MATERIALS) {
+      for (const t of [m.heatCapacity, m.refractiveIndex, m.fluid]) for (const id of t?.sources ?? []) expect(getSource(id), `${m.id} → ${id}`).toBeDefined();
+      for (const p of m.properties) for (const id of p.sources) expect(getSource(id), `${m.id} → ${id}`).toBeDefined();
+    }
+  });
+  it('every refractive-index primary paper (by DOI) has its own Source-index entry', () => {
+    for (const m of MATERIALS) if (m.refractiveIndex?.doi) expect(ALL.some((s) => s.doi === m.refractiveIndex!.doi), `${m.id}: doi ${m.refractiveIndex.doi}`).toBe(true);
+  });
+});

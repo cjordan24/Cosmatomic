@@ -1,0 +1,41 @@
+{
+  "dataset": "materials",
+  "version": "1.0.0",
+  "records": 21,
+  "sources": [
+    {
+      "institution": "NIST-JANAF Thermochemical Tables (Chase 1998)",
+      "url": "https://janaf.nist.gov/",
+      "license": "NIST Standard Reference Data",
+      "notes": "10 heat-capacity/entropy tables"
+    },
+    {
+      "institution": "refractiveindex.info database (Polyanskiy), primary papers cited per file",
+      "url": "https://github.com/polyanskiy/refractiveindex.info-database",
+      "license": "CC0 1.0",
+      "notes": "9 dispersion formulas"
+    },
+    {
+      "institution": "NIST Chemistry WebBook — Thermophysical Properties of Fluid Systems",
+      "url": "https://webbook.nist.gov/chemistry/fluid/",
+      "license": "NIST Standard Reference Data",
+      "notes": "6 fluids at 101.325 kPa"
+    },
+    {
+      "institution": "IEC 60028 International standard of resistance for copper (IACS)",
+      "url": "https://webstore.iec.ch/en/publication/41",
+      "notes": "defined value"
+    },
+    {
+      "institution": "Malmberg & Maryott (1956) J. Res. NBS 56, 1",
+      "url": "https://nvlpubs.nist.gov/nistpubs/jres/56/jresv56n1p1_A1b.pdf",
+      "notes": "equation verified in the paper text"
+    }
+  ],
+  "adapter": "scripts/ingestion/materials.ts",
+  "warnings": [],
+  "output": "datasets/materials/materials.json",
+  "retrievedAt": "2026-11-26T17:27:20.499Z",
+  "bytes": 61311,
+  "sha256": "91bd8fc49045c62e50517add9f5f078442d2e2806e2f16e127090016ee899f5b"
+}

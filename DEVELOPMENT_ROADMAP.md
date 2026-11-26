@@ -13,7 +13,7 @@ Treat each phase below as a proposal. Re-assess numerical methods, dataset acces
 | **1 Foundations** | architecture, physics core, landing, periodic table, atomic models, orbitals, molecule viewer, solar system, timeline, data adapters | **Complete** |
 | **2 Molecular Laboratory** | builder, two validators, VGFF-1 optimisation, 140-molecule library, PubChem search, formats, comparison, NIST spectra | **Complete** |
 | **3 Physics Sandbox** | N-body Explore/Experiment/Compare, molecular dynamics, instruments, IndexedDB notebook | **Complete** |
-| **4 Matter, Materials, Energy & Wave Foundations** | 4.1 reactions · 4.2 thermochemistry · 4.3 crystals & materials · 4.4 phases · 4.5 wave engine · 4.6 Spectral Mode · 4.7 FIELDS + cross-mode links | **In progress**: Gates 4.1–4.2 done |
+| **4 Matter, Materials, Energy & Wave Foundations** | 4.1 reactions · 4.2 thermochemistry · 4.3 crystals & materials · 4.4 phases · 4.5 wave engine · 4.6 Spectral Mode · 4.7 FIELDS + cross-mode links | **In progress**: Gates 4.1–4.3 done |
 | 5 Interstellar & Stellar | nearby stars, exoplanets, Gaia, stellar classes, HR diagram, stellar spectroscopy and thermal radiation, links to composition | Planned |
 | 6 Deep Space & Invisible Gravity | nebulae, galaxies, compact objects, black holes, relativity foundations, lensing, JWST/Hubble galleries, rotation curves, first dark-matter halo models | Planned |
 | 7 Cosmology & Observable Universe | clusters, large-scale structure, distances, CMB, dark-matter evidence explorer, dark energy, expansion history, GWOSC observations | Planned (FLRW module + tests exist) |
@@ -33,7 +33,7 @@ The astronomy roadmap (Phases 5–8) keeps its place. It is not postponed until 
 |---|---|---|
 | 4.1 | Curated reaction library (52 cited equations), atom/charge conservation, exact stoichiometry solver, explicit *unsupported* state, molecule-viewer links, reaction → biology/atmosphere relationships | **Done** |
 | 4.2 | Standard-state thermochemistry (CODATA Key Values + NIST WebBook), ΔrH°/ΔrS°/ΔrG°(T)/K, Hess's law, energy diagrams, reusable energy-transfer interfaces | **Done** |
-| 4.3 | Crystal lattices (unit cells, supercells, coordination, packing, density, Bragg spacings); material records with condition-tagged optical/electrical/thermal/acoustic properties | Planned |
+| 4.3 | Crystal lattices (unit cells, supercells, coordination, packing, density, Bragg spacings); material records with condition-tagged optical/electrical/thermal/acoustic properties | **Done** |
 | 4.4 | H₂O and CO₂ phase diagrams (IAPWS / Span–Wagner), intermolecular forces, qualitative Lennard-Jones fluid; phase ↔ wave-propagation links | Planned |
 | 4.5 | Shared wave-physics engine and Wave Laboratory (`#/spectral/lab`) | Planned |
 | 4.6 | Spectral Mode: EM spectrum atlas, photon energy, plane-wave visualisation, atomic spectroscopy link | Planned |

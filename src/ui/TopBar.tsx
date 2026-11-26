@@ -3,19 +3,21 @@ import { ELEMENTS } from '@/modes/atomic/atoms/elements';
 import { MOLECULES, prettyFormula } from '@/modes/atomic/molecules/molecules';
 import { BODIES } from '@/modes/cosmic/solar-system/bodies';
 import { REACTIONS } from '@/modes/atomic/reactions/library';
+import { MATERIALS } from '@/modes/atomic/materials/materials';
 import { navigate, useRoute } from '@/shared/router';
 import { useVoyager } from '@/shared/store';
 import { SCALE_LEVELS, type ScaleLevel } from '@/core/scale/scale';
 import { PHYSICS_MODULES } from '@/core/physics/modules';
 import { Logo, SearchGlyph } from './components';
 
-interface Hit { kind: 'element' | 'molecule' | 'body' | 'reaction'; label: string; sub: string; to: string; score: number }
+interface Hit { kind: 'element' | 'molecule' | 'body' | 'reaction' | 'material'; label: string; sub: string; to: string; score: number }
 
 function useSearchIndex() {
   return useMemo(() => [
     ...ELEMENTS.map((e) => ({ kind: 'element' as const, label: `${e.name}`, sub: `${e.symbol} · Z = ${e.Z}`, to: `/atomic/element/${e.Z}`, keys: [e.name, e.symbol, String(e.Z)] })),
     ...MOLECULES.map((m) => ({ kind: 'molecule' as const, label: m.name, sub: prettyFormula(m.formula), to: `/atomic/molecules/${m.id}`, keys: [m.name, m.formula, m.iupacName ?? ''] })),
     ...BODIES.map((b) => ({ kind: 'body' as const, label: b.name, sub: b.classification, to: `/cosmic/${b.id}`, keys: [b.name, b.id] })),
+    ...MATERIALS.map((m) => ({ kind: 'material' as const, label: m.name, sub: m.category, to: `/atomic/materials/${m.id}`, keys: [m.name, m.formula, m.id] })),
     ...REACTIONS.map((r) => ({ kind: 'reaction' as const, label: r.name, sub: r.contexts.join(', '), to: `/atomic/reactions/${r.id}`, keys: [r.name, r.id.replace(/-/g, ' ')] })),
   ], []);
 }
@@ -80,6 +82,7 @@ function Search() {
 export function currentScaleId(path: string[], query: URLSearchParams): string | null {
   if (path[0] === 'atomic') {
     if (path[1] === 'molecules' || path[1] === 'lab' || path[1] === 'reactions') return 'molecule';
+    if (path[1] === 'materials') return 'material';
     if (path[1] === 'element') return query.get('view') === 'nucleus' ? 'nucleus' : 'atom';
     return 'atom';
   }
@@ -153,9 +156,10 @@ export function TopBar() {
         </nav>
         {mode === 'atomic' && (
           <nav className="chip-row hide-mobile" aria-label="Atomic sections">
-            <button className={`chip ${!['molecules', 'lab', 'reactions'].includes(path[1]) ? 'active' : ''}`} onClick={() => navigate('/atomic')}>Elements</button>
+            <button className={`chip ${!['molecules', 'lab', 'reactions', 'materials'].includes(path[1]) ? 'active' : ''}`} onClick={() => navigate('/atomic')}>Elements</button>
             <button className={`chip ${path[1] === 'molecules' ? 'active' : ''}`} onClick={() => navigate('/atomic/molecules')}>Molecules</button>
             <button className={`chip ${path[1] === 'reactions' ? 'active' : ''}`} onClick={() => navigate('/atomic/reactions')}>Reactions</button>
+            <button className={`chip ${path[1] === 'materials' ? 'active' : ''}`} onClick={() => navigate('/atomic/materials')}>Materials</button>
             <button className={`chip ${path[1] === 'lab' ? 'active' : ''}`} onClick={() => navigate('/atomic/lab')}>Laboratory</button>
           </nav>
         )}

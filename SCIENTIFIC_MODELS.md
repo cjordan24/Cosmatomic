@@ -120,3 +120,26 @@ CPK colours (PubChem), illustrative giant-planet banding (procedural, not imager
 * **Shared interfaces** (`src/core/physics/energy/energy.ts`): `EnergyQuantity` (value, unit, uncertainty, provenance, basis), `EnergyTransfer` (mechanism, from → to, model, validity), `Measurement` (for instruments) and an `energyLedger` conservation check. Radiation, acoustic, conduction and biological energy flows will use these same types.
 * **VGFF-1 force-field energies are never used as thermochemistry.**
 * *Validation (tests/science/thermo.test.ts):* CODATA values are reproduced exactly (H₂O(l) −285.83, CO₂(g) −393.51). Glucose ΔfH° derived from combustion is −1271.04, matching NIST's −1271.1. CH₄ combustion gives −890.6 kJ/mol. 2H₂ + O₂ gives −571.66, and the liquid−gas difference of 88.008 kJ equals 2ΔvapH°. The Hess cycle C → CO → CO₂ closes to 10⁻⁹. Neutralisation gives −55.815. Haber–Bosch gives ΔrH° −91.88 and ΔrS° −198.1, with ΔrG° = 0 near 464 K. The water ΔrG° crossover lands within 2 % of 373.12 K. Missing data → null. The energy ledger detects non-conservation.
+
+### 9c. Crystals and materials (Gate 4.3)
+* **Unit cells** (`datasets/materials/crystals.json`, 10 structures): lattice constants and stated X-ray densities **transcribed** from NBS Circular 539 (Swanson et al. 1953–55). They were read from the OCR text layer of the scanned NIST PDFs via macOS PDFKit and are flagged in the UI. Silicon uses the CODATA 2018 lattice parameter (5.431 020 511 Å, fetched from NIST). Atomic positions are the standard Wyckoff positions of each structure type (*International Tables* Vol. A); rutile O x = 0.30479 comes from Abrahams & Bernstein (1971).
+* **Computed:** lattice vectors (cubic, tetragonal, hexagonal); volume; X-ray density ρ = Σm / (N_A V); formula units; coordination (periodic images over a 5×5×5 block, first shell within 3 %); hard-sphere packing fraction (single-element structures only); d(hkl) from the reciprocal metric; 2θ for Cu Kα₁ = 1.5405929 Å; and structure factor F = Σ Z_j e^{2πi h·r_j}. The structure factor is **exact for systematic absences** but is **not an intensity model** (no form factors, Debye–Waller or Lorentz-polarisation terms). (hkl) plane polygons are drawn by intersecting the plane with the cell edges.
+* **Material properties** (`datasets/materials/materials.json`, 21 materials). Every value carries its conditions and source, and every evaluator returns *null* outside its validity range:
+  * refractive index n(λ) from refractiveindex.info (CC0) dispersion formulas (types 1–5 and tabulated), each traced to its primary paper: Malitson 1965/1963, Ghosh 1999, Peter 1923, Li 1976, DeVore 1951, Daimon & Masumura 2007, Malitson & Dodge 1972;
+  * Cp(T), S°(T) and H − H(298) from NIST-JANAF text tables;
+  * density, cp, speed of sound, viscosity and thermal conductivity of water, N₂, O₂, Ar, CO₂ and He at 101.325 kPa, from the NIST WebBook reference equations of state (IAPWS-95 for water);
+  * the defined 100 % IACS copper resistivity (IEC 60028);
+  * the water static permittivity polynomial of Malmberg & Maryott (1956), checked against the paper's text.
+  * Permeability, emissivity, optical absorption and the thermal conductivity of solids are in the schema but show as *unknown* until a cited source is added.
+* *Validation (tests/science/materials.test.ts):*
+  * every NBS cell reproduces its stated X-ray density to < 0.15 %, which checks the transcription, basis and composition;
+  * Si from CODATA gives 2.329 g/cm³;
+  * packing fractions are exact (fcc π/3√2, bcc π√3/8, diamond π√3/16), and real Mg falls below ideal hcp;
+  * coordination is right: NaCl 6, CsCl 8, diamond 4 at 1.544 Å, fcc 12, bcc 8;
+  * the rutile TiO₆ distances match 1.946/1.983 Å to 0.006 Å;
+  * Cu d-spacings match the NBS table, and the hexagonal metric checks out;
+  * absences are correct (fcc 100/110, bcc 111, diamond 200/222), and Cu 111 sits at 2θ = 43.30°;
+  * n_D is 1.4585 for fused silica, 2.417 for diamond and 1.5443 for NaCl. Water is 1.33335 (Daimon) against the commonly quoted 1.3330, a real inter-source difference of 3×10⁻⁴;
+  * JANAF Cp for Cu is 24.442, and metals fall within 5 % of 3R;
+  * argon and helium sound speeds are within 0.5 % of the ideal-gas value √(γRT/M), which cross-checks the ingestion;
+  * water permittivity is 78.30 at 25 °C.

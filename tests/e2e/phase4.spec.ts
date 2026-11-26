@@ -75,3 +75,32 @@ test('43 thermochemistry: Haber–Bosch ΔrH°, ΔrS°, ΔrG°(T), K and energy 
   await page.goto('/#/atomic/reactions/baso4-precipitation');
   await expect(page.getByLabel('Thermochemistry')).toContainText('Nothing is estimated');
 });
+
+// ---------------- Gate 4.3 ----------------
+test('44 crystal lattice: rutile supercell, (110) plane, coordination, density and Bragg table', async ({ page }) => {
+  await page.goto('/#/atomic/materials/rutile?n=2');
+  await expect(page.locator('.right-panel')).toContainText('P4₂/mnm');
+  await expect(page.getByLabel('Bragg reflections')).toContainText('allowed');
+  await page.getByLabel('Miller indices').fill('1 1 0');
+  await page.getByRole('button', { name: 'Plane' }).click();
+  await expect(page).toHaveURL(/hkl=1/);
+  await page.waitForTimeout(1200);
+  await shot(page, '44-crystal-lattice-rutile', 'Rutile TiO₂ 2×2×2 supercell from the NBS Circular 539 lattice constants (transcribed and flagged) with O positions from Abrahams & Bernstein (1971). It shows the unit-cell edges, nearest-neighbour bonds and a (110) plane. Computed X-ray density 4.250 g/cm³ matches the NBS value. TiO₆ coordination is derived, and the Bragg table marks systematic absences.');
+  await page.goto('/#/atomic/materials/nacl?n=3&hkl=1,1,1');
+  await page.waitForTimeout(1200);
+  await shot(page, '44b-crystal-lattice-nacl', 'Halite (NaCl) 3×3×3 supercell with the (111) plane: 6-fold Na–Cl coordination at a/2 = 2.820 Å, and a computed density within 0.1 % of NBS.');
+});
+
+test('45 material properties: dispersion, heat capacity and sound speed with conditions and sources', async ({ page }) => {
+  await page.goto('/#/atomic/materials/fused-silica');
+  await expect(page.getByLabel('Material properties')).toContainText('1.458');
+  await expect(page.getByRole('img', { name: 'Refractive index versus wavelength' })).toBeVisible();
+  await shot(page, '45-material-properties-silica', 'Fused silica: refractive index n(λ) from Malitson’s (1965) Sellmeier formula (n_D = 1.4585, blank outside 0.21–6.7 µm). Properties without a cited source (emissivity, permeability, absorption) show as unknown.');
+  await page.goto('/#/atomic/materials/copper');
+  await expect(page.getByLabel('Material properties')).toContainText('24.44');
+  await shot(page, '45b-material-properties-copper', 'Copper: fcc cell (NBS), JANAF Cp(T) approaching the Dulong–Petit 3R line, and the 100 % IACS resistivity standard (1.7241 × 10⁻⁸ Ω·m at 20 °C) labelled as a defined reference value.');
+  await page.goto('/#/atomic/materials/water');
+  await page.getByLabel('Material temperature in kelvin').fill('293');
+  await expect(page.getByLabel('Material properties')).toContainText('m/s');
+  await shot(page, '45c-material-properties-water', 'Water at 293 K and 1 atm: speed of sound, density, cp, viscosity and thermal conductivity from the NIST reference equation of state (IAPWS-95), static permittivity from Malmberg & Maryott (1956), and Daimon & Masumura dispersion.');
+});

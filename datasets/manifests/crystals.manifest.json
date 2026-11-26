@@ -1,0 +1,29 @@
+{
+  "dataset": "crystals",
+  "version": "1.0.0",
+  "records": 10,
+  "sources": [
+    {
+      "institution": "NBS Circular 539, Standard X-ray Diffraction Powder Patterns (Swanson et al., National Bureau of Standards, 1953–1955)",
+      "url": "https://nvlpubs.nist.gov/nistpubs/Legacy/circ/nbscircular539v1.pdf",
+      "license": "U.S. Government work (public domain)",
+      "notes": "transcribed lattice constants and X-ray densities"
+    },
+    {
+      "institution": "CODATA 2018 — lattice parameter of silicon (NIST)",
+      "url": "https://physics.nist.gov/cgi-bin/cuu/Value?asil"
+    },
+    {
+      "institution": "Abrahams & Bernstein (1971) J. Chem. Phys. 55, 3206 — rutile",
+      "url": "https://doi.org/10.1063/1.1676569"
+    }
+  ],
+  "adapter": "scripts/ingestion/materials.ts",
+  "warnings": [
+    "Manually transcribed values (flagged in the UI); verified by density recomputation tests."
+  ],
+  "output": "datasets/materials/crystals.json",
+  "retrievedAt": "2026-11-26T17:27:20.495Z",
+  "bytes": 6806,
+  "sha256": "97fab7bb1dc90ea35eed0e5af88af6d946a49b006dd85dc60cbe5077b7e8060f"
+}
