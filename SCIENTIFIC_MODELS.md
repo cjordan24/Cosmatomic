@@ -25,7 +25,14 @@ Every model below states its assumptions, validity range and the test that check
 
 ## 4. Molecules
 * Geometries are **PubChem3D computed conformers (MMFF94s)** → provenance *Derived*, badge "computed conformer". H₂ and NO use experimental r_e (Huber & Herzberg) → *Observed*.
-* *Tests:* Hill formula from 3D atoms = PubChem formula (all 49); Σ atomic weights = PubChem MW (±0.02 u); bond sanity; water O–H 0.958 Å (±0.03), ∠HOH 104.5° (±2.5°); CO₂ linear (±1°), C=O 1.160 Å (±0.05 — MMFF gives 1.197 Å, a real force-field deviation); CH₄ 109.47° (±1°); NH₃ 106.7° (±3°); benzene six C–C 1.397 Å (±0.03) despite Kekulé orders.
+* *Tests:* Hill formula (with net-charge suffix) from 3D atoms = PubChem formula (all 140); Σ atomic weights = PubChem MW within its reported precision; bond sanity; water O–H 0.958 Å (±0.03), ∠HOH 104.5° (±2.5°); CO₂ linear (±1°), C=O 1.160 Å (±0.05 — MMFF gives 1.197 Å, a real force-field deviation); CH₄ 109.47° (±1°); NH₃ 106.7° (±3°); benzene six C–C 1.397 Å (±0.03) despite Kekulé orders.
+
+### 4b. Structure files and comparison (Phase 2.1)
+* **Formats:** XYZ, MDL MOL/SDF V2000 (bond orders 1–3, formal charges via atom block + `M  CHG`), PDB (HETATM + CONECT; repeated CONECT partners encode bond order). Aromatic (type 4) bonds, V3000 and query features are rejected with explicit errors. *Tests:* every library molecule round-trips MOL and PDB with exact connectivity/orders/charges (coords ≤ 1e-4 Å / 1e-3 Å).
+* **Connectivity inference** (XYZ, PDB without CONECT): bonded if d < r₁ + r₂ + 0.4 Å using Cordero 2008 covalent radii; single bonds only (orders not perceived) and the record says so. *Test:* reproduces PubChem connectivity exactly for all 140 library molecules.
+* **C₆₀:** atoms placed on icosahedron edges at fraction t from each vertex: pentagon edges = t·e, 6:6 bonds = (1−2t)·e; solving for the experimental 1.458 / 1.401 Å fixes the cage exactly (radius 3.55 Å). *Test:* all 90 bonds to 1e-9 Å.
+* **Comparison statistics:** bond lengths grouped by element pair and order (mean ± population sd); mass-weighted radius of gyration.
+* **Imported structures** carry *Hypothetical* provenance (user-supplied, unverified) until validated in the laboratory (Phase 2.2).
 
 ## 5. Solar-system dynamics
 | Body set | Model | Validated accuracy (1900–2049, vs JPL Horizons DE440/441) |

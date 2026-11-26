@@ -1,0 +1,6 @@
+{
+  "23-import-xyz.png": "Imported XYZ file: connectivity inferred from covalent radii (stated), provenance “user-supplied, unverified”; exported back to MDL MOL V2000.",
+  "24-compare-isomers.png": "Comparison view: ethanol vs dimethyl ether (both C₂H₆O) — side-by-side 3D models, descriptors (XLogP3, TPSA, H-bond donors) and bond-length statistics by element pair.",
+  "21-library-c60.png": "Expanded library (≥100 records, biomolecules filter shown): C₆₀ built from gas-phase electron-diffraction bond lengths (1.401 / 1.458 Å) — observed provenance.",
+  "22-pubchem-search-vanillin.png": "On-demand PubChem search: “vanillin” → CID 1183 fetched live (properties + PubChem3D conformer), cached in IndexedDB and saved to “my library”."
+}

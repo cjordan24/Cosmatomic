@@ -10,63 +10,123 @@
  *
  * Output: datasets/molecular/molecules.json
  */
-import { fetchJson, writeDataset } from './lib/ingest.ts';
+import { fetchJson, writeDataset, sha256 } from './lib/ingest.ts';
+const PROPS = 'Title,IUPACName,MolecularFormula,MolecularWeight,ExactMass,SMILES,ConnectivitySMILES,InChI,InChIKey,Charge,XLogP,TPSA,HBondDonorCount,HBondAcceptorCount,RotatableBondCount,Complexity';
 
 const BASE = 'https://pubchem.ncbi.nlm.nih.gov/rest/pug';
 const RATE = { minIntervalMs: 300 };
 
-/** Curated Phase-1 list. `tags` are factual categories; `ism` = detected in the interstellar medium. */
+/**
+ * Curated library. `ism` = detected in the interstellar/circumstellar medium per the census of
+ * McGuire (2022), ApJS 259, 30 ("2021 Census of Interstellar, Circumstellar, Extragalactic,
+ * Protoplanetary Disk, and Exoplanetary Molecules"). Only well-established detections are flagged.
+ * Salts, minerals and metals are deliberately excluded — they are extended lattices (Phase 4), not molecules.
+ */
 const CURATED: { name: string; category: string; ism?: boolean; context?: string }[] = [
-  { name: 'hydrogen', category: 'fundamental', ism: true, context: 'Most abundant molecule in the universe; main constituent of molecular clouds.' },
-  { name: 'nitrogen', category: 'fundamental', context: '~78% of Earth\'s dry atmosphere by volume.' },
-  { name: 'oxygen', category: 'fundamental', context: '~21% of Earth\'s dry atmosphere by volume.' },
+  // ---- fundamental / atmospheric / inorganic
+  { name: 'nitrogen', category: 'fundamental', context: "~78% of Earth's dry atmosphere by volume." },
+  { name: 'oxygen', category: 'fundamental', context: "~21% of Earth's dry atmosphere by volume." },
   { name: 'ozone', category: 'fundamental', context: 'Stratospheric ozone absorbs solar UV-B and UV-C.' },
   { name: 'water', category: 'fundamental', ism: true, context: 'Bent molecule (H–O–H ≈ 104.5°); detected in comets, moons, exoplanet atmospheres and the ISM.' },
-  { name: 'hydrogen peroxide', category: 'fundamental' },
+  { name: 'hydrogen peroxide', category: 'fundamental', ism: true },
   { name: 'carbon dioxide', category: 'fundamental', ism: true, context: 'Dominant constituent of the atmospheres of Venus and Mars.' },
   { name: 'carbon monoxide', category: 'fundamental', ism: true, context: 'Principal tracer of molecular gas in galaxies (CO rotational lines).' },
   { name: 'ammonia', category: 'fundamental', ism: true, context: 'First polyatomic molecule detected in the ISM (1968).' },
   { name: 'methane', category: 'fundamental', ism: true, context: 'Major component of the atmospheres of Titan, Uranus and Neptune.' },
-  { name: 'ethane', category: 'organic' },
-  { name: 'ethylene', category: 'organic' },
-  { name: 'acetylene', category: 'organic' },
-  { name: 'propane', category: 'organic' },
-  { name: 'butane', category: 'organic' },
-  { name: 'benzene', category: 'organic', context: 'Prototype aromatic ring; C–C bonds are equivalent (~1.39 Å).' },
-  { name: 'ethanol', category: 'organic', ism: true },
-  { name: 'methanol', category: 'organic', ism: true },
-  { name: 'acetone', category: 'organic', ism: true },
-  { name: 'acetic acid', category: 'organic', ism: true },
-  { name: 'formic acid', category: 'organic', ism: true },
-  { name: 'cyclohexane', category: 'organic' },
-  { name: 'naphthalene', category: 'organic' },
-  { name: 'glucose', category: 'biological', context: 'Primary metabolic fuel; open-chain/ring forms interconvert in solution.' },
-  { name: 'fructose', category: 'biological' },
-  { name: 'sucrose', category: 'biological' },
-  { name: 'glycine', category: 'biological', context: 'Simplest amino acid; detected in samples from comet 67P and asteroid Ryugu/Bennu returns.' },
-  { name: 'L-alanine', category: 'biological' },
-  { name: 'L-tryptophan', category: 'biological' },
-  { name: 'palmitic acid', category: 'biological' },
-  { name: 'adenine', category: 'biological' },
-  { name: 'cytosine', category: 'biological' },
-  { name: 'adenosine triphosphate', category: 'biological', context: 'Principal energy currency of the cell.' },
-  { name: 'caffeine', category: 'biological' },
-  { name: 'cholesterol', category: 'biological' },
-  { name: 'hydrogen cyanide', category: 'astrophysical', ism: true, context: 'Detected in comets, Titan\'s atmosphere and the ISM.' },
-  { name: 'formaldehyde', category: 'astrophysical', ism: true, context: 'First organic polyatomic molecule detected in the ISM (1969).' },
-  { name: 'hydrogen sulfide', category: 'astrophysical', ism: true },
-  { name: 'sulfur dioxide', category: 'astrophysical', ism: true, context: 'Major constituent of Io\'s thin atmosphere and Venus\'s clouds chemistry.' },
-  { name: 'nitric oxide', category: 'astrophysical', ism: true },
-  { name: 'cyanoacetylene', category: 'astrophysical', ism: true },
-  { name: 'glycolaldehyde', category: 'astrophysical', ism: true },
-  { name: 'methyl formate', category: 'astrophysical', ism: true },
-  { name: 'nitrous oxide', category: 'fundamental' },
-  { name: 'sulfuric acid', category: 'fundamental' },
+  { name: 'nitrous oxide', category: 'fundamental', ism: true },
+  { name: 'nitrogen dioxide', category: 'fundamental' },
+  { name: 'sulfuric acid', category: 'fundamental', context: 'Main constituent of the cloud droplets of Venus.' },
   { name: 'nitric acid', category: 'fundamental' },
   { name: 'phosphoric acid', category: 'fundamental' },
-  { name: 'urea', category: 'biological' },
-  { name: 'aspirin', category: 'organic' },
-  { name: 'buckminsterfullerene', category: 'materials', ism: true, context: 'C60 was identified in the ISM via its infrared bands (2010) and diffuse interstellar bands (C60+, 2015).' },
+  { name: 'hydrogen chloride', category: 'fundamental', ism: true },
+  { name: 'hydrogen fluoride', category: 'fundamental', ism: true },
+  { name: 'phosphine', category: 'fundamental', ism: true, context: 'Detected in the atmospheres of Jupiter and Saturn.' },
+  { name: 'silane', category: 'fundamental', ism: true },
+  { name: 'sulfur hexafluoride', category: 'fundamental', context: 'Octahedral molecule; potent greenhouse gas.' },
+  { name: 'carbonyl sulfide', category: 'fundamental', ism: true },
+  { name: 'hydrazine', category: 'fundamental', context: 'Spacecraft monopropellant — Voyager’s attitude-control thrusters burn hydrazine.' },
+  // ---- organic
+  { name: 'ethane', category: 'organic' },
+  { name: 'ethylene', category: 'organic', ism: true },
+  { name: 'acetylene', category: 'organic', ism: true },
+  { name: 'propane', category: 'organic' },
+  { name: 'propene', category: 'organic', ism: true },
+  { name: 'butane', category: 'organic' },
+  { name: 'isobutane', category: 'organic' },
+  { name: 'hexane', category: 'organic' },
+  { name: 'octane', category: 'organic' },
+  { name: 'cyclopropane', category: 'organic' },
+  { name: 'cyclohexane', category: 'organic' },
+  { name: 'isoprene', category: 'organic' },
+  { name: 'benzene', category: 'organic', ism: true, context: 'Prototype aromatic ring; C–C bonds are equivalent (~1.39 Å). Detected in the proto-planetary nebula CRL 618.' },
+  { name: 'toluene', category: 'organic' },
+  { name: 'styrene', category: 'organic' },
+  { name: 'phenol', category: 'organic' },
+  { name: 'aniline', category: 'organic' },
+  { name: 'pyridine', category: 'organic' },
+  { name: 'furan', category: 'organic' },
+  { name: 'naphthalene', category: 'organic' },
+  { name: 'anthracene', category: 'organic' },
+  { name: 'methanol', category: 'organic', ism: true },
+  { name: 'ethanol', category: 'organic', ism: true },
+  { name: 'ethylene glycol', category: 'organic', ism: true },
+  { name: 'glycerol', category: 'organic' },
+  { name: 'dimethyl ether', category: 'organic', ism: true },
+  { name: 'diethyl ether', category: 'organic' },
+  { name: 'acetaldehyde', category: 'organic', ism: true },
+  { name: 'acetone', category: 'organic', ism: true },
+  { name: 'formic acid', category: 'organic', ism: true },
+  { name: 'acetic acid', category: 'organic', ism: true },
+  { name: 'propanoic acid', category: 'organic' },
+  { name: 'ethyl acetate', category: 'organic' },
+  { name: 'chloroform', category: 'organic' },
+  { name: 'dichloromethane', category: 'organic' },
+  { name: 'carbon tetrachloride', category: 'organic' },
+  { name: 'methylamine', category: 'organic', ism: true },
+  { name: 'acetonitrile', category: 'organic', ism: true },
+  { name: 'formamide', category: 'organic', ism: true },
+  { name: 'urea', category: 'biological', ism: true },
+  // ---- astrophysical / interstellar
+  { name: 'hydrogen cyanide', category: 'astrophysical', ism: true, context: "Detected in comets, Titan's atmosphere and the ISM." },
+  { name: 'formaldehyde', category: 'astrophysical', ism: true, context: 'First organic polyatomic molecule detected in the ISM (1969).' },
+  { name: 'hydrogen sulfide', category: 'astrophysical', ism: true },
+  { name: 'sulfur dioxide', category: 'astrophysical', ism: true, context: "Major constituent of Io's thin atmosphere." },
+  { name: 'cyanoacetylene', category: 'astrophysical', ism: true },
+  { name: 'glycolaldehyde', category: 'astrophysical', ism: true, context: 'Simplest sugar-related molecule detected in the ISM (Sgr B2, 2000).' },
+  { name: 'methyl formate', category: 'astrophysical', ism: true },
+  { name: 'isocyanic acid', category: 'astrophysical', ism: true },
+  { name: 'ketene', category: 'astrophysical', ism: true },
+  { name: 'ethylene oxide', category: 'astrophysical', ism: true },
+  { name: 'propylene oxide', category: 'astrophysical', ism: true, context: 'First chiral molecule detected in the ISM (Sgr B2, 2016).' },
+  { name: 'vinyl alcohol', category: 'astrophysical', ism: true },
+  { name: 'cyanamide', category: 'astrophysical', ism: true },
+  { name: 'methanethiol', category: 'astrophysical', ism: true },
+  { name: 'thioformaldehyde', category: 'astrophysical', ism: true },
+  { name: 'benzonitrile', category: 'astrophysical', ism: true, context: 'First specific aromatic molecule identified by radio astronomy (TMC-1, 2018).' },
+  // ---- biological: amino acids (L-forms)
+  ...['glycine', 'L-alanine', 'L-valine', 'L-leucine', 'L-isoleucine', 'L-proline', 'L-phenylalanine', 'L-tryptophan', 'L-methionine', 'L-serine',
+      'L-threonine', 'L-cysteine', 'L-tyrosine', 'L-asparagine', 'L-glutamine', 'L-aspartic acid', 'L-glutamic acid', 'L-lysine', 'L-arginine', 'L-histidine']
+    .map((n) => ({ name: n, category: 'amino acid', context: n === 'glycine' ? 'Simplest amino acid; found in samples from comet 81P/Wild 2 (Stardust) and asteroid Ryugu.' : 'Proteinogenic amino acid (L-form).' })),
+  // ---- biological: nucleobases, sugars, lipids, metabolism
+  { name: 'adenine', category: 'nucleic acid' }, { name: 'guanine', category: 'nucleic acid' }, { name: 'cytosine', category: 'nucleic acid' },
+  { name: 'thymine', category: 'nucleic acid' }, { name: 'uracil', category: 'nucleic acid' },
+  { name: 'adenosine monophosphate', category: 'nucleic acid' },
+  { name: 'adenosine triphosphate', category: 'nucleic acid', context: 'Principal energy currency of the cell.' },
+  { name: 'D-ribose', category: 'carbohydrate' }, { name: 'deoxyribose', category: 'carbohydrate' },
+  { name: 'glucose', category: 'carbohydrate', context: 'Primary metabolic fuel; open-chain/ring forms interconvert in solution.' },
+  { name: 'fructose', category: 'carbohydrate' }, { name: 'galactose', category: 'carbohydrate' },
+  { name: 'sucrose', category: 'carbohydrate' }, { name: 'lactose', category: 'carbohydrate' }, { name: 'maltose', category: 'carbohydrate' },
+  { name: 'palmitic acid', category: 'lipid' }, { name: 'stearic acid', category: 'lipid' }, { name: 'oleic acid', category: 'lipid' },
+  { name: 'linoleic acid', category: 'lipid' }, { name: 'cholesterol', category: 'lipid' },
+  { name: 'lactic acid', category: 'metabolite' }, { name: 'pyruvic acid', category: 'metabolite' }, { name: 'citric acid', category: 'metabolite' },
+  // ---- neurotransmitters, hormones, vitamins, drugs
+  { name: 'dopamine', category: 'neurochemical' }, { name: 'serotonin', category: 'neurochemical' }, { name: 'epinephrine', category: 'neurochemical' },
+  { name: 'histamine', category: 'neurochemical' }, { name: 'melatonin', category: 'neurochemical' }, { name: 'acetylcholine', category: 'neurochemical' },
+  { name: 'testosterone', category: 'hormone' }, { name: 'estradiol', category: 'hormone' },
+  { name: 'ascorbic acid', category: 'vitamin' }, { name: 'retinol', category: 'vitamin' }, { name: 'nicotinamide', category: 'vitamin' },
+  { name: 'caffeine', category: 'pharmacology' }, { name: 'aspirin', category: 'pharmacology' }, { name: 'ibuprofen', category: 'pharmacology' },
+  { name: 'acetaminophen', category: 'pharmacology' }, { name: 'nicotine', category: 'pharmacology' }, { name: 'capsaicin', category: 'pharmacology' },
+  { name: 'morphine', category: 'pharmacology' }, { name: 'quinine', category: 'pharmacology' }, { name: 'penicillin G', category: 'pharmacology' },
 ];
 
 interface PropRes { PropertyTable: { Properties: Record<string, string | number>[] } }
@@ -74,7 +134,7 @@ interface Rec3D { PC_Compounds: { atoms: { aid: number[]; element: number[]; cha
 
 async function main() {
   const warnings: string[] = [];
-  const molecules = [];
+  const molecules: ({ pubchemCid: number } & Record<string, unknown>)[] = [];
   for (const [i, item] of CURATED.entries()) {
     process.stdout.write(`\r  ${i + 1}/${CURATED.length} ${item.name.padEnd(28)}`);
     const slug = item.name.replace(/[^a-z0-9]+/gi, '-').toLowerCase();
@@ -85,8 +145,9 @@ async function main() {
     } catch (e) { warnings.push(`${item.name}: name lookup failed (${(e as Error).message})`); continue; }
 
     const props = (await fetchJson<PropRes>(
-      `${BASE}/compound/cid/${cid}/property/Title,IUPACName,MolecularFormula,MolecularWeight,SMILES,ConnectivitySMILES,InChI,InChIKey,Charge/JSON`,
-      { ...RATE, cacheKey: `pubchem/mol-props-${cid}.json` },
+      `${BASE}/compound/cid/${cid}/property/${PROPS}/JSON`,
+      // cache key includes a hash of the requested property list so adding properties never reuses stale responses
+      { ...RATE, cacheKey: `pubchem/mol-props-${cid}-${sha256(PROPS).slice(0, 8)}.json` },
     )).PropertyTable.Properties[0];
 
     let rec: Rec3D;
@@ -103,6 +164,7 @@ async function main() {
     const aidIndex = new Map(c.atoms.aid.map((aid, k) => [aid, k]));
     const bonds = (c.bonds?.aid1 ?? []).map((a1, k) => ({ a: aidIndex.get(a1)!, b: aidIndex.get(c.bonds!.aid2[k])!, order: c.bonds!.order[k] }));
 
+    if (molecules.some((m) => m.pubchemCid === cid)) { warnings.push(`${item.name}: duplicate CID ${cid} skipped`); continue; }
     molecules.push({
       id: `pubchem-${cid}`,
       name: item.name.replace(/^./, (m) => m.toUpperCase()),
@@ -119,6 +181,16 @@ async function main() {
       inchi: props.InChI ?? null,
       inchiKey: props.InChIKey ?? null,
       pubchemCid: cid,
+      computed: {
+        source: 'PubChem computed descriptors (Cactvs / XLogP3 / PubChem)', provenance: 'derived',
+        exactMassU: props.ExactMass !== undefined ? Number(props.ExactMass) : null,
+        xlogp: props.XLogP !== undefined ? Number(props.XLogP) : null,
+        tpsaA2: props.TPSA !== undefined ? Number(props.TPSA) : null,
+        hBondDonors: props.HBondDonorCount !== undefined ? Number(props.HBondDonorCount) : null,
+        hBondAcceptors: props.HBondAcceptorCount !== undefined ? Number(props.HBondAcceptorCount) : null,
+        rotatableBonds: props.RotatableBondCount !== undefined ? Number(props.RotatableBondCount) : null,
+        complexity: props.Complexity !== undefined ? Number(props.Complexity) : null,
+      },
       atoms,
       bonds,
       geometry: { source: 'PubChem3D computed conformer (MMFF94s)', units: 'angstrom', provenance: 'derived', experimental: false },
@@ -128,7 +200,8 @@ async function main() {
   process.stdout.write('\n');
   writeDataset('datasets/molecular/molecules.json', molecules, {
     dataset: 'molecules', version: '1', records: molecules.length, adapter: 'scripts/ingestion/pubchem-molecules.ts', warnings,
-    sources: [{ institution: 'PubChem (NCBI/NLM)', url: 'https://pubchem.ncbi.nlm.nih.gov/docs/pug-rest', license: 'https://www.ncbi.nlm.nih.gov/home/about/policies/', notes: '3D coordinates are PubChem3D computed conformers, not experimental structures.' }],
+    sources: [{ institution: 'PubChem (NCBI/NLM)', url: 'https://pubchem.ncbi.nlm.nih.gov/docs/pug-rest', license: 'https://www.ncbi.nlm.nih.gov/home/about/policies/', notes: '3D coordinates are PubChem3D computed conformers, not experimental structures.' },
+      { institution: 'McGuire (2022) ApJS 259:30 — census of interstellar molecules', url: 'https://doi.org/10.3847/1538-4365/ac2a48', notes: 'Basis for detectedInISM flags (manually curated list).' }],
   });
 }
 

@@ -1,12 +1,12 @@
 {
   "dataset": "molecules",
   "version": "1",
-  "records": 47,
+  "records": 137,
   "adapter": "scripts/ingestion/pubchem-molecules.ts",
   "warnings": [
-    "hydrogen (CID 783): no PubChem 3D conformer (HTTP 404 for https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/783/record/JSON?record_type=3d); skipped",
-    "nitric oxide (CID 145068): no PubChem 3D conformer (HTTP 404 for https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/145068/record/JSON?record_type=3d); skipped",
-    "buckminsterfullerene (CID 123591): no PubChem 3D conformer (HTTP 404 for https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/123591/record/JSON?record_type=3d); skipped"
+    "nitrogen dioxide (CID 3032552): no PubChem 3D conformer (HTTP 404 for https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/3032552/record/JSON?record_type=3d); skipped",
+    "sulfur hexafluoride (CID 17358): no PubChem 3D conformer (HTTP 404 for https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/17358/record/JSON?record_type=3d); skipped",
+    "stearic acid (CID 5281): no PubChem 3D conformer (HTTP 404 for https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/5281/record/JSON?record_type=3d); skipped"
   ],
   "sources": [
     {
@@ -14,10 +14,15 @@
       "url": "https://pubchem.ncbi.nlm.nih.gov/docs/pug-rest",
       "license": "https://www.ncbi.nlm.nih.gov/home/about/policies/",
       "notes": "3D coordinates are PubChem3D computed conformers, not experimental structures."
+    },
+    {
+      "institution": "McGuire (2022) ApJS 259:30 — census of interstellar molecules",
+      "url": "https://doi.org/10.3847/1538-4365/ac2a48",
+      "notes": "Basis for detectedInISM flags (manually curated list)."
     }
   ],
   "output": "datasets/molecular/molecules.json",
-  "retrievedAt": "2026-11-26T04:42:10.723Z",
-  "bytes": 75391,
-  "sha256": "98c7e1aabb2c0da3437f66d081435923d0a586859da76493d3d66593743e5b37"
+  "retrievedAt": "2026-11-26T06:36:27.598Z",
+  "bytes": 295680,
+  "sha256": "8e846b1c138381c510f0aca0d3af07f71f198dd150e5ac32bb34a43d80f5ede5"
 }

@@ -6,73 +6,405 @@
     "citation": "Archinal et al. (2018), Report of the IAU Working Group on Cartographic Coordinates and Rotational Elements: 2015, Celest. Mech. Dyn. Astr. 130:22",
     "frame": "ICRF; alpha0/delta0 in degrees at J2000 (secular terms omitted); W = W0 + Wdot * d, d = days from J2000 TDB",
     "bodies": {
-      "sun":     { "alpha0": 286.13,  "delta0": 63.87,  "W0": 84.176,   "Wdot": 14.1844 },
-      "mercury": { "alpha0": 281.0103,"delta0": 61.4155,"W0": 329.5988, "Wdot": 6.1385108 },
-      "venus":   { "alpha0": 272.76,  "delta0": 67.16,  "W0": 160.20,   "Wdot": -1.4813688 },
-      "earth":   { "alpha0": 0.0,     "delta0": 90.0,   "W0": 190.147,  "Wdot": 360.9856235 },
-      "mars":    { "alpha0": 317.68143, "delta0": 52.88650, "W0": 176.630, "Wdot": 350.89198226, "note": "IAU 2009 secular model (Archinal et al. 2011); the 2015 model requires large periodic terms not implemented here" },
-      "jupiter": { "alpha0": 268.056595, "delta0": 64.495303, "W0": 284.95, "Wdot": 870.536 },
-      "saturn":  { "alpha0": 40.589,  "delta0": 83.537, "W0": 38.90,    "Wdot": 810.7939024 },
-      "uranus":  { "alpha0": 257.311, "delta0": -15.175,"W0": 203.81,   "Wdot": -501.1600928 },
-      "neptune": { "alpha0": 299.36,  "delta0": 43.46,  "W0": 249.978,  "Wdot": 541.1397757 },
-      "pluto":   { "alpha0": 132.993, "delta0": -6.163, "W0": 302.695,  "Wdot": 56.3625225 },
-      "moon":    { "alpha0": 269.9949,"delta0": 66.5392,"W0": 38.3213,  "Wdot": 13.17635815 }
+      "sun": {
+        "alpha0": 286.13,
+        "delta0": 63.87,
+        "W0": 84.176,
+        "Wdot": 14.1844
+      },
+      "mercury": {
+        "alpha0": 281.0103,
+        "delta0": 61.4155,
+        "W0": 329.5988,
+        "Wdot": 6.1385108
+      },
+      "venus": {
+        "alpha0": 272.76,
+        "delta0": 67.16,
+        "W0": 160.2,
+        "Wdot": -1.4813688
+      },
+      "earth": {
+        "alpha0": 0,
+        "delta0": 90,
+        "W0": 190.147,
+        "Wdot": 360.9856235
+      },
+      "mars": {
+        "alpha0": 317.68143,
+        "delta0": 52.8865,
+        "W0": 176.63,
+        "Wdot": 350.89198226,
+        "note": "IAU 2009 secular model (Archinal et al. 2011); the 2015 model requires large periodic terms not implemented here"
+      },
+      "jupiter": {
+        "alpha0": 268.056595,
+        "delta0": 64.495303,
+        "W0": 284.95,
+        "Wdot": 870.536
+      },
+      "saturn": {
+        "alpha0": 40.589,
+        "delta0": 83.537,
+        "W0": 38.9,
+        "Wdot": 810.7939024
+      },
+      "uranus": {
+        "alpha0": 257.311,
+        "delta0": -15.175,
+        "W0": 203.81,
+        "Wdot": -501.1600928
+      },
+      "neptune": {
+        "alpha0": 299.36,
+        "delta0": 43.46,
+        "W0": 249.978,
+        "Wdot": 541.1397757
+      },
+      "pluto": {
+        "alpha0": 132.993,
+        "delta0": -6.163,
+        "W0": 302.695,
+        "Wdot": 56.3625225
+      },
+      "moon": {
+        "alpha0": 269.9949,
+        "delta0": 66.5392,
+        "W0": 38.3213,
+        "Wdot": 13.17635815
+      }
     }
   },
   "sun": {
     "citation": "IAU 2015 Resolution B3 (nominal solar values); Asplund et al. (2009) ARA&A 47:481 (present-day photospheric mass fractions)",
-    "nominalRadiusM": 6.957e8,
-    "nominalGMm3s2": 1.3271244e20,
-    "nominalLuminosityW": 3.828e26,
+    "nominalRadiusM": 695700000,
+    "nominalGMm3s2": 132712440000000000000,
+    "nominalLuminosityW": 3.828e+26,
     "nominalEffectiveTemperatureK": 5772,
-    "massKg": 1.9885e30,
+    "massKg": 1.9885e+30,
     "massKgNote": "Derived: GM(nominal) / G(CODATA 2018); uncertainty dominated by G (2.2e-5 relative).",
     "rotationPeriodDaysEquatorial": 25.38,
     "spectralType": "G2V",
-    "massFractions": { "X_hydrogen": 0.7381, "Y_helium": 0.2485, "Z_metals": 0.0134 }
+    "massFractions": {
+      "X_hydrogen": 0.7381,
+      "Y_helium": 0.2485,
+      "Z_metals": 0.0134
+    }
   },
   "solarPhotosphericAbundances": {
     "citation": "Asplund, Grevesse, Sauval & Scott (2009), ARA&A 47:481, Table 1 (photospheric log epsilon, log eps(H) = 12)",
     "note": "Only elements whose photospheric values were transcribed are listed; all others are UNKNOWN in the app (not zero).",
     "logEpsilon": {
-      "H": 12.00, "He": 10.93, "Li": 1.05, "C": 8.43, "N": 7.83, "O": 8.69, "F": 4.56, "Ne": 7.93,
-      "Na": 6.24, "Mg": 7.60, "Al": 6.45, "Si": 7.51, "P": 5.41, "S": 7.12, "Cl": 5.50, "Ar": 6.40,
-      "K": 5.03, "Ca": 6.34, "Sc": 3.15, "Ti": 4.95, "V": 3.93, "Cr": 5.64, "Mn": 5.43, "Fe": 7.50,
-      "Co": 4.99, "Ni": 6.22, "Cu": 4.19, "Zn": 4.56
+      "H": 12,
+      "He": 10.93,
+      "Li": 1.05,
+      "C": 8.43,
+      "N": 7.83,
+      "O": 8.69,
+      "F": 4.56,
+      "Ne": 7.93,
+      "Na": 6.24,
+      "Mg": 7.6,
+      "Al": 6.45,
+      "Si": 7.51,
+      "P": 5.41,
+      "S": 7.12,
+      "Cl": 5.5,
+      "Ar": 6.4,
+      "K": 5.03,
+      "Ca": 6.34,
+      "Sc": 3.15,
+      "Ti": 4.95,
+      "V": 3.93,
+      "Cr": 5.64,
+      "Mn": 5.43,
+      "Fe": 7.5,
+      "Co": 4.99,
+      "Ni": 6.22,
+      "Cu": 4.19,
+      "Zn": 4.56
     }
   },
   "atmospheres": {
     "citation": "NASA Goddard NSSDC planetary fact sheets (per-planet pages), nssdc.gsfc.nasa.gov/planetary/factsheet/; Earth CO2 from NOAA GML global mean (2024 ≈ 422 ppm)",
     "units": "volume (mole) fraction, dry atmosphere where applicable",
     "bodies": {
-      "venus":   [{ "species": "CO2", "fraction": 0.965 }, { "species": "N2", "fraction": 0.035 }],
-      "earth":   [{ "species": "N2", "fraction": 0.7808 }, { "species": "O2", "fraction": 0.2095 }, { "species": "Ar", "fraction": 0.0093 }, { "species": "CO2", "fraction": 0.000422 }, { "species": "Ne", "fraction": 0.00001818 }, { "species": "He", "fraction": 0.00000524 }, { "species": "CH4", "fraction": 0.0000019 }],
-      "mars":    [{ "species": "CO2", "fraction": 0.951 }, { "species": "N2", "fraction": 0.0259 }, { "species": "Ar", "fraction": 0.0194 }, { "species": "O2", "fraction": 0.0016 }, { "species": "CO", "fraction": 0.0006 }],
-      "jupiter": [{ "species": "H2", "fraction": 0.898 }, { "species": "He", "fraction": 0.102 }, { "species": "CH4", "fraction": 0.003 }, { "species": "NH3", "fraction": 0.00026 }],
-      "saturn":  [{ "species": "H2", "fraction": 0.963 }, { "species": "He", "fraction": 0.0325 }, { "species": "CH4", "fraction": 0.0045 }, { "species": "NH3", "fraction": 0.000125 }],
-      "uranus":  [{ "species": "H2", "fraction": 0.825 }, { "species": "He", "fraction": 0.152 }, { "species": "CH4", "fraction": 0.023 }],
-      "neptune": [{ "species": "H2", "fraction": 0.80 }, { "species": "He", "fraction": 0.19 }, { "species": "CH4", "fraction": 0.015 }],
-      "titan":   [{ "species": "N2", "fraction": 0.95 }, { "species": "CH4", "fraction": 0.049 }]
+      "venus": [
+        {
+          "species": "CO2",
+          "fraction": 0.965
+        },
+        {
+          "species": "N2",
+          "fraction": 0.035
+        }
+      ],
+      "earth": [
+        {
+          "species": "N2",
+          "fraction": 0.7808
+        },
+        {
+          "species": "O2",
+          "fraction": 0.2095
+        },
+        {
+          "species": "Ar",
+          "fraction": 0.0093
+        },
+        {
+          "species": "CO2",
+          "fraction": 0.000422
+        },
+        {
+          "species": "Ne",
+          "fraction": 0.00001818
+        },
+        {
+          "species": "He",
+          "fraction": 0.00000524
+        },
+        {
+          "species": "CH4",
+          "fraction": 0.0000019
+        }
+      ],
+      "mars": [
+        {
+          "species": "CO2",
+          "fraction": 0.951
+        },
+        {
+          "species": "N2",
+          "fraction": 0.0259
+        },
+        {
+          "species": "Ar",
+          "fraction": 0.0194
+        },
+        {
+          "species": "O2",
+          "fraction": 0.0016
+        },
+        {
+          "species": "CO",
+          "fraction": 0.0006
+        }
+      ],
+      "jupiter": [
+        {
+          "species": "H2",
+          "fraction": 0.898
+        },
+        {
+          "species": "He",
+          "fraction": 0.102
+        },
+        {
+          "species": "CH4",
+          "fraction": 0.003
+        },
+        {
+          "species": "NH3",
+          "fraction": 0.00026
+        }
+      ],
+      "saturn": [
+        {
+          "species": "H2",
+          "fraction": 0.963
+        },
+        {
+          "species": "He",
+          "fraction": 0.0325
+        },
+        {
+          "species": "CH4",
+          "fraction": 0.0045
+        },
+        {
+          "species": "NH3",
+          "fraction": 0.000125
+        }
+      ],
+      "uranus": [
+        {
+          "species": "H2",
+          "fraction": 0.825
+        },
+        {
+          "species": "He",
+          "fraction": 0.152
+        },
+        {
+          "species": "CH4",
+          "fraction": 0.023
+        }
+      ],
+      "neptune": [
+        {
+          "species": "H2",
+          "fraction": 0.8
+        },
+        {
+          "species": "He",
+          "fraction": 0.19
+        },
+        {
+          "species": "CH4",
+          "fraction": 0.015
+        }
+      ],
+      "titan": [
+        {
+          "species": "N2",
+          "fraction": 0.95
+        },
+        {
+          "species": "CH4",
+          "fraction": 0.049
+        }
+      ]
     }
   },
   "saturnRings": {
     "citation": "NASA NSSDC Saturnian Rings Fact Sheet (radii from Saturn's centre)",
     "units": "km",
     "rings": [
-      { "name": "D", "inner": 66900, "outer": 74510 },
-      { "name": "C", "inner": 74658, "outer": 92000 },
-      { "name": "B", "inner": 92000, "outer": 117580 },
-      { "name": "Cassini Division", "inner": 117580, "outer": 122170, "gap": true },
-      { "name": "A", "inner": 122170, "outer": 136775 },
-      { "name": "F", "inner": 140180, "outer": 140680 }
+      {
+        "name": "D",
+        "inner": 66900,
+        "outer": 74510
+      },
+      {
+        "name": "C",
+        "inner": 74658,
+        "outer": 92000
+      },
+      {
+        "name": "B",
+        "inner": 92000,
+        "outer": 117580
+      },
+      {
+        "name": "Cassini Division",
+        "inner": 117580,
+        "outer": 122170,
+        "gap": true
+      },
+      {
+        "name": "A",
+        "inner": 122170,
+        "outer": 136775
+      },
+      {
+        "name": "F",
+        "inner": 140180,
+        "outer": 140680
+      }
     ]
   },
   "diatomicGeometries": {
     "citation": "Huber & Herzberg (1979), Constants of Diatomic Molecules, via NIST Chemistry WebBook / CCCBDB (equilibrium internuclear distance r_e)",
     "molecules": [
-      { "id": "exp-h2", "name": "Hydrogen", "formula": "H2", "pubchemCid": 783, "atoms": ["H", "H"], "bondOrder": 1, "reAngstrom": 0.74144, "detectedInISM": true, "context": "Most abundant molecule in the universe; main constituent of molecular clouds." },
-      { "id": "exp-no", "name": "Nitric oxide", "formula": "NO", "pubchemCid": 145068, "atoms": ["N", "O"], "bondOrder": 2, "reAngstrom": 1.15077, "detectedInISM": true, "context": "Radical (one unpaired electron); formal bond order 2.5 in MO theory, drawn here as 2." }
+      {
+        "id": "exp-h2",
+        "name": "Hydrogen",
+        "formula": "H2",
+        "pubchemCid": 783,
+        "atoms": [
+          "H",
+          "H"
+        ],
+        "bondOrder": 1,
+        "reAngstrom": 0.74144,
+        "detectedInISM": true,
+        "context": "Most abundant molecule in the universe; main constituent of molecular clouds."
+      },
+      {
+        "id": "exp-no",
+        "name": "Nitric oxide",
+        "formula": "NO",
+        "pubchemCid": 145068,
+        "atoms": [
+          "N",
+          "O"
+        ],
+        "bondOrder": 2,
+        "reAngstrom": 1.15077,
+        "detectedInISM": true,
+        "context": "Radical (one unpaired electron); formal bond order 2.5 in MO theory, drawn here as 2."
+      }
     ]
   },
-  "spacecraftPlaceholderPolicy": "No spacecraft trajectories are shown in Phase 1; none are fabricated."
+  "spacecraftPlaceholderPolicy": "No spacecraft trajectories are shown in Phase 1; none are fabricated.",
+  "fullerene": {
+    "citation": "Hedberg, Hedberg, Bethune, Brown, Dorn, Johnson & de Vries (1991), Science 254:410 — gas-phase electron diffraction of C60",
+    "id": "exp-c60",
+    "name": "Buckminsterfullerene",
+    "formula": "C60",
+    "pubchemCid": 123591,
+    "bond66Angstrom": 1.401,
+    "bond56Angstrom": 1.458,
+    "detectedInISM": true,
+    "context": "C60 was identified in the ISM by its infrared bands (planetary nebula Tc 1, 2010); C60+ explains two diffuse interstellar bands (2015)."
+  },
+  "covalentRadii": {
+    "citation": "Cordero et al. (2008), \"Covalent radii revisited\", Dalton Trans. 2832–2838 (Table 2; C = sp3 value; Mn, Fe, Co = low-spin)",
+    "units": "angstrom",
+    "note": "Used only to INFER connectivity when importing coordinate-only files (XYZ, PDB without CONECT): bonded if d < r1 + r2 + 0.4 Å. Elements not listed get no inferred bonds.",
+    "radii": {
+      "H": 0.31,
+      "He": 0.28,
+      "Li": 1.28,
+      "Be": 0.96,
+      "B": 0.84,
+      "C": 0.76,
+      "N": 0.71,
+      "O": 0.66,
+      "F": 0.57,
+      "Ne": 0.58,
+      "Na": 1.66,
+      "Mg": 1.41,
+      "Al": 1.21,
+      "Si": 1.11,
+      "P": 1.07,
+      "S": 1.05,
+      "Cl": 1.02,
+      "Ar": 1.06,
+      "K": 2.03,
+      "Ca": 1.76,
+      "Sc": 1.7,
+      "Ti": 1.6,
+      "V": 1.53,
+      "Cr": 1.39,
+      "Mn": 1.39,
+      "Fe": 1.32,
+      "Co": 1.26,
+      "Ni": 1.24,
+      "Cu": 1.32,
+      "Zn": 1.22,
+      "Ga": 1.22,
+      "Ge": 1.2,
+      "As": 1.19,
+      "Se": 1.2,
+      "Br": 1.2,
+      "Kr": 1.16,
+      "Rb": 2.2,
+      "Sr": 1.95,
+      "Ag": 1.45,
+      "Sn": 1.39,
+      "Sb": 1.39,
+      "Te": 1.38,
+      "I": 1.39,
+      "Xe": 1.4,
+      "Cs": 2.44,
+      "Ba": 2.15,
+      "Pt": 1.36,
+      "Au": 1.36,
+      "Hg": 1.32,
+      "Pb": 1.46,
+      "U": 1.96
+    }
+  }
 }

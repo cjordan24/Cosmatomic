@@ -5,7 +5,9 @@
 * **Spectra** are computed only for one-electron systems; NIST ASD lines for other elements are not yet ingested (link shown instead).
 * **Ion configurations** use the "remove highest-n first / Madelung for anions" rule; a few real ions differ.
 * **Cosmic abundances**: only 28 elements (Asplund 2009) were transcribed; others show "no data". Values are manually transcribed and should be re-verified against the publication table by an automated adapter.
-* **Molecule geometries** are MMFF94s conformers (e.g. CO₂ C=O 1.197 Å vs 1.160 Å experimental). Bond orders are Kekulé. C₆₀ is absent (no PubChem 3D conformer). 47 + 2 records (Phase 2 target: 100).
+* **Molecule geometries** are MMFF94s conformers (e.g. CO₂ C=O 1.197 Å vs 1.160 Å experimental); H₂, NO and C₆₀ use experimental bond lengths. Bond orders are Kekulé. NO₂, SF₆ and stearic acid are absent (PubChem has no 3D conformer). 140 curated records.
+* **PubChem search** needs network access and returns only compounds with a PubChem3D conformer (salts, metals, radicals and very large/flexible molecules are refused with an explanation). Interstellar-detection flags are a curated subset of the McGuire (2022) census, not an automated cross-match.
+* **File import:** XYZ/PDB-without-CONECT get single bonds only (no bond-order perception until the Phase 2.2 validator); MOL V3000 and aromatic bond type 4 are not supported.
 * **Planet ephemeris** is JPL Table 1 (errors up to ~9′ for Saturn); the timeline is clamped to its 1800–2050 validity.
 * **Moons and dwarf planets** use two-body propagation of 2025 osculating elements: phases drift by degrees per decade far from 2025. Inside Voyager encounter windows Horizons data replaces them.
 * **Voyager trajectories**: Horizons uses *patched-conic mission-design* arcs before 1981-01-01 (V1) and 1989-08-29 (V2) — "rough accuracy". As a result the Voyager 2–Neptune closest approach appears at ≈33 700 km instead of ≈29 240 km (+15 %), Uranus −4.4 %. A ≈6 700 km jump exists in the source at the V2 1989-08-29 arc splice. Post-1992 positions are JPL predictions (no two-way tracking since).

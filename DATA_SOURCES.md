@@ -6,7 +6,8 @@ All datasets are produced by adapters in `scripts/ingestion/` through a shared l
 |---|---|---|---|---|
 | `atomic/elements.json` | 118 | PubChem periodic table (`/rest/pug/periodictable/JSON`) + PUG View element records | REST, 300 ms between requests (policy ≤ 5/s) | NCBI/NLM data policies; attribute PubChem |
 | `atomic/nuclides.json` | 118 elements, ≈3 300 nuclides | IUPAC CIAAW isotopic composition; IAEA AMDC NUBASE masses, half-lives, decay modes — via PubChem PUG View | REST | Attribute CIAAW and IAEA AMDC; IAEA disclaimer |
-| `molecular/molecules.json` | 47 | PubChem PUG REST: name→CID, properties (formula, MW, SMILES, InChI/Key, IUPAC), 3D conformer records | REST | NCBI/NLM |
+| `molecular/molecules.json` | 137 | PubChem PUG REST: name→CID, properties (formula, MW, exact mass, SMILES, InChI/Key, IUPAC, XLogP3, TPSA, H-bond donors/acceptors, rotatable bonds, complexity), 3D conformer records. Interstellar-detection flags curated from McGuire (2022) ApJS 259:30 | REST | NCBI/NLM |
+| *runtime* PubChem search | on demand | PubChem PUG REST called from the browser (CORS-enabled), ≤ 4 req/s, honours X-Throttling-Control, cached 30 days in IndexedDB | REST | NCBI/NLM |
 | `astronomical/planet-elements.json` | 8 | JPL SSD *Approximate Positions of the Planets*, Table 1 | HTML `<pre>` table (no API exists) | NASA/JPL public |
 | `astronomical/planet-physical.json` | 10 | NASA Goddard NSSDC Planetary Fact Sheet | HTML table, path permitted by robots.txt | US Government work (public domain) |
 | `astronomical/moon-physical.json` | 22 | JPL SSD Planetary Satellite Physical Parameters | HTML table | NASA/JPL public |
@@ -15,7 +16,7 @@ All datasets are produced by adapters in `scripts/ingestion/` through a shared l
 | `astronomical/horizons-reference-vectors.json` | 9 bodies × 5 epochs | JPL Horizons state vectors — **test ground truth only** | REST | NASA/JPL public |
 | `astronomical/spacecraft-voyager.json` | 2 | JPL Horizons `-31`, `-32` vectors + trajectory section metadata parsed from the Horizons header | REST | NASA/JPL public |
 | `astronomical/encounter-ephemerides.json` | 6 windows | JPL Horizons planet + major-moon vectors around each Voyager encounter | REST | NASA/JPL public |
-| `curated/curated-reference.json` | — | **Manually transcribed** (flagged in UI): IAU WGCCRE rotation (Archinal 2018/2011), IAU 2015 nominal solar values, Asplund et al. 2009 photospheric abundances (28 elements), NSSDC atmospheric compositions, NSSDC Saturn ring radii, Huber & Herzberg diatomic r_e | — | Cited per block |
+| `curated/curated-reference.json` | — | **Manually transcribed** (flagged in UI): IAU WGCCRE rotation (Archinal 2018/2011), IAU 2015 nominal solar values, Asplund et al. 2009 photospheric abundances (28 elements), NSSDC atmospheric compositions, NSSDC Saturn ring radii, Huber & Herzberg diatomic r_e, Hedberg et al. 1991 C₆₀ bond lengths, Cordero et al. 2008 covalent radii (connectivity inference only) | — | Cited per block |
 
 ## 3D assets
 | Asset | Origin |
