@@ -349,3 +349,5 @@ Findings:
 5. **The citation goes next to the bio (user request).** Every entry, in the About section and in the drawer, now opens with a source line directly under its heading: the page title linked to NASA, the series, the publisher and year, and the Source-index entry. The full credit and licence remain at the end. Test 66 checks that the source line sits above the first quotation.
 6. **The desktop top bar overflowed in Atomic.** The new Encyclopedia button pushed it to 1593 px at 1440, and two earlier tests (17 and 58) could no longer reach the Scale button. Atomic now uses the same icon-only buttons below 1500 px as Cosmic. Every route measured ≤ 1431 px.
 
+
+Gate E.1 verified against production: 61/61 passed.
