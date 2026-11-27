@@ -25,6 +25,7 @@ const CmbView = lazy(() => import('@/modes/cosmic/universe/CmbView'));
 const DarkMatterView = lazy(() => import('@/modes/cosmic/universe/DarkMatterView'));
 const GwView = lazy(() => import('@/modes/cosmic/universe/GwView'));
 const NotebookView = lazy(() => import('@/ui/NotebookView'));
+const ScaleView = lazy(() => import('@/modes/scale/ScaleView'));
 const WaveLab = lazy(() => import('@/modes/spectral/laboratory/WaveLab'));
 const SpectralAtlas = lazy(() => import('@/modes/spectral/atlas/SpectralAtlas'));
 const FieldsView = lazy(() => import('@/modes/spectral/fields/FieldsView'));
@@ -50,7 +51,7 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-    document.title = mode === 'atomic' ? 'Atomic · Voyager Ventures' : mode === 'cosmic' ? 'Cosmic · Voyager Ventures' : mode === 'spectral' ? 'Spectral · Voyager Ventures' : 'Voyager Ventures';
+    document.title = mode === 'atomic' ? 'Atomic · Voyager Ventures' : mode === 'cosmic' ? 'Cosmic · Voyager Ventures' : mode === 'spectral' ? 'Spectral · Voyager Ventures' : mode === 'scale' ? 'Scale · Voyager Ventures' : 'Voyager Ventures';
   }, [mode]);
 
   let view;
@@ -65,6 +66,7 @@ export default function App() {
   } else if (mode === 'cosmic') view = path[1] === 'sandbox' ? <SandboxView /> : path[1] === 'relativity' ? <RelativityView /> : path[1] === 'compact' ? <CompactView /> : path[1] === 'lensing' ? <LensingView /> : path[1] === 'galaxies' ? <GalaxiesView /> : path[1] === 'nebulae' ? <NebulaeView /> : path[1] === 'universe' ? <UniverseView /> : path[1] === 'ladder' ? <LadderView /> : path[1] === 'cmb' ? <CmbView /> : path[1] === 'darkmatter' ? <DarkMatterView /> : path[1] === 'gw' ? <GwView /> : path[1] === 'stars' ? (path[2] === 'hr' ? <HrView /> : path[2] === 'planets' ? <PlanetsView /> : <StarsView />) : <CosmicView focusId={path[1] ?? 'sun'} />;
   else if (mode === 'spectral') view = path[1] === 'lab' ? <WaveLab /> : path[1] === 'fields' ? <FieldsView /> : <SpectralAtlas />;
   else if (mode === 'notebook') view = <NotebookView />;
+  else if (mode === 'scale') view = <ScaleView />;
   else if (mode === 'sources') view = <SourcesView id={path[1] ?? null} />;
   else view = <Landing />;
 

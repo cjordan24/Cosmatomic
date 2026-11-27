@@ -163,3 +163,10 @@
 * The About section appears in the Spectral atlas only. The element view's spectrum and the stellar classes do not show it yet.
 * On phones the top bar folds Encyclopedia, Sources, Notebook, Scale and Settings into a ☰ menu, and search is an icon that expands when tapped.
 
+## Phase 8
+* **Scale navigator (Gate 8.1):**
+  * Only lengths are shown (no mass, time or energy axes). The 29 references are those already bundled; the nanostructure, microscopic, human and cosmic-web levels have none and stay planned.
+  * Sizes mean different things and each says which: atoms are van der Waals diameters, molecules are nucleus-to-nucleus extents without the electron cloud, the proton is twice its rms charge radius, black holes are non-rotating horizon diameters, and Coma is twice a model virial radius for H₀ = 70.
+  * Earth, Jupiter and the Earth–Moon distance are the NSSDC fact-sheet values, rounded as published, with no uncertainty shown. Water and glucose come from computed PubChem3D conformers.
+  * The pre-existing level examples for *Subatomic* (quarks) and *Nuclei* (an r₀A^⅓ fit) are unchanged and are not reference objects.
+

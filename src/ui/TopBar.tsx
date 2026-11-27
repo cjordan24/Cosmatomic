@@ -161,7 +161,8 @@ export function ScaleNavigator({ onClose }: { onClose: () => void }) {
           );
         })}
       </ol>
-      <p className="note" style={{ padding: '0 12px 12px', margin: 0 }}>Each scale uses its own coordinate system and solver. Scales marked <em>planned</em> have no simulator yet (Phases 5–8).</p>
+      <div style={{ padding: '0 12px 8px' }}><button className="chip" onClick={() => { onClose(); navigate('/scale'); }}>Open the scale explorer →</button></div>
+      <p className="note" style={{ padding: '0 12px 12px', margin: 0 }}>Each scale uses its own coordinate system and solver. Scales marked <em>planned</em> have no view yet.</p>
     </section>
   );
 }

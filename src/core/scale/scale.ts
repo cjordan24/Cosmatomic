@@ -29,7 +29,7 @@ export const SCALE_LEVELS: ScaleLevel[] = [
   { id: 'solar-system', label: 'Solar system', log10m: 12.7, support: 'interactive', route: '#/cosmic', example: 'Neptune orbit ≈ 60 au across' },
   { id: 'stellar', label: 'Stellar neighbourhood', log10m: 17, support: 'interactive', route: '#/cosmic/stars', example: 'Proxima Centauri at 1.30 pc; 10 pc ≈ 3.1 × 10¹⁷ m' },
   { id: 'galaxy', label: 'Galaxies', log10m: 21, support: 'interactive', route: '#/cosmic/galaxies?tab=mw', example: 'The Sun is 8.2 kpc from the Galactic Centre (Bland-Hawthorn & Gerhard 2016)' },
-  { id: 'cluster', label: 'Galaxy clusters', log10m: 23, support: 'planned', route: null, example: 'Virgo Cluster ≈ 2 Mpc' },
+  { id: 'cluster', label: 'Galaxy clusters', log10m: 23, support: 'interactive', route: '#/cosmic/darkmatter?tab=clusters', example: 'Coma cluster: dark-matter virial radius 2.7 Mpc for H₀ = 70 (Łokas & Mamon 2003)' },
   { id: 'web', label: 'Cosmic web', log10m: 24.7, support: 'planned', route: null, example: 'Laniakea ≈ 160 Mpc' },
   { id: 'observable', label: 'Observable universe', log10m: 26.9, support: 'interactive', route: '#/cosmic/universe?tab=history', example: 'Comoving radius ≈ 14.2 Gpc (46 Gly) in Planck 2018 ΛCDM (model-derived)' },
 ];

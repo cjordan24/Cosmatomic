@@ -491,3 +491,13 @@ Phase 7 is complete. Stopping for user review; resume from `HANDOFF_PHASE7_REVIE
 - Deployed by the user (`vercel deploy --prod`; the auto-mode classifier blocked it from Claude Code). Deployment `dpl_B7CaTn7B6DZnAC8uU1VDBck63nrQ`, aliased to https://voyager-ventures.vercel.app.
 - Production serves `index-Qc9NTZFA.js`, identical to the local `dist/assets` build, so Gates 7.4 and 7.5 are now live (the previous production bundle was `index-ChcjBNsZ.js`, from before Gate 7.4).
 - Full browser suite against production: **65/65 passed** (10.1 min).
+
+## Phase 8, Gate 8.1: universal scale navigator (`#/scale`), 2026-11-27
+
+Phase 8 approved by the user (“proceed as planned”): 8.1 scale navigator · 8.2 relationship explorer · 8.3 integrated spectroscopy · 8.4 shared instruments · 8.5 unified notebook · 8.6 pathways; encyclopedia E.2 after 8.3.
+
+1. **View:** `#/scale?z=&sel=` — a powers-of-ten zoom (10⁻¹⁶ to 10²⁷·⁵ m) where every reference in the window is drawn to one linear scale; slider, ÷10/×10, wheel, level jump, a clickable log ruler of the whole range; an object panel with value, interval, provenance, sources and a link to its view. Opened from the Scale navigator (“Open the scale explorer →”).
+2. **References (29):** read from bundled datasets and constants (`src/modes/scale/references.ts`). The proton radius was checked on NIST’s CODATA page, which now serves **CODATA 2022** (0.84075(64) fm, not the 2018 0.8414 fm); a `codata-2022` Source-index entry was added (DOI 10.1103/RevModPhys.97.025002 checked on Crossref).
+3. **Scale levels:** *Galaxy clusters* is now interactive (Coma tab of the dark-matter view).
+4. **Tests:** 575 science (+15, `tests/science/scale.test.ts`), 66 browser (+1: test 72 in `tests/e2e/phase8.spec.ts`). Local full suite 66/66.
+5. **Layout:** at 390 px the scale view does not overflow (scroll width 390); labels are placed without overlap.

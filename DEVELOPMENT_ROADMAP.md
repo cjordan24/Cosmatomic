@@ -17,7 +17,7 @@ Treat each phase below as a proposal. Re-assess numerical methods, dataset acces
 | **5 Interstellar & Stellar** | 5.1 nearby stars · 5.2 stellar classes & HR diagram · 5.3 exoplanets · 5.4 stellar spectra & thermal radiation · 5.5 cross-links | **Complete** (Gates 5.1–5.5) |
 | **6 Deep Space & Invisible Gravity** | 6.1 relativity foundations · 6.2 compact objects & black holes · 6.3 gravitational lensing · 6.4 galaxies & rotation curves · 6.5 nebulae & image galleries | **Complete** (Gates 6.1–6.5) |
 | **7 Cosmology & Observable Universe** | 7.1 expansion & distances · 7.2 distance ladder · 7.3 CMB · 7.4 dark-matter evidence explorer · 7.5 gravitational waves (GWOSC) | **Complete** (Gates 7.1–7.5) |
-| 8 Unified Scale & Relationships | universal scale navigation, relationship registry UI, integrated spectroscopy, shared instruments, unified notebook, pathways | Planned (registry started in 4.1) |
+| **8 Unified Scale & Relationships** | 8.1 universal scale navigator · 8.2 relationship explorer · 8.3 integrated spectroscopy · 8.4 shared instruments · 8.5 unified notebook · 8.6 pathways | **In progress** (Gate 8.1 done; approved 2026-11-27) |
 | 9 Applied Waves & Communications | 9.1 EM fields & antennas · 9.2 RF/wireless atlas · 9.3 3D communications room · 9.4 modulation lab · 9.5 acoustic lab · 9.6 audio synthesis/FFT · 9.7 room acoustics & resonance | Planned |
 | 10 Optics, Radiation & Energy | 10.1 geometric optics · 10.2 wave optics · 10.3 polarisation & optical materials · 10.4 atomic/molecular spectroscopy · 10.5 thermal radiation & energy transfer · 10.6 camera/telescope instruments · 10.7 atmospheric radiation & remote sensing | Planned |
 | 11 Biologic Foundations | 11.1 bio data infrastructure & atlas · 11.2 biomolecular encyclopedia · 11.3 protein structures · 11.4 cells · 11.5 organelles & membranes · 11.6 transport & biochemistry · 11.7 plant cells & microorganisms | Planned |
@@ -77,5 +77,18 @@ The goal is learning, so values are explained with cited text: verbatim excerpts
 | 7.3 | CMB (`#/cosmic/cmb`): FIRAS monopole (Fixsen et al. 1996 Table 4, NASA LAMBDA) against Planck’s law with residuals, χ² and distortion limits; T(z) = T₀(1+z) with CO and molecular measurements at z = 0.89–2.69 (Noterdaeme et al. 2011, Muller et al. 2013); Planck 2018 TT power spectrum and best fit from the Planck Legacy Archive (CC BY-NC 3.0 IGO, credit ESA, Planck Collaboration) | **Done** |
 | 7.4 | Dark-matter evidence (`#/cosmic/darkmatter`): every probe shows the observation (gold), the visible matter under Newtonian gravity (green) and a model with dark matter (violet). SPARC g_obs against g_bar and V_obs²/V_bar²; the Milky Way; the Bullet Cluster (Clowe et al. 2006 Table 2, 100 kpc apertures, lensing against visible mass); the Coma cluster (Łokas & Mamon 2003 mass model recomputed, Jeans σ_los for stars + gas against the full model); the cosmic census (BBN deuterium, Cooke et al. 2018, against Planck Ω_b h², Ω_c h²) | **Done** |
 | 7.5 | Gravitational waves (`#/cosmic/gw`): the cumulative GWOSC catalog (391 confident events, GWTC-1 to GWTC-5.0; 282 with source-frame masses, distances and redshifts, medians with 90 % intervals; CC BY 4.0), m₁–m₂ and cumulative-detection plots, each event beside derived quantities and z(d_L) in the catalog cosmology (reproduced for all 281 events); GW150914 then (2016 PRL) and now (GWTC-2.1). A leading-order chirp (Newtonian orbit + quadrupole formula, LIGO/Virgo “basic physics of GW150914”) with waveform, f(t), ISCO, separation, strain, luminosity and energy, checked against the paper’s numbers. GW170817: speed-of-gravity bounds recomputed from the GW–GRB delay; standard-siren H₀ beside Planck and SH0ES | **Done** |
+
+## Phase 8 gates
+
+Approved by the user on 2026-11-27 (“proceed as planned”). Encyclopedia pass E.2 follows Gate 8.3.
+
+| Gate | Deliverable | Status |
+|---|---|---|
+| 8.1 | Universal scale navigator (`#/scale`): a powers-of-ten zoom from 10⁻¹⁶ to 10²⁷·⁵ m; 29 reference objects drawn to one linear scale, each read from a bundled dataset or constant with its interval, provenance class and sources (proton CODATA 2022 → observable universe in Planck 2018 ΛCDM); log ruler of the whole range; *Galaxy clusters* scale level now interactive (Coma) | **Done** |
+| 8.2 | Relationship explorer (`#/relations`): the registry as a filterable graph, path finding between two entities with each step’s source, planned entities with their phase | Planned |
+| 8.3 | Integrated spectroscopy (`#/spectral/compare`): bundled spectra overlaid on one wavelength/frequency/energy axis, observed vs model labelled; optional (1 + z) transformation | Planned |
+| 8.4 | Shared instruments: one probe/ruler/unit-converter/time-series interface across Sandbox, Wave lab, Fields and Cosmic views | Planned |
+| 8.5 | Unified notebook: snapshots of any view (route, parameters, provenance, sources, version); JSON/CSV/Markdown export with citations; existing experiments migrated | Planned |
+| 8.6 | Pathways: curated walks along sourced registry edges and cited encyclopedia excerpts | Planned |
 
 If a gate turns out much larger than planned, it is split into documented sub-gates. Scientific quality is not reduced to make it fit.

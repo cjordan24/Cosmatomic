@@ -42,6 +42,9 @@ All datasets are produced by adapters in `scripts/ingestion/` through a shared l
 | `encyclopedia/em-radiation.json` | 8 entries | **Verbatim excerpts** from NASA Science Mission Directorate (2010), *Tour of the Electromagnetic Spectrum*: introduction, radio, microwaves, infrared, visible, ultraviolet, X-rays, gamma rays. Sentences describing pictures on the pages are omitted and marked […] (pattern + reviewed list in the adapter). Adapter `encyclopedia-nasa-ems.ts`, which also checks that every kept passage occurs verbatim in the page | HTML, 2 s between requests; robots.txt allows all | NASA content, generally not subject to U.S. copyright (NASA Media Usage Guidelines); acknowledge NASA |
 | `curated/curated-reference.json` | — | **Manually transcribed** (flagged in UI): IAU WGCCRE rotation (Archinal 2018/2011), IAU 2015 nominal solar values, Asplund et al. 2009 photospheric abundances (28 elements), NSSDC atmospheric compositions, NSSDC Saturn ring radii, Huber & Herzberg diatomic r_e, Hedberg et al. 1991 C₆₀ bond lengths, Cordero et al. 2008 covalent radii (connectivity inference only) | — | Cited per block |
 
+
+No new dataset in Gate 8.1: the scale navigator reads lengths from the bundled datasets and constants. One new Source-index entry: CODATA 2022 (Mohr, Newell, Taylor & Tiesinga 2025, Rev. Mod. Phys. 97, 025002; DOI checked on Crossref) for the proton rms charge radius 0.84075(64) fm, read from the NIST CUU page `cgi-bin/cuu/Value?rp` (one request; physics.nist.gov has no robots.txt).
+
 No new dataset in Gate 4.7: the FIELDS heat layer reuses the NIST WebBook fluid isobars already in `materials/materials.json`. New Source-index entries: OpenStax *University Physics* Vol. 2 §5.3 (Coulomb’s law) and Carslaw & Jaeger (1959) *Conduction of Heat in Solids* (point-source solution).
 
 ## Software dependencies with scientific roles
