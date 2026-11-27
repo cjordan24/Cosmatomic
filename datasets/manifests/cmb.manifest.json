@@ -1,0 +1,57 @@
+{
+  "dataset": "cmb",
+  "version": "1.0.0",
+  "records": 160,
+  "sources": [
+    {
+      "institution": "NASA LAMBDA (Legacy Archive for Microwave Background Data Analysis), GSFC",
+      "url": "https://lambda.gsfc.nasa.gov/product/cobe/firas_monopole_get.html",
+      "license": "NASA data (generally not subject to U.S. copyright; acknowledge NASA)",
+      "notes": "firas_monopole_spec_v1.txt = Fixsen et al. (1996) Table 4"
+    },
+    {
+      "institution": "Fixsen et al. (1996), ApJ 473, 576",
+      "url": "https://doi.org/10.1086/178173",
+      "notes": "Table 4 (checked against the LAMBDA file), §6 (χ², rms, μ and y limits)"
+    },
+    {
+      "institution": "ESA Planck Legacy Archive (IRSA mirror), Planck 2018 release R3.01",
+      "url": "https://irsa.ipac.caltech.edu/data/Planck/release_3/ancillary-data/cosmoparams/",
+      "license": "CC BY-NC 3.0 IGO (ESA Space Science Archives terms); credit “ESA, Planck Collaboration”",
+      "notes": "TT low-ℓ (ℓ = 2–29), TT binned (83 bins), best-fit theory TT"
+    },
+    {
+      "institution": "Planck Collaboration (2020), A&A 641, A5",
+      "url": "https://doi.org/10.1051/0004-6361/201936386",
+      "notes": "definition of D_ℓ and units, binning (eq. 22), error bars (Fig. 57)"
+    },
+    {
+      "institution": "Noterdaeme et al. (2011), A&A 526, L7",
+      "url": "https://doi.org/10.1051/0004-6361/201016140",
+      "notes": "Table 1 (5 CO excitation temperatures), β"
+    },
+    {
+      "institution": "Muller et al. (2013), A&A 551, A109",
+      "url": "https://doi.org/10.1051/0004-6361/201220613",
+      "notes": "T_CMB at z = 0.89"
+    },
+    {
+      "institution": "Fixsen (2009), ApJ 707, 916",
+      "url": "https://doi.org/10.1088/0004-637X/707/2/916",
+      "notes": "T₀ = 2.72548 ± 0.00057 K"
+    }
+  ],
+  "adapter": "scripts/ingestion/cmb.ts",
+  "warnings": [
+    "FIRAS: the per-point σ do not include the absolute temperature-scale uncertainty, and correlations between frequencies are not bundled.",
+    "FIRAS: LAMBDA column 2 differs from a 2.725 K blackbody (2019 SI constants) plus the residual by up to 7.6 kJy/sr; it is reproduced to ≤ 0.8 kJy/sr with CODATA 1986 constants. The view rebuilds the intensity from the Table 4 residual with the bundled constants.",
+    "Planck: diagonal errors only; covariances not bundled. The theory curve is thinned (every ℓ to 60, then every fourth).",
+    "Noterdaeme et al. (2011) Table 1 attaches no probability level; stored as 1σ (implied).",
+    "binned ℓ_b reproduce the ℓ(ℓ+1)-weighted mean multipole of each Δℓ = 30 bin (Planck 2018 V eq. 22) to 4.9e-6",
+    "the binned best-fit column equals the theory spectrum binned with the same weights to a relative difference of at most 3.7e-9"
+  ],
+  "output": "datasets/astronomical/cmb.json",
+  "retrievedAt": "2026-11-27T03:06:28.272Z",
+  "bytes": 19665,
+  "sha256": "4c163677f08c1669135780c5c1d65549a7e8a944d37f77b8af8ed650b4f1e2f0"
+}

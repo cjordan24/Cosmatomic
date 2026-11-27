@@ -101,6 +101,41 @@ test('68 distance ladder: anchors, Cepheids, TRGB, SNe Ia from cited tables; loc
   await expect(page).toHaveURL(/cosmic\/universe\?m=custom&H0=73.04/);
 });
 
+test('69 CMB: FIRAS blackbody, T(z) measurements and the Planck 2018 power spectrum', async ({ page }) => {
+  await page.goto('/#/cosmic');
+  await page.getByRole('navigation', { name: 'Cosmic sections' }).getByRole('button', { name: /^Universe/ }).click();
+  await page.getByRole('menu', { name: 'Universe' }).getByRole('menuitem', { name: 'Cosmic microwave background' }).click();
+  await expect(page).toHaveURL(/#\/cosmic\/cmb$/);
+  await expect(page.getByRole('img', { name: 'FIRAS CMB spectrum and a blackbody curve' })).toBeVisible();
+  await expect(page.locator('.plot .errbar')).toHaveCount(86); // 43 FIRAS points in the spectrum and in the residuals
+  const fit = page.getByLabel('FIRAS fit');
+  await expect(fit).toContainText('2.72500 K'); // χ² minimum returns the 2.725 K reference scale
+  await expect(fit).toContainText('46 for 40 d.o.f.');
+  await expect(fit).toContainText('160.2 GHz');
+  await expect(page.getByLabel('Spectral distortion limits')).toContainText('9.0 × 10⁻⁵');
+  await shot(page, '69a-cmb-spectrum', 'CMB spectrum (#/cosmic/cmb): the 43 FIRAS monopole points (Fixsen et al. 1996 Table 4, NASA LAMBDA; 1σ errors magnified × 400) against Planck’s law at T₀ = 2.72548 K (Fixsen 2009); residuals, χ², the χ²-minimising temperature, Wien peaks and the μ and y distortion limits.');
+  await page.getByRole('button', { name: 'best fit' }).click();
+  await expect(page).toHaveURL(/T=2\.725/);
+  await page.getByRole('button', { name: 'Temperature', exact: true }).click();
+  await expect(page).toHaveURL(/tab=history/);
+  const at = page.getByLabel('CMB at the chosen redshift');
+  await expect(at).toContainText('2973.0 K'); // T₀(1 + z∗)
+  await expect(page.getByLabel('Selected measurement')).toContainText('5.08 +0.1 / −0.1 K');
+  await expect(page.getByLabel('Selected measurement')).toContainText('5.140 K');
+  await shot(page, '69b-cmb-temperature', 'T(z) = T₀(1 + z): CO excitation temperatures in five quasar absorbers (Noterdaeme et al. 2011) and 5.08 ± 0.10 K at z = 0.89 (Muller et al. 2013) against the adiabatic line, with β = −0.007 ± 0.027; the extrapolation to last scattering (2973 K at z∗ = 1089.8).');
+  await page.getByRole('button', { name: 'Blackbody at 2973 K →' }).click();
+  await expect(page).toHaveURL(/spectral\?tab=blackbody&T=2973/);
+  await page.goBack();
+  await page.getByRole('button', { name: 'Power spectrum', exact: true }).click();
+  await expect(page.getByRole('img', { name: 'Planck 2018 temperature angular power spectrum' })).toBeVisible();
+  await expect(page.getByLabel('Peaks of the best-fit spectrum')).toContainText('220');
+  await expect(page.getByLabel('Band power at the chosen multipole')).toContainText('bin 210–239');
+  await expect(page.locator('.stage-head, .note').filter({ hasText: 'CC BY-NC 3.0 IGO' }).first()).toBeVisible();
+  await page.getByRole('button', { name: 'peak 2' }).click();
+  await expect(page).toHaveURL(/l=536/);
+  await shot(page, '69c-cmb-power', 'Planck 2018 TT power spectrum: Commander ℓ = 2–29 and 83 Plik bins (ESA, Planck Collaboration; CC BY-NC 3.0 IGO) with the best-fit base-ΛCDM curve and residuals; peaks of the best fit, C_ℓ, and θ∗ linked to the Expansion model.');
+});
+
 test('66 encyclopedia: cited radiation entries in a corner menu and an About section for the selected wavelength', async ({ page }) => {
   await page.goto('/#/spectral?lambda=1e-5');
   const bio = page.getByRole('region', { name: 'Encyclopedia' });

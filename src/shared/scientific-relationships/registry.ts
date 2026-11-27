@@ -61,6 +61,7 @@ const BASE_ENTITIES: Entity[] = [
   E('wave:em-ultraviolet', 'Ultraviolet radiation', '#/spectral?lambda=3e-7', 'Spectral atlas: UV-A/B/C (CIE) and ISO 21348 categories'),
   E('context:gravitational-lensing', 'Gravitational lensing', '#/cosmic/lensing', 'Point-mass lens plane, microlensing and astrometric deflection (Gate 6.3)'),
   E('context:distance-ladder', 'Distance ladder', '#/cosmic/ladder', 'Parallax, eclipsing binaries and masers → Cepheids and TRGB → type Ia supernovae → H₀ (Gate 7.2)'),
+  E('context:cmb', 'Cosmic microwave background', '#/cosmic/cmb', 'FIRAS blackbody spectrum, T(z) = T₀(1+z) and the Planck 2018 power spectrum (Gate 7.3)'),
   E('context:cosmic-expansion', 'Cosmic expansion and distances', '#/cosmic/universe', 'ΛCDM distances, lookback time and expansion history with Planck 2018 parameters (Gate 7.1)'),
   E('wave:em-visible', 'Visible light', '#/spectral?lambda=5.5e-7', 'Spectral atlas: visible range (no precise limits, CIE)'),
   // Gate E.1: the remaining broad radiation types, each with an encyclopedia entry (NASA Tour of the EM Spectrum)
@@ -189,6 +190,10 @@ for (const n of (nebulaData as { nebulae: { id: string; name: string; typeSource
 // Phase 7, Gate 7.1: cosmological lenses need angular-diameter distances (Hogg 1999 eq. 19), not Euclidean ones.
 registerRelationship({ from: 'context:distance-ladder', to: 'context:cosmic-expansion', type: 'explains', context: 'measures today’s expansion rate H₀ directly (SH0ES: 73.04 ± 1.04 km/s/Mpc), to compare with Planck’s ΛCDM inference', source: 'riess-2022' });
 registerRelationship({ from: 'galaxy:milky-way', to: 'context:distance-ladder', type: 'part-of', context: 'Gaia EDR3 parallaxes of Milky Way Cepheids are one of the three geometric anchors', source: 'riess-2022' });
+// Phase 7, Gate 7.3: the CMB
+registerRelationship({ from: 'context:cosmic-expansion', to: 'context:cmb', type: 'explains', context: 'adiabatic expansion cools the CMB as T₀(1 + z); measured at z = 0.89–2.69 (β = −0.007 ± 0.027)', source: 'noterdaeme-2011' });
+registerRelationship({ from: 'context:cmb', to: 'context:cosmic-expansion', type: 'explains', context: 'the Planck power spectrum fixes the base-ΛCDM parameters used for every distance (θ∗ = r∗/D_M(z∗))', source: 'planck-2018-vi' });
+registerRelationship({ from: 'context:cmb', to: 'wave:em-microwave', type: 'emits', context: 'today a 2.72548 K blackbody whose B_ν peak (160 GHz, 1.87 mm by Wien’s law) falls in the ISO 21348 microwave category; FIRAS measured 68–640 GHz', source: 'fixsen-1996' });
 registerRelationship({ from: 'context:cosmic-expansion', to: 'context:gravitational-lensing', type: 'explains', context: 'angular-diameter distances D_d, D_s, D_ds set the Einstein radius of distant lenses', source: 'hogg-1999' });
 
 export const getEntity = (id: string) => REGISTRY.get(id);

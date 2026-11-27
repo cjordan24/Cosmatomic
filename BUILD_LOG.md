@@ -383,3 +383,34 @@ Findings:
 
 
 Gate 7.2 verified against production: 62/62 passed.
+
+## 2026-11-27 — Gate 7.3 (cosmic microwave background)
+New view `#/cosmic/cmb` (*Universe ▾ → Cosmic microwave background*) with three tabs: Spectrum, Temperature and Power spectrum.
+
+What was built:
+- **Data:** `cmb` (adapter `scripts/ingestion/cmb.ts`):
+  - the FIRAS monopole spectrum from NASA LAMBDA, which is Table 4 of Fixsen et al. (1996). All 43 rows match the arXiv PDF text;
+  - the Planck 2018 TT power spectrum from the Planck Legacy Archive (IRSA mirror): ℓ = 2–29 unbinned, 83 bins at ℓ ≥ 30, and the best-fit base-ΛCDM theory spectrum;
+  - T(z) measurements transcribed from Noterdaeme et al. (2011) Table 1 (five CO absorbers, z = 1.73–2.69) and Muller et al. (2013) (5.08 ± 0.10 K at z = 0.89).
+- **Physics:** `src/core/physics/cmb.ts`:
+  - B_ν per wavenumber in MJy/sr, and residuals and χ² of FIRAS about any T, with the χ²-minimising T;
+  - T(z) = T₀(1+z)^(1−β);
+  - C_ℓ ↔ D_ℓ and the peaks of the best fit.
+  - The Cosmological module is now v1.2.0.
+- **View:**
+  - Spectrum: the FIRAS points (errors × 400 or × 1) on Planck’s law with a T slider and presets (2.72548, 2.725, 2.728 K, best fit), residuals, χ², Wien peaks, the μ and y limits, and a note on the temperature scale.
+  - Temperature: the measurements against T₀(1+z) with the fitted β band; the full history to z = 10⁵ with Planck’s epochs; at any z, T, both Wien peaks and the age; links to the Spectral atlas blackbody and the Expansion view.
+  - Power spectrum: Planck band powers on the best fit with residuals (log or linear ℓ), the band at any ℓ, C_ℓ, peaks, and θ∗ beside r∗/D_M(z∗) from the Expansion model.
+- **Registry:** `context:cmb`. Expansion explains the CMB, the CMB explains expansion, and the CMB emits microwaves.
+- **Source index:** `fixsen-1996`, `lambda-firas`, `planck-2018-v`, `planck-pla`, `noterdaeme-2011`, `muller-2013`; `fixsen-2009` now also feeds `cmb`.
+
+18 new science tests (506 total) and e2e test 69.
+
+Findings:
+1. **The Planck licence allows the power spectrum, non-commercially.** ESA’s *Terms and Conditions for the use of data in the ESA Space Science Archives* put the data under CC BY-NC 3.0 IGO, with the credit line “ESA, Planck Collaboration”; commercial use needs ESA’s authorisation. The view and the Source index state both. (OpenStax CC BY-NC-SA was already in the index.)
+2. **An access mistake, handled like the IOPscience case.** wiki.cosmos.esa.int (the Planck explanatory supplement) has `Disallow: /` for all agents. One page was fetched in the same command as the robots.txt check, before the result was read. It was discarded and is not cited; units and binning come from Planck 2018 V on arxiv.org. The host is now on the off-limits list.
+3. **LAMBDA’s intensity column uses older constants.** Column 2 (“2.725 K BB + residual”) differs from Planck’s law with CODATA 2018 constants by up to 7.6 kJy/sr; with CODATA 1986 constants the difference falls to ≤ 0.8 kJy/sr. Every point is still well inside its 1σ (≥ 10 kJy/sr). The view rebuilds intensities from the published residuals with the bundled constants.
+4. **FIRAS constrains the shape, not the absolute temperature.** The χ² minimum is 2.725015 K (χ² 45 for 42 d.o.f.; published 46/40 with the Galaxy and distortion terms), the scale the residuals were published on. At 2.72548 K the χ² is ≈ 4000, because the per-point errors exclude the absolute calibration. The view says this and quotes Fixsen et al. on how the temperature is set.
+5. **The Planck files reproduce each other.** The binned ℓ_b equal the ℓ(ℓ+1)-weighted mean multipole of each bin (Planck 2018 V eq. 22) to 5 × 10⁻⁶. The binned best-fit column equals the theory spectrum binned the same way to 4 × 10⁻⁹. The adapter fails if either check breaks.
+6. **Adiabatic cooling checks out.** T₀(1 + 0.88582) = 5.140 K, the 5.14 K Muller et al. quote; all six measurements lie within 1.5σ of T₀(1+z).
+7. **Phone layout.** The first tab labels (“Power spectrum (Planck)”) overflowed at 390 px; they are now Spectrum, Temperature and Power spectrum. Top bar at 1440 px: rightmost element at 1431 px.

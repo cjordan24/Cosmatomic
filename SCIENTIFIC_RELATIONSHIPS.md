@@ -62,8 +62,11 @@ Neutron stars and black holes are registered as `compact-object:<id>` (route `#/
 
 | `context:distance-ladder` | explains | `context:cosmic-expansion` (measures H₀ directly, to compare with Planck’s ΛCDM inference) | Riess et al. 2022 | Distance ladder ↔ Expansion view |
 | `galaxy:milky-way` | part-of | `context:distance-ladder` (Gaia EDR3 parallaxes of Milky Way Cepheids are one of the three anchors) | Riess et al. 2022 | Galaxies (Milky Way) ↔ Distance ladder |
+| `context:cosmic-expansion` | explains | `context:cmb` (adiabatic expansion cools the CMB as T₀(1 + z), measured at z = 0.89–2.69) | Noterdaeme et al. 2011 | Expansion view ↔ CMB view |
+| `context:cmb` | explains | `context:cosmic-expansion` (the Planck power spectrum fixes the base-ΛCDM parameters; θ∗ = r∗/D_M(z∗)) | Planck 2018 VI | CMB view ↔ Expansion view |
+| `context:cmb` | emits | `wave:em-microwave` (B_ν peak at 160 GHz, 1.87 mm, in the ISO 21348 microwave category) | Fixsen et al. 1996 | CMB view ↔ Spectral atlas |
 
-`context:cosmic-expansion` routes to `#/cosmic/universe`; `context:distance-ladder` routes to `#/cosmic/ladder` (Gate 7.2). The *Observable universe* scale level is now interactive and opens its Expansion history tab.
+`context:cosmic-expansion` routes to `#/cosmic/universe`; `context:distance-ladder` routes to `#/cosmic/ladder` (Gate 7.2); `context:cmb` routes to `#/cosmic/cmb` (Gate 7.3). The *Observable universe* scale level is now interactive and opens its Expansion history tab.
 
 ## Encyclopedia entities (Gate E.1)
 

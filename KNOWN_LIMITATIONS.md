@@ -133,6 +133,13 @@
   * The tension column (Δ/σ) assumes independent Gaussian errors and ignores shared systematics. It is labelled derived; each team’s own statement is quoted beside it.
   * CCHP 2025 has an erratum (ApJ 993, 252) whose content was not read, because iopscience.iop.org’s robots.txt disallows automated agents. The value is flagged in the view.
   * The Milky Way Cepheid anchor is represented only by its mean parallax (650 µas); the individual Gaia parallaxes are not bundled.
+* **Cosmic microwave background (Gate 7.3):**
+  * FIRAS: only the diagonal 1σ errors are bundled; correlations between frequencies are not. The errors exclude the absolute temperature scale, so χ² against T₀ = 2.72548 K is large (≈ 4000) although that value agrees with FIRAS within its quoted uncertainty; the view explains this. The intensities are rebuilt from the Table 4 residuals about 2.725 K with CODATA 2018 constants; LAMBDA’s own column (CODATA 1986 constants) differs by up to 7.6 kJy/sr.
+  * The μ and y limits are quoted, not refitted, and the Galaxy model is shown but not fitted.
+  * T(z) is measured only to z = 2.69 in the bundle (atomic-carbon, S-Z and higher-z measurements are not bundled). Noterdaeme et al. attach no probability level to Table 1, so it is read as 1σ (implied). The full-history curve and the 2973 K at last scattering are extrapolations of T₀(1 + z).
+  * The power spectrum is TT only (no TE, EE or lensing), with diagonal errors; the covariance matrix is not bundled. The best-fit curve is Planck’s (TT,TE,EE+lowl+lowE+lensing, without BAO), so its parameters differ slightly from the Table 2 column used elsewhere. No spectrum is computed here (no Boltzmann code), and the peaks are local maxima of the thinned curve (± 2 in ℓ).
+  * Planck data are CC BY-NC 3.0 IGO: non-commercial use only without ESA’s authorisation.
+  * No CMB sky map image is shown (licence not checked).
 
 ## Encyclopedia (Gate E.1)
 * Only radiation is covered (8 NASA entries). Elements, molecules and celestial objects are listed as *coming soon*.
