@@ -246,6 +246,12 @@ registerRelationship({ from: 'instrument:comms-room', to: 'instrument:antennas',
 registerRelationship({ from: 'instrument:comms-room', to: 'context:radio-allocations', type: 'observed-with', context: 'the 2.45, 5.8, 24.125 and 61.25 GHz presets are ISM frequencies of 47 CFR §18.301', source: 'ecfr-47-cfr' });
 registerRelationship({ from: 'instrument:comms-room', to: 'wave:em-radio', type: 'explains', context: 'walls reflect radio waves with TE and TM coefficients set by their complex permittivity (concrete, glass, plasterboard … at 1–100 GHz)', source: 'itu-r-p2040-4' });
 
+// ---------------------------------------------------------------- Phase 9, Gate 9.4: modulation lab
+registerEntity(E('instrument:modulation-lab', 'Modulation lab', '#/spectral/modulation', 'AM and FM spectra, BPSK/FSK in white noise with measured bit-error rates, channel capacity (Gate 9.4)'));
+registerRelationship({ from: 'instrument:modulation-lab', to: 'context:radio-allocations', type: 'explains', context: 'FM broadcasting: “the instantaneous radio frequency varies in proportion to the instantaneous amplitude of the modulating signal”; ±75 kHz is 100 % modulation', source: 'ecfr-47-cfr' });
+registerRelationship({ from: 'instrument:modulation-lab', to: 'context:gps', type: 'explains', context: 'each L1 carrier component “is bi-phase shift key (BPSK) modulated by a separate bit train” (IS-GPS-200N §3.2.3)', source: 'is-gps-200n' });
+registerRelationship({ from: 'instrument:modulation-lab', to: 'wave:em-radio', type: 'explains', context: 'a modulated carrier occupies f_c ± W; the coherent AM receiver multiplies by the carrier and low-pass filters', source: 'johnson-fundamentals-ee' });
+
 export const getEntity = (id: string) => REGISTRY.get(id);
 export const allEntities = () => [...REGISTRY.values()];
 export const relationshipsFrom = (id: string) => RELATIONSHIPS.filter((r) => r.from === id);

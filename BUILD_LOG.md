@@ -593,3 +593,14 @@ Phase 9 approved by the user (“you have my approval to go ahead with phase nin
 6. **Tests:** 678 science (+15, `tests/science/room.test.ts`), 75 browser (+1: test 81). Local full suite **75/75** (13.3 min).
 
 **Gate 9.3 deploy:** not deployed.
+
+## Phase 9, Gate 9.4: modulation lab (`#/spectral/modulation`), 2026-11-27
+
+1. **Sources read:** Johnson, *Fundamentals of Electrical Engineering I* (Rice University via Connexions, CC BY 1.0), chapters 5–6 of the LibreTexts edition, fetched by following the “next page” links at the 5 s crawl delay (the LibreTexts page API is disallowed by robots.txt); NIST DLMF release 1.2.8 (§§7.2, 10.2, 10.4, 10.12, 10.23; equation numbers checked on the pages); 47 CFR §73.310 (FM definitions, ±75 kHz = 100 %). New Source-index entries `johnson-fundamentals-ee`, `nist-dlmf`.
+2. **Not used:** the AMS host of Cooley & Tukey (1965) disallows ClaudeBot in robots.txt, so the FFT is cited through Johnson §5.9; Harris (1978, IEEE) and Shannon (1948) were not read, so the Hanning window and capacity come from Johnson. Johnson does not treat FM; QAM, Carson's rule and PM were dropped from the plan (roadmap updated).
+3. **Physics:** `src/core/physics/signals/dsp.ts` (radix-2 FFT, DFT check, Hanning window ½(1 − cos 2πn/N), amplitude and baseband spectra, spectrogram, aliasing) and `modulation.ts` (AM, FM, J_n series, 99 % FM bandwidth, BPSK/FSK waveforms, seeded Gaussian noise, correlation receiver, Q = ½ erfc(x/√2), capacity).
+4. **Source note:** the LibreTexts copy of Johnson §6.17 prints Q(x) with a 1/(2π) prefactor; the unit-normal tail needs 1/√(2π), which the code implements and the tests check by integrating the normal density.
+5. **View:** AM/FM tab (waveform, 65 536-point FFT with the predicted lines, sideband table, 99 % bandwidth, over-modulation warning), digital tab (sent/received waveform, decision-statistic histograms, BER curves with measured points), capacity tab (Johnson's 3 kHz / 30 dB example). Registry: `instrument:modulation-lab` with three sourced edges (FM definition, GPS L1 BPSK from IS-GPS-200N §3.2.3, AM band).
+6. **Tests:** +19 science (`dsp.test.ts` 9, `modulation.test.ts` 10), browser test 82. The full suite was run once for Gates 9.4 and 9.5 together: **77/77** (14.2 min).
+
+**Gate 9.4 deploy:** not deployed.

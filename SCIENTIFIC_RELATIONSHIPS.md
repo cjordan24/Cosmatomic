@@ -111,6 +111,10 @@ Every encyclopedia entry describes a registry entity, so E.2 registered the 11 s
 
 `instrument:comms-room` (`#/spectral/room`): built from the antenna models (*part of* antennas, Ellingson), its frequency presets are ISM allocations (*observed with* the RF atlas, 47 CFR §18.301), and it *explains* how walls reflect radio waves (ITU-R P.2040-4).
 
+## Modulation lab (Gate 9.4)
+
+`instrument:modulation-lab` (`#/spectral/modulation`) *explains* the FM broadcast allocations (47 CFR §73.310 definition), GPS (BPSK modulation of L1, IS-GPS-200N §3.2.3) and radio waves (AM occupies f_c ± W, Johnson §6.11).
+
 ## Rules
 
 1. No edge without a source.

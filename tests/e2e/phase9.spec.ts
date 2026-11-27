@@ -122,3 +122,31 @@ test('81 communications room: image-method rays with ITU-R P.2040 walls, coverag
   await page.goto('/#/spectral/room?f=61250000000&s=x0:Brick:20');
   await expect(page.getByRole('status').filter({ hasText: 'Outside the frequency range' })).toBeVisible();
 });
+
+// ---------------- Gate 9.4 ----------------
+test('82 modulation lab: AM and FM spectra by FFT, BPSK/FSK bit errors against theory, channel capacity', async ({ page }) => {
+  await page.goto('/#/spectral');
+  await page.getByRole('navigation', { name: 'Spectral sections' }).getByRole('button', { name: 'Radio ▾' }).click();
+  await page.getByRole('menuitem', { name: 'Modulation lab' }).click();
+  await expect(page).toHaveURL(/#\/spectral\/modulation$/);
+  await expect(page.getByRole('heading', { name: /Amplitude modulation/ })).toBeVisible();
+  await expect(page.getByRole('table', { name: 'AM lines' })).toContainText('0.3');
+  await page.getByLabel('Modulation index').fill('1.2');
+  await expect(page.getByRole('status').filter({ hasText: 'over-modulation' })).toBeVisible();
+  await page.getByRole('radio', { name: 'FM' }).click();
+  await expect(page.getByRole('heading', { name: /Frequency modulation/ })).toBeVisible();
+  await page.getByRole('button', { name: /β = 5/ }).click();
+  await expect(page.getByLabel('Modulation quantities')).toContainText(/Δf\/f_m5(?!\d)/);
+  await expect(page.getByRole('table', { name: 'FM lines' })).toContainText('-0.1776');   // J₀(5)
+  await shot(page, '82a-fm-spectrum', 'FM with β = 5: the FFT of the computed signal (cyan) lands on the Bessel lines J_n(5) at f_c + n f_m (gold); 99 % power bandwidth and the sideband table (DLMF 10.12.1; 47 CFR §73.310).');
+  await page.getByRole('navigation', { name: 'Modulation sections' }).getByRole('button', { name: 'Digital (BPSK, FSK)' }).click();
+  const errs = page.getByLabel('Bit errors');
+  await expect(errs).toContainText('of 20,000');
+  await page.getByRole('button', { name: /Measure the error curve/ }).click();
+  await expect(page.getByRole('img', { name: 'Bit-error rate against Eb/N0' })).toBeVisible();
+  await shot(page, '82b-bpsk', 'BPSK at E_b/N₀ = 4 dB: sent and received waveforms, the two clusters of the correlation receiver and measured error rates on the theoretical curves Q(√(2E_b/N₀)) and Q(√(E_b/N₀)) (Johnson §§6.14–6.18).');
+  await page.getByRole('navigation', { name: 'Modulation sections' }).getByRole('button', { name: 'Channel capacity' }).click();
+  await page.getByRole('button', { name: /telephone channel/ }).click();
+  await expect(page.getByLabel('Capacity', { exact: true })).toContainText(/29,90[12]/);
+});
+
