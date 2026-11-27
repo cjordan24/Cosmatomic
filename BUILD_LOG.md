@@ -380,3 +380,6 @@ Findings:
 3. **The tension depends on how it is computed.** With independent Gaussian errors, SH0ES against Planck 67.4 ± 0.5 is 4.9σ; SH0ES quote 5.0σ from the difference in 5 log H₀. The view shows the simple Δ/σ as derived and quotes each team's statement: SH0ES report a 5σ difference, CCHP find no statistically significant one.
 4. **Access:** IOPscience hosts the CCHP 2025 erratum (ApJ 993, 252). Its robots.txt disallows all automated agents and names Anthropic's, so the erratum was not read and the value carries a visible flag. One landing-page request was made before the robots.txt check; its content was discarded. Added to the off-limits list.
 5. **Overview layout.** The first version drew captions inside one SVG; they were clipped at the right edge and unreadable on phones. Each rung is now an HTML button with a wrapping caption above its bar.
+
+
+Gate 7.2 verified against production: 62/62 passed.
