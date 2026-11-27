@@ -157,3 +157,23 @@ test('91 telescopes: Airy’s pattern against his 1835 table, Rayleigh’s two-s
   await expect(page.getByRole('table', { name: 'Telescopes' })).toContainText('131');
   await shot(page, '91b-hubble-jwst', 'Hubble (2.4 m, f/24) and JWST (6.5 m, f/20): focal lengths, plate scales (Hubble 3.581″/mm against the Primer’s 3.58″/mm) and diffraction limits 1.2197 λ/D over their wavelength ranges (STScI).');
 });
+
+// ---------------- Gate 10.7 ----------------
+test('92 atmosphere: λ⁻⁴ scattering of sunlight, Rayleigh’s 1899 extinction (83 km with Maxwell’s n), air mass, Landsat 8–9 bands', async ({ page }) => {
+  await page.goto('/#/spectral');
+  await page.getByRole('navigation', { name: 'Spectral sections' }).getByRole('button', { name: 'Light ▾' }).click();
+  await page.getByRole('menuitem', { name: 'Atmosphere & remote sensing' }).click();
+  await expect(page).toHaveURL(/#\/spectral\/atmosphere$/);
+  await expect(page.getByLabel('Scattering result')).toContainText('4.353');
+  await shot(page, '92a-blue-sky', 'Sunlight (5772 K model) and the same light scattered ∝ λ⁻⁴ (Rayleigh 1871): blue 450 nm scattered 4.35 times as strongly as red 650 nm.');
+  await page.getByRole('navigation', { name: 'Atmosphere sections' }).getByRole('button', { name: 'Extinction and air mass' }).click();
+  await page.getByLabel('Number density').selectOption('maxwell');
+  const ex = page.getByLabel('Extinction result');
+  await expect(ex).toContainText(/82\.\d+ km/);              // Rayleigh's “83 kilometres”
+  await page.getByLabel('Zenith angle').fill('60');
+  await expect(ex).toContainText(/air mass m = sec z2/);
+  await shot(page, '92b-extinction', 'Rayleigh’s 1899 calculation reproduced: λ = 600 nm, μ − 1 = 0.0003 and Maxwell’s n give an 83 km attenuation length; through 8.3 km of air at air mass 2 (60°) the blue is dimmed most (NASA TM-82021).');
+  await page.getByRole('navigation', { name: 'Atmosphere sections' }).getByRole('button', { name: 'Landsat bands' }).click();
+  await expect(page.getByRole('table', { name: 'Landsat bands table' })).toContainText('11.50 – 12.51');
+  await expect(page.getByLabel('Landsat result')).toContainText('10.06');
+});

@@ -305,6 +305,13 @@ registerRelationship({ from: 'instrument:telescopes', to: 'instrument:wave-optic
 registerRelationship({ from: 'instrument:telescopes', to: 'wave:em-visible', type: 'explains', context: 'the smallest resolvable angle is about 1·2197 λ/D', source: 'rayleigh-scientific-papers-1' });
 registerRelationship({ from: 'instrument:telescopes', to: 'wave:em-infrared', type: 'explains', context: 'JWST observes from 0.6 to beyond 28 µm with a ~6.5 m mirror', source: 'stsci-jwst-jdox' });
 
+// ---------------------------------------------------------------- Phase 10, Gate 10.7: atmosphere and remote sensing
+registerEntity(E('instrument:atmosphere', 'Atmospheric radiation and remote sensing', '#/spectral/atmosphere', 'Rayleigh scattering and the blue sky, molecular extinction and air mass, Landsat 8–9 bands (Gate 10.7)'));
+registerRelationship({ from: 'instrument:atmosphere', to: 'context:sunlight', type: 'explains', context: 'scattered intensity ∝ λ⁻⁴: the scattered sunlight is blue', source: 'rayleigh-scientific-papers-1' });
+registerRelationship({ from: 'instrument:atmosphere', to: 'body:earth', type: 'explains', context: 'molecular extinction h = 32π³(μ − 1)²/(3nλ⁴) through 8·3 km of air at standard pressure', source: 'rayleigh-scientific-papers-4' });
+registerRelationship({ from: 'instrument:atmosphere', to: 'instrument:thermal-radiation', type: 'part-of', context: 'Landsat’s thermal bands near 11 µm sit at the Wien peak of a 288 K surface', source: 'usgs-landsat-bands' });
+registerRelationship({ from: 'instrument:atmosphere', to: 'wave:em-infrared', type: 'explains', context: 'Landsat 8–9 TIRS bands 10.6–11.19 and 11.50–12.51 µm', source: 'usgs-landsat-bands' });
+
 export const getEntity = (id: string) => REGISTRY.get(id);
 export const allEntities = () => [...REGISTRY.values()];
 export const relationshipsFrom = (id: string) => RELATIONSHIPS.filter((r) => r.from === id);

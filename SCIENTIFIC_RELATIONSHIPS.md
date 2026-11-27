@@ -132,6 +132,7 @@ Every encyclopedia entry describes a registry entity, so E.2 registered the 11 s
 `instrument:spectroscopy` (`#/spectral/spectroscopy`) *explains* the H I, D I and He II spectra (hydrogenic lines with R_M, NIST Compendium), microwaves (diatomic rotation lines, NIST Diatomic Spectral Database) and infrared (vibrational quanta, Huber & Herzberg).
 `instrument:thermal-radiation` (`#/spectral/thermal`) *explains* infrared radiation (Wien, Planck 1914) and sunlight's planet-averaged 340 W/m² (NASA); every planet and the Moon *has-property* its albedo, irradiance and balance temperature (NSSDCA).
 `instrument:telescopes` (`#/spectral/telescopes`) is *part of* wave optics (Airy's diffraction pattern) and *explains* the resolution of visible (Rayleigh) and infrared (JWST, STScI) telescopes.
+`instrument:atmosphere` (`#/spectral/atmosphere`) *explains* the colour of scattered sunlight (Rayleigh 1871), the extinction of light by Earth's air (Rayleigh 1899) and the infrared bands of Landsat (USGS), and is *part of* thermal radiation through the Wien peak of Earth's surface.
 
 ## Rules
 

@@ -708,3 +708,14 @@ Phase 10 approved by the user (“approve phase 10”). The optics textbooks fir
 5. **Sources:** `airy-1835`, `rayleigh-scientific-papers-1`, `stsci-hst-primer`, `stsci-jwst-jdox` (175 entries). Registry: `instrument:telescopes`.
 6. **Tests:** science 781/781 (+10, `tests/science/telescopes.test.ts`); browser test 91 (screenshots 91a–b).
 
+## Phase 10, Gate 10.7: atmospheric radiation and remote sensing (`#/spectral/atmosphere`), 2026-11-27
+
+1. **View:** `#/spectral/atmosphere?tab=sky|extinction|landsat` (Light ▾ → Atmosphere & remote sensing).
+2. **Physics:** `src/core/physics/atmosphere/radiation.ts`: λ⁻⁴ scattering (Rayleigh 1871), Rayleigh's 1899 extinction coefficient (eq. 14) with his inputs and with today's Loschmidt number, air mass sec z and Bouguer's law (NASA TM-82021, AERONET), the Landsat 8–9 bands.
+3. **Reproduced:** Rayleigh's 83 km (computed 82.73 km) from λ = 600 nm, μ − 1 = ·0003 and Maxwell's 19 × 10¹⁸ cm⁻³; I read pp. 400–403 on the page images. With n = p/kT the length is 117.0 km.
+4. **Landsat:** the USGS band table was read directly from usgs.gov (robots.txt allows; the research agent's copy had come through a summarising fetch); the values match.
+5. **Sources:** `rayleigh-scientific-papers-4`, `nasa-tm-82021`, `nasa-aeronet-aod`, `usgs-landsat-bands` (179 entries); Rayleigh vol. I's usage extended to Art. 8. Registry: `instrument:atmosphere`.
+6. **Tests:** science 787/787 (+6, `tests/science/atmosphere.test.ts`); browser test 92 (screenshots 92a–b). Full local browser suite at the end of Phase 10: **86/86** (12.1 min).
+
+Phase 10 is complete. Stopping for user review.
+
