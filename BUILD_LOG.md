@@ -501,3 +501,13 @@ Phase 8 approved by the user (“proceed as planned”): 8.1 scale navigator · 
 3. **Scale levels:** *Galaxy clusters* is now interactive (Coma tab of the dark-matter view).
 4. **Tests:** 575 science (+15, `tests/science/scale.test.ts`), 66 browser (+1: test 72 in `tests/e2e/phase8.spec.ts`). Local full suite 66/66.
 5. **Layout:** at 390 px the scale view does not overflow (scroll width 390); labels are placed without overlap.
+
+**Gate 8.1 deploy:** skipped at the user’s request (“Skip deployment and move on to the next step”); production still serves the Gate 7.5 build.
+
+## Phase 8, Gate 8.2: relationship explorer (`#/relations`), 2026-11-27
+
+1. **View:** `#/relations?tab=map|path|links|planned` — neighbourhood map (1–2 steps, centre any entity by search or by clicking), shortest chain of sourced edges between two entities, a filterable table of all edges with sources, and planned entities with their phase. Filters by relationship type; registry statistics; the 10 pc stars on request (`stars=1`).
+2. **Graph queries:** `src/shared/scientific-relationships/graph.ts` (pure; nothing is added to the registry). `RelatedLinks` now uses its shared verbs (“observed with”, “located in” instead of the raw type names) and shows “map ↗” into the explorer.
+3. **Registry today:** 199 entities (186 available, 13 planned), 140 edges, 27 connected groups (largest 89), 45 unlinked entities. Hydrogen → cosmic expansion is 4 steps (Asplund 2009 → Bland-Hawthorn & Gerhard 2016 → Riess et al. 2022 ×2).
+4. **Top bar:** 🔗 *Relationships* added (also in the phone ☰ menu). To keep the 1440 px bar inside the window in Cosmic mode, crowded bars use 6 px gaps and 7 px button padding, and search is at most 306 px wide; rightmost element at 1427 px.
+5. **Tests:** 585 science (+10, `tests/science/relations.test.ts`), 67 browser (+1: test 73). Local full suite 67/67.

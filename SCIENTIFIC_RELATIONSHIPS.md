@@ -1,6 +1,6 @@
 # Scientific relationships
 
-Code: `src/shared/scientific-relationships/registry.ts`. UI: `src/ui/RelatedLinks.tsx`. Tests: `tests/science/fields.test.ts` (relationship section).
+Code: `src/shared/scientific-relationships/registry.ts`, graph queries in `graph.ts` (Gate 8.2). UI: `src/ui/RelatedLinks.tsx` and the relationship explorer `#/relations` (`src/modes/relations/RelationsView.tsx`). Tests: `tests/science/fields.test.ts` (relationship section).
 
 ## Model
 
@@ -84,6 +84,12 @@ Neutron stars and black holes are registered as `compact-object:<id>` (route `#/
 ## Earlier relationships (Gate 4.1)
 
 Reaction → process/context (`participates-in`), e.g. net photosynthesis → `process:photosynthesis` (planned, Biologic Mode Phase 11), combustion → `context:energy-production`.
+
+## Relationship explorer (Gate 8.2)
+
+`#/relations` reads the registry and adds nothing to it. *Neighbourhood* draws an entity with everything one or two edges away; *Path between two* finds the shortest chain of existing edges (followed in either direction) and lists each step with its context and source; *All links* is a filterable table of every edge; *Planned* lists entities without a view. Paths are routes through the records, not new claims. With all 140 edges, hydrogen reaches cosmic expansion in four steps: Sun (Asplund 2009) → Milky Way (Bland-Hawthorn & Gerhard 2016) → distance ladder → expansion (Riess et al. 2022).
+
+At Gate 8.2 the registry holds 199 entities (186 available, 13 planned) in 27 connected groups; the largest has 89 entities. 45 entities have no edge yet, mostly reactions without a process link (Gate 4.1) and the field layers. The 562 objects of the 10 pc sample join when their catalogue loads.
 
 ## Rules
 

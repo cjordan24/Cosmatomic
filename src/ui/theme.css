@@ -61,7 +61,7 @@ a { color: var(--accent); }
 .icon-btn:hover, .icon-btn.active { color: var(--text); border-color: var(--line-strong); background: rgba(255, 255, 255, 0.07); }
 
 /* ---------- search ---------- */
-.search { position: relative; width: min(340px, 34vw); }
+.search { position: relative; width: min(306px, 31vw); }
 .search input { width: 100%; height: 34px; padding: 0 12px 0 32px; border-radius: 10px; border: 1px solid var(--line); background: rgba(255, 255, 255, 0.04); color: var(--text); font: inherit; }
 .search input::placeholder { color: var(--text-faint); }
 .search .glyph { position: absolute; left: 10px; top: 9px; width: 14px; height: 14px; opacity: 0.6; pointer-events: none; }
@@ -307,7 +307,7 @@ input[type='range'] { accent-color: var(--accent); }
 @media (max-width: 1500px) { .search { width: min(280px, 24vw); } }
 @media (max-width: 1280px) { .topbar .icon-btn .hide-mobile { display: none; } }
 /* Cosmic and Atomic have the most section chips: icon-only buttons below 1500 px so nothing overflows (Gates 7.1, E.1) */
-@media (max-width: 1500px) { .topbar.many-chips .icon-btn .hide-mobile { display: none; } }
+@media (max-width: 1500px) { .topbar.many-chips .icon-btn .hide-mobile { display: none; } .topbar.many-chips .topbar-actions { gap: 6px; } .topbar.many-chips .icon-btn { padding: 0 7px; } }
 .mode-spectral { --accent: #f5c76b; --accent-2: #ffb347; --accent-3: #ffe2a8; --accent-glow: rgba(245, 199, 107, 0.35); --bg-2: #160f05; }
 .mode-switch button.spectral.active { background: #f5c76b; color: #1a1205; }
 .wave-canvas { display: block; width: 100%; max-width: 760px; height: auto; border-radius: 12px; border: 1px solid var(--line); background: #03050c; }
@@ -376,3 +376,5 @@ input[type='range'] { accent-color: var(--accent); }
 .dm-stack { display: flex; height: 26px; border-radius: 4px; overflow: hidden; margin: 8px 0 4px; font-size: 11px; color: #0b1020; }
 .dm-stack > div { display: flex; align-items: center; justify-content: center; white-space: nowrap; overflow: hidden; font-weight: 600; }
 @media (max-width: 900px) { .dm-bars > div { grid-template-columns: 92px 1fr 1fr; gap: 6px; font-size: 10.5px; } }
+.text-input { height: 30px; padding: 0 10px; border-radius: 8px; border: 1px solid var(--line); background: rgba(255, 255, 255, 0.04); color: var(--text); font: inherit; font-size: 12.5px; }
+.text-input::placeholder { color: var(--text-faint); }

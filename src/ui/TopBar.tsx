@@ -252,6 +252,7 @@ export function TopBar() {
         <Search />
         <div className="topbar-actions">
           <EncyclopediaButton />
+          <button className={`icon-btn ${mode === 'relations' ? 'active' : ''}`} aria-label="Relationships" onClick={() => navigate('/relations')} title="Relationship explorer: how every record links to the others, with sources">🔗</button>
           <button className="icon-btn" aria-label="Sources" onClick={() => navigate('/sources')} title="Source index: every citation, link and author note">📚 <span className="hide-mobile">Sources</span></button>
           <button className="icon-btn" aria-label="Notebook" onClick={() => navigate('/notebook')} title="Scientific notebook (saved experiments)">📓 <span className="hide-mobile">Notebook</span></button>
           <button className={`icon-btn ${scaleOpen ? 'active' : ''}`} onClick={() => setScaleOpen((o) => !o)} aria-pressed={scaleOpen} aria-label="Scale" title="Universal scale navigator">⟷ <span className="hide-mobile">Scale</span></button>
@@ -262,7 +263,7 @@ export function TopBar() {
           <button className={`icon-btn ${moreOpen ? 'active' : ''}`} aria-haspopup="menu" aria-expanded={moreOpen} aria-label="More" onClick={() => setMoreOpen((o) => !o)}>☰</button>
           {moreOpen && (
             <div className="chip-menu-list" role="menu" aria-label="More" style={{ right: 0, left: 'auto' }}>
-              {([['📖 Encyclopedia', () => setQuery({ enc: query.has('enc') ? null : 'index' })], ['📚 Sources', () => navigate('/sources')], ['📓 Notebook', () => navigate('/notebook')],
+              {([['📖 Encyclopedia', () => setQuery({ enc: query.has('enc') ? null : 'index' })], ['🔗 Relationships', () => navigate('/relations')], ['📚 Sources', () => navigate('/sources')], ['📓 Notebook', () => navigate('/notebook')],
                 ['⟷ Scale', () => setScaleOpen((o) => !o)], ['⚙ Settings', () => setSettingsOpen(true)]] as [string, () => void][]).map(([label, act]) =>
                 <button key={label} role="menuitem" onClick={() => { setMoreOpen(false); act(); }}>{label}</button>)}
             </div>

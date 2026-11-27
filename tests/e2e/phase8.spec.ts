@@ -67,3 +67,48 @@ test('72 scale explorer: sourced reference objects drawn to one linear scale fro
   await page.getByRole('button', { name: /open the galaxy clusters view/ }).click();
   await expect(page).toHaveURL(/#\/cosmic\/darkmatter\?tab=clusters/);
 });
+
+// ---------------- Gate 8.2 ----------------
+test('73 relationship explorer: neighbourhood map, sourced path between two entities, all links and planned entities', async ({ page }) => {
+  await page.goto('/#/cosmic');
+  await page.getByRole('button', { name: 'Relationships', exact: true }).click();
+  await expect(page).toHaveURL(/#\/relations$/);
+  await expect(page.getByRole('heading', { name: 'Hydrogen' })).toBeVisible();
+  await expect(page.getByRole('img', { name: 'Relationship neighbourhood of Hydrogen' })).toBeVisible();
+  const ent = page.getByRole('region', { name: 'Hydrogen' });
+  await expect(ent.getByRole('definition').first()).toHaveText('element:1');
+  await expect(ent.locator('.related-links')).toContainText('H I atomic line spectrum');
+  await shot(page, '73a-relations-hydrogen', 'Relationship explorer: hydrogen, its NIST spectra and the Sun one step away, and what they link to at two steps.');
+
+  // centre another entity by search
+  await page.getByRole('searchbox', { name: 'Centre entity' }).fill('microwave back');
+  await page.getByRole('list', { name: 'Centre matches' }).getByRole('button', { name: /Cosmic microwave background/ }).click();
+  await expect(page.getByRole('heading', { name: 'Cosmic microwave background' })).toBeVisible();
+  await expect(page).toHaveURL(/e=context%3Acmb/);
+
+  // path: hydrogen → cosmic expansion through sourced edges
+  await page.getByRole('navigation', { name: 'Relationship sections' }).getByRole('button', { name: 'Path between two' }).click();
+  await expect(page.getByRole('heading', { name: 'Hydrogen → Cosmic expansion and distances' })).toBeVisible();
+  const chain = page.getByRole('list', { name: 'Chain of relationships' });
+  await expect(page.getByRole('status')).toHaveText('4 steps.');
+  await expect(chain).toContainText('Milky Way');
+  await expect(chain).toContainText('Distance ladder');
+  await expect(chain).toContainText('Riess (2022)');
+  await shot(page, '73b-relations-path', 'Path from hydrogen to cosmic expansion: Sun (Asplund 2009) → Milky Way (Bland-Hawthorn & Gerhard 2016) → distance ladder → expansion (Riess et al. 2022).');
+  // restricting to spectra alone disconnects them
+  for (const t of ['participates-in', 'emits', 'absorbs', 'has-property', 'observed-with', 'located-in', 'part-of', 'explains']) await page.getByRole('checkbox', { name: new RegExp(`^${t} `) }).uncheck();
+  await expect(page.getByRole('status')).toContainText('No chain of sourced relationships connects them');
+  await page.goto('/#/relations?tab=links&q=lensing');
+  await expect(page.getByRole('status')).toHaveText(/^2 of \d+ relationships\.$/);
+  await expect(page.getByRole('table', { name: 'Relationships' })).toContainText('Clowe (2006)');
+
+  await page.getByRole('navigation', { name: 'Relationship sections' }).getByRole('button', { name: 'Planned' }).click();
+  await expect(page.getByRole('table', { name: 'Planned entities' })).toContainText('Photosynthesis');
+  await expect(page.getByRole('table', { name: 'Planned entities' })).toContainText('Biologic Mode (Phase 11)');
+
+  // every “Related across modes” list links into the map
+  await page.goto('/#/cosmic/sun');
+  await page.locator('.related-links[data-entity="body:sun"]').getByRole('button', { name: 'Relationship map' }).click();
+  await expect(page).toHaveURL(/#\/relations\?e=body%3Asun/);
+  await expect(page.getByRole('heading', { name: 'Sun', exact: true })).toBeVisible();
+});

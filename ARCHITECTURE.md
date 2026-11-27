@@ -44,6 +44,7 @@ src/
 │       ├── galaxies/               SPARC rotation curves, baryons vs NFW halo, Milky Way (#/cosmic/galaxies)
 │       ├── nebulae/                licensed image gallery, nebula records, emission-line links (#/cosmic/nebulae)
 │       └── universe/               ΛCDM distances, expansion history, cosmological lensing distances (#/cosmic/universe); distance ladder (#/cosmic/ladder); CMB (#/cosmic/cmb); dark-matter evidence (#/cosmic/darkmatter); gravitational waves (#/cosmic/gw)
+├── modes/relations/                relationship explorer (#/relations, Gate 8.2) over shared/scientific-relationships/graph.ts
 ├── modes/scale/                    universal scale navigator (#/scale, Gate 8.1): sourced reference lengths (references.ts) and the powers-of-ten view
 ├── core/fields/                    FIELDS layer interface + gravity, Coulomb, plane-wave, heat layers (FIELDS_ARCHITECTURE.md)
 ├── shared/scientific-relationships typed, sourced entity/edge registry; ui/RelatedLinks renders both directions (SCIENTIFIC_RELATIONSHIPS.md)

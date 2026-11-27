@@ -1,5 +1,7 @@
 {
   "72a-scale-molecules.png": "Scale explorer at 501 pm: Bohr radius, atoms (van der Waals), water, glucose, C₆₀ and the NaCl cell drawn to one scale.",
   "72b-scale-sun.png": "The Sun (IAU 2015 nominal radius) beside Jupiter, Earth, Sirius B and the Earth–Moon distance.",
-  "72c-scale-observable.png": "The comoving radius of the observable universe in Planck 2018 ΛCDM (a model quantity) beside the Hubble distance."
+  "72c-scale-observable.png": "The comoving radius of the observable universe in Planck 2018 ΛCDM (a model quantity) beside the Hubble distance.",
+  "73a-relations-hydrogen.png": "Relationship explorer: hydrogen, its NIST spectra and the Sun one step away, and what they link to at two steps.",
+  "73b-relations-path.png": "Path from hydrogen to cosmic expansion: Sun (Asplund 2009) → Milky Way (Bland-Hawthorn & Gerhard 2016) → distance ladder → expansion (Riess et al. 2022)."
 }

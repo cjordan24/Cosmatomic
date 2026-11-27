@@ -26,6 +26,7 @@ const DarkMatterView = lazy(() => import('@/modes/cosmic/universe/DarkMatterView
 const GwView = lazy(() => import('@/modes/cosmic/universe/GwView'));
 const NotebookView = lazy(() => import('@/ui/NotebookView'));
 const ScaleView = lazy(() => import('@/modes/scale/ScaleView'));
+const RelationsView = lazy(() => import('@/modes/relations/RelationsView'));
 const WaveLab = lazy(() => import('@/modes/spectral/laboratory/WaveLab'));
 const SpectralAtlas = lazy(() => import('@/modes/spectral/atlas/SpectralAtlas'));
 const FieldsView = lazy(() => import('@/modes/spectral/fields/FieldsView'));
@@ -51,7 +52,7 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-    document.title = mode === 'atomic' ? 'Atomic · Voyager Ventures' : mode === 'cosmic' ? 'Cosmic · Voyager Ventures' : mode === 'spectral' ? 'Spectral · Voyager Ventures' : mode === 'scale' ? 'Scale · Voyager Ventures' : 'Voyager Ventures';
+    document.title = mode === 'atomic' ? 'Atomic · Voyager Ventures' : mode === 'cosmic' ? 'Cosmic · Voyager Ventures' : mode === 'spectral' ? 'Spectral · Voyager Ventures' : mode === 'scale' ? 'Scale · Voyager Ventures' : mode === 'relations' ? 'Relationships · Voyager Ventures' : 'Voyager Ventures';
   }, [mode]);
 
   let view;
@@ -67,6 +68,7 @@ export default function App() {
   else if (mode === 'spectral') view = path[1] === 'lab' ? <WaveLab /> : path[1] === 'fields' ? <FieldsView /> : <SpectralAtlas />;
   else if (mode === 'notebook') view = <NotebookView />;
   else if (mode === 'scale') view = <ScaleView />;
+  else if (mode === 'relations') view = <RelationsView />;
   else if (mode === 'sources') view = <SourcesView id={path[1] ?? null} />;
   else view = <Landing />;
 

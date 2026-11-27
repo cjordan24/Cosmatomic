@@ -169,4 +169,8 @@
   * Sizes mean different things and each says which: atoms are van der Waals diameters, molecules are nucleus-to-nucleus extents without the electron cloud, the proton is twice its rms charge radius, black holes are non-rotating horizon diameters, and Coma is twice a model virial radius for H₀ = 70.
   * Earth, Jupiter and the Earth–Moon distance are the NSSDC fact-sheet values, rounded as published, with no uncertainty shown. Water and glucose come from computed PubChem3D conformers.
   * The pre-existing level examples for *Subatomic* (quarks) and *Nuclei* (an r₀A^⅓ fit) are unchanged and are not reference objects.
+* **Relationship explorer (Gate 8.2):**
+  * It shows only the edges registered so far (140): 45 entities have none, so a missing path means a missing record, not a scientific absence.
+  * The shortest path counts edges, not their strength; the explorer does not rank or weigh relationships, and a path is not an argument.
+  * Stars of the 10 pc sample are included only after their catalogue is loaded (“Include nearby stars”). The map draws at most 90 second-step entities.
 
