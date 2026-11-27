@@ -35,9 +35,11 @@ const LAYERS: Record<string, { label: string; range: [number, number, number, nu
 const layerOf = (k: Kind): string => (k === 'sun' || k === 'planet' || k === 'spacecraft' ? 'solar' : k === 'star' ? 'star' : k === 'nebula' || k === 'compact' || k === 'galactic-centre' ? 'nebula' : k === 'local-group' ? 'local-group' : k === 'galaxy' ? 'galaxy' : 'cmb');
 const fade = (z: number, [a, b, c, d]: [number, number, number, number]) => (z < a || z > d ? 0 : z < b ? (z - a) / (b - a) : z > c ? (d - z) / (d - c) : 1);
 const PRESETS: [string, number][] = [['Inner planets', 11.6], ['Outer planets', 12.9], ['Voyager 1', 13.6], ['Nearest stars', 17.0], ['Orion Nebula', 19.3], ['Milky Way', 20.9], ['Local Group', 22.6], ['Nearby galaxies', 24.5], ['Observable universe', 26.75]];
-const LABELLED = new Set(['sun', 'mercury', 'venus', 'earth', 'mars', 'jupiter', 'saturn', 'uranus', 'neptune', 'pluto', 'voyager-1', 'voyager-2', 'compact-sgr-a-star', 'compact-m87-star', 'compact-cyg-x1', 'ladder-ngc4258',
-  'lg-LMC', 'lg-SMC', 'lg-Andromeda', 'lg-Triangulum', 'lg-Sagittarius dSph', 'lg-Fornax', 'lg-Sculptor', 'lg-NGC 205', 'lg-M32', 'lg-IC 1613', 'lg-NGC 6822', 'lg-Leo I', 'lg-Carina', 'lg-Draco', 'lg-WLM (Wolf-Lundmark-Melotte)', 'lg-NGC 300', 'lg-NGC 3109', 'lg-NGC 55',
-  'sparc-NGC3198', 'sparc-UGC02885', 'sparc-NGC2403', 'sparc-NGC7331', 'sparc-NGC5055', 'sparc-NGC6503', 'sparc-DDO154', 'sparc-NGC0891', 'sparc-NGC2841', 'sparc-UGC12591']);
+const LABELLED_ORDER = ['sun', 'mercury', 'venus', 'earth', 'mars', 'jupiter', 'saturn', 'uranus', 'neptune', 'pluto', 'voyager-1', 'voyager-2', 'compact-sgr-a-star', 'compact-m87-star', 'compact-cyg-x1', 'ladder-ngc4258',
+  'lg-Andromeda', 'lg-Triangulum', 'lg-LMC', 'lg-SMC', 'lg-Sagittarius dSph', 'lg-Fornax', 'lg-Sculptor', 'lg-NGC 205', 'lg-M32', 'lg-IC 1613', 'lg-NGC 6822', 'lg-Leo I', 'lg-Carina', 'lg-Draco', 'lg-WLM (Wolf-Lundmark-Melotte)', 'lg-NGC 300', 'lg-NGC 3109', 'lg-NGC 55',
+  'sparc-NGC3198', 'sparc-UGC02885', 'sparc-NGC2403', 'sparc-NGC7331', 'sparc-NGC5055', 'sparc-NGC6503', 'sparc-DDO154', 'sparc-NGC0891', 'sparc-NGC2841', 'sparc-UGC12591'];
+const LABELLED = new Set(LABELLED_ORDER);
+const labelRank = (id: string) => { const i = LABELLED_ORDER.indexOf(id); return i < 0 ? 999 : i; };
 
 let NEAR_STARS = new Set<string>();
 const isLabelled = (o: MapObject) => LABELLED.has(o.id) || o.kind === 'nebula' || o.kind === 'galactic-centre' || o.kind === 'cmb' || NEAR_STARS.has(o.id);
@@ -86,7 +88,7 @@ function MapScene({ zRef, objects, orbits, labelLayer, visible, selected }: { zR
   const ringMat = useMemo(() => new THREE.LineBasicMaterial({ color: '#557', transparent: true, opacity: 0.5, depthWrite: false }), []);
   const ring = useMemo(() => { const g = new THREE.BufferGeometry(), n = 128, a = new Float32Array((n + 1) * 3); for (let i = 0; i <= n; i++) { a[3 * i] = Math.cos((2 * Math.PI * i) / n); a[3 * i + 1] = Math.sin((2 * Math.PI * i) / n); } g.setAttribute('position', new THREE.BufferAttribute(a, 3)); return g; }, []);
   const ringRef = useRef<THREE.LineLoop>(null), cmbRef = useRef<THREE.Mesh>(null), selRef = useRef<THREE.Mesh>(null);
-  useFrame(() => {
+  useFrame(({ camera }) => {
     const z = zRef.current, R = 10 ** z, s = 1 / R;
     if (group.current) group.current.scale.setScalar(s);
     for (const l of layers) { l.mat.uniforms.uOpacity.value = visible[l.key] === false ? 0 : fade(z, LAYERS[l.key].range); l.mat.uniforms.uR.value = R; }
@@ -96,7 +98,7 @@ function MapScene({ zRef, objects, orbits, labelLayer, visible, selected }: { zR
     cmbMat.opacity = visible.cmb === false ? 0 : 0.12 * fade(z, LAYERS.cmb.range);
     // scale ring: the power of ten just inside the view radius
     if (ringRef.current) { const r = 10 ** Math.floor(z - 0.15); ringRef.current.scale.setScalar(r); }
-    if (selRef.current) { selRef.current.visible = !!selected; if (selected) { selRef.current.position.set(...selected.pos); selRef.current.scale.setScalar(0.035 * R); } }
+    if (selRef.current) { selRef.current.visible = !!selected; if (selected) { selRef.current.position.set(...selected.pos); selRef.current.scale.setScalar(0.05 * R); selRef.current.quaternion.copy(camera.quaternion); } }
     // labels: only objects in a visible layer and at a readable scale
     labelLayer.hidden.clear();
     for (const o of objects) {
@@ -114,7 +116,7 @@ function MapScene({ zRef, objects, orbits, labelLayer, visible, selected }: { zR
       {orbitLines.map((l, i) => <primitive key={i} object={l} />)}
       <mesh ref={cmbRef} material={cmbMat} scale={LAST_SCATTERING.radius} frustumCulled={false}><sphereGeometry args={[1, 24, 12]} /></mesh>
       <lineLoop ref={ringRef} geometry={ring} material={ringMat} frustumCulled={false} />
-      <mesh ref={selRef} frustumCulled={false}><ringGeometry args={[0.8, 1, 40]} /><meshBasicMaterial color="#5cf2a6" transparent opacity={0.9} side={THREE.DoubleSide} depthWrite={false} /></mesh>
+      <mesh ref={selRef} frustumCulled={false}><ringGeometry args={[0.7, 1, 48]} /><meshBasicMaterial color="#5cf2a6" transparent opacity={1} side={THREE.DoubleSide} depthWrite={false} blending={THREE.AdditiveBlending} /></mesh>
       {objects.filter((o) => isLabelled(o)).map((o) => <group key={o.id} position={o.pos}><LabelAnchor layer={labelLayer} id={o.id} /></group>)}
     </group>
   );
@@ -130,7 +132,7 @@ export default function UniverseMapView() {
   const [z, setZ] = useState(zRef.current);
   const [stars, setStars] = useState<MapObject[]>([]);
   const [visible, setVisible] = useState<Record<string, boolean>>({});
-  const labelLayer = useMemo(() => new LabelLayer(), []);
+  const labelLayer = useMemo(() => { const l = new LabelLayer(); l.declutter = true; return l; }, []);
   useEffect(() => {
     Promise.all([loadTenParsec(), loadCns5()]).then(([ten, cns]) => {
       const named = ten.filter((t) => t.type !== 'exoplanet').map((t) => ({ id: `t${t.seq}`, name: t.name, ra: t.ra, dec: t.dec, plx: t.plx }));
@@ -147,6 +149,7 @@ export default function UniverseMapView() {
   const catalogue = useMemo(() => [...catalogueObjects(), { id: 'cmb', name: 'Last-scattering surface (cosmic microwave background)', kind: 'cmb' as const, pos: [0, 0, LAST_SCATTERING.radius] as Vec3, distance: LAST_SCATTERING.radius, note: `comoving distance today to z∗ = ${LAST_SCATTERING.z} in the Planck 2018 cosmology, computed with the expansion model of the Expansion view`, sources: ['planck-2018-vi'], route: '#/cosmic/cmb' }], []);
   const objects = useMemo(() => [...solar, ...stars, ...catalogue], [solar, stars, catalogue]);
   const sel = objects.find((o) => o.id === query.get('sel')) ?? null;
+  labelLayer.first = sel?.id ?? null;
   // wheel zoom on the canvas; animated flights to presets
   useEffect(() => {
     let raf = 0, lastPush = 0;
@@ -170,7 +173,8 @@ export default function UniverseMapView() {
   const flyTo = (zz: number) => { target.current = Math.min(Z_MAX, Math.max(Z_MIN, zz)); };
   const select = (o: MapObject) => { setQuery({ sel: o.id }); if (o.distance > 0) flyTo(Math.log10(o.distance * 2.2)); };
   const R = 10 ** z;
-  const labelItems = useMemo(() => objects.filter((o) => isLabelled(o)).map((o) => ({ id: o.id, content: <span>{o.kind === 'galactic-centre' ? 'Galactic Centre (Sgr A*)' : o.kind === 'sun' ? '☉ Sun — you are here' : o.name}</span>, className: `map-label map-${layerOf(o.kind)}`, onClick: () => select(o) })), [objects]); // eslint-disable-line react-hooks/exhaustive-deps
+  const RANK: Record<string, number> = { sun: 0, 'galactic-centre': 1, planet: 2, spacecraft: 3, cmb: 3, nebula: 4, compact: 4, 'local-group': 5, galaxy: 6, star: 7 };
+  const labelItems = useMemo(() => objects.filter((o) => isLabelled(o)).sort((a, b) => (RANK[a.kind] ?? 9) - (RANK[b.kind] ?? 9) || labelRank(a.id) - labelRank(b.id) || a.distance - b.distance).map((o) => ({ id: o.id, content: <span>{o.kind === 'galactic-centre' ? 'Galactic Centre (Sgr A*)' : o.kind === 'sun' ? '☉ Sun — you are here' : o.name}</span>, className: `map-label map-${layerOf(o.kind)}`, onClick: () => select(o) })), [objects]); // eslint-disable-line react-hooks/exhaustive-deps
   const searchList = useMemo(() => [...objects].filter((o) => o.kind !== 'star' || o.name.indexOf('CNS5') !== 0).sort((a, b) => a.distance - b.distance), [objects]);
   return (
     <>

@@ -43,21 +43,33 @@ export class LabelLayer {
   elements = new Map<string, HTMLElement>();
   /** extra visibility predicate set by the scene (decluttering) */
   hidden = new Set<string>();
+  /** when true, a label that would overlap one already placed this frame is hidden (labels are placed in insertion order) */
+  declutter = false;
+  /** label placed before all others (e.g. the selected object) */
+  first: string | null = null;
 }
 
 /** Place inside the Canvas: projects every registered anchor to screen space each frame. */
 export function LabelProjector({ layer }: { layer: LabelLayer }) {
   const v = useMemo(() => new THREE.Vector3(), []);
   useFrame(({ camera, size }) => {
-    for (const [id, el] of layer.elements) {
+    const placed: [number, number, number, number][] = [];
+    const order = layer.first && layer.elements.has(layer.first) ? [[layer.first, layer.elements.get(layer.first)!] as const, ...[...layer.elements].filter(([k]) => k !== layer.first)] : layer.elements;
+    for (const [id, el] of order) {
       const obj = layer.anchors.get(id);
       if (!obj) { el.style.display = 'none'; continue; }
       obj.getWorldPosition(v);
       v.project(camera);
       const onScreen = v.z > -1 && v.z < 1 && Math.abs(v.x) < 1.1 && Math.abs(v.y) < 1.1;
       if (!onScreen || layer.hidden.has(id)) { el.style.display = 'none'; continue; }
+      const x = ((v.x + 1) / 2) * size.width, y = ((1 - v.y) / 2) * size.height;
+      if (layer.declutter) {
+        const w = el.offsetWidth || 8 * (el.textContent?.length ?? 4), h = 14;
+        if (placed.some(([a, b, c, d]) => x < c && x + w > a && y - h / 2 < d && y + h / 2 > b)) { el.style.display = 'none'; continue; }
+        placed.push([x - 4, y - h / 2 - 2, x + w + 4, y + h / 2 + 2]);
+      }
       el.style.display = 'flex';
-      el.style.transform = `translate(${((v.x + 1) / 2) * size.width}px, ${((1 - v.y) / 2) * size.height}px)`;
+      el.style.transform = `translate(${x}px, ${y}px)`;
     }
   });
   return null;
