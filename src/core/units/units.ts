@@ -25,6 +25,7 @@ export const UNITS = {
   nm: u('nm', 'nanometre', DIM.length, 1e-9),
   'µm': u('µm', 'micrometre', DIM.length, 1e-6),
   mm: u('mm', 'millimetre', DIM.length, 1e-3),
+  cm: u('cm', 'centimetre', DIM.length, 1e-2),
   m: u('m', 'metre', DIM.length, 1),
   km: u('km', 'kilometre', DIM.length, 1e3),
   R_earth: u('R⊕', 'nominal Earth equatorial radius', DIM.length, 6.3781e6),
@@ -43,6 +44,8 @@ export const UNITS = {
   M_earth: u('M⊕', 'Earth mass (from nominal GM⊕)', DIM.mass, CONSTANTS.GMearth.value / CONSTANTS.G.value),
   M_sun: u('M☉', 'solar mass (from nominal GM☉)', DIM.mass, SOLAR_MASS_KG),
   // time
+  'µs': u('µs', 'microsecond', DIM.time, 1e-6),
+  ms: u('ms', 'millisecond', DIM.time, 1e-3),
   s: u('s', 'second', DIM.time, 1),
   min: u('min', 'minute', DIM.time, 60),
   h: u('h', 'hour', DIM.time, 3600),
@@ -73,6 +76,23 @@ export const UNITS = {
   rad: u('rad', 'radian', DIM.angle, 1),
   deg: u('°', 'degree', DIM.angle, Math.PI / 180),
   arcsec: u('″', 'arcsecond', DIM.angle, Math.PI / 648_000),
+  // Gate 8.4: units used by the shared instruments (probe, ruler, converter, time series)
+  Hz: u('Hz', 'hertz', DIM.frequency, 1),
+  kHz: u('kHz', 'kilohertz', DIM.frequency, 1e3),
+  MHz: u('MHz', 'megahertz', DIM.frequency, 1e6),
+  GHz: u('GHz', 'gigahertz', DIM.frequency, 1e9),
+  THz: u('THz', 'terahertz', DIM.frequency, 1e12),
+  'm/s²': u('m/s²', 'metre per second squared', DIM.acceleration, 1),
+  g_n: u('gₙ', 'standard acceleration of gravity (exact, CGPM 1901; CODATA adopted value)', DIM.acceleration, 9.80665),
+  mV: u('mV', 'millivolt', DIM.potential, 1e-3),
+  V: u('V', 'volt', DIM.potential, 1),
+  kV: u('kV', 'kilovolt', DIM.potential, 1e3),
+  'V/m': u('V/m', 'volt per metre', DIM.electricField, 1),
+  'kV/m': u('kV/m', 'kilovolt per metre', DIM.electricField, 1e3),
+  'MV/m': u('MV/m', 'megavolt per metre', DIM.electricField, 1e6),
+  'J/kg': u('J/kg', 'joule per kilogram', DIM.specificEnergy, 1),
+  'MJ/kg': u('MJ/kg', 'megajoule per kilogram', DIM.specificEnergy, 1e6),
+  'km²/s²': u('km²/s²', 'square kilometre per square second', DIM.specificEnergy, 1e6),
 } as const satisfies Record<string, UnitDef>;
 
 export type UnitKey = keyof typeof UNITS;

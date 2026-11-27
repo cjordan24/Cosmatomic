@@ -6,6 +6,8 @@
  * speed comes from the selected MEDIUM; the "time scale" only changes playback (simulated seconds per
  * wall-clock second) — the physics advances by simulated time, independent of frame rate.
  */
+import { Probe, TimeSeriesView } from '@/ui/instruments';
+import { TimeSeries } from '@/shared/instruments/instruments';
 import { RelatedLinks } from '@/ui/RelatedLinks';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useFrame } from '@react-three/fiber';
@@ -217,13 +219,16 @@ export default function WaveLab() {
   const fdRef = useRef<FDString | null>(null);
   const [running, setRunning] = useState(true);
   const [tick, setTick] = useState(0);
-  const hist = useRef<[number, number][]>([]);
+  const hist = useRef(new TimeSeries(400));
+  // probe position as a fraction of the view (URL `px`, default 1/3), shared Probe + TimeSeries instruments (Gate 8.4)
+  const probeFrac = Math.min(1, Math.max(0, num(query, 'px', 1 / 3)));
+  const xp = s.view * probeFrac;
   const [name, setName] = useState(''); const [notes, setNotes] = useState(''); const [msg, setMsg] = useState<string | null>(null);
   const demo = DEMOS.find((d) => d.id === c.demo)!;
 
   // (re)initialise the numerical solver when its configuration changes
   const fdError = useMemo(() => {
-    tRef.current = 0; hist.current = [];
+    tRef.current = 0; hist.current.clear();
     if (c.demo !== 'pulse' || !s.v) { fdRef.current = null; return null; }
     const N = 301, dx = c.L / (N - 1), dt = (0.8 * dx) / s.v;
     try { fdRef.current = createFD(c.L, N, s.v, dt, (x) => Math.exp(-(((x - c.L * 0.3) / (c.L * 0.03)) ** 2)), c.fdbc, c.fdbc); return null; }
@@ -240,17 +245,16 @@ export default function WaveLab() {
       const dts = dtw * s.ts;
       tRef.current += dts;
       if (fdRef.current) advanceFD(fdRef.current, dts);
-      const xp = s.view / 3;
-      hist.current.push([tRef.current, field(c, s, xp, tRef.current, fdRef.current)]);
-      if (hist.current.length > 400) hist.current.shift();
+      hist.current.push(tRef.current, field(c, s, xp, tRef.current, fdRef.current));
     };
     raf = requestAnimationFrame(loop);
     const id = setInterval(() => setTick((k) => k + 1), 150);
     return () => { cancelAnimationFrame(raf); clearInterval(id); };
-  }, [running, c, s]);
+  }, [running, c, s, xp]);
+  useEffect(() => { hist.current.clear(); }, [xp]);
 
   const stepOnce = () => { const dts = c.demo === 'pulse' && fdRef.current ? fdRef.current.dt * 10 : 1 / s.f / 20; tRef.current += dts; if (fdRef.current) advanceFD(fdRef.current, dts); setTick((k) => k + 1); };
-  const reset = () => { tRef.current = 0; hist.current = []; if (fdRef.current && s.v) { const N = fdRef.current.N, dx = fdRef.current.dx; fdRef.current = createFD(c.L, N, s.v, (0.8 * dx) / s.v, (x) => Math.exp(-(((x - c.L * 0.3) / (c.L * 0.03)) ** 2)), c.fdbc, c.fdbc); } setTick((k) => k + 1); };
+  const reset = () => { tRef.current = 0; hist.current.clear(); if (fdRef.current && s.v) { const N = fdRef.current.N, dx = fdRef.current.dx; fdRef.current = createFD(c.L, N, s.v, (0.8 * dx) / s.v, (x) => Math.exp(-(((x - c.L * 0.3) / (c.L * 0.03)) ** 2)), c.fdbc, c.fdbc); } setTick((k) => k + 1); };
 
   const snapshot = useMemo(() => Array.from({ length: 200 }, (_, i) => { const x = (i / 199) * s.view; return [x, field(c, s, x, tRef.current, fdRef.current)] as [number, number]; }), [tick]); // eslint-disable-line react-hooks/exhaustive-deps
   const is2D = c.demo === 'interference' || c.demo === 'doppler';
@@ -311,11 +315,16 @@ export default function WaveLab() {
           <div className="stage-grid">
             <div>
               <div className="section-title">Snapshot y(x, t = {formatSig(tRef.current, 4)} s)</div>
-              <LinePlot ariaLabel="Displacement versus position" series={[{ points: snapshot, color: '#f5c76b' }]} xLabel="position x (m)" yLabel={c.demo === 'standing' && c.bc !== 'fixed-fixed' ? 'pressure (arb., ∝ p′)' : c.demo === 'pulse' ? 'displacement (arb.)' : 'displacement y (m)'} yDomain={c.demo === 'pulse' ? [-1, 1] : undefined} vLines={[{ x: s.view / 3, label: 'probe' }]} />
+              <LinePlot ariaLabel="Displacement versus position" series={[{ points: snapshot, color: '#f5c76b' }]} xLabel="position x (m)" yLabel={c.demo === 'standing' && c.bc !== 'fixed-fixed' ? 'pressure (arb., ∝ p′)' : c.demo === 'pulse' ? 'displacement (arb.)' : 'displacement y (m)'} yDomain={c.demo === 'pulse' ? [-1, 1] : undefined} vLines={[{ x: xp, label: 'probe' }]} />
             </div>
             <div>
-              <div className="section-title">Probe y(t) at x = {formatSig(s.view / 3, 3)} m</div>
-              <LinePlot ariaLabel="Displacement versus time at the probe" series={[{ points: hist.current.slice(), color: '#7df9ff' }]} xLabel="simulated time t (s)" yLabel="displacement y (m)" />
+              <div className="slider-row"><span style={{ minWidth: 70 }}>probe x</span>
+                <input type="range" min={0} max={1} step={0.005} value={probeFrac} onChange={(e) => set('px', Number(e.target.value) === 1 / 3 ? null : Number(e.target.value))} aria-label="Probe position" />
+                <span style={{ fontFamily: 'var(--mono)', fontSize: 11 }}>{formatSig(xp, 3)} m</span></div>
+              <Probe title="Probe" ariaLabel="Probe readout" where={[{ label: 'x', value: xp, unit: 'm', sig: 4 }, { label: 't (simulated)', value: tRef.current, unit: 's', sig: 5 }]}
+                rows={[{ label: c.demo === 'standing' && c.bc !== 'fixed-fixed' ? 'pressure (arb.)' : 'displacement y', value: field(c, s, xp, tRef.current, fdRef.current), unit: c.demo === 'pulse' || (c.demo === 'standing' && c.bc !== 'fixed-fixed') ? 'arb.' : 'm', sig: 4 }]} provenance={c.demo === 'pulse' ? 'simulated' : 'derived'} />
+              <TimeSeriesView meta={{ title: `Probe y(t) at x = ${formatSig(xp, 3)} m`, x: { name: 'simulated time t', unit: 's' }, y: { name: c.demo === 'standing' && c.bc !== 'fixed-fixed' ? 'pressure' : 'displacement y', unit: c.demo === 'pulse' || (c.demo === 'standing' && c.bc !== 'fixed-fixed') ? 'arb.' : 'm' }, provenance: c.demo === 'pulse' ? 'simulated' : 'derived', method: `${demo.label}, medium ${s.med.name}, v = ${s.v ? formatSig(s.v, 5) : '?'} m/s` }}
+                points={hist.current.points()} onClear={() => { hist.current.clear(); setTick((k) => k + 1); }} csvName={`probe-${c.demo}.csv`} />
             </div>
           </div>
         )}

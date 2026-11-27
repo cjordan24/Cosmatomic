@@ -2,6 +2,8 @@
  * Cosmic Experiment / Compare environments: an editable Newtonian N-body sandbox that never
  * touches the real (Explore) universe. Scene unit = 1 au (float32-safe to ~10⁻⁷ au ≈ 15 km).
  */
+import { Probe, Ruler, TimeSeriesView } from '@/ui/instruments';
+import { TimeSeries, ruler } from '@/shared/instruments/instruments';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
@@ -17,20 +19,20 @@ import { PRESETS } from './presets';
 import { VectorField, PotentialMap } from './instruments';
 import { stateToElements } from '@/core/mathematics/kepler';
 import { listExperiments, saveExperiment, SANDBOX_SOLVER_VERSION, type Experiment } from '@/shared/notebook';
-import { CONSTANTS } from '@/core/constants/constants';
+import { formatSig } from '@/core/units/units';
 import { cloneState, diagnostics, escapeVelocity, G_KM, lagrangePoints, step, suggestDt, toBarycentric, type Integrator, type SimState } from './nbody';
 
 const AU = 149_597_870.7;
 const TRAIL = 600;
 
-interface Live { sim: SimState; initial: SimState; E0: number; L0: number; trails: Map<string, Float32Array>; trailN: Map<string, number>; drift: number[]; modified: boolean; extentAu: number; trailEvery: number; sinceTrail: number }
+interface Live { sim: SimState; initial: SimState; E0: number; L0: number; trails: Map<string, Float32Array>; trailN: Map<string, number>; drift: number[]; series: TimeSeries; modified: boolean; extentAu: number; trailEvery: number; sinceTrail: number }
 
 function makeLive(sim: SimState): Live {
   const d = diagnostics(sim.bodies);
   const extentAu = Math.max(0.05, ...sim.bodies.map((b) => Math.hypot(...b.x.map((x, k) => x - d.com[k])) / AU));
   // trail sampling in SIMULATED time: ~60 samples per shortest orbit, independent of frame rate
   const trailEvery = suggestDt(sim.bodies, 0.002) / 0.002 / 60;
-  return { sim, initial: cloneState(sim), E0: d.E, L0: Math.hypot(...d.L), trails: new Map(), trailN: new Map(), drift: [0], modified: false, extentAu, trailEvery, sinceTrail: 0 };
+  return { sim, initial: cloneState(sim), E0: d.E, L0: Math.hypot(...d.L), trails: new Map(), trailN: new Map(), drift: [0], series: seedSeries(sim.t), modified: false, extentAu, trailEvery, sinceTrail: 0 };
 }
 
 function pushTrails(L: Live) {
@@ -75,6 +77,7 @@ function SimScene({ live, running, dt, speedDaysPerSec, integrator, showL, lPair
       const d = diagnostics(L.sim.bodies);
       L.drift.push((d.E - L.E0) / Math.abs(L.E0));
       if (L.drift.length > 400) L.drift.shift();
+      L.series.push(L.sim.t / 86400 / 365.25, (d.E - L.E0) / Math.abs(L.E0));
     }
     // place bodies (y-up scene: physics z → scene y)
     for (const b of L.sim.bodies) {
@@ -168,17 +171,8 @@ function FrameCamera({ extent }: { extent: number }) {
   return null;
 }
 
-function DriftPlot({ drift }: { drift: number[] }) {
-  if (drift.length < 2) return null;
-  const w = 380, h = 60, m = Math.max(1e-16, ...drift.map(Math.abs));
-  return (
-    <svg viewBox={`0 0 ${w} ${h}`} role="img" aria-label="Relative energy error over recent steps" style={{ width: '100%' }}>
-      <line x1={0} x2={w} y1={h / 2} y2={h / 2} stroke="rgba(255,255,255,0.15)" />
-      <polyline fill="none" stroke="#b18cff" strokeWidth={1.5} points={drift.map((d, i) => `${((i / (drift.length - 1)) * w).toFixed(1)},${(h / 2 - (d / m) * (h / 2 - 4)).toFixed(1)}`).join(' ')} />
-      <text x={4} y={11} fontSize="9" opacity="0.7">ΔE/E (±{m.toExponential(1)})</text>
-    </svg>
-  );
-}
+/** Energy-error recorder: [simulated time (yr), ΔE/E₀], starting from zero at the baseline. */
+function seedSeries(t: number) { const ts = new TimeSeries(400); ts.push(t / 86400 / 365.25, 0); return ts; }
 
 export default function SandboxView() {
   const { query } = useRoute();
@@ -258,7 +252,7 @@ export default function SandboxView() {
   const markModified = () => {
     L.sim.bodies = toBarycentric(L.sim.bodies);
     L.sim.events.push(`t = ${(L.sim.t / 86400).toFixed(1)} d: frame re-centred on the new barycentre; conservation baselines reset.`);
-    L.modified = true; L.E0 = diagnostics(L.sim.bodies).E; L.L0 = Math.hypot(...diagnostics(L.sim.bodies).L) || 1; L.drift = [0];
+    L.modified = true; L.E0 = diagnostics(L.sim.bodies).E; L.L0 = Math.hypot(...diagnostics(L.sim.bodies).L) || 1; L.drift = [0]; L.series = seedSeries(L.sim.t);
     L.trails.clear(); L.trailN.clear();
     // every edit becomes the new initial-conditions checkpoint, so a restart reproduces the edited run exactly
     L.initial = cloneState(L.sim);
@@ -367,18 +361,18 @@ export default function SandboxView() {
           <KV k="Total momentum |p|" v={Math.hypot(...d.p)} unit="kg·km/s" sig={3} />
           <KV k="Collision energy dissipated" v={L.sim.dissipated * 1e6} unit="J" sig={3} />
         </dl>
-        <DriftPlot drift={L.drift} />
+        <TimeSeriesView meta={{ title: 'Relative energy error ΔE/E₀', x: { name: 'simulated time', unit: 'yr' }, y: { name: 'ΔE/E₀ (dimensionless)', unit: '' }, provenance: L.modified || preset.provenance === 'hypothetical' ? 'hypothetical' : 'simulated', method: `${integrator}, fixed step ${formatSig(dt, 4)} s, ${L.sim.bodies.length} bodies` }}
+          points={L.series.points()} height={150} color="#b18cff" csvName={`energy-error-${presetId}.csv`} />
         <p className="note">Symplectic integrators keep energy error bounded and oscillating (no secular drift) for fixed steps; a growing error means the step is too large for a close encounter.</p>
 
         {selected && (
           <>
-            <div className="section-title">Instruments · {selected.name}</div>
-            <dl className="kv">
-              <KV k="Speed (barycentric)" v={Math.hypot(...selected.v)} unit="km/s" sig={4} />
-              <KV k="Distance from primary" v={Math.hypot(...selected.x.map((x, k) => x - primary.x[k])) / AU} unit="au" sig={5} />
-              <KV k="Surface escape velocity" v={escapeVelocity(selected.mass, selected.radius)} unit="km/s" sig={4} />
-              {selected.id !== primary.id && <KV k={`Escape velocity from ${primary.name} here`} v={escapeVelocity(primary.mass, Math.hypot(...selected.x.map((x, k) => x - primary.x[k])))} unit="km/s" sig={4} />}
-            </dl>
+            <Probe title={`Probe · ${selected.name}`} where={[]} provenance="simulated" rows={[
+              { label: 'Speed (barycentric)', value: Math.hypot(...selected.v), unit: 'km/s', sig: 4 },
+              { label: 'Distance from primary', value: Math.hypot(...selected.x.map((x, k) => x - primary.x[k])) / AU, unit: 'au', sig: 5 },
+              { label: 'Surface escape velocity', value: escapeVelocity(selected.mass, selected.radius), unit: 'km/s', sig: 4 },
+              ...(selected.id !== primary.id ? [{ label: `Escape velocity from ${primary.name} here`, value: escapeVelocity(primary.mass, Math.hypot(...selected.x.map((x, k) => x - primary.x[k]))), unit: 'km/s', sig: 4 }] : []),
+            ]} />
           </>
         )}
         {selected && selected.id !== primary.id && (() => {
@@ -402,19 +396,9 @@ export default function SandboxView() {
         })()}
         {selected && (
           <>
-            <div className="section-title">Measure</div>
-            <label className="note" style={{ display: 'flex', gap: 6, alignItems: 'center' }}>{selected.name} ↔
-              <select value={measureB} onChange={(e) => setMeasureB(e.target.value)} aria-label="Second body to measure to">
-                <option value="">choose…</option>
-                {L.sim.bodies.filter((b) => b.id !== selected.id).map((b) => <option key={b.id} value={b.id}>{b.name}</option>)}
-              </select>
-            </label>
-            {(() => { const B = L.sim.bodies.find((b) => b.id === measureB); if (!B) return null; const dKm = Math.hypot(...selected.x.map((x, k) => x - B.x[k])); return (
-              <dl className="kv">
-                <KV k="Distance" v={dKm / AU} unit="au" sig={6} />
-                <KV k="Relative speed" v={Math.hypot(...selected.v.map((x, k) => x - B.v[k]))} unit="km/s" sig={5} />
-                <KV k="Light time" v={(dKm * 1000) / CONSTANTS.c.value / 60} unit="min" sig={4} />
-              </dl>
+            {(() => { const B = L.sim.bodies.find((b) => b.id === measureB); const r = B ? ruler({ x: selected.x, v: selected.v }, { x: B.x, v: B.v }, 'km', 'km/s') : null; return (
+              <Ruler targetAria="Second body to measure to" from={selected.name} options={L.sim.bodies.filter((b) => b.id !== selected.id).map((b) => ({ id: b.id, label: b.name }))} target={measureB} onTarget={setMeasureB}
+                distance={r?.distance ?? null} distanceUnit="km" relSpeed={r?.relSpeed ?? null} speedUnit="km/s" lightTimeS={r?.lightTimeS ?? null} note="Straight-line distance in the simulation frame at the current simulated instant." />
             ); })()}
           </>
         )}

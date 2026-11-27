@@ -523,3 +523,12 @@ Phase 8 approved by the user (“proceed as planned”): 8.1 scale navigator · 
 7. **Layout:** at 1440 px the Spectral top bar ends at 1436 px; at 390 px the view does not overflow (scroll width 390).
 
 **Gate 8.3 deploy:** not deployed (the user: “Don't deploy, just continue working”). Production still serves the Gate 7.5 build.
+
+## Phase 8, Gate 8.4: shared instruments, 2026-11-27
+
+1. **One interface** (`src/ui/instruments.tsx`, logic in `src/shared/instruments/instruments.ts`): `UnitValue` (a value with a dimension-checked unit menu), `Probe`, `Ruler`, `TimeSeriesView` (plot, n/span/min/max/mean/rms, CSV export with title, provenance, method and sources) and `UnitConverter`.
+2. **Where:** Sandbox (probe on the selected body, ruler with relative speed and light time, ΔE/E₀ recorder against simulated years replacing the old step-indexed sparkline), Cosmic (ruler between modelled heliocentric positions), Wave lab (probe position now movable, `px` in the URL; probe readout; y(t) recorder with CSV), Fields (probe with convertible units; click pins a point and the probe measures the distance from it). Unit converter in the Scale navigator (top-bar Scale button, phone ☰ → Scale).
+3. **Units:** the chosen unit per dimension is remembered (localStorage) and shared by every view. New registered units: cm, ms, µs, Hz–THz, m/s², gₙ (exact), mV–kV, V/m–MV/m, J/kg, MJ/kg, km²/s² (new dimensions: potential, electric field, specific energy).
+4. **Tests:** 617 science (+11, `tests/science/instruments.test.ts`), 69 browser (+1: test 75). Existing selectors kept (“Second body to measure to”, “Light time”, “Field values at the probe point”). Local full suite **69/69** (10.5 min).
+
+**Gate 8.4 deploy:** not deployed (user: continue without deploying).

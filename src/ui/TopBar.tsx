@@ -1,3 +1,4 @@
+import { UnitConverter } from '@/ui/instruments';
 import { Suspense, lazy, useEffect, useMemo, useRef, useState } from 'react';
 import type { NearbyObject } from '@/modes/cosmic/star-systems/stars';
 import { ELEMENTS } from '@/modes/atomic/atoms/elements';
@@ -162,6 +163,10 @@ export function ScaleNavigator({ onClose }: { onClose: () => void }) {
         })}
       </ol>
       <div style={{ padding: '0 12px 8px' }}><button className="chip" onClick={() => { onClose(); navigate('/scale'); }}>Open the scale explorer →</button></div>
+      <details className="converter-details" style={{ padding: '0 12px 8px' }}>
+        <summary style={{ cursor: 'pointer', fontSize: 12 }}>⇄ Unit converter</summary>
+        <UnitConverter />
+      </details>
       <p className="note" style={{ padding: '0 12px 12px', margin: 0 }}>Each scale uses its own coordinate system and solver. Scales marked <em>planned</em> have no view yet.</p>
     </section>
   );

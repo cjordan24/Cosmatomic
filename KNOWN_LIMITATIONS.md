@@ -180,4 +180,9 @@
   * Nebula lines are drawn at laboratory rest wavelengths with equal heights: the nebulae’s radial velocities and line strengths are not bundled. Only the Orion and Ring nebulae have lines in their records.
   * The (1 + z) transformation shifts wavelengths only; intensities are not dimmed and no line broadening or absorption is modelled.
   * On phones the Spectral sections (Atlas, Wave lab, Fields, Compare) are in the ☰ menu, not in chips.
+* **Shared instruments (Gate 8.4):**
+  * The ruler measures straight-line distances in each view’s own frame only; it does not transform between frames, and Cosmic distances inherit the accuracy of the approximate ephemeris (Horizons inside encounter windows).
+  * Recorders keep the latest 400 samples of the current session only; they are not yet saved with notebook experiments (Gate 8.5).
+  * Units without a registry entry (W/(m·K), J/(kg·K), m²/s, kg·km/s …) are shown as fixed labels and cannot be switched.
+  * The Wave lab probe is one point along the medium; the 2D demos (two-source interference, Doppler) have no probe.
 

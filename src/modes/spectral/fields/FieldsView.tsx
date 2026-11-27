@@ -7,6 +7,8 @@
  * coordinates would be meaningless on this slice). Everything is recomputed only when an input
  * changes; nothing animates, so the view is cheap on software renderers.
  */
+import { Probe } from '@/ui/instruments';
+import { ruler } from '@/shared/instruments/instruments';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { setQuery, useRoute } from '@/shared/router';
 import { KV, Panel, ProvenanceBadge } from '@/ui/components';
@@ -154,6 +156,9 @@ export default function FieldsView() {
     setCursor([ext.xmin + u * (ext.xmax - ext.xmin), ext.ymax - v * (ext.ymax - ext.ymin)]);
   };
   const probe: [number, number] = cursor ?? (frameId === 'lab' ? [0, half / 2] : [half / 2, 0]);
+  // ruler: click pins a point; the readout gives the distance from it to the probe
+  const [pinned, setPinned] = useState<[number, number] | null>(null);
+  useEffect(() => setPinned(null), [frameId]);
 
   const heatProps = ctx.heat?.props ?? null;
 
@@ -211,7 +216,7 @@ export default function FieldsView() {
         <div style={{ display: 'flex', justifyContent: 'center' }}>
           <canvas ref={canvasRef} width={S} height={S} className="field-canvas" aria-label={`Field map: ${enabled.map((k) => LAYERS[k].label).join(', ') || 'no layers'}`}
             style={{ width: 'min(100%, 560px)', aspectRatio: '1', borderRadius: 8, border: '1px solid var(--line)', cursor: 'crosshair', touchAction: 'none' }}
-            onPointerMove={onMove} onPointerLeave={() => setCursor(null)} />
+            onPointerMove={onMove} onPointerLeave={() => setCursor(null)} onClick={(e) => { const r = e.currentTarget.getBoundingClientRect(); const u = (e.clientX - r.left) / r.width, v = (e.clientY - r.top) / r.height; setPinned([ext.xmin + u * (ext.xmax - ext.xmin), ext.ymax - v * (ext.ymax - ext.ymin)]); }} />
         </div>
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 14, justifyContent: 'center', marginTop: 8 }} aria-label="Colour legends">
           {enabled.map((k) => { const gr = grids[k]; const L = LAYERS[k]; if (!gr) return null; return (
@@ -224,12 +229,14 @@ export default function FieldsView() {
       </div>
 
       <Panel id="fields-readout" className="right-panel" title="Readout & layer metadata">
-        <div className="section-title">At {cursor ? 'cursor' : 'probe point'} <ProvenanceBadge cls="derived" title="Evaluated directly from each layer's formula at this point" /></div>
-        <dl className="kv" aria-label="Field values at the probe point">
-          <KV k="x" v={fmtLen(probe[0], frame)} /><KV k="y" v={fmtLen(probe[1], frame)} />
-          {enabled.map((k) => { const c = ctxOf(k); const L = LAYERS[k]; return <KV key={k} k={`${L.symbol} (${L.label.toLowerCase()})`} v={c ? L.sample(c, probe[0], probe[1]) : null} unit={L.units} sig={5} />; })}
-          {enabled.includes('coulomb') && (() => { const e = COULOMB_LAYER.vector!(ctx.coulomb, probe[0], probe[1]); return <KV k="|E| (electric field)" v={Math.hypot(e[0], e[1])} unit="V/m" sig={4} />; })()}
-        </dl>
+        <Probe title={`At ${cursor ? 'cursor' : 'probe point'}`} ariaLabel="Field values at the probe point"
+          where={[{ label: 'x', value: probe[0], unit: 'm', sig: 4 }, { label: 'y', value: probe[1], unit: 'm', sig: 4 }]}
+          rows={[
+            ...enabled.map((k) => { const c = ctxOf(k); const L = LAYERS[k]; return { label: `${L.symbol} (${L.label.toLowerCase()})`, value: c ? L.sample(c, probe[0], probe[1]) : null, unit: L.units, sig: 5 }; }),
+            ...(enabled.includes('coulomb') ? [(() => { const e = COULOMB_LAYER.vector!(ctx.coulomb, probe[0], probe[1]); return { label: '|E| (electric field)', value: Math.hypot(e[0], e[1]), unit: 'V/m', sig: 4 }; })()] : []),
+            ...(pinned ? [{ label: '📏 distance from pinned point', value: ruler({ x: [probe[0], probe[1], 0] }, { x: [pinned[0], pinned[1], 0] }, 'm').distance, unit: 'm', sig: 5 }] : []),
+          ]}
+          note={pinned ? <>Pinned at ({fmtLen(pinned[0], frame)}, {fmtLen(pinned[1], frame)}). <button className="link-btn" onClick={() => setPinned(null)}>Unpin</button></> : 'Click the map to pin a point; the probe then also measures its distance from it.'} />
         {enabled.includes('heat') && heatProps && ctx.heat && (
           <>
             <div className="section-title">Medium at T₀ = {T0} K, 1 atm <ProvenanceBadge cls="derived" title="Interpolated from NIST WebBook isobar rows" /></div>

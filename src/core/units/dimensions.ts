@@ -33,6 +33,10 @@ export const DIM = {
   gravitational: d(3, -1, -2),
   gravParam: d(3, 0, -2),
   permittivity: d(-3, -1, 4, 2),
+  // Gate 8.4 (shared instruments)
+  potential: d(2, 1, -3, -1),       // V = W/A
+  electricField: d(1, 1, -3, -1),   // V/m
+  specificEnergy: d(2, 0, -2),      // J/kg = m²/s² (gravitational potential)
 } as const satisfies Record<string, DimensionVector>;
 
 export const dimEquals = (a: DimensionVector, b: DimensionVector) => a.every((x, i) => Math.abs(x - b[i]) < 1e-12);

@@ -172,3 +172,63 @@ test('74 integrated spectroscopy: observed and model spectra on one wavelength /
   await page.getByRole('button', { name: 'FIRAS beside the Sun on one axis →' }).click();
   await expect(page.getByRole('img', { name: 'Spectra on one frequency axis' })).toBeVisible();
 });
+
+// ---------------- Gate 8.4 ----------------
+test('75 shared instruments: one ruler, probe, time-series recorder and unit converter across Sandbox, Cosmic, Wave lab and Fields', async ({ page }) => {
+  // Sandbox: ruler Earth ↔ Mars; switching its unit to au is remembered by every view
+  await page.goto('/#/cosmic/sandbox?preset=inner');
+  await page.waitForTimeout(1000);
+  await page.locator('.left-panel .mol-list').getByRole('button', { name: /Earth/ }).click();
+  await page.getByLabel('Second body to measure to').selectOption({ label: 'Mars' });
+  const rul = page.getByLabel('Ruler readout');
+  await expect(rul).toContainText('relative speed');
+  await expect(rul).toContainText('light time');
+  await rul.getByLabel('Unit for distance').selectOption('au');
+  await expect(rul.getByLabel('Unit for distance')).toHaveValue('au');
+  await page.getByRole('button', { name: 'Run simulation' }).click();
+  await page.waitForTimeout(2500);
+  await page.getByRole('button', { name: 'Pause simulation' }).click();
+  await expect(page.getByLabel('Relative energy error ΔE/E₀ statistics')).toContainText('yr');
+  const [dl] = await Promise.all([page.waitForEvent('download'), page.getByRole('button', { name: 'Export CSV' }).click()]);
+  const csv = await (await import('node:fs')).promises.readFile((await dl.path())!, 'utf8');
+  expect(csv.split('\n')[0]).toBe('# Relative energy error ΔE/E₀');
+  expect(csv).toContain('# provenance: simulated');
+  expect(csv).toContain('simulated time (yr),ΔE/E₀ (dimensionless)');
+  await shot(page, '75a-instruments-sandbox', 'Shared instruments in the gravitational sandbox: the energy-error recorder (ΔE/E₀ against simulated years, statistics, CSV export), the probe on Earth and the Earth–Mars ruler with its distance switched to au.');
+
+  // Cosmic: the same ruler component, already in au
+  await page.goto('/#/cosmic/mars');
+  await expect(page.getByLabel('Measure distance to')).toBeVisible();
+  await expect(page.getByLabel('Ruler readout').getByLabel('Unit for distance')).toHaveValue('au');
+
+  // Wave lab: movable probe and its recorder
+  await page.goto('/#/spectral/lab?px=0.6');
+  await expect(page.getByLabel('Probe readout')).toContainText('displacement y');
+  await expect(page.getByText(/Probe y\(t\) at x = 7\.2 m/)).toBeVisible();
+  await page.getByLabel('Probe position').fill('0.5');
+  await expect(page).toHaveURL(/px=0\.5/);
+  await expect(page.getByText(/Probe y\(t\) at x = 6 m/)).toBeVisible();
+
+  // Fields: click pins a point; the probe also measures the distance from it
+  await page.goto('/#/spectral/fields');
+  const map = page.locator('canvas.field-canvas');
+  const box = (await map.boundingBox())!;
+  await page.mouse.click(box.x + box.width * 0.3, box.y + box.height * 0.3);
+  await page.mouse.move(box.x + box.width * 0.7, box.y + box.height * 0.6);
+  const read = page.getByLabel('Field values at the probe point');
+  await expect(read).toContainText('distance from pinned point');
+  await expect(read.getByLabel('Unit for |E| (electric field)')).toBeVisible();
+  await shot(page, '75b-instruments-fields', 'Fields explorer probe with convertible units (cm, V, kV/m) and a pinned point: the readout measures the distance from the pin to the cursor.');
+  await page.getByRole('button', { name: 'Unpin' }).click();
+  await expect(read).not.toContainText('distance from pinned point');
+
+  // stand-alone converter in the Scale navigator
+  await page.getByRole('button', { name: 'Scale', exact: true }).click();
+  await page.getByText('⇄ Unit converter').click();
+  const conv = page.getByRole('group', { name: 'Unit converter' });
+  await conv.getByLabel('Quantity').selectOption('temperature');
+  await conv.getByLabel('Value to convert').fill('25');
+  await conv.getByLabel('From unit').selectOption('°C');
+  await conv.getByLabel('To unit').selectOption('K');
+  await expect(conv.getByLabel('Converted value')).toHaveText('298.15');
+});

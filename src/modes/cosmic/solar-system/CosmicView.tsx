@@ -1,3 +1,7 @@
+import { EncyclopediaBio } from '@/ui/Encyclopedia';
+import { entryForEntity } from '@/shared/encyclopedia/encyclopedia';
+import { Ruler } from '@/ui/instruments';
+import { ruler } from '@/shared/instruments/instruments';
 import { SOLAR_LOG_EPS, relationshipsFrom } from '@/shared/scientific-relationships/registry';
 import { getElement } from '@/modes/atomic/atoms/elements';
 import { SourceLinks } from '@/ui/SourcesView';
@@ -8,8 +12,7 @@ import { navigate, useRoute } from '@/shared/router';
 import { useVoyager } from '@/shared/store';
 import { KV, Panel, SourceList } from '@/ui/components';
 import { formatSig } from '@/core/units/units';
-import { CONSTANTS } from '@/core/constants/constants';
-import { norm, sub } from '@/core/mathematics/vec3';
+import { norm } from '@/core/mathematics/vec3';
 import { BODIES, childrenOf, getBody, type CelestialBody } from './bodies';
 import { heliocentric, AU_KM, ELEMENT_EPOCH_JD, spacecraftState, CRAFT, trajectoryQuality, loadEncounters, positionSource, solarElevationOnEquator } from './ephemeris';
 import { ProvenanceBadge } from '@/ui/components';
@@ -39,8 +42,6 @@ function InfoPanel({ body, jd, measureId, setMeasureId }: { body: CelestialBody;
   const pos = heliocentric(body.id, jd);
   const rSun = norm(pos);
   const other = getBody(measureId)!;
-  const dOther = norm(sub(pos, heliocentric(measureId, jd)));
-  const lightTime = (km: number) => { const s = (km * 1000) / CONSTANTS.c.value; return s < 120 ? `${s.toFixed(1)} s` : s < 7200 ? `${(s / 60).toFixed(1)} min` : `${(s / 3600).toFixed(2)} h`; };
   const lon = ((Math.atan2(pos[1], pos[0]) * 180) / Math.PI + 360) % 360;
   const lat = (Math.asin(pos[2] / (rSun || 1)) * 180) / Math.PI;
   const yearsFromEpoch = Math.abs(jd - ELEMENT_EPOCH_JD) / 365.25;
@@ -48,6 +49,7 @@ function InfoPanel({ body, jd, measureId, setMeasureId }: { body: CelestialBody;
     <>
       <h2 style={{ margin: '0 0 2px', fontWeight: 400, fontSize: 24 }}>{body.name}</h2>
       <div className="note">{body.classification}</div>
+      {(() => { const e = entryForEntity(`body:${body.id}`); return e ? <EncyclopediaBio entries={[e]} what={body.name} /> : null; })()}
       {body.radiusKm === null && <p className="note warn">Radius not available in the ingested catalogue — drawn as a small marker, not to scale.</p>}
 
       <div className="section-title">Physical</div>
@@ -105,15 +107,12 @@ function InfoPanel({ body, jd, measureId, setMeasureId }: { body: CelestialBody;
         <KV k="Distance from Sun" v={rSun / AU_KM} unit="au" sig={6} />
         <KV k="Ecliptic longitude" v={body.kind === 'star' ? null : lon} unit="°" sig={5} />
         <KV k="Ecliptic latitude" v={body.kind === 'star' ? null : lat} unit="°" sig={3} />
-        <dt>
-          Distance to{' '}
-          <select value={measureId} onChange={(e) => setMeasureId(e.target.value)} aria-label="Measure distance to" style={{ height: 24 }}>
-            {BODIES.filter((b) => b.id !== body.id).map((b) => <option key={b.id} value={b.id}>{b.name}</option>)}
-          </select>
-        </dt>
-        <dd>{body.id === other.id ? '—' : dOther > 0.01 * AU_KM ? `${(dOther / AU_KM).toFixed(5)} au` : `${formatSig(dOther, 6)} km`}</dd>
-        <KV k="Light time" v={body.id === other.id ? null : lightTime(dOther)} />
+
       </dl>
+      {(() => { const r = ruler({ x: pos }, { x: heliocentric(other.id, jd) }, 'km'); return (
+        <Ruler targetAria="Measure distance to" from={body.name} options={BODIES.filter((b) => b.id !== body.id).map((b) => ({ id: b.id, label: b.name }))} target={other.id} onTarget={setMeasureId}
+          distance={body.id === other.id ? null : r.distance} distanceUnit="km" lightTimeS={body.id === other.id ? null : r.lightTimeS} note="Straight-line distance between the two modelled heliocentric positions at the displayed time." />
+      ); })()}
       {positionSource(body.id, jd) === 'horizons-encounter' && <p className="note" style={{ color: 'var(--accent-3)' }}><ProvenanceBadge cls="derived" /> Voyager encounter window: position taken directly from JPL Horizons (DE440 / satellite ephemerides), not the approximate model.</p>}
       <p className="note">Frame: heliocentric ecliptic J2000. {body.kind === 'spacecraft' ? 'JPL Horizons trajectory (cubic Hermite interpolation).' : body.kind === 'moon' || body.kind === 'dwarf-planet' ? `Two-body propagation from 2025-01-01 elements (${yearsFromEpoch.toFixed(1)} yr from epoch${yearsFromEpoch > 2 ? ' — accuracy degraded' : ''}).` : body.id === 'moon' ? '' : body.kind === 'star' ? '' : 'JPL Keplerian elements (Table 1).'}{body.id === 'moon' && ' Truncated ELP-2000/82 lunar theory (validated ≤ 0.3° vs Horizons).'}</p>
 
