@@ -485,3 +485,9 @@ Findings:
 7. **Layout:** at 1440 px the top bar’s rightmost element is at 1431 px. At 390 px nothing overflows (scroll width 390 on every tab).
 
 Phase 7 is complete. Stopping for user review; resume from `HANDOFF_PHASE7_REVIEW.md`.
+
+### Production deploy and live verification (2026-11-27)
+
+- Deployed by the user (`vercel deploy --prod`; the auto-mode classifier blocked it from Claude Code). Deployment `dpl_B7CaTn7B6DZnAC8uU1VDBck63nrQ`, aliased to https://voyager-ventures.vercel.app.
+- Production serves `index-Qc9NTZFA.js`, identical to the local `dist/assets` build, so Gates 7.4 and 7.5 are now live (the previous production bundle was `index-ChcjBNsZ.js`, from before Gate 7.4).
+- Full browser suite against production: **65/65 passed** (10.1 min).

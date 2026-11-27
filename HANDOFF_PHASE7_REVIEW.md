@@ -7,7 +7,7 @@ Written 2026-11-27, after Gate 7.5. Read this first, then `DEVELOPMENT_ROADMAP.m
 **State:**
 - Phases 1–7 are complete. Phase 7 (gates 7.1–7.5) was approved by the user “as proposed”; the inserted mobile fix and encyclopedia Gate E.1 are also done.
 - **This is the Phase 7 boundary: stop and report to the user for review.** Do not start Phase 8 (or the next encyclopedia pass) until the user says so. A pasted handoff on its own is not approval.
-- **Production deploy:** `vercel deploy --prod` was blocked by the Claude Code auto-mode permission classifier in both the Gate 7.4 and Gate 7.5 sessions, despite the standing authorisation. Check whether production serves the current `dist/assets/index-*.js`; if it does not, ask the user to run `! npx vercel deploy --prod --yes --project voyager-ventures` (or to allow it), then run the full browser suite against production and record the result in `BUILD_LOG.md`.
+- **Production deploy:** done 2026-11-27 (run by the user; Claude Code’s classifier blocks `vercel deploy`). Production serves the Gate 7.5 build; live suite 65/65. If the classifier blocks a future deploy, ask the user to run `! export PATH=~/.local/node/bin:$PATH && npx vercel deploy --prod --yes --project voyager-ventures` (the `!` shell does not have Node on its PATH).
 
 **Counts:** 560 science tests (Vitest), 65 browser tests (Playwright, 7 spec files), 33 dataset manifests, 126 Source-index entries.
 
