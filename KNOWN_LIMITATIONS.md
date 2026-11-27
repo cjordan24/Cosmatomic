@@ -197,3 +197,6 @@
 * **Pathways (Gate 8.6):**
   * Five walks only, limited to the 140 registered edges; elements, molecules and planets added in E.2 have no edges yet beyond those listed, so they appear only as endpoints.
 
+## Phase 9
+
+* **Antennas (Gate 9.1):** thin, lossless wires in free space only: no ground plane, feed line, impedance mismatch, conductor loss or mutual coupling between array elements. Patterns of the short and half-wave dipoles are far-field (r ≫ λ, r ≫ L); only the Hertzian dipole's field is exact near the source. Other wire lengths (e.g. full-wave dipoles), loops, apertures and dishes are not modelled. The dipole field is shown in the antenna view; it is not yet a layer of the Fields explorer (whose lab frame is centimetres wide).

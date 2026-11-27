@@ -1,0 +1,6 @@
+{
+  "79a-dipole-field.png": "Exact field of a Hertzian dipole at 100 MHz: H out of/into the plane (colour), E direction (arrows), r = λ/2π (dashed); probe shows E_r, E_θ, H_φ and |E|/|H| (Ellingson eqs. 9.61, 9.65).",
+  "79b-dipole-patterns.png": "Half-wave dipole: E- and H-plane patterns, 3D field pattern; numerically integrated D = 1.641, R_rad = 73.08 Ω, A_e = 0.1306 λ² beside Ellingson’s ≅ 73 Ω and ≈ 0.131 λ².",
+  "79c-array.png": "Eight half-wave dipoles at λ/2 with a −90° phase step: the beam is steered to φ = 60° from the array axis (pattern multiplication, no mutual coupling).",
+  "79d-friis.png": "Friis link: Ellingson Example 10.11 (6 GHz, 30 km, 27 dBi dishes, −36.5 dBm transmitted) gives −120.05 dBm at the receiver with the exact c."
+}

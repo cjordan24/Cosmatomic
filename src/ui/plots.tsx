@@ -133,3 +133,28 @@ export function ScatterPlot({ points, lines = [], xLabel, yLabel, xLog, yLog, xD
     </svg>
   );
 }
+
+// ------------------------------------------------------------------ polar pattern plot (Gate 9.1)
+export interface PolarSeries { /** [angle (rad), relative power ≥ 0] */ points: [number, number][]; color: string; label?: string; dashed?: boolean }
+/**
+ * Polar plot of relative power in decibels (0 dB at the largest value of all series, floor `floorDb`).
+ * Angle 0 points up and angles increase clockwise, so a vertical dipole's axis is vertical on screen.
+ */
+export function PolarPlot({ series, ariaLabel, angleLabel, floorDb = -30, size = 280, marks = [] }: { series: PolarSeries[]; ariaLabel: string; angleLabel: string; floorDb?: number; size?: number; marks?: { angle: number; label: string; color?: string }[] }) {
+  const max = Math.max(...series.flatMap((s) => s.points.map((p) => p[1])), 1e-300);
+  const c = size / 2, R = size / 2 - 26;
+  const rad = (p: number) => { const db = p > 0 ? 10 * Math.log10(p / max) : floorDb; return R * Math.max(0, (Math.max(db, floorDb) - floorDb) / -floorDb); };
+  const xy = (a: number, r: number) => [c + r * Math.sin(a), c - r * Math.cos(a)];
+  const rings = [0, 1, 2, 3].map((k) => (floorDb * k) / 3);
+  return (
+    <svg viewBox={`0 0 ${size} ${size + 16}`} className="plot polar" role="img" aria-label={ariaLabel} style={{ width: size, maxWidth: '100%', height: 'auto' }}>
+      {rings.map((db) => { const r = R * (db - floorDb) / -floorDb; return <g key={db}><circle cx={c} cy={c} r={Math.max(r, 0.5)} fill="none" stroke="var(--line)" /><text x={c + 3} y={c - r - 2} style={{ fontSize: 9 }}>{db === 0 ? '0 dB' : `${Math.round(db)}`}</text></g>; })}
+      {Array.from({ length: 12 }, (_, i) => (i * Math.PI) / 6).map((a) => { const [x, y] = xy(a, R); const [tx, ty] = xy(a, R + 13); return <g key={a}><line x1={c} y1={c} x2={x} y2={y} stroke="var(--line)" /><text x={tx} y={ty + 3} textAnchor="middle" style={{ fontSize: 9 }}>{Math.round((a * 180) / Math.PI)}°</text></g>; })}
+      {marks.map((m) => { const [x, y] = xy(m.angle, R); return <line key={m.label} x1={c} y1={c} x2={x} y2={y} stroke={m.color ?? 'var(--warn)'} strokeDasharray="4 3"><title>{m.label}</title></line>; })}
+      {series.map((s, i) => <polygon key={i} fill={s.dashed ? 'none' : s.color} fillOpacity={0.12} stroke={s.color} strokeWidth={1.6} strokeDasharray={s.dashed ? '5 4' : undefined}
+        points={s.points.map(([a, p]) => xy(a, rad(p)).map((v) => v.toFixed(1)).join(',')).join(' ')} />)}
+      <text x={size / 2} y={size + 12} textAnchor="middle" style={{ fontSize: 10, fill: 'var(--text)' }}>{angleLabel}</text>
+      {series.some((s) => s.label) && <g>{series.filter((s) => s.label).map((s, i) => <g key={i} transform={`translate(${size - 4} ${12 + i * 12})`}><text x={-18} y={0} textAnchor="end" style={{ fontSize: 9.5 }}>{s.label}</text><line x1={-14} x2={0} y1={-3} y2={-3} stroke={s.color} strokeDasharray={s.dashed ? '4 3' : undefined} /></g>)}</g>}
+    </svg>
+  );
+}

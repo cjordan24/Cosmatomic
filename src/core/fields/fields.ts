@@ -13,12 +13,15 @@
  *   heat-diffusion      T(r, t) = T₀ + Q / (ρ cₚ (4π α t)^{3/2}) · exp(−r²/4αt),  α = k/(ρ cₚ)
  *                       instantaneous point source in an infinite, still, uniform medium
  *                       (Carslaw & Jaeger 1959); k, ρ, cₚ from NIST WebBook at T₀, 1 atm.
+ *   hertzian-dipole     instantaneous H (out of plane) and E (in plane) of a Hertzian dipole along +y, exact
+ *                       near + far field (Ellingson 2020 eqs. 9.61, 9.65; Gate 9.1)
  * See FIELDS_ARCHITECTURE.md.
  */
 import { CONSTANTS } from '@/core/constants/constants';
 import type { ProvenanceClass } from '@/core/provenance/provenance';
 import { planeE, POLARISATIONS, type Polarisation } from '@/core/physics/em/em';
 import { getMaterial, interpT } from '@/modes/atomic/materials/materials';
+import { hertzianInstant, nearFarCrossover, type Hertzian } from '@/core/physics/em/antennas';
 
 const G = CONSTANTS.G.value, EPS0 = CONSTANTS.eps0.value;
 export const COULOMB_K = 1 / (4 * Math.PI * EPS0);
@@ -137,6 +140,17 @@ export const HEAT_LAYER: FieldLayer<HeatCtx> = {
   validity: ['Pure conduction in a still, infinite, uniform medium: no convection, which in a real fluid soon dominates', 'k, ρ and cₚ fixed at T₀ (valid while the temperature rise is small)', 'Q and t are user inputs; properties at 1 atm from the NIST WebBook'],
   sample: (ctx, x, y) => heatKernelT(ctx, Math.hypot(x, y)),
 };
+
+// ---------------------------------------------------------------- Hertzian dipole (Gate 9.1)
+export interface DipoleCtx extends Hertzian { /** time (s) */ t: number }
+export const DIPOLE_LAYER: FieldLayer<DipoleCtx> = {
+  id: 'hertzian-dipole', label: 'Radiating dipole', quantity: 'Instantaneous magnetic field H (out of the plane) of a Hertzian dipole; arrows: electric field E in the plane', symbol: 'H', units: 'A/m', kind: 'vector',
+  frame: FRAMES.lab, resolution: 160, sources: ['ellingson-2020-vol2', 'codata-2018'], transform: 'symlog', fidelity: 'exact-analytic', provenance: 'derived',
+  validity: ['Ideal current moment IΔl at the origin (zero length, uniform current) in vacuum', 'Exact in both the near and the far zone; the field diverges at the dipole itself', 'Current moment and frequency are user inputs, so the configuration is hypothetical'],
+  sample: (ctx, x, y) => (x === 0 && y === 0 ? NaN : hertzianInstant(ctx, x, y, ctx.t).Hz),
+  vector: (ctx, x, y) => { if (x === 0 && y === 0) return [0, 0]; const f = hertzianInstant(ctx, x, y, ctx.t); return [f.Ex, f.Ey]; },
+};
+export { nearFarCrossover };
 
 // ---------------------------------------------------------------- sampling
 export interface Extent { xmin: number; xmax: number; ymin: number; ymax: number }

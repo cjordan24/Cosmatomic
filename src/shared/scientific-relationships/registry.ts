@@ -219,6 +219,14 @@ registerRelationship({ from: 'context:cosmic-expansion', to: 'context:gravitatio
 registerRelationship({ from: 'context:cosmic-expansion', to: 'context:gravitational-waves', type: 'observed-with', context: 'GW170817 as a standard siren: H₀ = 70.0 +12.0/−8.0 km/s/Mpc (68.3 %) without a distance ladder', source: 'abbott-2017-h0' });
 registerRelationship({ from: 'context:gravitational-waves', to: 'wave:em-gamma', type: 'observed-with', context: 'GRB 170817A arrived 1.74 ± 0.05 s after GW170817: the speeds of gravity and light differ by less than a few parts in 10¹⁵', source: 'abbott-2017-grb' });
 
+// ---------------------------------------------------------------- Phase 9, Gate 9.1: antennas
+registerEntity(E('instrument:antennas', 'Antennas and radiation patterns', '#/spectral/antennas?tab=pattern', 'Dipole patterns, directivity, radiation resistance, arrays and the Friis link equation (Gate 9.1)'));
+registerEntity(E('field:hertzian-dipole', 'Field of a radiating dipole', '#/spectral/antennas', 'Exact near- and far-zone E and H of a Hertzian dipole (FIELDS layer, Gate 9.1)'));
+registerRelationship({ from: 'field:hertzian-dipole', to: 'wave:em-radio', type: 'emits', context: 'an oscillating current radiates; the far field falls as 1/r and peaks broadside to the current (sin θ)', source: 'ellingson-2020-vol2' });
+registerRelationship({ from: 'field:hertzian-dipole', to: 'field:plane-wave-ex', type: 'explains', context: 'far from the source (r ≫ λ) the spherical wave is locally plane: E ⊥ H, |E|/|H| = η₀', source: 'ellingson-2020-vol2' });
+registerRelationship({ from: 'instrument:antennas', to: 'field:hertzian-dipole', type: 'part-of', context: 'wire antennas are modelled as sums of Hertzian dipoles (Ellingson §9.6)', source: 'ellingson-2020-vol2' });
+registerRelationship({ from: 'instrument:antennas', to: 'wave:em-radio', type: 'emits', context: 'Friis example: a 6 GHz (5 cm) point-to-point link between 27 dBi dishes over 30 km (Ellingson Example 10.11)', source: 'ellingson-2020-vol2' });
+
 export const getEntity = (id: string) => REGISTRY.get(id);
 export const allEntities = () => [...REGISTRY.values()];
 export const relationshipsFrom = (id: string) => RELATIONSHIPS.filter((r) => r.from === id);

@@ -557,3 +557,17 @@ Split into documented sub-gates (the plan allowed it):
 
 **Phase 8 complete.** 636 science tests, 72 browser tests (local full suite **72/72**, 12.4 min), 36 manifests, 131 sources. Not deployed (user's instruction). Stopping at the Phase 8 boundary for review.
 
+
+## Phase 9, Gate 9.1: EM fields & antennas (`#/spectral/antennas`), 2026-11-27
+
+Phase 9 approved by the user (“you have my approval to go ahead with phase nine”); gate plan in `DEVELOPMENT_ROADMAP.md`.
+1. **Source:** S. W. Ellingson, *Electromagnetics* Vol. 2 (VT Publishing 2020, CC BY-SA 4.0; DOI checked on Crossref; PDF read from VTechWorks, crawl-delay respected). New Source-index entry `ellingson-2020-vol2`.
+2. **Physics** (`src/core/physics/em/antennas.ts`): exact Hertzian-dipole fields (H from eq. 9.61, E from Ampère's law, eq. 9.65), far field of thin filaments by Simpson integration of eq. 9.96 (short and half-wave dipoles), directivity, radiation resistance and effective aperture by integration over the sphere, uniform linear arrays (pattern multiplication), Friis equation.
+3. **FIELDS:** new layer `hertzian-dipole` (H out of the plane, E arrows), sampled through `sampleGrid` in the antenna view.
+4. **View:** four tabs: near & far field (animated, probe with |E|/|H| → η₀), dipole patterns (E/H-plane polar plots, 3D pattern, numbers beside Ellingson's), arrays (N, d, α; steering and grating lobes), radio link (Friis; Example 10.11 preset). New shared `PolarPlot`.
+5. **Checks against the textbook:** short dipole D = 1.5, R_rad = 20π²(L/λ)², A_e = 0.119λ²; half-wave dipole R_rad = 73.08 Ω (≅ 73 Ω), A_e = 0.1306λ² (≈ 0.131λ²), D = 1.641; Example 10.11 −36.5 dBm.
+6. **Navigation:** the Spectral bar gains a *Radio ▾* chip menu (also in the phone ☰ menu) and uses the compact `many-chips` style; rightmost top-bar element at 1426 px.
+7. **Registry:** `instrument:antennas`, `field:hertzian-dipole` and four sourced edges.
+8. **Tests:** 652 science (+16, `tests/science/antennas.test.ts`), 73 browser (+1: test 79 in `tests/e2e/phase9.spec.ts`). Local full suite **73/73** (10.9 min). Layout: 1440 px and 390 px (scroll width 390) checked.
+
+**Gate 9.1 deploy:** not deployed (production still serves the Gate 7.5 build).

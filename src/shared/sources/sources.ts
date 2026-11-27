@@ -528,6 +528,11 @@ export const SOURCES: Source[] = [
     institution: 'LIGO Scientific Collaboration and Virgo Collaboration with optical follow-up collaborations', url: 'https://arxiv.org/abs/1710.05835', doi: '10.1038/nature24471', license: 'Nature article; arXiv preprint free to read',
     authorBio: 'As named on the preprint: the LIGO Scientific Collaboration and the Virgo Collaboration, the 1M2H Collaboration, the Dark Energy Camera GW-EM Collaboration and the DES Collaboration, the DLT40 Collaboration, the Las Cumbres Observatory Collaboration, the VINROUGE Collaboration, the MASTER Collaboration, et al.',
     usedFor: ['GW170817 distance 43.8 +2.9/−6.9 Mpc, Hubble-flow velocity 3017 ± 166 km/s and H₀ = 70.0 +12.0/−8.0 km/s/Mpc (68.3 %)', 'the Planck 2015 and SH0ES 2016 values it compares with (quoted)'], datasets: ['gravitational-waves'] },
+  // ---------------- Phase 9: applied waves and communications ----------------
+  { id: 'ellingson-2020-vol2', kind: 'book', citation: 'Ellingson, S. W. (2020) Electromagnetics, Vol. 2. Blacksburg, VA: Virginia Tech Publishing.', title: 'Electromagnetics, Volume 2', authors: 'S. W. Ellingson', year: 2020,
+    institution: 'Virginia Tech Publishing (University Libraries at Virginia Tech)', url: 'https://doi.org/10.21061/electromagnetics-vol-2', doi: '10.21061/electromagnetics-vol-2', license: 'CC BY-SA 4.0',
+    authorBio: 'Steven W. Ellingson is an Associate Professor at Virginia Tech (Blacksburg, Virginia), with PhD and MS degrees in electrical engineering from the Ohio State University (book’s “About the Author”). The book underwent single-blind peer review by at least three external experts.',
+    usedFor: ['Hertzian-dipole fields, near and far zone (eqs. 9.61, 9.65, 9.67)', 'far field of thin filaments, the electrically short and half-wave dipoles (eqs. 9.96, 9.102, 10.49)', 'directivity, radiation resistance, effective aperture (eqs. 10.38, 10.48, 10.160) and their textbook values', 'Friis transmission equation and free-space path loss (eqs. 10.166–10.167)'] },
 ];
 
 const BY_ID = new Map(SOURCES.map((s) => [s.id, s]));

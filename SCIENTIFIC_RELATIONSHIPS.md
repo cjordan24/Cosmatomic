@@ -99,6 +99,10 @@ At Gate 8.2 the registry holds 199 entities (186 available, 13 planned) in 27 co
 
 Every encyclopedia entry describes a registry entity, so E.2 registered the 11 solar-system bodies with a NASA Facts page (`body:<id>`), all 118 elements (`element:<Z>`) and all 137 library molecules (`molecule:<id>`), each routed to its view. No edges were added: the registry holds 436 entities (423 available, 13 planned) and still 140 edges, so 282 entities have none.
 
+## Antennas (Gate 9.1)
+
+`instrument:antennas` (`#/spectral/antennas?tab=pattern`) and `field:hertzian-dipole` (`#/spectral/antennas`). Edges, all sourced to Ellingson (2020): the dipole field *emits* radio waves; it *explains* the plane wave (far from the source the wave is locally plane, |E|/|H| = η₀); antennas are modelled as sums of Hertzian dipoles (*part of*); the Friis example links antennas to radio waves (a 6 GHz, 5 cm link; ISO 21348 keeps “microwave” for 1–15 mm).
+
 ## Rules
 
 1. No edge without a source.
