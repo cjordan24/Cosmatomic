@@ -1,5 +1,5 @@
 /**
- * Relationship explorer — #/relations?tab=map|path|links|planned   (Gate 8.2)
+ * Relationship explorer — #/relations?tab=map|path|pathways|links|planned   (Gate 8.2; pathways: Gate 8.6, &p=<id>&s=<step>)
  *   map:     &e=<entity>&depth=1|2&types=<comma list>&stars=1
  *   path:    &from=<entity>&to=<entity>&types=…
  *   links:   &q=<text>&types=…
@@ -8,6 +8,8 @@
  * the typed, sourced edges the views already display. Nothing is inferred; a path is a chain of existing
  * edges, each with its own source.
  */
+import { PATHWAYS, getPathway, resolvePathway } from '@/shared/pathways/pathways';
+import { EntityBio } from '@/ui/Encyclopedia';
 import { useEffect, useMemo, useState } from 'react';
 import { navigate, setQuery, useRoute } from '@/shared/router';
 import { allEntities, allRelationships, getEntity, type RelationshipType } from '@/shared/scientific-relationships/registry';
@@ -24,7 +26,7 @@ const TYPE_COL: Record<RelationshipType, string> = {
   'participates-in': '#5cf2a6', produces: '#9be564', consumes: '#e5c364', emits: '#ffb36b', absorbs: '#ff7a90', 'has-spectrum': '#f5c76b',
   'has-property': '#7df9ff', 'observed-with': '#c38cff', 'located-in': '#8fb5ff', 'part-of': '#6fd6ff', drives: '#ff9fd2', explains: '#b18cff',
 };
-const TABS = [['map', 'Neighbourhood'], ['path', 'Path between two'], ['links', 'All links'], ['planned', 'Planned']] as const;
+const TABS = [['map', 'Neighbourhood'], ['path', 'Path between two'], ['pathways', 'Pathways'], ['links', 'All links'], ['planned', 'Planned']] as const;
 type Tab = (typeof TABS)[number][0];
 const DEFAULT_ENTITY = 'element:1';
 const trunc = (s: string, n: number) => (s.length > n ? `${s.slice(0, n - 1)}…` : s);
@@ -193,6 +195,49 @@ function PathTab({ types }: { types: TypeFilter }) {
   );
 }
 
+// ------------------------------------------------------------------ pathways (Gate 8.6)
+
+function PathwaysTab() {
+  const { query } = useRoute();
+  const p = getPathway(query.get('p') ?? '') ?? PATHWAYS[0];
+  const { steps, error } = resolvePathway(p);
+  const n = p.entities.length;
+  const at = Math.min(n - 1, Math.max(0, Number(query.get('s')) || 0));
+  const id = p.entities[at];
+  const e = getEntity(id)!;
+  const into = at > 0 ? steps[at - 1] : null;
+  const go = (k: number) => setQuery({ s: k === 0 ? null : k });
+  return (
+    <div className="center-stage hr-stage">
+      <div className="stage-head">
+        <h1>{p.title}</h1>
+        <p className="note">{p.blurb} Every step follows a relationship already in the records, with its own source; the excerpts are quoted from the encyclopedia. The pathway adds no new claim.</p>
+      </div>
+      {error ? <p className="note warn" role="status">This pathway is broken: {error}.</p> : (<>
+        <ol className="pathway-stops" aria-label="Stops" style={{ display: 'flex', flexWrap: 'wrap', gap: 6, listStyle: 'none', padding: 0, margin: '6px 0 10px' }}>
+          {p.entities.map((x, i) => <li key={x}><button className={`chip ${i === at ? 'active' : ''}`} aria-current={i === at ? 'step' : undefined} onClick={() => go(i)}>{i + 1}. {label(x)}</button></li>)}
+        </ol>
+        <section aria-label={`Stop ${at + 1} of ${n}`} className="panel" style={{ padding: 12 }}>
+          <div className="note">Stop {at + 1} of {n}</div>
+          <h2 style={{ margin: '2px 0 6px', fontWeight: 400 }}><span style={{ color: MODE_COL[entityMode(e)] }}>●</span> {e.label}</h2>
+          {into && (() => { const src = edgeSource(into.edge); return (
+            <div className="note" style={{ paddingLeft: 14, borderLeft: `2px solid ${TYPE_COL[into.edge.type]}`, margin: '2px 0 8px 4px' }}>
+              {label(into.from)} <strong style={{ color: TYPE_COL[into.edge.type] }}>{stepVerb(into)}</strong> {e.label}{into.edge.context ? ` — ${into.edge.context}` : ''}
+              <br />Source: {src.id ? <SourceLinks ids={[src.id]} /> : <em>{src.text}</em>}
+            </div>); })()}
+          <EntityBio entity={id} what={e.label} />
+          <div className="chip-row" style={{ marginTop: 8 }}>
+            <button className="chip" disabled={at === 0} onClick={() => go(at - 1)}>← Previous</button>
+            <button className="chip active" disabled={at === n - 1} onClick={() => go(at + 1)}>Next →</button>
+            {e.route && <button className="chip" onClick={() => navigate(e.route!.slice(1))}>Open {e.label} →</button>}
+          </div>
+        </section>
+        <details className="note" style={{ marginTop: 10 }}><summary>All steps with their sources</summary><PathSteps path={steps} /></details>
+      </>)}
+    </div>
+  );
+}
+
 // ------------------------------------------------------------------ all links / planned
 
 function LinksTab({ types }: { types: TypeFilter }) {
@@ -279,7 +324,7 @@ export default function RelationsView() {
       <nav className="view-switch" aria-label="Relationship sections">
         {TABS.map(([t, l]) => <button key={t} className={tab === t ? 'active' : ''} onClick={() => setQuery({ tab: t === 'map' ? null : t })}>{l}</button>)}
       </nav>
-      {tab === 'path' ? <PathTab types={types} /> : tab === 'links' ? <LinksTab types={types} /> : tab === 'planned' ? <PlannedTab /> : <MapTab types={types} />}
+      {tab === 'path' ? <PathTab types={types} /> : tab === 'pathways' ? <PathwaysTab /> : tab === 'links' ? <LinksTab types={types} /> : tab === 'planned' ? <PlannedTab /> : <MapTab types={types} />}
 
       <Panel id="relations-controls" className="left-panel" title="Explore">
         {tab === 'path' ? (
@@ -297,7 +342,12 @@ export default function RelationsView() {
             </div>
           </>
         ) : null}
-        {tab !== 'planned' && <TypeChecks types={types} toggle={toggle} present={presentTypes} />}
+        {tab === 'pathways' && (
+          <ul aria-label="Pathways" style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+            {PATHWAYS.map((p) => <li key={p.id}><button className={`link-btn ${(getPathway(query.get('p') ?? '') ?? PATHWAYS[0]).id === p.id ? 'active' : ''}`} style={{ textAlign: 'left', padding: '4px 0' }} onClick={() => setQuery({ p: p.id, s: null })}>{p.title}</button> <span className="note">({p.entities.length} stops)</span></li>)}
+          </ul>
+        )}
+        {tab !== 'planned' && tab !== 'pathways' && <TypeChecks types={types} toggle={toggle} present={presentTypes} />}
         <div className="section-title" style={{ marginTop: 10 }}>Registry</div>
         <dl className="kv" aria-label="Registry size">
           <dt>Entities</dt><dd>{ents.length}</dd>

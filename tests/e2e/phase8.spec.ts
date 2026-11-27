@@ -266,3 +266,56 @@ test('76 encyclopedia E.2: cited About sections for planets (NASA), elements (Lo
   await expect(drawer.getByRole('list', { name: 'Celestial objects entries' }).getByRole('listitem')).toHaveCount(12);
   await shot(page, '76b-encyclopedia-index', 'Encyclopedia index with all four categories: 8 radiation types (NASA), 118 elements (Los Alamos), 129 molecules (ChEBI data via PubChem) and 12 solar-system bodies (NASA Facts pages).');
 });
+
+// ---------------- Gate 8.5 ----------------
+test('77 unified notebook: snapshot any view (route, readings, provenance, sources, version) and export Markdown with citations', async ({ page }) => {
+  await page.goto('/#/spectral/compare?L=a.H-I%2Cbb.sun&lo=-6.699&hi=-6&x=6.5646e-7');
+  await expect(page.getByRole('list', { name: 'Layer values at the selected position' })).toContainText('nearest line 656.46 nm');
+  await page.getByRole('button', { name: 'Notebook' }).click();
+  await page.getByRole('menu', { name: 'Notebook' }).getByRole('menuitem', { name: /Snapshot this view/ }).click();
+  const dlg = page.getByRole('dialog', { name: 'Snapshot this view' });
+  await expect(dlg).toContainText('Spectra on one axis');
+  await expect(dlg.getByLabel('Snapshot contents')).toContainText('observed');
+  await dlg.getByLabel('Snapshot name').fill('Hα on one axis');
+  await dlg.getByLabel('Snapshot notes').fill('H I 2 → 3 at 656.46 nm beside the 5772 K Sun.');
+  await dlg.getByRole('button', { name: 'Save snapshot' }).click();
+  await expect(dlg.getByRole('status')).toContainText('Saved “Hα on one axis”');
+  await dlg.getByRole('button', { name: 'Open notebook' }).click();
+  await expect(page).toHaveURL(/#\/notebook$/);
+  const card = page.getByRole('article', { name: 'Snapshot Hα on one axis' });
+  await expect(card).toContainText('#/spectral/compare?');
+  await expect(card).toContainText('H I 2 → 3 at 656.46 nm');
+  const [dl] = await Promise.all([page.waitForEvent('download'), card.getByRole('button', { name: 'Markdown' }).click()]);
+  const md = await (await import('node:fs')).promises.readFile((await dl.path())!, 'utf8');
+  expect(md.split('\n')[0]).toBe('# Hα on one axis');
+  expect(md).toMatch(/- \*\*Voyager version:\*\* \d+\.\d+\.\d+ \(commit [0-9a-f]{7,}\)/);
+  expect(md).toContain('| Layer values');
+  expect(md).toContain('## Sources');
+  expect(md).toContain('Kramida, A., Ralchenko, Yu., Reader, J.');
+  await shot(page, '77-notebook-snapshot', 'Unified notebook: a snapshot of the spectrum comparison (route, readings, provenance, cited sources, Voyager version) beside older experiments; every entry exports JSON, CSV and Markdown with full citations.');
+  await card.getByRole('button', { name: 'Open view' }).click();
+  await expect(page).toHaveURL(/#\/spectral\/compare\?L=a\.H-I%2Cbb\.sun&lo=-6\.699&hi=-6&x=6\.5646e-7/);
+});
+
+// ---------------- Gate 8.6 ----------------
+test('78 pathways: curated walks along sourced relationships with encyclopedia excerpts', async ({ page }) => {
+  await page.goto('/#/relations?tab=pathways');
+  await expect(page.getByRole('heading', { name: 'Hydrogen, from its spectrum to cosmic expansion' })).toBeVisible();
+  await expect(page.getByRole('list', { name: 'Stops' }).getByRole('listitem')).toHaveCount(6);
+  const stop = page.getByRole('region', { name: 'Stop 1 of 6' });
+  await expect(stop).toContainText('Hydrogen');
+  await expect(stop.getByRole('region', { name: 'Encyclopedia' })).toContainText('Los Alamos');
+  await stop.getByRole('button', { name: 'Next →' }).click();
+  await page.getByRole('button', { name: 'Next →' }).click();
+  await expect(page).toHaveURL(/s=2/);
+  const s3 = page.getByRole('region', { name: 'Stop 3 of 6' });
+  await expect(s3).toContainText('Orion Nebula');
+  await expect(s3).toContainText('Hα 656 nm: the red glow of the nebula is the first Balmer line of hydrogen');
+  await expect(s3).toContainText('Fraknoi');
+  await shot(page, '78-pathways', 'Pathway “Hydrogen, from its spectrum to cosmic expansion”, stop 3: the Orion Nebula reached through the sourced relationship “emits H I (Hα 656 nm)” (OpenStax Astronomy 2e).');
+  await page.getByRole('list', { name: 'Pathways' }).getByRole('button', { name: 'The oldest light' }).click();
+  await page.getByRole('list', { name: 'Stops' }).getByRole('button', { name: /4\. Microwaves/ }).click();
+  const s4 = page.getByRole('region', { name: 'Stop 4 of 4' });
+  await expect(s4).toContainText('2.72548 K blackbody');
+  await expect(s4.getByRole('region', { name: 'Encyclopedia' })).toContainText('NASA');
+});

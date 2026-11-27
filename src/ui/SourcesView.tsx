@@ -48,7 +48,7 @@ export function SourceLinks({ ids }: { ids: string[] }) {
     <span className="note">
       {ids.map((id, i) => {
         const s = SOURCES.find((x) => x.id === id);
-        return <span key={id}>{i > 0 && ' · '}<button className="link-btn" onClick={() => navigate(`/sources/${id}`)}>{s ? `${s.authors.split(',')[0]} (${s.year})` : id}</button></span>;
+        return <span key={id}>{i > 0 && ' · '}<button className="link-btn" data-source={id} onClick={() => navigate(`/sources/${id}`)}>{s ? `${s.authors.split(',')[0]} (${s.year})` : id}</button></span>;
       })}
     </span>
   );

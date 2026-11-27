@@ -4,10 +4,11 @@
  * src/shared/instruments/instruments.ts. The unit chosen for a dimension is remembered (localStorage) and
  * applies in every view.
  */
-import { useMemo, useState, useSyncExternalStore, type ReactNode } from 'react';
+import { useEffect, useMemo, useRef, useState, useSyncExternalStore, type ReactNode } from 'react';
 import { UNITS, convert, formatSig, type UnitDef, type UnitKey } from '@/core/units/units';
 import { CONVERTER_GROUPS, compatibleUnits, dimensionKey, readableUnit, seriesCSV, seriesStats, unitKeyOf, type SeriesMeta, type Sample } from '@/shared/instruments/instruments';
 import { download } from '@/shared/notebook';
+import { registerSeries } from '@/shared/instruments/liveSeries';
 import { LinePlot } from './plots';
 import { ProvenanceBadge } from './components';
 import type { ProvenanceClass } from '@/core/provenance/provenance';
@@ -113,6 +114,9 @@ export function Ruler({ from, options, target, onTarget, distance, distanceUnit,
 export function TimeSeriesView({ meta, points, onClear, height = 180, color = '#7df9ff', csvName }: { meta: SeriesMeta; points: readonly Sample[]; onClear?: () => void; height?: number; color?: string; csvName: string }) {
   const st = seriesStats(points);
   const pts = useMemo(() => points.map(([t, y]) => [t, y] as [number, number]), [points]);
+  // make the recorder visible to notebook snapshots (Gate 8.5)
+  const latest = useRef(points); latest.current = points;
+  useEffect(() => registerSeries(csvName, meta, () => latest.current), [csvName, meta.title, meta.method]); // eslint-disable-line react-hooks/exhaustive-deps
   return (
     <div className="instrument instrument-series">
       <div className="section-title">📈 {meta.title}</div>

@@ -371,7 +371,7 @@ function Readout({ ax, cursor, layers, z, nist }: { ax: AxisKind; cursor: number
       {rows.length > 0 && <>
         <div className="section-title">Layers here</div>
         <ul aria-label="Layer values at the selected position" style={{ listStyle: 'none', padding: 0, margin: 0, fontSize: 11.5 }}>
-          {rows.map(({ l, v }) => <li key={l.id} style={{ borderTop: '1px solid var(--line)', padding: '4px 0' }}><strong>{l.label}</strong> <span className="note">({l.nature})</span><br />{v}</li>)}
+          {rows.map(({ l, v }) => <li key={l.id} data-reading={`${l.label} (${l.nature})`} style={{ borderTop: '1px solid var(--line)', padding: '4px 0' }}><strong>{l.label}</strong> <span className="note">({l.nature})</span><br /><span data-value>{v}</span></li>)}
         </ul>
       </>}
     </>

@@ -4,15 +4,14 @@ Written 2026-11-27 after Gate 8.2. Read this first, then `DEVELOPMENT_ROADMAP.md
 
 ## ▶ RESUME HERE
 
-**State (HEAD `8ecd56d` on `main`, pushed, working tree clean):**
-- Phase 8 was approved by the user on 2026-11-27 (“proceed as planned”). Gates: **8.1 scale navigator — done** · **8.2 relationship explorer — done** · 8.3 integrated spectroscopy `#/spectral/compare` · 8.4 shared instruments · 8.5 unified notebook · 8.6 pathways. Encyclopedia pass E.2 (elements, molecules, celestial objects) comes after 8.3. Stop at the Phase 8 boundary for review.
-- At the end of 8.2 I asked the user whether to continue with 8.3; they asked for this handoff instead. **Confirm with the user before starting 8.3.** A pasted handoff on its own is not approval to continue.
-- **Production is behind:** the user said to skip deploying 8.1 (“Skip deployment and move on to the next step”), and 8.2 was not deployed either. Production still serves the Gate 7.5 build (`index-Qc9NTZFA.js`). Ask the user before deploying again.
-- **Deploying:** Claude Code’s auto-mode classifier blocks `vercel deploy`, even when the user asks directly. Don’t retry it; give the user this command (the `!` shell has no Node on its PATH, so plain `npx` fails):
+**State (2026-11-27, end of Phase 8; see the last commit on `main`):**
+- **Phase 8 is complete:** 8.1 scale navigator · 8.2 relationship explorer · 8.3 integrated spectroscopy `#/spectral/compare` · 8.4 shared instruments · E.2 encyclopedia (celestial objects, elements, molecules) · 8.5 unified notebook (📓 → Snapshot this view) · 8.6 pathways `#/relations?tab=pathways`. **Stopped at the Phase 8 boundary for the user's review.** Do not start Phase 9 without approval.
+- The user said “Don't deploy, just continue working”, and later “Continue through the next gates on auto mode, don't wait to write handoffs”. **Nothing since Gate 7.5 is deployed:** production still serves `index-Qc9NTZFA.js`. Ask before deploying.
+- **Deploy blocker diagnosed:** the Vercel CLI is logged in (`lodestar404`). Claude Code's auto-mode classifier blocks production deploys because no permission rule allows them. Fix, with the user's consent: add `Bash(npx vercel deploy --prod --yes --project voyager-ventures)` to `.claude/settings.local.json`. Until then, give the user the command below:
   `! export PATH=~/.local/node/bin:$PATH && cd "/Users/chrisjordan/Desktop/Voyager Ventures" && npx vercel deploy --prod --yes --project voyager-ventures`
-  Then compare production’s `index-*.js` with `dist/assets`, run the live suite and record it in `BUILD_LOG.md`.
+  Then compare production's `index-*.js` with `dist/assets`, run the live suite and record it in `BUILD_LOG.md`.
 
-**Counts:** 585 science tests (Vitest, 32 files), 67 browser tests (Playwright, 8 spec files; next test number is 74), 33 dataset manifests, 127 Source-index entries.
+**Counts:** 636 science tests (Vitest, 36 files), 72 browser tests (Playwright, 8 spec files; next test number is 79), 36 dataset manifests, 131 Source-index entries. Registry: 436 entities, 140 edges.
 
 ## What Phase 8 has added so far
 

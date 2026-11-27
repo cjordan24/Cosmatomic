@@ -190,4 +190,10 @@
   * Elements: LANL’s current pages are informal in places and are quoted as published. Jefferson Lab’s “It’s Elemental” is not used (its robots.txt disallows Anthropic agents and signals use=reference); the older LANL text mirrored by PubChem is not used because it can no longer be checked against LANL’s site.
   * Molecules: the text is PubChem’s description built from ChEBI data, credited to ChEBI, not ChEBI’s own page wording. Eight molecules have no openly licensed description (hydrogen peroxide, hydrogen chloride, hydrogen fluoride, hydrogen sulfide and anthracene, whose PubChem ChEBI items describe an atom or a class; cyanoacetylene, ketene and vinyl alcohol, which have none).
   * The registry gained 236 entities (bodies, all elements, all molecules) so every entry has one; most have no relationship edge yet (282 unlinked of 436).
+* **Unified notebook (Gate 8.5):**
+  * A snapshot records what the view displays (text as shown, rounded as shown), not the full state of a simulation; reopening the route reproduces URL-held parameters only. Views that keep state outside the URL (a paused sandbox run, Fields sliders) reopen at their defaults — use the sandbox and wave-lab *Save experiment* for full reproducibility.
+  * The screenshot is the largest canvas only (3D scene or map), not SVG plots or panels.
+  * Snapshots live in this browser’s IndexedDB; there is no sync or sharing.
+* **Pathways (Gate 8.6):**
+  * Five walks only, limited to the 140 registered edges; elements, molecules and planets added in E.2 have no edges yet beyond those listed, so they appear only as endpoints.
 

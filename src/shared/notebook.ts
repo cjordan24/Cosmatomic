@@ -6,11 +6,13 @@
  */
 import { idbAll, idbDelete, idbSet } from './idb';
 import type { SimState } from '@/modes/cosmic/sandbox/nbody';
+import type { ViewSnapshot } from './snapshot';
 
 /**
  * Experiment records form a discriminated union on `kind`. Records saved before Phase 4 have no
  * `kind`; migrateExperiment() assigns 'gravitational' so they keep working unchanged.
- * Only implemented experiment types are persisted (gravitational sandbox, wave laboratory).
+ * Only implemented experiment types are persisted (gravitational sandbox, wave laboratory) and, from Gate 8.5,
+ * view snapshots of any view (src/shared/snapshot.ts).
  */
 export interface Experiment {
   kind?: 'gravitational';
@@ -56,13 +58,14 @@ export interface WaveExperiment {
   randomSeed: null;
 }
 
-export type AnyExperiment = GravitationalExperiment | WaveExperiment;
+export type AnyExperiment = GravitationalExperiment | WaveExperiment | ViewSnapshot;
 
 /** Backward-compatible migration of a stored record. Unknown shapes are dropped (returned null), never guessed. */
 export function migrateExperiment(raw: unknown): AnyExperiment | null {
   const r = raw as Record<string, unknown> | null;
   if (!r || typeof r.id !== 'string') return null;
   if (r.kind === 'wave' && r.mode === 'wave-lab') return r as unknown as WaveExperiment;
+  if (r.kind === 'snapshot' && r.mode === 'view-snapshot' && typeof r.route === 'string') return r as unknown as ViewSnapshot;
   if ((r.kind === undefined || r.kind === 'gravitational') && r.mode === 'gravitational-sandbox') return { ...(r as unknown as Experiment), kind: 'gravitational' };
   return null;
 }

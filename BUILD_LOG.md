@@ -543,3 +543,17 @@ Split into documented sub-gates (the plan allowed it):
 5. **Sources:** `nasa-science-solar-system`, `lanl-periodic-table`, `chebi` (Malik et al. 2025, NAR, DOI 10.1093/nar/gkaf1271 checked on Crossref), `nci-thesaurus` (author note null: not verified). Registry: 436 entities, 140 edges.
 6. **Tests:** 623 science (encyclopedia 17, was 8), 70 browser (+1: test 76; test 66 now checks the 118 element entries instead of “coming soon”).
 
+## Phase 8, Gate 8.5: unified notebook, 2026-11-27
+
+1. **Snapshot any view:** 📓 is now a menu (*Open notebook* / *📸 Snapshot this view*, also in the phone ☰ menu; the top bar did not grow). A snapshot stores the route and parameters, view title, every readout shown (`dl` rows with the selected unit; list readouts marked `data-reading`), provenance classes on screen, cited source ids (`data-source` on every source link), live recorder series, a screenshot of the largest canvas, notes, and the Voyager version and commit (build-time `__APP_VERSION__` / `__APP_COMMIT__`).
+2. **Notebook:** snapshot cards (Open view, JSON, CSV, Markdown, Delete). Sandbox and wave-lab records are read in the same shape without rewriting, and gain Markdown (and, for waves, CSV) export. *Export all (Markdown)*. Markdown cites every source in full (DOI or URL, licence).
+3. **Tests:** +8 science (`tests/science/snapshot.test.ts`), browser test 77; test 38 opens the notebook through the 📓 menu.
+
+## Phase 8, Gate 8.6: pathways, 2026-11-27
+
+1. **View:** `#/relations?tab=pathways&p=&s=`: five curated walks (hydrogen → cosmic expansion; the Sun among the stars; oxygen light from the Ring Nebula to dark matter; the oldest light; gravitational waves and light). Each stop shows the sourced relationship that leads to it and the entity's encyclopedia entry; Previous/Next; all steps with sources.
+2. **Rule:** every consecutive pair must be an existing registry edge (either direction); a missing link shows the pathway as broken instead of filling it in. Pathways add no edges.
+3. **Tests:** +5 science (`tests/science/pathways.test.ts`), browser test 78.
+
+**Phase 8 complete.** 636 science tests, 72 browser tests (local full suite **72/72**, 12.4 min), 36 manifests, 131 sources. Not deployed (user's instruction). Stopping at the Phase 8 boundary for review.
+

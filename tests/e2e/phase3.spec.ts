@@ -144,6 +144,7 @@ test('38 notebook: save, list, export CSV, restore and restart reproducibly', as
   await page.getByRole('button', { name: 'Save experiment' }).click();
   await expect(page.getByRole('status')).toContainText('Saved');
   await page.getByRole('button', { name: /Notebook/ }).first().click();
+  await page.getByRole('menu', { name: 'Notebook' }).getByRole('menuitem', { name: 'Open notebook' }).click(); // 📓 is a menu since Gate 8.5
   await expect(page).toHaveURL(/#\/notebook/);
   const card = page.getByRole('article', { name: /Circumbinary stability run/ });
   await expect(card).toContainText('Planet at 3 au stays bound');

@@ -1,4 +1,5 @@
 import { UnitConverter } from '@/ui/instruments';
+import { SnapshotDialog } from '@/ui/Snapshot';
 import { Suspense, lazy, useEffect, useMemo, useRef, useState } from 'react';
 import type { NearbyObject } from '@/modes/cosmic/star-systems/stars';
 import { ELEMENTS } from '@/modes/atomic/atoms/elements';
@@ -140,6 +141,30 @@ export function currentScaleId(path: string[], query: URLSearchParams): string |
   return null;
 }
 
+/** 📓: open the notebook, or snapshot the current view into it (Gate 8.5). A menu, so the top bar does not grow. */
+function NotebookMenu({ onSnapshot }: { onSnapshot: () => void }) {
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (!open) return;
+    const close = (e: MouseEvent) => { if (!ref.current?.contains(e.target as Node)) setOpen(false); };
+    const esc = (e: KeyboardEvent) => { if (e.key === 'Escape') setOpen(false); };
+    document.addEventListener('mousedown', close); document.addEventListener('keydown', esc);
+    return () => { document.removeEventListener('mousedown', close); document.removeEventListener('keydown', esc); };
+  }, [open]);
+  return (
+    <div className="chip-menu" ref={ref}>
+      <button className={`icon-btn ${open ? 'active' : ''}`} aria-label="Notebook" aria-haspopup="menu" aria-expanded={open} onClick={() => setOpen((o) => !o)} title="Scientific notebook: open it, or snapshot this view">📓 <span className="hide-mobile">Notebook</span></button>
+      {open && (
+        <div className="chip-menu-list" role="menu" aria-label="Notebook" style={{ right: 0, left: 'auto' }}>
+          <button role="menuitem" onClick={() => { setOpen(false); navigate('/notebook'); }}>Open notebook</button>
+          <button role="menuitem" onClick={() => { setOpen(false); onSnapshot(); }}>📸 Snapshot this view</button>
+        </div>
+      )}
+    </div>
+  );
+}
+
 export function ScaleNavigator({ onClose }: { onClose: () => void }) {
   const { path, query } = useRoute();
   const cur = currentScaleId(path, query);
@@ -201,6 +226,7 @@ export function TopBar() {
   const mode = path[0];
   const [scaleOpen, setScaleOpen] = useState(false);
   const [settingsOpen, setSettingsOpen] = useState(false);
+  const [snapOpen, setSnapOpen] = useState(false);
   const [moreOpen, setMoreOpen] = useState(false);
   return (
     <>
@@ -260,7 +286,7 @@ export function TopBar() {
           <EncyclopediaButton />
           <button className={`icon-btn ${mode === 'relations' ? 'active' : ''}`} aria-label="Relationships" onClick={() => navigate('/relations')} title="Relationship explorer: how every record links to the others, with sources">🔗</button>
           <button className="icon-btn" aria-label="Sources" onClick={() => navigate('/sources')} title="Source index: every citation, link and author note">📚 <span className="hide-mobile">Sources</span></button>
-          <button className="icon-btn" aria-label="Notebook" onClick={() => navigate('/notebook')} title="Scientific notebook (saved experiments)">📓 <span className="hide-mobile">Notebook</span></button>
+          <NotebookMenu onSnapshot={() => setSnapOpen(true)} />
           <button className={`icon-btn ${scaleOpen ? 'active' : ''}`} onClick={() => setScaleOpen((o) => !o)} aria-pressed={scaleOpen} aria-label="Scale" title="Universal scale navigator">⟷ <span className="hide-mobile">Scale</span></button>
           <button className="icon-btn" onClick={() => setSettingsOpen(true)} title="Settings & engine status" aria-label="Settings">⚙</button>
         </div>
@@ -271,7 +297,7 @@ export function TopBar() {
             <div className="chip-menu-list" role="menu" aria-label="More" style={{ right: 0, left: 'auto' }}>
               {mode === 'spectral' && ([['Atlas', '/spectral'], ['Wave lab', '/spectral/lab'], ['Fields', '/spectral/fields'], ['Compare spectra', '/spectral/compare']] as const).map(([label, to]) =>
                 <button key={to} role="menuitem" className={`/${path.join('/')}` === to ? 'active' : ''} onClick={() => { setMoreOpen(false); navigate(to); }}>〰 {label}</button>)}
-              {([['📖 Encyclopedia', () => setQuery({ enc: query.has('enc') ? null : 'index' })], ['🔗 Relationships', () => navigate('/relations')], ['📚 Sources', () => navigate('/sources')], ['📓 Notebook', () => navigate('/notebook')],
+              {([['📖 Encyclopedia', () => setQuery({ enc: query.has('enc') ? null : 'index' })], ['🔗 Relationships', () => navigate('/relations')], ['📚 Sources', () => navigate('/sources')], ['📓 Notebook', () => navigate('/notebook')], ['📸 Snapshot this view', () => setSnapOpen(true)],
                 ['⟷ Scale', () => setScaleOpen((o) => !o)], ['⚙ Settings', () => setSettingsOpen(true)]] as [string, () => void][]).map(([label, act]) =>
                 <button key={label} role="menuitem" onClick={() => { setMoreOpen(false); act(); }}>{label}</button>)}
             </div>
@@ -281,6 +307,7 @@ export function TopBar() {
       {scaleOpen && <ScaleNavigator onClose={() => setScaleOpen(false)} />}
       {query.has('enc') && <Suspense fallback={null}><EncyclopediaDrawer /></Suspense>}
       {settingsOpen && <SettingsModal onClose={() => setSettingsOpen(false)} />}
+      {snapOpen && <SnapshotDialog onClose={() => setSnapOpen(false)} />}
     </>
   );
 }
