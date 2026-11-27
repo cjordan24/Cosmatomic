@@ -173,4 +173,11 @@
   * It shows only the edges registered so far (140): 45 entities have none, so a missing path means a missing record, not a scientific absence.
   * The shortest path counts edges, not their strength; the explorer does not rank or weigh relationships, and a path is not an argument.
   * Stars of the 10 pc sample are included only after their catalogue is loaded (“Include nearby stars”). The map draws at most 90 second-step entities.
+* **Integrated spectroscopy (Gate 8.3):**
+  * Molecular infrared spectra, molecular bands of cool stars (TiO, VO) and an observed solar spectrum are not bundled; the view lists them as unknown. The plan named “NIST molecular IR (Phase 2)”, but no IR data was ever bundled.
+  * NIST lines cover 200–1000 nm only; their relative intensities are source-specific and are not comparable between spectra or with the continuum track.
+  * Blackbodies are ideal continua: no absorption lines, limb darkening or atmosphere. Stellar layers use class V mean T_eff (Pecaut & Mamajek), not individual stars.
+  * Nebula lines are drawn at laboratory rest wavelengths with equal heights: the nebulae’s radial velocities and line strengths are not bundled. Only the Orion and Ring nebulae have lines in their records.
+  * The (1 + z) transformation shifts wavelengths only; intensities are not dimmed and no line broadening or absorption is modelled.
+  * On phones the Spectral sections (Atlas, Wave lab, Fields, Compare) are in the ☰ menu, not in chips.
 

@@ -91,6 +91,10 @@ Reaction → process/context (`participates-in`), e.g. net photosynthesis → `p
 
 At Gate 8.2 the registry holds 199 entities (186 available, 13 planned) in 27 connected groups; the largest has 89 entities. 45 entities have no edge yet, mostly reactions without a process link (Gate 4.1) and the field layers. The 562 objects of the 10 pc sample join when their catalogue loads.
 
+## Spectrum comparison (Gate 8.3)
+
+`instrument:spectral-compare` (`#/spectral/compare`) is registered so the explorer lists and opens the view; it has no edges, because it is a view, not a scientific entity. Each layer of the comparison links to the entity it stands for (`spectrum:H-I`, `spectrum:blackbody-5772`, `spectrum:n-water`, `nebula:ring`, `context:cmb` …) and shows that entity’s *Related across modes* list. The registry now holds 200 entities and 140 edges; 46 entities have no edge.
+
 ## Rules
 
 1. No edge without a source.

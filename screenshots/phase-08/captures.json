@@ -3,5 +3,7 @@
   "72b-scale-sun.png": "The Sun (IAU 2015 nominal radius) beside Jupiter, Earth, Sirius B and the Earth–Moon distance.",
   "72c-scale-observable.png": "The comoving radius of the observable universe in Planck 2018 ΛCDM (a model quantity) beside the Hubble distance.",
   "73a-relations-hydrogen.png": "Relationship explorer: hydrogen, its NIST spectra and the Sun one step away, and what they link to at two steps.",
-  "73b-relations-path.png": "Path from hydrogen to cosmic expansion: Sun (Asplund 2009) → Milky Way (Bland-Hawthorn & Gerhard 2016) → distance ladder → expansion (Riess et al. 2022)."
+  "73b-relations-path.png": "Path from hydrogen to cosmic expansion: Sun (Asplund 2009) → Milky Way (Bland-Hawthorn & Gerhard 2016) → distance ladder → expansion (Riess et al. 2022).",
+  "74a-compare-sun-cmb.png": "Spectrum comparison, 50 nm – 3 cm: NIST H I lines, the 5772 K solar blackbody and the 2.72548 K CMB blackbody (models, dashed) with the 43 COBE/FIRAS points (observed), all as λB_λ = νB_ν on one log scale.",
+  "74b-compare-redshift.png": "NIST H I lines and the Ring Nebula’s [O III] and [N II] lines (NIST rest wavelengths) shifted by 1 + z = 2, beside the refractive index of water (not shifted); the readout gives the rest wavelength."
 }

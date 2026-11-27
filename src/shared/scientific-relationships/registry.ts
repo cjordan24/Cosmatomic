@@ -71,6 +71,8 @@ const BASE_ENTITIES: Entity[] = [
   E('wave:em-infrared', 'Infrared radiation', '#/spectral?lambda=1e-5', 'Spectral atlas: ISO 21348, CIE and detector infrared divisions'),
   E('wave:em-xray', 'X-rays', '#/spectral?lambda=1e-9', 'Spectral atlas: ISO 21348 hard and soft X-rays'),
   E('wave:em-gamma', 'Gamma rays', '#/spectral?lambda=1e-13', 'Spectral atlas: ISO 21348 gamma-ray category'),
+  // Phase 8, Gate 8.3: the comparison view itself, so the relationship explorer lists and opens it
+  E('instrument:spectral-compare', 'Spectrum comparison (one axis)', '#/spectral/compare', 'NIST lines, nebula lines, blackbodies, FIRAS and n(λ) overlaid on one wavelength, frequency or energy axis (Gate 8.3)'),
 ];
 
 const REGISTRY = new Map<string, Entity>();

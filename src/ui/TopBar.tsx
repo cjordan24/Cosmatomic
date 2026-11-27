@@ -243,9 +243,10 @@ export function TopBar() {
         )}
         {mode === 'spectral' && (
           <nav className="chip-row hide-mobile" aria-label="Spectral sections">
-            <button className={`chip ${path[1] !== 'lab' && path[1] !== 'fields' ? 'active' : ''}`} onClick={() => navigate('/spectral')}>Atlas</button>
+            <button className={`chip ${path[1] !== 'lab' && path[1] !== 'fields' && path[1] !== 'compare' ? 'active' : ''}`} onClick={() => navigate('/spectral')}>Atlas</button>
             <button className={`chip ${path[1] === 'lab' ? 'active' : ''}`} onClick={() => navigate('/spectral/lab')}>Wave lab</button>
             <button className={`chip ${path[1] === 'fields' ? 'active' : ''}`} onClick={() => navigate('/spectral/fields')}>Fields</button>
+            <button className={`chip ${path[1] === 'compare' ? 'active' : ''}`} onClick={() => navigate('/spectral/compare')}>Compare</button>
           </nav>
         )}
         <div className="spacer" />
@@ -263,6 +264,8 @@ export function TopBar() {
           <button className={`icon-btn ${moreOpen ? 'active' : ''}`} aria-haspopup="menu" aria-expanded={moreOpen} aria-label="More" onClick={() => setMoreOpen((o) => !o)}>☰</button>
           {moreOpen && (
             <div className="chip-menu-list" role="menu" aria-label="More" style={{ right: 0, left: 'auto' }}>
+              {mode === 'spectral' && ([['Atlas', '/spectral'], ['Wave lab', '/spectral/lab'], ['Fields', '/spectral/fields'], ['Compare spectra', '/spectral/compare']] as const).map(([label, to]) =>
+                <button key={to} role="menuitem" className={`/${path.join('/')}` === to ? 'active' : ''} onClick={() => { setMoreOpen(false); navigate(to); }}>〰 {label}</button>)}
               {([['📖 Encyclopedia', () => setQuery({ enc: query.has('enc') ? null : 'index' })], ['🔗 Relationships', () => navigate('/relations')], ['📚 Sources', () => navigate('/sources')], ['📓 Notebook', () => navigate('/notebook')],
                 ['⟷ Scale', () => setScaleOpen((o) => !o)], ['⚙ Settings', () => setSettingsOpen(true)]] as [string, () => void][]).map(([label, act]) =>
                 <button key={label} role="menuitem" onClick={() => { setMoreOpen(false); act(); }}>{label}</button>)}

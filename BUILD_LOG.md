@@ -511,3 +511,15 @@ Phase 8 approved by the user (“proceed as planned”): 8.1 scale navigator · 
 3. **Registry today:** 199 entities (186 available, 13 planned), 140 edges, 27 connected groups (largest 89), 45 unlinked entities. Hydrogen → cosmic expansion is 4 steps (Asplund 2009 → Bland-Hawthorn & Gerhard 2016 → Riess et al. 2022 ×2).
 4. **Top bar:** 🔗 *Relationships* added (also in the phone ☰ menu). To keep the 1440 px bar inside the window in Cosmic mode, crowded bars use 6 px gaps and 7 px button padding, and search is at most 306 px wide; rightmost element at 1427 px.
 5. **Tests:** 585 science (+10, `tests/science/relations.test.ts`), 67 browser (+1: test 73). Local full suite 67/67.
+
+## Phase 8, Gate 8.3: integrated spectroscopy (`#/spectral/compare`), 2026-11-27
+
+1. **View:** `#/spectral/compare?ax=&lo=&hi=&L=&z=&x=&sel=` — bundled spectra on one log axis of vacuum wavelength, frequency or photon energy (10 nm – 10 cm, presets and zoom). Layers: the 33 NIST ASD line spectra, the Orion and Ring nebula lines at NIST rest wavelengths, blackbodies (Sun 5772 K, every class V T_eff of Pecaut & Mamajek, CMB 2.72548 K), the 43 COBE/FIRAS points and n(λ) of the 9 optical materials. Each layer is labelled *observed* or *model*, with provenance, sources and a link to its registry entity. Clicking reads every layer at one wavelength.
+2. **Continuum:** blackbodies and FIRAS share one log y-axis in λB_λ = νB_ν (W m⁻² sr⁻¹), identical on all three axes, so the Sun and the CMB appear on one honest scale.
+3. **Redshift:** λ_obs = λ_rest(1 + z), labelled as a transformation; applied to line layers and stellar blackbodies only, intensities unchanged.
+4. **Not bundled:** the approved plan listed “NIST molecular IR (Phase 2)”, but no IR or vibrational data exists in the repository; the view lists molecular IR, cool-star molecular bands and an observed solar spectrum as unknown instead of inventing them.
+5. **Links:** *Compare* chip in the Spectral sections; on phones the four Spectral sections are now in the ☰ menu (Wave lab and Fields were not reachable from the phone top bar before); “Compare on one axis →” in the atlas lines tab, “Sun and CMB on one axis →” in the blackbody tab, “FIRAS beside the Sun on one axis →” in the CMB view; `instrument:spectral-compare` registered (200 entities, 140 edges, 46 unlinked).
+6. **Tests:** 606 science (+21, `tests/science/compare.test.ts`), 68 browser (+1: test 74). Local full suite **68/68** (10.5 min).
+7. **Layout:** at 1440 px the Spectral top bar ends at 1436 px; at 390 px the view does not overflow (scroll width 390).
+
+**Gate 8.3 deploy:** not deployed (the user: “Don't deploy, just continue working”). Production still serves the Gate 7.5 build.

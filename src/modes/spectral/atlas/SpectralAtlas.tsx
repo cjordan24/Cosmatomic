@@ -407,7 +407,8 @@ function BlackbodyTab({ T, lambda, onPick }: { T: number; lambda: number; onPick
         <KV k="c/ν_max (≠ λ_max)" v={fmtQ('wavelength', C / np, 5)} />
         <KV k="radiant exitance σT⁴" v={SIGMA_SB * T ** 4} unit="W/m²" sig={5} />
       </dl>
-      <div className="chip-row"><button className="chip" onClick={() => onPick(lp)}>Select λ_max</button><button className="chip" onClick={() => onPick(C / np)}>Select c/ν_max</button></div>
+      <div className="chip-row"><button className="chip" onClick={() => onPick(lp)}>Select λ_max</button><button className="chip" onClick={() => onPick(C / np)}>Select c/ν_max</button>
+        <button className="link-btn" onClick={() => navigate('/spectral/compare?L=bb.sun,bb.cmb,firas')}>Sun and CMB on one axis →</button></div>
       <p className="note" style={{ fontSize: 10.5 }}>Planck’s law for an ideal blackbody, with b and σ derived from h, c and k (they match the CODATA listed values exactly). Real bodies are not perfect blackbodies. The Sun’s spectrum has absorption lines and departs from a single 5772 K curve, so this is a model, not the observed solar spectrum. <SourceLinks ids={['codata-2018', 'iau-2015-b3', 'fixsen-2009']} /></p>
       {getEntity(`spectrum:blackbody-${Math.round(T)}`) && Math.abs(T - Math.round(T)) < 1e-9 && <RelatedLinks id={`spectrum:blackbody-${Math.round(T)}`} limit={6} first={starSeq !== null ? `star:${starSeq}` : undefined} />}
       {starSeq !== null && <p className="note" style={{ fontSize: 10.5 }}>Opened from a nearby star: {T} K is the class V mean T_eff for its spectral type (Pecaut &amp; Mamajek), so this curve models its continuum only. <SourceLinks ids={['pecaut-mamajek-2013']} /></p>}
@@ -435,6 +436,7 @@ function LinesTab({ lambda, onPick, spec }: { lambda: number; onPick: (l: number
           {keys.map((k) => <option key={k}>{k}</option>)}
         </select>
         {el && <button className="link-btn" onClick={() => navigate(`/atomic/element/${el.Z}?diagram=spectrum`)}>Open {el.name} in Atomic mode →</button>}
+        <button className="link-btn" onClick={() => navigate(`/spectral/compare?L=a.${spec.replace(' ', '-')},bb.sun&lo=-6.699&hi=-6`)}>Compare on one axis →</button>
       </div>
       {!data ? <p className="note">No bundled lines for {spec}.</p> : (<>
         <svg viewBox={`0 0 ${w} 96`} style={{ width: '100%' }} role="img" aria-label={`NIST lines of ${spec} on the spectrum`}>

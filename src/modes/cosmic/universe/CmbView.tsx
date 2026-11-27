@@ -68,6 +68,7 @@ function SpectrumTab() {
         <label className="toggle-row"><span>Galaxy model (× 100)</span><input type="checkbox" checked={showGal} onChange={(e) => setQuery({ gal: e.target.checked ? '1' : null })} aria-label="Show Galaxy model" /></label>
         <p className="note" style={{ fontSize: 10.5 }}>The Galaxy column is Fixsen et al.’s model of Galactic emission at the poles (Table 4), drawn 100 times larger to be visible <SourceLinks ids={['fixsen-1996']} />.</p>
         <button className="chip" onClick={() => navigate(`/spectral?tab=blackbody&T=${T0}`)}>Open the {T0} K blackbody in the Spectral atlas →</button>
+        <button className="chip" onClick={() => navigate('/spectral/compare?L=firas,bb.cmb,bb.sun&ax=frequency')}>FIRAS beside the Sun on one axis →</button>
       </Panel>
       <Panel id="cmb-spec-info" className="right-panel" title="Fit and limits">
         <dl className="kv" aria-label="FIRAS fit">

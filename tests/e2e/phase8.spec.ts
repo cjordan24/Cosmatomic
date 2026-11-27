@@ -112,3 +112,63 @@ test('73 relationship explorer: neighbourhood map, sourced path between two enti
   await expect(page).toHaveURL(/#\/relations\?e=body%3Asun/);
   await expect(page.getByRole('heading', { name: 'Sun', exact: true })).toBeVisible();
 });
+
+// ---------------- Gate 8.3 ----------------
+test('74 integrated spectroscopy: observed and model spectra on one wavelength / frequency / energy axis, with a labelled (1 + z) transformation', async ({ page }) => {
+  await page.goto('/#/spectral');
+  await page.getByRole('navigation', { name: 'Spectral sections' }).getByRole('button', { name: 'Compare' }).click();
+  await expect(page).toHaveURL(/#\/spectral\/compare$/);
+  await expect(page.getByRole('heading', { name: 'Spectra on one axis' })).toBeVisible();
+  const legend = page.getByLabel('Legend');
+  await expect(legend).toContainText('H I lines (NIST ASD) · observed');
+  await expect(legend).toContainText('Sun, 5772 K blackbody · model');
+  await expect(legend).toContainText('CMB spectrum, COBE/FIRAS · observed');
+  await expect(page.getByRole('list', { name: 'Spectra not bundled' })).toContainText('Molecular infrared spectra');
+
+  // clicking the plot selects a wavelength and reads every layer there
+  await page.getByRole('img', { name: 'Spectra on one wavelength axis' }).click({ position: { x: 200, y: 120 } });
+  await expect(page).toHaveURL(/x=/);
+  const here = page.getByRole('list', { name: 'Layer values at the selected position' });
+  await expect(here).toContainText('Sun, 5772 K blackbody');
+  await expect(here).toContainText('λB_λ =');
+  await shot(page, '74a-compare-sun-cmb', 'Spectrum comparison, 50 nm – 3 cm: NIST H I lines, the 5772 K solar blackbody and the 2.72548 K CMB blackbody (models, dashed) with the 43 COBE/FIRAS points (observed), all as λB_λ = νB_ν on one log scale.');
+
+  // deep link: Hα read on the NIST H I layer; a nebula layer added from the list
+  await page.goto('/#/spectral/compare?L=a.H-I,n.water&lo=-6.699&hi=-6&x=6.5646e-7');
+  await expect(here).toContainText('nearest line 656.46 nm rest: 2 → 3');
+  await expect(here).toContainText('n = 1.33');
+  await page.getByRole('combobox', { name: 'Add Nebula emission lines' }).selectOption('neb.ring');
+  await expect(page).toHaveURL(/L=a\.H-I%2Cn\.water%2Cneb\.ring|L=a\.H-I,n\.water,neb\.ring/);
+  const card = page.getByRole('region', { name: 'Readout' });
+  await expect(card).toContainText('observed data');
+  await expect(card).toContainText('NIST laboratory (rest) wavelength');
+  await expect(here).toContainText('[N II] 658 nm');
+
+  // redshift is a labelled transformation of the line layers only
+  await page.getByRole('textbox', { name: 'Redshift value' }).fill('1');
+  await page.getByRole('textbox', { name: 'Redshift value' }).press('Enter');
+  await expect(page).toHaveURL(/z=1/);
+  await expect(page.getByText('transformation: λ_obs = λ_rest × 2')).toBeVisible();
+  await expect(page.getByRole('definition').filter({ hasText: '328.23 nm' })).toBeVisible();
+  await expect(here).toContainText('no line within 0.5 %');
+  await expect(card).toContainText('a transformation of the rest-frame layer, not an observation');
+  await expect(legend).toContainText('n(λ) of Water · model · not shifted');
+  await shot(page, '74b-compare-redshift', 'NIST H I lines and the Ring Nebula’s [O III] and [N II] lines (NIST rest wavelengths) shifted by 1 + z = 2, beside the refractive index of water (not shifted); the readout gives the rest wavelength.');
+
+  // frequency and energy axes; n(λ) outside its validity range is unknown
+  await page.goto('/#/spectral/compare?L=n.water,firas,bb.cmb&ax=frequency&x=2e-6');
+  await expect(page.getByRole('img', { name: 'Spectra on one frequency axis' })).toBeVisible();
+  await expect(here).toContainText('unknown (formula valid 0.182–1.129 µm)');
+  await expect(here).toContainText('no FIRAS point here');
+  await page.getByRole('radiogroup', { name: 'Axis quantity' }).getByRole('radio', { name: 'energy' }).click();
+  await expect(page.getByRole('img', { name: 'Spectra on one energy axis' })).toBeVisible();
+
+  // links in: atlas lines tab and the CMB view
+  await page.goto('/#/spectral?tab=lines&spec=Na%20I');
+  await page.getByRole('button', { name: 'Compare on one axis →' }).click();
+  await expect(page).toHaveURL(/#\/spectral\/compare\?L=a\.Na-I/);
+  await expect(legend).toContainText('Na I lines (NIST ASD)');
+  await page.goto('/#/cosmic/cmb');
+  await page.getByRole('button', { name: 'FIRAS beside the Sun on one axis →' }).click();
+  await expect(page.getByRole('img', { name: 'Spectra on one frequency axis' })).toBeVisible();
+});
