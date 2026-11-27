@@ -299,6 +299,12 @@ registerRelationship({ from: 'instrument:thermal-radiation', to: 'context:sunlig
 for (const id of ['mercury', 'venus', 'earth', 'moon', 'mars', 'jupiter', 'saturn', 'uranus', 'neptune', 'pluto'])
   if (REGISTRY.has(`body:${id}`)) registerRelationship({ from: `body:${id}`, to: 'instrument:thermal-radiation', type: 'has-property', context: 'Bond albedo, solar irradiance and black-body (balance) temperature', source: 'nssdc-factsheet' });
 
+// ---------------------------------------------------------------- Phase 10, Gate 10.6: telescopes
+registerEntity(E('instrument:telescopes', 'Telescopes and cameras', '#/spectral/telescopes', 'Airy’s pattern, Rayleigh’s resolution of two stars, focal length, plate scale and the diffraction limits of Hubble and JWST (Gate 10.6)'));
+registerRelationship({ from: 'instrument:telescopes', to: 'instrument:wave-optics', type: 'part-of', context: 'the image of a star through a circular aperture is a diffraction pattern (Airy 1835)', source: 'airy-1835' });
+registerRelationship({ from: 'instrument:telescopes', to: 'wave:em-visible', type: 'explains', context: 'the smallest resolvable angle is about 1·2197 λ/D', source: 'rayleigh-scientific-papers-1' });
+registerRelationship({ from: 'instrument:telescopes', to: 'wave:em-infrared', type: 'explains', context: 'JWST observes from 0.6 to beyond 28 µm with a ~6.5 m mirror', source: 'stsci-jwst-jdox' });
+
 export const getEntity = (id: string) => REGISTRY.get(id);
 export const allEntities = () => [...REGISTRY.values()];
 export const relationshipsFrom = (id: string) => RELATIONSHIPS.filter((r) => r.from === id);

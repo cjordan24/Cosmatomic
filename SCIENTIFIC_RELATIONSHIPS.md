@@ -131,6 +131,7 @@ Every encyclopedia entry describes a registry entity, so E.2 registered the 11 s
 `instrument:polarisation` (`#/spectral/polarisation`) *explains* visible light (polarisation by reflection, Drude), is *part of* geometric optics (the Fresnel fractions at each surface) and reads the birefringence of quartz, sapphire and rutile (`has-property`, Ghosh 1999, Malitson & Dodge 1972, DeVore 1951).
 `instrument:spectroscopy` (`#/spectral/spectroscopy`) *explains* the H I, D I and He II spectra (hydrogenic lines with R_M, NIST Compendium), microwaves (diatomic rotation lines, NIST Diatomic Spectral Database) and infrared (vibrational quanta, Huber & Herzberg).
 `instrument:thermal-radiation` (`#/spectral/thermal`) *explains* infrared radiation (Wien, Planck 1914) and sunlight's planet-averaged 340 W/m² (NASA); every planet and the Moon *has-property* its albedo, irradiance and balance temperature (NSSDCA).
+`instrument:telescopes` (`#/spectral/telescopes`) is *part of* wave optics (Airy's diffraction pattern) and *explains* the resolution of visible (Rayleigh) and infrared (JWST, STScI) telescopes.
 
 ## Rules
 

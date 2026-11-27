@@ -699,3 +699,12 @@ Phase 10 approved by the user (“approve phase 10”). The optics textbooks fir
 6. **Sources:** `planck-1914`, `nasa-earth-energy-budget` (171 entries). Registry: `instrument:thermal-radiation`, linked to infrared, sunlight and ten solar-system bodies.
 7. **Tests:** science 771/771 (+6, `tests/science/thermalRadiation.test.ts`); browser test 90 (screenshots 90a–b).
 
+## Phase 10, Gate 10.6: telescopes (`#/spectral/telescopes`), 2026-11-27
+
+1. **View:** `#/spectral/telescopes?tab=airy|resolve|instruments` (Light ▾ → Telescopes).
+2. **Physics:** `src/core/physics/optics/telescopes.ts`: Airy's 1835 integral by quadrature, rings by bisection and golden-section search, θ₁ = 1.2197 λ/D, two-star images, Rayleigh's slit criterion, F = N·D and plate scale; a tabulated intensity draws the 2-D images (checked against the integral to 10⁻⁴).
+3. **Finding:** Airy's printed table puts the second black ring at n = 7·14 where his integral vanishes at 7.016 (I read p. 287 on the page image); the half light 1·616, first ring 3·832 and bright ring 5·12 at 1/57 agree. The view shows both.
+4. **Checks:** Hubble 2.4 m at f/24: 57.6 m and 3.581″/mm (Primer 3.58″/mm); unobstructed FWHM at 500 nm 0.0442″ (Primer 0.043″, measured). JWST uses JDox's stated 131.4 m (f/20 × 6.5 m would give 130 m; the stated focal length implies 6.57 m).
+5. **Sources:** `airy-1835`, `rayleigh-scientific-papers-1`, `stsci-hst-primer`, `stsci-jwst-jdox` (175 entries). Registry: `instrument:telescopes`.
+6. **Tests:** science 781/781 (+10, `tests/science/telescopes.test.ts`); browser test 91 (screenshots 91a–b).
+

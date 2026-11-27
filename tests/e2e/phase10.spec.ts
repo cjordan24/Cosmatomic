@@ -137,3 +137,23 @@ test('90 thermal radiation: Planck curves with Wien and Stefan–Boltzmann, grey
   await expect(page.getByRole('table', { name: 'Planet temperatures' })).toContainText('439.6');
   await shot(page, '90b-planets', 'Radiative balance T = [S(1 − A)/4σ]^¼ for ten bodies against the NSSDCA black-body temperatures and mean temperatures; Earth absorbs 240 W/m² of its 340 W/m² (NASA energy budget).');
 });
+
+// ---------------- Gate 10.6 ----------------
+test('91 telescopes: Airy’s pattern against his 1835 table, Rayleigh’s two-star criterion, Hubble and JWST plate scales and diffraction limits', async ({ page }) => {
+  await page.goto('/#/spectral');
+  await page.getByRole('navigation', { name: 'Spectral sections' }).getByRole('button', { name: 'Light ▾' }).click();
+  await page.getByRole('menuitem', { name: 'Telescopes' }).click();
+  await expect(page).toHaveURL(/#\/spectral\/telescopes$/);
+  const ar = page.getByLabel('Airy result');
+  await expect(ar).toContainText('3.8317 / 3.832');
+  await expect(ar).toContainText('1.616');
+  await expect(ar).toContainText(/1\.38\d ″/);              // 1.2197 × 550 nm / 0.1 m
+  await shot(page, '91a-airy', 'Airy’s pattern of a 10 cm aperture at 550 nm computed from his 1835 integral: half light at n = 1.616, first black ring at 3.832, first bright ring 1/57 of the centre; his printed 7·14 for the second ring beside the integral’s 7.016.');
+  await page.getByRole('navigation', { name: 'Telescope sections' }).getByRole('button', { name: 'Resolving two stars' }).click();
+  await expect(page.getByLabel('Resolution result')).toContainText(/0\.73\d/);
+  await expect(page.getByLabel('Resolution result')).toContainText('0.8106');
+  await page.getByRole('navigation', { name: 'Telescope sections' }).getByRole('button', { name: 'Hubble and JWST' }).click();
+  await expect(page.getByLabel('Instrument result')).toContainText('3.581 / 3.58');
+  await expect(page.getByRole('table', { name: 'Telescopes' })).toContainText('131');
+  await shot(page, '91b-hubble-jwst', 'Hubble (2.4 m, f/24) and JWST (6.5 m, f/20): focal lengths, plate scales (Hubble 3.581″/mm against the Primer’s 3.58″/mm) and diffraction limits 1.2197 λ/D over their wavelength ranges (STScI).');
+});
