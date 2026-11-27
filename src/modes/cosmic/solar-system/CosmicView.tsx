@@ -192,6 +192,7 @@ export default function CosmicView({ focusId: focusParam }: { focusId: string })
 
       <Panel id="cosmic-bodies" className={`bodies-panel ${listOpen ? 'mobile-open' : ''}`} title="Solar system">
         <button className={`body-btn ${overview ? 'active' : ''}`} onClick={() => navigate('/cosmic')}><span className="sw" style={{ background: 'conic-gradient(#ffd27a,#b18cff,#4f8fe6,#ffd27a)' }} />Overview</button>
+        <button className="body-btn" onClick={() => navigate('/cosmic/map?z=12.9')} title="Zoom out from the solar system to the stars, the Milky Way and the galaxies beyond"><span className="sw" style={{ background: 'radial-gradient(circle,#fff,#9fb8ff 40%,#2a1d5c)' }} />Zoom out to the universe →</button>
         {tree.map((b) => (
           <div key={b.id}>
             <button className={`body-btn ${b.id === focus && !overview ? 'active' : ''}`} onClick={() => navigate(`/cosmic/${b.id}`)}>

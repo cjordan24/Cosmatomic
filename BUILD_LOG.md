@@ -719,3 +719,19 @@ Phase 10 approved by the user (“approve phase 10”). The optics textbooks fir
 
 Phase 10 is complete. Stopping for user review.
 
+### Production deploy and live verification (Phase 10, 2026-11-27)
+
+- Deployed by the user (`vercel deploy --prod`), deployment `dpl_cfnxMyKqKtxHWtKi4LKHFXLzdnm4`; production serves `index-DI7Pn4N4.js` (Vercel builds the bundle itself, so its hash differs from the local build).
+- Full browser suite against production: **86/86** (13.2 min). Test 77 now passes in production: the notebook export records the commit through `VERCEL_GIT_COMMIT_SHA`.
+
+## Gate 10.8: universe map (`#/cosmic/map`), 2026-11-27
+
+Requested by the user: “include [galaxies and other objects] in a 3d map based on their approximate locations relative to our solar system … zoom out of the solar system to see our galaxy and beyond.”
+
+1. **View:** `#/cosmic/map?z=&sel=`, from a new **Map** chip in the Cosmic bar and a “Zoom out to the universe →” button in the solar-system body list. The Sandbox chip moved into the Gravity menu (“N-body sandbox”) so the bar keeps its width.
+2. **Data:** new dataset `datasets/astronomical/universe-map.json` (42 manifests; adapter `scripts/ingestion/universe-map.ts`): McConnachie's (2012) Local Group catalogue (102 rows) and SIMBAD positions for the 175 SPARC galaxies (all resolved through the SIMBAD names VizieR attaches to SPARC), the five nebulae, Sgr A*, M87, Cygnus X-1 and NGC 4258. The CDS site answers scripts with a “Page unavailable” page; the official VizieR mirror at the CfA (no robots.txt) served everything, one request per second. Distances come from the records already bundled, never from SIMBAD.
+3. **Rendering:** one group scaled by 1/R; wheel and slider change log₁₀ R from 10.6 to 27.2; layers fade with scale; points beyond the view fade. Two bugs found on screenshots and fixed: the distance fade first overflowed 32-bit floats (|r|² in metres), and a GLSL comment on a one-line shader commented out the rest of `main()`.
+4. **Checks:** the Galactic transform reproduces McConnachie's printed l, b within his 0.1° rounding for 100 galaxies; Leo IV's printed l, b are 1.05° from its own RA/Dec (catalogue inconsistency, documented; RA/Dec used). Sgr A* at l, b ≈ 0; last-scattering sphere 13.9 Gpc.
+5. **Sources:** `mcconnachie-2012`, `simbad` (181 entries; DOIs checked on Crossref); VizieR's usage extended.
+6. **Tests:** science 793/793 (+6, `tests/science/universeMap.test.ts`); browser test 93 (screenshots 93a–c).
+

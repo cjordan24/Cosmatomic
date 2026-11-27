@@ -177,3 +177,26 @@ test('92 atmosphere: λ⁻⁴ scattering of sunlight, Rayleigh’s 1899 extincti
   await expect(page.getByRole('table', { name: 'Landsat bands table' })).toContainText('11.50 – 12.51');
   await expect(page.getByLabel('Landsat result')).toContainText('10.06');
 });
+
+// ---------------- Gate 10.8 ----------------
+test('93 universe map: zoom out from the planets through the nearest stars and the Milky Way to the Local Group, the galaxies and the last-scattering surface', async ({ page }) => {
+  await page.goto('/#/cosmic');
+  await page.getByRole('button', { name: 'Zoom out to the universe →' }).click();
+  await expect(page).toHaveURL(/#\/cosmic\/map/);
+  const scale = page.getByLabel('Map scale');
+  await expect(scale).toContainText('AU');
+  await expect(page.getByText('☉ Sun — you are here')).toBeVisible();
+  await page.getByRole('button', { name: 'Nearest stars' }).click();
+  await expect(scale).toContainText(/ly \(\d/, { timeout: 8000 });
+  await expect(page.getByText('Proxima Cen', { exact: true })).toBeVisible({ timeout: 8000 });
+  await shot(page, '93a-map-stars', 'Universe map at about 3 pc: the Sun and the nearest stars at their Gaia positions (CNS5), Galactic frame.');
+  await page.getByRole('button', { name: 'Milky Way' }).click();
+  await expect(page.getByText('Galactic Centre (Sgr A*)')).toBeVisible({ timeout: 8000 });
+  await shot(page, '93b-map-milky-way', 'Zoomed out to about 25 kpc: the Milky Way disc modelled from Bland-Hawthorn & Gerhard’s scale length and height, the Sun 8.2 kpc from Sgr A*, the nebulae at their SIMBAD positions and the nearest Local Group dwarfs (McConnachie 2012).');
+  await page.getByLabel('Find an object').selectOption('lg-Andromeda');
+  await expect(page.getByRole('region', { name: /Andromeda/ })).toBeVisible({ timeout: 8000 });
+  await expect(page.getByLabel('Map object')).toContainText('million ly', { timeout: 8000 });
+  await page.getByRole('button', { name: 'Observable universe' }).click();
+  await expect(scale).toContainText('billion ly', { timeout: 10000 });
+  await shot(page, '93c-map-universe', 'The whole map: the last-scattering surface of the cosmic microwave background 45 billion light years away today (comoving distance to z∗ = 1089.8, Planck 2018).');
+});

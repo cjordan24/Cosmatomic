@@ -1,0 +1,25 @@
+{
+  "dataset": "universe-map",
+  "version": "1.0.0",
+  "records": 286,
+  "sources": [
+    {
+      "institution": "McConnachie (2012) AJ 144, 4, via VizieR J/AJ/144/4 (CfA mirror)",
+      "url": "https://vizier.cfa.harvard.edu/viz-bin/VizieR?-source=J/AJ/144/4",
+      "notes": "positions, Galactic coordinates and heliocentric distances of galaxies in and around the Local Group"
+    },
+    {
+      "institution": "SIMBAD (Wenger et al. 2000) via the Sesame name resolver on the VizieR CfA mirror",
+      "url": "https://vizier.cfa.harvard.edu/viz-bin/nph-sesame",
+      "notes": "J2000 positions with SIMBAD’s reference for each; SPARC SIMBAD names from VizieR J/AJ/152/157"
+    }
+  ],
+  "adapter": "scripts/ingestion/universe-map.ts",
+  "warnings": [
+    "Distances are not taken from SIMBAD; each map object uses a distance already bundled with its own source."
+  ],
+  "output": "datasets/astronomical/universe-map.json",
+  "retrievedAt": "2026-11-27T19:18:42.727Z",
+  "bytes": 47466,
+  "sha256": "d3f3c0355b820fef9d5bedf1f6f6d9b524aa7ad364c4db3a708435afcc24d58d"
+}

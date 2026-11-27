@@ -33,7 +33,7 @@ const RADIO_ITEMS: [string, string][] = [['Antennas & fields', '/spectral/antenn
 /** Phase 10: light and optics; the Compare chip moved here so the bar keeps its width. */
 const LIGHT_ITEMS: [string, string][] = [['Compare spectra', '/spectral/compare'], ['Geometric optics', '/spectral/optics'], ['Wave optics', '/spectral/waveoptics'], ['Polarisation', '/spectral/polarisation'], ['Spectroscopy', '/spectral/spectroscopy'], ['Thermal radiation', '/spectral/thermal'], ['Telescopes', '/spectral/telescopes'], ['Atmosphere & remote sensing', '/spectral/atmosphere']];
 const SPECTRAL_SECTIONS = ['lab', 'fields', 'compare', 'antennas', 'rf', 'room', 'modulation', 'acoustics', 'audio', 'roomacoustics', 'optics', 'waveoptics', 'polarisation', 'spectroscopy', 'thermal', 'telescopes', 'atmosphere'];
-const COSMIC_SECTIONS = ['stars', 'sandbox', 'relativity', 'compact', 'lensing', 'galaxies', 'nebulae', 'universe', 'ladder', 'cmb', 'darkmatter', 'gw'];
+const COSMIC_SECTIONS = ['map', 'stars', 'sandbox', 'relativity', 'compact', 'lensing', 'galaxies', 'nebulae', 'universe', 'ladder', 'cmb', 'darkmatter', 'gw'];
 
 /** A chip that opens a small menu of related sections; it is highlighted when one of them is open. */
 function ChipMenu({ label, items }: { label: string; items: { label: string; to: string; active: boolean }[] }) {
@@ -256,6 +256,7 @@ export function TopBar() {
         {mode === 'cosmic' && (
           <nav className="chip-row hide-mobile" aria-label="Cosmic sections">
             <button className={`chip ${!COSMIC_SECTIONS.includes(path[1]) ? 'active' : ''}`} onClick={() => navigate('/cosmic')}>Solar system</button>
+            <button className={`chip ${path[1] === 'map' ? 'active' : ''}`} onClick={() => navigate('/cosmic/map')}>Map</button>
             <ChipMenu label="Stars" items={[
               { label: 'Nearby stars', to: '/cosmic/stars', active: path[1] === 'stars' && !path[2] },
               { label: 'HR diagram', to: '/cosmic/stars/hr', active: path[1] === 'stars' && path[2] === 'hr' },
@@ -265,6 +266,7 @@ export function TopBar() {
               { label: 'Relativity', to: '/cosmic/relativity', active: path[1] === 'relativity' },
               { label: 'Black holes', to: '/cosmic/compact', active: path[1] === 'compact' },
               { label: 'Lensing', to: '/cosmic/lensing', active: path[1] === 'lensing' },
+              { label: 'N-body sandbox', to: '/cosmic/sandbox', active: path[1] === 'sandbox' },
             ]} />
             <button className={`chip ${path[1] === 'galaxies' ? 'active' : ''}`} onClick={() => navigate('/cosmic/galaxies')}>Galaxies</button>
             <button className={`chip ${path[1] === 'nebulae' ? 'active' : ''}`} onClick={() => navigate('/cosmic/nebulae')}>Nebulae</button>
@@ -275,7 +277,6 @@ export function TopBar() {
               { label: 'Dark-matter evidence', to: '/cosmic/darkmatter', active: path[1] === 'darkmatter' },
               { label: 'Gravitational waves', to: '/cosmic/gw', active: path[1] === 'gw' },
             ]} />
-            <button className={`chip ${path[1] === 'sandbox' ? 'active' : ''}`} onClick={() => navigate('/cosmic/sandbox')}>Sandbox</button>
           </nav>
         )}
         {mode === 'spectral' && (
