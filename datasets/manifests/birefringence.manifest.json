@@ -1,0 +1,33 @@
+{
+  "dataset": "birefringence",
+  "version": "1.0.0",
+  "records": 4,
+  "sources": [
+    {
+      "institution": "refractiveindex.info database (Polyanskiy), primary papers cited per file",
+      "url": "https://github.com/polyanskiy/refractiveindex.info-database",
+      "license": "CC0 1.0",
+      "notes": "ordinary and extraordinary dispersion formulas of four uniaxial crystals"
+    },
+    {
+      "institution": "Ghosh (1999) Optics Communications 163, 95 — calcite and quartz",
+      "url": "https://doi.org/10.1016/S0030-4018(99)00091-7"
+    },
+    {
+      "institution": "Malitson & Dodge (1972); Dodge (1986) — sapphire",
+      "url": "https://refractiveindex.info/?shelf=main&book=Al2O3&page=Malitson-e"
+    },
+    {
+      "institution": "DeVore (1951) J. Opt. Soc. Am. 41, 416 — rutile",
+      "url": "https://doi.org/10.1364/JOSA.41.000416"
+    }
+  ],
+  "adapter": "scripts/ingestion/birefringence.ts",
+  "warnings": [
+    "The optic sign (positive: n_e > n_o) is checked against the formulas by tests/science/polarisation.test.ts; Drude (1902) p. 324 states “Quartz is positively, calc-spar negatively, uniaxial.”"
+  ],
+  "output": "datasets/materials/birefringence.json",
+  "retrievedAt": "2026-11-27T17:50:09.791Z",
+  "bytes": 5860,
+  "sha256": "19bed8af8d7b57b7eabf11c36c25cdda59f0b3a0873d14f97ab3588307942427"
+}

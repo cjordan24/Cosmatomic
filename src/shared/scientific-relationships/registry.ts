@@ -279,6 +279,12 @@ registerRelationship({ from: 'instrument:wave-optics', to: 'instrument:geometric
 registerRelationship({ from: 'instrument:wave-optics', to: spectrumId('Na I'), type: 'explains', context: 'the sodium D doublet (589.16 and 589.76 nm) is resolved when the resolving power hm reaches 987', source: 'nist-asd' });
 registerRelationship({ from: 'instrument:wave-optics', to: spectrumId('Hg I'), type: 'explains', context: 'the mercury yellow lines (577.1 and 579.2 nm) resolved by a grating', source: 'nist-asd' });
 
+// ---------------------------------------------------------------- Phase 10, Gate 10.3: polarisation
+registerEntity(E('instrument:polarisation', 'Polarisation and optical materials', '#/spectral/polarisation', 'Fresnel reflection of s and p light, the polarizing angle, polarizing by two reflections and uniaxial crystals (Gate 10.3)'));
+registerRelationship({ from: 'instrument:polarisation', to: 'wave:em-visible', type: 'explains', context: 'reflection at the polarizing angle tan φ = n leaves only light polarized in the plane of incidence', source: 'drude-1902' });
+registerRelationship({ from: 'instrument:polarisation', to: 'instrument:geometric-optics', type: 'part-of', context: 'the Fresnel amplitudes give the fraction reflected at each surface that the ray traces ignore', source: 'drude-1902' });
+for (const id of ['alpha-quartz', 'sapphire', 'rutile']) registerRelationship({ from: 'instrument:polarisation', to: `material:${id}`, type: 'has-property', context: 'ordinary and extraordinary refractive indices (birefringence)', source: id === 'alpha-quartz' ? 'ghosh-1999' : id === 'sapphire' ? 'malitson-dodge-1972' : 'devore-1951' });
+
 export const getEntity = (id: string) => REGISTRY.get(id);
 export const allEntities = () => [...REGISTRY.values()];
 export const relationshipsFrom = (id: string) => RELATIONSHIPS.filter((r) => r.from === id);

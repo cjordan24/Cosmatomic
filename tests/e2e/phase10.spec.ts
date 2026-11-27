@@ -72,3 +72,26 @@ test('87 wave optics: two-source fringes, slit and grating against Drude, the NI
   await expect(page.getByLabel('Film result')).toContainText('k = 2');
   await shot(page, '87c-thin-film', 'A 500 nm water film at normal incidence: reflection minima where 2nd cos χ = kλ (Drude eq. 17), with the reflected light against thickness at 450, 550 and 650 nm.');
 });
+
+// ---------------- Gate 10.3 ----------------
+test('88 polarisation: Fresnel s/p reflectance and the polarizing angle, cos² α after two reflections, uniaxial crystals', async ({ page }) => {
+  await page.goto('/#/spectral');
+  await page.getByRole('navigation', { name: 'Spectral sections' }).getByRole('button', { name: 'Light ▾' }).click();
+  await page.getByRole('menuitem', { name: 'Polarisation' }).click();
+  await expect(page).toHaveURL(/#\/spectral\/polarisation$/);
+  const fr = page.getByLabel('Fresnel result');
+  await expect(fr).toContainText('55.562');               // tan φ = n for fused silica at 589 nm
+  await page.getByLabel('Angle of incidence').fill('55.6');
+  await expect(fr).toContainText(/reflectance p\d\.\d+ × 10⁻⁷|reflectance p\d\.\d+e-7|reflectance p[0-9.]+ × 10⁻[6-9]/);
+  await shot(page, '88a-fresnel', 'Fused silica at 589 nm: s and p reflectance against angle from Drude’s eq. 24; the p reflectance vanishes at the polarizing angle 55.56° (tan φ = n).');
+  await page.getByRole('navigation', { name: 'Polarisation sections' }).getByRole('button', { name: 'Polarizing by reflection' }).click();
+  await page.getByLabel('Angle between the planes of incidence').fill('60');
+  const tr = page.getByLabel('Two-reflection result');
+  await expect(tr).toContainText(/relative intensity after the second reflection0\.25/);
+  await page.getByRole('navigation', { name: 'Polarisation sections' }).getByRole('button', { name: 'Uniaxial crystals' }).click();
+  const cr = page.getByLabel('Crystal result');
+  await expect(cr).toContainText('1.65836');
+  await expect(cr).toContainText('1.48614');
+  await expect(cr).toContainText('negative');
+  await shot(page, '88b-calcite', 'Calcite at 589 nm: n_o = 1.6584 and n_e = 1.4861 (Ghosh 1999 via refractiveindex.info), the extraordinary index against direction (Drude eq. 35) and a 0.855 µm quarter-wave thickness.');
+});

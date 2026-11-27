@@ -671,3 +671,11 @@ Phase 10 approved by the user (“approve phase 10”). The optics textbooks fir
 5. **Sources:** `huygens-1912` added; Drude's usage extended (166 entries). Registry: `instrument:wave-optics`.
 6. **Tests:** science 745/745 (+8, `tests/science/waveOptics.test.ts`); browser test 87 (screenshots 87a–c).
 
+## Phase 10, Gate 10.3: polarisation and optical materials (`#/spectral/polarisation`), 2026-11-27
+
+1. **View:** `#/spectral/polarisation?tab=fresnel|reflection|crystal` (Light ▾ → Polarisation).
+2. **Physics:** `src/core/physics/optics/polarisation.ts`: Drude's Fresnel amplitudes (eq. 24), the polarizing angle (eq. 25, p. 246), the Nörrenberg two-reflection law I ∝ cos² α computed from the amplitudes, uniaxial crystals (eqs. 35, 74) and quarter-wave plates (§9). I read Drude pp. 246, 282 and 324 on the page images; p. 246 says the reflected light is “polarized in the plane of incidence”, which the view explains in today's terms (s-polarised).
+3. **New dataset:** `datasets/materials/birefringence.json` (39 manifests): ordinary and extraordinary dispersion formulas of calcite and α-quartz (Ghosh 1999), sapphire (Malitson & Dodge 1972) and rutile (DeVore 1951) from the refractiveindex.info database (CC0) on GitHub (raw.githubusercontent.com has no robots.txt). The optic signs agree with Drude (“Quartz is positively, calc-spar negatively, uniaxial”).
+4. **Checks:** fused silica at 589 nm: polarizing angle 55.562°, p reflectance there 1.4 × 10⁻⁷ at the nearest 0.1° step; two reflections at α = 60° give 0.25; calcite n_o = 1.65836, n_e = 1.48614, quarter-wave thickness 0.855 µm.
+5. **Tests:** science 754/754 (+9, `tests/science/polarisation.test.ts`); browser test 88 (screenshots 88a–b).
+

@@ -4,5 +4,7 @@
   "86c-prism.png": "A 60° fused-silica prism at minimum deviation for 589 nm (33.6°, Southall eq. 27): seven wavelengths from 400 to 700 nm traced through both faces, blue deviated most.",
   "87a-two-sources.png": "Two coherent sources 0.5 mm apart, screen at 1 m, 589 nm: the exact path-difference pattern and its 1.178 mm fringe spacing aλ/d (Drude §3).",
   "87b-grating-sodium.png": "A 400-line grating (d = 2 µm) in order 3 resolves the NIST sodium D lines 589.158 and 589.756 nm: resolving power hm = 1200 against the 987 needed (Drude eq. 88).",
-  "87c-thin-film.png": "A 500 nm water film at normal incidence: reflection minima where 2nd cos χ = kλ (Drude eq. 17), with the reflected light against thickness at 450, 550 and 650 nm."
+  "87c-thin-film.png": "A 500 nm water film at normal incidence: reflection minima where 2nd cos χ = kλ (Drude eq. 17), with the reflected light against thickness at 450, 550 and 650 nm.",
+  "88a-fresnel.png": "Fused silica at 589 nm: s and p reflectance against angle from Drude’s eq. 24; the p reflectance vanishes at the polarizing angle 55.56° (tan φ = n).",
+  "88b-calcite.png": "Calcite at 589 nm: n_o = 1.6584 and n_e = 1.4861 (Ghosh 1999 via refractiveindex.info), the extraordinary index against direction (Drude eq. 35) and a 0.855 µm quarter-wave thickness."
 }

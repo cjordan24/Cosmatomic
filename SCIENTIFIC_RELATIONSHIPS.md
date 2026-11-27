@@ -128,6 +128,7 @@ Every encyclopedia entry describes a registry entity, so E.2 registered the 11 s
 
 `instrument:geometric-optics` (`#/spectral/optics`) *explains* visible light (Snell's law and dispersion, Drude 1902) and reads the refractive index n(λ) of every material that has one (`has-property`, cited to each material's dispersion source).
 `instrument:wave-optics` (`#/spectral/waveoptics`) *explains* visible light (interference and diffraction, Drude), is *part of* geometric optics through Huygens' principle, and *explains* the Na I and Hg I spectra (doublets resolved by a grating, NIST ASD).
+`instrument:polarisation` (`#/spectral/polarisation`) *explains* visible light (polarisation by reflection, Drude), is *part of* geometric optics (the Fresnel fractions at each surface) and reads the birefringence of quartz, sapphire and rutile (`has-property`, Ghosh 1999, Malitson & Dodge 1972, DeVore 1951).
 
 ## Rules
 
