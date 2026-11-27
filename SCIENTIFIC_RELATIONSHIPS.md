@@ -123,6 +123,11 @@ Every encyclopedia entry describes a registry entity, so E.2 registered the 11 s
 
 `instrument:audio-lab` (`#/spectral/audio`) *explains* sound in air (`wave:sound-air`, registered here and routed to the Wave lab): a periodic sound is a sum of harmonics (Johnson §4.3). `instrument:room-acoustics` (`#/spectral/roomacoustics`) *explains* sound in air (Rayleigh's room modes) and is *part of* the acoustic lab's topic (Sabine's reverberation).
 
+
+## Optics (Phase 10)
+
+`instrument:geometric-optics` (`#/spectral/optics`) *explains* visible light (Snell's law and dispersion, Drude 1902) and reads the refractive index n(λ) of every material that has one (`has-property`, cited to each material's dispersion source).
+
 ## Rules
 
 1. No edge without a source.

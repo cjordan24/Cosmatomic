@@ -660,6 +660,15 @@ export const SOURCES: Source[] = [
     institution: 'Harvard University Press; scan at the Internet Archive (collectedpaperso00sabiuoft)', url: 'https://archive.org/details/collectedpaperso00sabiuoft', license: 'Public domain (published 1922)',
     authorBio: 'Wallace Clement Sabine, late Hollis Professor of Mathematics and Natural Philosophy in Harvard University (title page).',
     usedFor: ['reverberation time t = K V/a with K = .164 for an initial intensity 10⁶ times minimum audible (table of K, p. 50; p. 105)', 'absorbing power of wall-surfaces, audiences and miscellaneous materials in square metres of open window, at 512 vibrations per second (tables pp. 56, 58, 60, checked on the page images)', 'Boston Public Library example: 70 m² × .061 = 4.3, 72 m² × .027 = 1.9'] },
+  // ---------------- Phase 10: optics, radiation & energy ----------------
+  { id: 'drude-1902', kind: 'book', citation: 'Drude, P. (1902) The Theory of Optics. Translated from the German by C. R. Mann and R. A. Millikan. New York, London and Bombay: Longmans, Green, and Co.', title: 'The Theory of Optics', authors: 'P. Drude (tr. C. R. Mann, R. A. Millikan)', year: 1902,
+    institution: 'Longmans, Green, and Co.; scan of the University of California Libraries at the Internet Archive (theooptics00drudrich)', url: 'https://archive.org/details/theooptics00drudrich', license: 'Public domain (published 1902; “Copyright, 1901, by Longmans, Green, and Co.”)',
+    authorBio: 'Paul Drude, Professor of Physics at the University of Giessen; translators C. Riborg Mann and Robert A. Millikan, Assistant Professors of Physics at the University of Chicago (title page).',
+    usedFor: ['laws of reflection and refraction n_a sin φ_a = n_b sin φ_b, total reflection and dispersion (Pt I ch. I §1, eqs. 1, 3, 6, pp. 3–5)', 'thin lens 1/f = (n − 1)(1/r₁ − 1/r₂) and 1/e + 1/e′ = 1/f (Pt I ch. III §§4–5, eqs. 22, 25, pp. 42–44); spherical mirror −1/e + 1/e′ = 2/r, f = −½r (§2, eqs. 12–13, p. 37)'] },
+  { id: 'southall-1910', kind: 'book', citation: 'Southall, J. P. C. (1910) The Principles and Methods of Geometrical Optics, Especially as Applied to the Theory of Optical Instruments. New York: Macmillan.', title: 'The Principles and Methods of Geometrical Optics', authors: 'J. P. C. Southall', year: 1910,
+    institution: 'Macmillan; scan of the University of Toronto library at the Internet Archive (principlesmethod00soutuoft)', url: 'https://archive.org/details/principlesmethod00soutuoft', license: 'Public domain (published 1910)',
+    authorBio: 'James P. C. Southall, Professor of Physics in the Alabama Polytechnic Institute (title page, read from the scan’s text layer).',
+    usedFor: ['prism deviation ε = α₁ − α′₂ − β (ch. IV §70, eq. 25, p. 80) and minimum deviation n = sin((β + ε₀)/2)/sin(β/2) (§71, eq. 27, p. 83)'] },
 ];
 
 const BY_ID = new Map(SOURCES.map((s) => [s.id, s]));

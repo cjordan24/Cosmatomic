@@ -267,6 +267,11 @@ registerEntity(E('instrument:room-acoustics', 'Room acoustics and resonance', '#
 registerRelationship({ from: 'instrument:room-acoustics', to: 'wave:sound-air', type: 'explains', context: 'a rigid room rings only at f = (c/2)√((p/L)² + (q/W)² + (r/H)²); the gravest mode runs along the longest edge', source: 'rayleigh-1896' });
 registerRelationship({ from: 'instrument:room-acoustics', to: 'instrument:acoustic-lab', type: 'part-of', context: 'reverberation: t = 0.164 V/a with absorbing power in square metres of open window (Sabine)', source: 'sabine-1922' });
 
+// ---------------------------------------------------------------- Phase 10, Gate 10.1: geometric optics
+registerEntity(E('instrument:geometric-optics', 'Geometric optics', '#/spectral/optics', 'Reflection and refraction, total reflection, lenses, mirrors and prism dispersion with exact ray traces (Gate 10.1)'));
+registerRelationship({ from: 'instrument:geometric-optics', to: 'wave:em-visible', type: 'explains', context: 'rays obey n_a sin φ_a = n_b sin φ_b; “The refractive index depends on the color” (dispersion)', source: 'drude-1902' });
+for (const m of MATERIALS.filter((x) => x.refractiveIndex)) registerRelationship({ from: 'instrument:geometric-optics', to: `material:${m.id}`, type: 'has-property', context: 'refractive index n(λ) used for refraction, lenses and prisms', source: m.refractiveIndex!.sources[0] });
+
 export const getEntity = (id: string) => REGISTRY.get(id);
 export const allEntities = () => [...REGISTRY.values()];
 export const relationshipsFrom = (id: string) => RELATIONSHIPS.filter((r) => r.from === id);

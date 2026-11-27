@@ -116,7 +116,8 @@ test('73 relationship explorer: neighbourhood map, sourced path between two enti
 // ---------------- Gate 8.3 ----------------
 test('74 integrated spectroscopy: observed and model spectra on one wavelength / frequency / energy axis, with a labelled (1 + z) transformation', async ({ page }) => {
   await page.goto('/#/spectral');
-  await page.getByRole('navigation', { name: 'Spectral sections' }).getByRole('button', { name: 'Compare' }).click();
+  await page.getByRole('navigation', { name: 'Spectral sections' }).getByRole('button', { name: 'Light ▾' }).click();
+  await page.getByRole('menuitem', { name: 'Compare spectra' }).click();
   await expect(page).toHaveURL(/#\/spectral\/compare$/);
   await expect(page.getByRole('heading', { name: 'Spectra on one axis' })).toBeVisible();
   const legend = page.getByLabel('Legend');
