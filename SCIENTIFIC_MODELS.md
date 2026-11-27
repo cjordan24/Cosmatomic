@@ -295,3 +295,44 @@ One `FieldLayer` interface (quantity, units, frame, resolution, sources, display
 
   The bundled NIST spectra contain the lines: Hα 656.45 nm, [N II] 658.53 nm and [O III] 500.82 nm (vacuum; [N II] and [O III] are M1 forbidden transitions). Every nebula is *located-in* the Milky Way. The EHT images also appear in the Black holes panel.
 * *Validation (tests/science/nebulae.test.ts, 6 tests):* 7 stored images with size and SHA-256 equal to the dataset record, JPEG signature, < 300 KB each; CC BY 4.0 with a credit line and a page on the publisher's own site, including at least one Webb image; nebula sources indexed; Orion 414 ± 7 pc = 1350 ly, approximate values marked; the linked lines exist in the bundled NIST data (M1 for the forbidden lines); registry emits and located-in edges.
+
+## 22. Expansion and distances (Phase 7, Gate 7.1): `src/core/physics/cosmology.ts`, `#/cosmic/universe`
+* **Background (Derived):** FLRW with E(z)² = Ω_r(1+z)⁴ + Ω_m(1+z)³ + Ω_k(1+z)² + Ω_Λ. Hogg (1999) eq. 14 has no radiation term; the a⁻⁴ scaling is from Carroll (1997) eq. 8.28. H(z) = H₀E(z).
+* **Distances (Hogg 1999):**
+  * D_C = D_H ∫dz/E (eq. 15) and D_M with sinh/sin curvature (eq. 16);
+  * D_A = D_M/(1+z) (eq. 18), D_L = (1+z)D_M (eq. 21) and μ = 5 log₁₀(D_L/10 pc) (eq. 25, bolometric, no k-correction);
+  * lookback time t_L = t_H ∫dz/((1+z)E) (eq. 30);
+  * the angular-diameter distance between two redshifts for lensing (eq. 19). This holds only for Ω_k ≥ 0, so it is refused for closed models.
+
+  Age t(z) = t_H ∫₀^a da/(aE) is integrated in u = √a. The comoving particle horizon is D_C(z → ∞).
+* **Dynamics:** Ω_i(z) = Ω_i(1+z)^n/E², q(z) = Σ Ω_i(z)(1 + 3w_i)/2 with w = 0, ⅓, −1, from the acceleration equation (Carroll 8.33, 8.38). The acceleration onset (q = 0) is found by bisection; matter–Λ equality is at (Ω_Λ/Ω_m)^⅓ − 1.
+* **Numerics:** composite Simpson (n = 2000) in x = ln(1+z), so the integrands stay smooth from z = 0 to 10⁴. The age uses n = 4000 in u.
+* **Parameters (manually transcribed):** Planck 2018 VI, Table 2, TT,TE,EE+lowE+lensing+BAO, 68 % intervals (22 values, including the base-model assumptions T₀ = 2.7255 K, N_eff = 3.046 and Σm_ν = 0.06 eV). Radiation is not tabulated, so Ω_r = Ω_m/(1 + z_eq) = 9.18 × 10⁻⁵ with z_eq = 3387. Ω_Λ = 1 − Ω_m − Ω_r = 0.68881 (tabulated: 0.6889 ± 0.0056).
+* **Comparison models (Hypothetical):** Einstein–de Sitter and an open Ω_m = 0.05 model with the Planck H₀, plus custom H₀, Ω_m and Ω_Λ with the Planck Ω_r.
+* **Cosmological lensing:** θ_E = √(4GM/c² · D_ds/(D_d D_s)) (N&B eq. 21) with Hogg distances (`einsteinRadiusD`). The lensing view has a z_l = 0.5, z_s = 2 preset. Galactic lenses keep Euclidean distances.
+* **Validity:** homogeneous background only; w = −1; radiation massless at all z; the 0.06 eV neutrino counted as matter at all z; no recombination physics (epochs are Planck's fitted values).
+* *Validation (tests/science/cosmology.test.ts, 21 tests):*
+  * **Transcription:** H₀, Ω_m, Ω_Λ, age, z∗, r∗, θ∗, z_eq and the interval type. The PLANCK18 model uses those values, with Ω_Λ inside the tabulated 1σ, and Ω_m h² is consistent with 0.14240 ± 0.00087.
+  * **Independent radiation check:** Ω_r from z_eq equals the photon density from T₀ and the CODATA σ, times (1 + 0.2271 N_eff), to within 1 %.
+  * **Analytic limits:**
+    * EdS: D_C, age 2/(3H₀) and t(z), to 10⁻⁶.
+    * Milne: D_C = D_H ln(1+z) and D_L = D_H z(1 + z/2), through the sinh branch.
+    * Hogg eq. 17 for an open Ω_Λ = 0 model.
+    * de Sitter: D_C = D_H z.
+    * q = −1, ½ and 1 for Λ, matter and radiation.
+    * Distance duality, μ, the low-z Hubble law, and Σ Ω_i(z) = 1.
+  * **Against Planck:**
+    * The model age, 13.786 Gyr, is within 1σ of Planck's 13.787 ± 0.020 Gyr.
+    * D_M(z∗) = 13 880 Mpc against r∗/θ∗ = 13 885 Mpc (0.04 %; the test tolerance is 0.1 %).
+    * Removing radiation worsens the D_M(z∗) match to 0.5 % and shifts the age by +5.6 Myr.
+  * **Landmarks:**
+    * acceleration onset z = 0.642;
+    * Ω_m = Ω_Λ at z = 0.303;
+    * comoving horizon 14.16 Gpc (46.2 Gly);
+    * ageGyr inverts redshiftAtAge;
+    * 8.6 kpc per arcsec at z = 1.6.
+  * **Lensing:**
+    * Eq. 19 reduces to (D_M2 − D_M1)/(1+z₂) when flat, and to D_A at z₁ = 0 (flat and open).
+    * D_ds ≠ D_s − D_d, and closed models are refused.
+    * The cosmological Einstein radius matches the Euclidean one at low z.
+    * 10¹¹ M☉ at z = 0.5 with a source at z = 2 gives θ_E = 0.63″, 1.54 × the naive value.

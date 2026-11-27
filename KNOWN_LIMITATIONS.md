@@ -103,7 +103,7 @@
   * Point lenses only: no binary lenses or caustics, no extended mass distributions (galaxies, clusters) and no finite-source effects in the light curves.
   * The galaxy-scale preset is a point mass at an effective distance, following Narayan & Bartelmann's order-of-magnitude example. It is not a model of a real lens system, and no observed strong-lens system is bundled.
   * The lens-plane brightness and colour are illustrative. Only the image geometry is computed.
-* **Navigation:** the Cosmic chips are grouped into *Stars ▾* (Nearby stars, HR diagram, Exoplanets) and *Gravity ▾* (Relativity, Black holes, Lensing) so the top bar fits at 1440 px.
+* **Navigation:** the Cosmic chips are grouped into *Stars ▾* (Nearby stars, HR diagram, Exoplanets), *Gravity ▾* (Relativity, Black holes, Lensing) and, from Gate 7.1, *Universe ▾*. Below 1500 px the Sources, Notebook and Scale buttons show icons only in Cosmic, so the top bar fits at 1440 px; the active menu shows its section in a tooltip, not in the chip.
 * **Galaxies (Gate 6.4):**
   * The NFW fit holds Υ fixed and uses SPARC's random errors only (no inclination or distance systematics). V₂₀₀, c and Υ are degenerate, so the fitted halo parameters are indicative only. No other halo profiles (Burkert, pseudo-isothermal, Einasto) and no MOND/RAR comparison yet (planned for Phase 14.6).
   * H₀ = 73 km/s/Mpc is used for r₂₀₀ for consistency with the SPARC distances. Other H₀ values shift M₂₀₀.
@@ -115,3 +115,14 @@
   * The distances of the Crab, Eagle and NGC 3324 are the approximate figures printed on the ESA image pages, not peer-reviewed measurements. Published distances for the Ring Nebula differ (≈2000 ly in OpenStax, 2500 ly at ESA/Hubble).
   * Emission-line links exist only where a source names the emission: Orion → Hα, Ring → [N II] and [O III]. The Crab's synchrotron emission and Webb's molecular-hydrogen filters have no bundled spectra. [S II] is not in the NIST bundle.
   * The Crab pulsar is not a compact-object record (no published mass bundled).
+
+## Phase 7
+* **Expansion and distances (Gate 7.1):**
+  * Homogeneous FLRW background only: no perturbations, structure, peculiar velocities or inhomogeneous lensing distances.
+  * Dark energy is a cosmological constant. No w ≠ −1 or evolving dark energy, and no model fits to supernova or BAO data (the distance ladder is Gate 7.2).
+  * Radiation is massless at all redshifts, and Planck's 0.06 eV neutrino is treated as matter at all redshifts. Ω_r is inferred from Planck's z_eq, not tabulated by Planck. Effects are at the 0.1 % level for z ≳ 100 and negligible below.
+  * Planck parameters are the TT,TE,EE+lowE+lensing+BAO column only. They depend on base ΛCDM and are not a direct measurement of H₀; the H₀ tension with local distance-ladder values is not yet shown.
+  * The distance modulus is bolometric: no k-corrections or extinction.
+  * Hogg's lensing distance (eq. 19) is invalid for closed models, so it is not shown for them. The cosmological lens is a point mass; no observed strong-lens system is bundled.
+  * Custom models keep Planck's radiation density whatever H₀ is chosen.
+

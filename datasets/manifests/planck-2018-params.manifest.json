@@ -1,0 +1,21 @@
+{
+  "dataset": "planck-2018-params",
+  "version": "1.0.0",
+  "records": 22,
+  "sources": [
+    {
+      "institution": "Planck Collaboration (2020), A&A 641, A6",
+      "url": "https://doi.org/10.1051/0004-6361/201833910",
+      "notes": "Planck 2018 results VI, Table 2 (TT,TE,EE+lowE+lensing+BAO)"
+    }
+  ],
+  "adapter": "scripts/ingestion/curated-planck-2018.ts",
+  "warnings": [
+    "Hand-transcribed (manually transcribed values; checked against the arXiv v4 PDF text).",
+    "Values are model-dependent: they assume base ΛCDM."
+  ],
+  "output": "datasets/astronomical/planck-2018-params.json",
+  "retrievedAt": "2026-11-26T23:39:58.180Z",
+  "bytes": 3725,
+  "sha256": "85d12f77f8217126a11b5e092821ca5f447982901fdf7f62e402ff593dbaf606"
+}

@@ -296,8 +296,12 @@ input[type='range'] { accent-color: var(--accent); }
 .source-list .cite { margin: 4px 0; font-size: 13px; color: var(--text); }
 .topbar .chip-row { flex-wrap: nowrap; }
 .topbar .chip { white-space: nowrap; }
+.topbar .icon-btn { flex-shrink: 0; white-space: nowrap; }
+.topbar .search { min-width: 110px; flex-shrink: 1; }
 @media (max-width: 1500px) { .search { width: min(280px, 24vw); } }
 @media (max-width: 1280px) { .topbar .icon-btn .hide-mobile { display: none; } }
+/* Cosmic has the most section chips: icon-only buttons below 1500 px so nothing overflows (Gate 7.1) */
+@media (max-width: 1500px) { .topbar.many-chips .icon-btn .hide-mobile { display: none; } }
 .mode-spectral { --accent: #f5c76b; --accent-2: #ffb347; --accent-3: #ffe2a8; --accent-glow: rgba(245, 199, 107, 0.35); --bg-2: #160f05; }
 .mode-switch button.spectral.active { background: #f5c76b; color: #1a1205; }
 .wave-canvas { display: block; width: 100%; max-width: 760px; height: auto; border-radius: 12px; border: 1px solid var(--line); background: #03050c; }

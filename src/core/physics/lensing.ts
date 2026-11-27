@@ -10,8 +10,9 @@
  *    major image δθ = ½(√(u² + 4) − u) θ_E (eq. 2).
  *
  * Validity: thin lens, weak field (|Φ| ≪ c², impact parameter ≫ r_s), point mass, geometric optics.
- * Distances are Euclidean here (fine inside the Galaxy); cosmological lenses need angular-diameter
- * distances, which the user supplies directly as an effective distance.
+ * einsteinRadius uses Euclidean distances (fine inside the Galaxy). For cosmological lenses use
+ * einsteinRadiusD with angular-diameter distances from cosmology.ts (lensDistancesMpc; Hogg 1999 eq. 19),
+ * since D_ds ≠ D_s − D_d there (Gate 7.1).
  */
 import { CONSTANTS, PARSEC_M } from '../constants/constants';
 
@@ -22,6 +23,12 @@ export const MAS = (Math.PI / 180 / 3600) * 1e-3;
 export function einsteinRadius(gm: number, Dd: number, Ds: number): number | null {
   if (!(Ds > Dd && Dd > 0)) return null;
   return Math.sqrt(((4 * gm) / C2) * ((Ds - Dd) / (Dd * Ds)));
+}
+
+/** Einstein radius (rad) from explicit distances D_d, D_s, D_ds in metres (N&B eq. 21); for cosmological lenses. */
+export function einsteinRadiusD(gm: number, Dd: number, Ds: number, Dds: number): number | null {
+  if (!(Dd > 0 && Ds > 0 && Dds > 0)) return null;
+  return Math.sqrt(((4 * gm) / C2) * (Dds / (Dd * Ds)));
 }
 
 /**

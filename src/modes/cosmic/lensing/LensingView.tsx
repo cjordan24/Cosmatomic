@@ -7,10 +7,11 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { setQuery, useRoute, navigate } from '@/shared/router';
 import { CONSTANTS, PARSEC_M } from '@/core/constants/constants';
 import {
-  MAS, centroidShift, deltaMag, einsteinRadius, einsteinRadiusMas, einsteinTime, imageMagnifications, imagePositions, lightCurve,
+  MAS, centroidShift, deltaMag, einsteinRadius, einsteinRadiusD, einsteinRadiusMas, einsteinTime, imageMagnifications, imagePositions, lightCurve,
   majorImageShift, sourcePlanePoint, totalMagnification,
 } from '@/core/physics/lensing';
 import type { ProvenanceClass } from '@/core/provenance/provenance';
+import { PLANCK18, lensDistancesMpc } from '@/core/physics/cosmology';
 import { KV, Panel, ProvenanceBadge } from '@/ui/components';
 import { LinePlot } from '@/ui/plots';
 import { RelatedLinks } from '@/ui/RelatedLinks';
@@ -27,6 +28,8 @@ const STEIN = compactById('stein-2051-b')!;
 const steinM = (q: string) => STEIN.measurements.find((x) => x.quantity.startsWith(q))!.value!;
 const STEIN_PIREL = steinM('parallax of Stein 2051 B')[0] - steinM('parallax of the background star')[0];
 const kpc = 1e3 * PARSEC_M;
+const COSMO = lensDistancesMpc(0.5, 2, PLANCK18)!;
+const MPC = 1e6 * PARSEC_M;
 
 const PRESETS: LensPreset[] = [
   { id: 'stein', label: 'Stein 2051 B (white dwarf, 5.5 pc)', provenance: 'observed', thetaE: steinM('Einstein ring radius')[0] * MAS, mass: STEIN.mass[0], Dd: 1000 / steinM('parallax of Stein 2051 B')[0] * PARSEC_M,
@@ -35,6 +38,8 @@ const PRESETS: LensPreset[] = [
     note: 'A typical Galactic microlensing geometry, chosen for illustration (lens halfway to a bulge source).', sources: ['narayan-bartelmann-1996'] },
   { id: 'galaxy', label: '10¹¹ M☉ galaxy, effective distance 1 Gpc', provenance: 'hypothetical', thetaE: einsteinRadius(1e11 * CONSTANTS.GMsun.value, 1e6 * kpc, 1e40)!, mass: 1e11, Dd: null,
     note: 'Narayan & Bartelmann’s order-of-magnitude example (θ_E ≈ 0.″9). A real galaxy is not a point mass; distances are angular-diameter distances.', sources: ['narayan-bartelmann-1996'] },
+  { id: 'cosmo', label: '10¹¹ M☉ galaxy at z = 0.5, source at z = 2', provenance: 'hypothetical', thetaE: einsteinRadiusD(1e11 * CONSTANTS.GMsun.value, COSMO.Dd * MPC, COSMO.Ds * MPC, COSMO.Dds * MPC)!, mass: 1e11, Dd: null,
+    note: `The same mass with angular-diameter distances from Planck 2018 ΛCDM: D_d = ${(COSMO.Dd / 1000).toFixed(2)} Gpc, D_s = ${(COSMO.Ds / 1000).toFixed(2)} Gpc, D_ds = ${(COSMO.Dds / 1000).toFixed(2)} Gpc (not D_s − D_d). Compare redshifts in Expansion → Cosmological lensing.`, sources: ['narayan-bartelmann-1996', 'hogg-1999', 'planck-2018-vi'] },
 ];
 
 const fmtAngle = (rad: number) => { const mas = rad / MAS; return mas >= 1000 ? `${(mas / 1000).toPrecision(4)}″` : mas >= 1 ? `${mas.toPrecision(4)} mas` : `${(mas * 1000).toPrecision(4)} µas`; };
@@ -184,7 +189,7 @@ export default function LensingView() {
         <ul className="note" style={{ paddingLeft: 16, fontSize: 10.5 }}>
           <li>Single point mass; thin lens; weak field (impact parameter ≫ r_s)</li>
           <li>Geometric optics: no wave effects; achromatic</li>
-          <li>Euclidean distances inside the Galaxy; cosmological lenses need angular-diameter distances</li>
+          <li>Euclidean distances inside the Galaxy; the z = 0.5 preset uses angular-diameter distances (<a href="#/cosmic/universe?tab=lensing">Expansion → Cosmological lensing</a>)</li>
           <li>No binary lenses, caustics, or extended mass distributions</li>
         </ul>
       </Panel>

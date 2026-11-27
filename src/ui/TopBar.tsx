@@ -14,7 +14,7 @@ import { Logo, SearchGlyph } from './components';
 interface Hit { kind: 'element' | 'molecule' | 'body' | 'reaction' | 'material' | 'star' | 'exoplanet'; label: string; sub: string; to: string; score: number }
 
 /** Cosmic sub-routes that are not solar-system bodies (#/cosmic/<id> otherwise focuses a body). */
-const COSMIC_SECTIONS = ['stars', 'sandbox', 'relativity', 'compact', 'lensing', 'galaxies', 'nebulae'];
+const COSMIC_SECTIONS = ['stars', 'sandbox', 'relativity', 'compact', 'lensing', 'galaxies', 'nebulae', 'universe'];
 
 /** A chip that opens a small menu of related sections; it is highlighted when one of them is open. */
 function ChipMenu({ label, items }: { label: string; items: { label: string; to: string; active: boolean }[] }) {
@@ -30,7 +30,7 @@ function ChipMenu({ label, items }: { label: string; items: { label: string; to:
   const current = items.find((i) => i.active);
   return (
     <div className="chip-menu" ref={ref}>
-      <button className={`chip ${current ? 'active' : ''}`} aria-haspopup="menu" aria-expanded={open} onClick={() => setOpen((o) => !o)}>{current ? `${label}: ${current.label}` : label} ▾</button>
+      <button className={`chip ${current ? 'active' : ''}`} aria-haspopup="menu" aria-expanded={open} title={current ? `${label}: ${current.label}` : undefined} onClick={() => setOpen((o) => !o)}>{label} ▾</button>
       {open && (
         <div className="chip-menu-list" role="menu" aria-label={label}>
           {items.map((i) => <button key={i.to} role="menuitem" className={i.active ? 'active' : ''} onClick={() => { setOpen(false); navigate(i.to); }}>{i.label}</button>)}
@@ -124,7 +124,7 @@ export function currentScaleId(path: string[], query: URLSearchParams): string |
     if (path[1] === 'element') return query.get('view') === 'nucleus' ? 'nucleus' : 'atom';
     return 'atom';
   }
-  if (path[0] === 'cosmic') return path[1] === 'stars' ? 'stellar' : path[1] === 'galaxies' ? 'galaxy' : ['relativity', 'compact', 'lensing', 'nebulae'].includes(path[1]) ? null : path[1] && path[1] !== 'sun' && path[1] !== 'sandbox' ? 'planet' : 'solar-system';
+  if (path[0] === 'cosmic') return path[1] === 'stars' ? 'stellar' : path[1] === 'galaxies' ? 'galaxy' : path[1] === 'universe' ? 'observable' : ['relativity', 'compact', 'lensing', 'nebulae'].includes(path[1]) ? null : path[1] && path[1] !== 'sun' && path[1] !== 'sandbox' ? 'planet' : 'solar-system';
   return null;
 }
 
@@ -186,7 +186,7 @@ export function TopBar() {
   const [settingsOpen, setSettingsOpen] = useState(false);
   return (
     <>
-      <header className="topbar">
+      <header className={`topbar ${mode === 'cosmic' ? 'many-chips' : ''}`}>
         <button className="brand" onClick={() => navigate('/')} aria-label="Voyager Ventures home"><Logo /><span className="wordmark">VOYAGER VENTURES</span></button>
         <nav className="mode-switch" aria-label="Mode">
           <button className={mode === 'atomic' ? 'active' : ''} onClick={() => navigate('/atomic')}>ATOMIC</button>
@@ -218,6 +218,9 @@ export function TopBar() {
             ]} />
             <button className={`chip ${path[1] === 'galaxies' ? 'active' : ''}`} onClick={() => navigate('/cosmic/galaxies')}>Galaxies</button>
             <button className={`chip ${path[1] === 'nebulae' ? 'active' : ''}`} onClick={() => navigate('/cosmic/nebulae')}>Nebulae</button>
+            <ChipMenu label="Universe" items={[
+              { label: 'Expansion', to: '/cosmic/universe', active: path[1] === 'universe' },
+            ]} />
             <button className={`chip ${path[1] === 'sandbox' ? 'active' : ''}`} onClick={() => navigate('/cosmic/sandbox')}>Sandbox</button>
           </nav>
         )}
@@ -230,9 +233,9 @@ export function TopBar() {
         )}
         <div className="spacer" />
         <Search />
-        <button className="icon-btn" onClick={() => navigate('/sources')} title="Source index: every citation, link and author note">📚 <span className="hide-mobile">Sources</span></button>
-        <button className="icon-btn" onClick={() => navigate('/notebook')} title="Scientific notebook (saved experiments)">📓 <span className="hide-mobile">Notebook</span></button>
-        <button className={`icon-btn ${scaleOpen ? 'active' : ''}`} onClick={() => setScaleOpen((o) => !o)} aria-pressed={scaleOpen} title="Universal scale navigator">⟷ <span className="hide-mobile">Scale</span></button>
+        <button className="icon-btn" aria-label="Sources" onClick={() => navigate('/sources')} title="Source index: every citation, link and author note">📚 <span className="hide-mobile">Sources</span></button>
+        <button className="icon-btn" aria-label="Notebook" onClick={() => navigate('/notebook')} title="Scientific notebook (saved experiments)">📓 <span className="hide-mobile">Notebook</span></button>
+        <button className={`icon-btn ${scaleOpen ? 'active' : ''}`} onClick={() => setScaleOpen((o) => !o)} aria-pressed={scaleOpen} aria-label="Scale" title="Universal scale navigator">⟷ <span className="hide-mobile">Scale</span></button>
         <button className="icon-btn" onClick={() => setSettingsOpen(true)} title="Settings & engine status" aria-label="Settings">⚙</button>
       </header>
       {scaleOpen && <ScaleNavigator onClose={() => setScaleOpen(false)} />}

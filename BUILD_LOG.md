@@ -277,3 +277,31 @@ Findings:
 4. **Typecheck of tests.** Science tests are typechecked without Node types, so the image-integrity test reads the files through Vite's `?inline` import and hashes them with Web Crypto.
 
 Gate 6.5 verified against production: 57/57 passed. Phase 6 complete.
+
+## 2026-11-26 — Phase 7, Gate 7.1 (expansion and distances)
+The user approved Phase 7 as proposed (gates 7.1–7.5).
+
+The cosmology module was rebuilt on the FLRW foundation. It adds radiation (a⁻⁴, Carroll ch. 8), integration in ln(1+z) (Simpson's rule), age t(z), H(z), Ω_i(z), q(z), the acceleration onset, the comoving particle horizon, the distance modulus, kpc per arcsec, and the lens–source angular-diameter distance (Hogg eq. 19).
+
+New view `#/cosmic/universe` (menu *Universe ▾ → Expansion*) with three tabs:
+- **Distances:** D_C, D_L, D_A and light-travel distance to z = 1100, with values at any z.
+- **Expansion history:** a(t), Ω_m, Ω_r and Ω_Λ against 1 + z with the Planck epochs, ȧ(z) showing the acceleration onset, an epoch table and the full Planck parameter table.
+- **Cosmological lensing:** D_d, D_s and D_ds against the incorrect D_s − D_d, and the point-mass θ_E.
+
+Presets: Planck 2018 (Derived), and Einstein–de Sitter, open and custom models (Hypothetical).
+
+Other changes:
+- **Dataset:** `planck-2018-params` (22 values, manually transcribed from Table 2 of arXiv:1807.06209v4).
+- **Lensing view:** a new z_l = 0.5, z_s = 2 preset that uses cosmological distances.
+- **Registry:** `context:cosmic-expansion` explains `context:gravitational-lensing`.
+- **Scale ladder:** the *Observable universe* level is interactive.
+- **Source index:** new entries Planck 2018 VI (DOI checked on Crossref; corresponding authors and affiliations from the PDF) and Hogg 1999 (affiliation from the PDF). The Carroll entry now also cites chapter 8.
+
+21 new science tests (460 total) and e2e test 64.
+
+Findings:
+1. **Radiation matters at high z only, and its value checks out.** Planck does not tabulate Ω_r, so it is taken from z_eq: Ω_r = Ω_m/(1+z_eq) = 9.18 × 10⁻⁵. Photons alone from T₀ = 2.7255 K (CODATA σ) times 1 + 0.2271 N_eff give the same value to within 1 %. With Ω_r, the model reproduces Planck's age (13.786 against 13.787 ± 0.020 Gyr) and D_M(z∗) = r∗/θ∗ to 0.04 %. Without it the D_M match worsens to 0.5 %.
+2. **The old integrator was inaccurate at high z.** Simpson's rule on a linear z grid (n = 2000) had steps of Δz ≈ 0.5 out to z = 1090. Integrating in ln(1+z) keeps the EdS analytic error below 10⁻⁷ up to z = 1000.
+3. **Three of my own expected values were wrong; the code was right.** The acceleration onset is z = 0.642, not ≈ 0.63. The 10¹¹ M☉ ring is 0.63″, not ≈ 0.8″. Dropping radiation shifts D_M(z∗) by 0.5 %, not 1.6 %. The tests now pin computed values with independent cross-checks: the closed form (2Ω_Λ/Ω_m)^⅓ − 1, the ratio √(D_ds/(D_s − D_d)), and the Planck mismatch.
+4. **Top-bar overflow again.** The fifth Cosmic group pushed Scale and Settings off-screen at 1440 px. Menu chips no longer append the active section to their label; it moves to a tooltip. In Cosmic below 1500 px the Sources, Notebook and Scale buttons show icons only, with aria-labels so their accessible names do not change.
+5. **Access:** arxiv.org /pdf was used for Planck 2018 VI, Hogg 1999 and Carroll 1997, one request at a time, at least 15 s apart. Crossref was used for the DOI. export.arxiv.org was not used.

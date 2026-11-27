@@ -19,7 +19,7 @@ src/
 │   ├── units/{dimensions,units}.ts dimension vectors, unit registry, checked conversion (fm…Mpc, eV, u, M☉ …)
 │   ├── mathematics/{vec3,kepler}.ts float64 vectors, frame rotations, Kepler solver
 │   ├── simulation/                 clock (TDB JD, leap seconds), seeded PRNG, snapshots & replay
-│   ├── physics/                    gravity (leapfrog N-body + diagnostics), relativity (Schwarzschild exterior, Gate 6.1), lensing (point lens, Gate 6.3), cosmology (FLRW), waves (Gate 4.5), em (photon, plane wave, Planck; Gate 4.6), module registry
+│   ├── physics/                    gravity (leapfrog N-body + diagnostics), relativity (Schwarzschild exterior, Gate 6.1), lensing (point lens, Gate 6.3), cosmology (FLRW with radiation, distances, ages, lensing distances; Gate 7.1), waves (Gate 4.5), em (photon, plane wave, Planck; Gate 4.6), module registry
 │   ├── provenance/provenance.ts    five reliability classes + record metadata
 │   └── scale/scale.ts              16-level logarithmic scale ladder
 ├── modes/
@@ -42,7 +42,8 @@ src/
 │       ├── compact/                white dwarfs, neutron stars, black holes with published values (#/cosmic/compact)
 │       ├── lensing/                point-lens plane, microlensing, astrometric deflection (#/cosmic/lensing)
 │       ├── galaxies/               SPARC rotation curves, baryons vs NFW halo, Milky Way (#/cosmic/galaxies)
-│       └── nebulae/                licensed image gallery, nebula records, emission-line links (#/cosmic/nebulae)
+│       ├── nebulae/                licensed image gallery, nebula records, emission-line links (#/cosmic/nebulae)
+│       └── universe/               ΛCDM distances, expansion history, cosmological lensing distances (#/cosmic/universe)
 ├── core/fields/                    FIELDS layer interface + gravity, Coulomb, plane-wave, heat layers (FIELDS_ARCHITECTURE.md)
 ├── shared/scientific-relationships typed, sourced entity/edge registry; ui/RelatedLinks renders both directions (SCIENTIFIC_RELATIONSHIPS.md)
 ├── rendering/                      Viewport (adaptive DPR, log depth), PointCloud shader, labels, colours
@@ -51,7 +52,7 @@ src/
 └── ui/                             top bar, search, scale navigator, settings, panels, theme
 ```
 
-Reserved (empty) folders from the master spec: `modes/cosmic/{black-holes,universe}`. Black holes live in `compact/` (Gate 6.2); `universe/` is the extension point for Phase 7.
+Reserved (empty) folder from the master spec: `modes/cosmic/black-holes`. Black holes live in `compact/` (Gate 6.2). `universe/` holds Phase 7 (Gate 7.1 onwards).
 
 ## Data flow
 

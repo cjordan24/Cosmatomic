@@ -54,6 +54,14 @@ Star entities are registered at run time when the 10 pc catalogue loads (`starRe
 
 Neutron stars and black holes are registered as `compact-object:<id>` (route `#/cosmic/compact?sel=<id>`). The four white dwarfs with measured masses stay `star:<seq>`, so they are not duplicated.
 
+## Phase 7 relationships
+
+| From | Type | To | Source | Shown in |
+|---|---|---|---|---|
+| `context:cosmic-expansion` | explains | `context:gravitational-lensing` (angular-diameter distances set the Einstein radius of distant lenses) | Hogg 1999 eq. 19 | Expansion view ↔ Lensing view |
+
+`context:cosmic-expansion` routes to `#/cosmic/universe`. The *Observable universe* scale level is now interactive and opens its Expansion history tab.
+
 ## Earlier relationships (Gate 4.1)
 
 Reaction → process/context (`participates-in`), e.g. net photosynthesis → `process:photosynthesis` (planned, Biologic Mode Phase 11), combustion → `context:energy-production`.
