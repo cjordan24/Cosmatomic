@@ -117,3 +117,23 @@ test('89 spectroscopy: hydrogen-like series against NIST lines, Doppler widths, 
   await expect(mr).toContainText(/115\.2\d+ GHz/);
   await shot(page, '89b-co-levels', 'Carbon monoxide: vibrational ladder and rotational sublevels to scale, and the pure-rotation lines (J = 1 ← 0 near 115 GHz) from the Huber–Herzberg constants via the NIST WebBook.');
 });
+
+// ---------------- Gate 10.5 ----------------
+test('90 thermal radiation: Planck curves with Wien and Stefan–Boltzmann, grey-body exchange, planetary radiative balance against NSSDCA', async ({ page }) => {
+  await page.goto('/#/spectral');
+  await page.getByRole('navigation', { name: 'Spectral sections' }).getByRole('button', { name: 'Light ▾' }).click();
+  await page.getByRole('menuitem', { name: 'Thermal radiation' }).click();
+  await expect(page).toHaveURL(/#\/spectral\/thermal$/);
+  const bb = page.getByRole('table', { name: 'Black-body values' });
+  await expect(bb).toContainText('0.502');                 // b/5772 K
+  await expect(page.getByLabel('Black-body constants')).toContainText('2.94');
+  await shot(page, '90a-planck', 'Planck curves at 5772, 3000 and 1000 K with their Wien peaks λ_m = b/T and σT⁴ (Planck 1914, eqs. 75–76, 109, 276); b from CODATA beside Lummer and Pringsheim’s 0.294 cm·degree.');
+  await page.getByRole('navigation', { name: 'Thermal radiation sections' }).getByRole('button', { name: 'Grey bodies' }).click();
+  await expect(page.getByLabel('Grey-body result')).toContainText(/net loss389\.\d/);
+  await page.getByRole('navigation', { name: 'Thermal radiation sections' }).getByRole('button', { name: 'Planetary balance' }).click();
+  const br = page.getByLabel('Balance result');
+  await expect(br).toContainText('340.25');
+  await expect(br).toContainText('255.1');
+  await expect(page.getByRole('table', { name: 'Planet temperatures' })).toContainText('439.6');
+  await shot(page, '90b-planets', 'Radiative balance T = [S(1 − A)/4σ]^¼ for ten bodies against the NSSDCA black-body temperatures and mean temperatures; Earth absorbs 240 W/m² of its 340 W/m² (NASA energy budget).');
+});

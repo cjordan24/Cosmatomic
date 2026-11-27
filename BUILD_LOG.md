@@ -689,3 +689,13 @@ Phase 10 approved by the user (“approve phase 10”). The optics textbooks fir
 6. **Sources:** `nist-atomic-spectroscopy-compendium`, `bohr-1913`, `nist-diatomic-database` (169 entries); Huber & Herzberg and the WebBook now feed `diatomic`. Registry: `instrument:spectroscopy`.
 7. **Tests:** science 765/765 (+11, `tests/science/spectroscopy.test.ts`); browser test 89 (screenshots 89a–b).
 
+## Phase 10, Gate 10.5: thermal radiation and radiative balance (`#/spectral/thermal`), 2026-11-27
+
+1. **View:** `#/spectral/thermal?tab=blackbody|grey|planets` (Light ▾ → Thermal radiation).
+2. **Physics:** `src/core/physics/thermal/radiation.ts`: Planck's law, Wien and Stefan–Boltzmann (Planck 1914 eqs. 75–76, 109–111, 276) reusing the CODATA functions of `em.ts`, with σT⁴ checked by numerical integration; Kirchhoff's law (eq. 48) for grey bodies and net exchange; radiative equilibrium T = [S(1 − A)/4εσ]^¼ with NASA's one-fourth rule.
+3. **New dataset:** `datasets/astronomical/planet-radiation.json` (41 manifests): Bond albedo, solar irradiance and black-body temperature of ten bodies from the NSSDCA fact sheets (Earth's page is preformatted text, the others tables; both parsed from tag-stripped text).
+4. **Finding:** the balance formula reproduces eight printed black-body temperatures within 0.1 K. Earth's 254.0 K corresponds to an albedo of 0.306, not the listed 0.294 (255.1 K), and Pluto's 37.5 K to 0.486, not 0.72 (32.2 K). Both are shown as printed and documented.
+5. **Left out:** conduction and convection (no open source read for Fourier's law or heat-transfer coefficients).
+6. **Sources:** `planck-1914`, `nasa-earth-energy-budget` (171 entries). Registry: `instrument:thermal-radiation`, linked to infrared, sunlight and ten solar-system bodies.
+7. **Tests:** science 771/771 (+6, `tests/science/thermalRadiation.test.ts`); browser test 90 (screenshots 90a–b).
+

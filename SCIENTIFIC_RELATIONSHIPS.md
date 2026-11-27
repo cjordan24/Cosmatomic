@@ -130,6 +130,7 @@ Every encyclopedia entry describes a registry entity, so E.2 registered the 11 s
 `instrument:wave-optics` (`#/spectral/waveoptics`) *explains* visible light (interference and diffraction, Drude), is *part of* geometric optics through Huygens' principle, and *explains* the Na I and Hg I spectra (doublets resolved by a grating, NIST ASD).
 `instrument:polarisation` (`#/spectral/polarisation`) *explains* visible light (polarisation by reflection, Drude), is *part of* geometric optics (the Fresnel fractions at each surface) and reads the birefringence of quartz, sapphire and rutile (`has-property`, Ghosh 1999, Malitson & Dodge 1972, DeVore 1951).
 `instrument:spectroscopy` (`#/spectral/spectroscopy`) *explains* the H I, D I and He II spectra (hydrogenic lines with R_M, NIST Compendium), microwaves (diatomic rotation lines, NIST Diatomic Spectral Database) and infrared (vibrational quanta, Huber & Herzberg).
+`instrument:thermal-radiation` (`#/spectral/thermal`) *explains* infrared radiation (Wien, Planck 1914) and sunlight's planet-averaged 340 W/m² (NASA); every planet and the Moon *has-property* its albedo, irradiance and balance temperature (NSSDCA).
 
 ## Rules
 

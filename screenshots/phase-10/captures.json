@@ -8,5 +8,7 @@
   "88a-fresnel.png": "Fused silica at 589 nm: s and p reflectance against angle from Drude’s eq. 24; the p reflectance vanishes at the polarizing angle 55.56° (tan φ = n).",
   "88b-calcite.png": "Calcite at 589 nm: n_o = 1.6584 and n_e = 1.4861 (Ghosh 1999 via refractiveindex.info), the extraordinary index against direction (Drude eq. 35) and a 0.855 µm quarter-wave thickness.",
   "89a-balmer.png": "The Balmer series of hydrogen from R_M = R∞M/(M + m_e) (NIST Compendium eqs. 2, 30; Bohr 1913) against the bundled NIST H I lines.",
-  "89b-co-levels.png": "Carbon monoxide: vibrational ladder and rotational sublevels to scale, and the pure-rotation lines (J = 1 ← 0 near 115 GHz) from the Huber–Herzberg constants via the NIST WebBook."
+  "89b-co-levels.png": "Carbon monoxide: vibrational ladder and rotational sublevels to scale, and the pure-rotation lines (J = 1 ← 0 near 115 GHz) from the Huber–Herzberg constants via the NIST WebBook.",
+  "90a-planck.png": "Planck curves at 5772, 3000 and 1000 K with their Wien peaks λ_m = b/T and σT⁴ (Planck 1914, eqs. 75–76, 109, 276); b from CODATA beside Lummer and Pringsheim’s 0.294 cm·degree.",
+  "90b-planets.png": "Radiative balance T = [S(1 − A)/4σ]^¼ for ten bodies against the NSSDCA black-body temperatures and mean temperatures; Earth absorbs 240 W/m² of its 340 W/m² (NASA energy budget)."
 }

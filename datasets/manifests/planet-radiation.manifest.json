@@ -1,0 +1,18 @@
+{
+  "dataset": "planet-radiation",
+  "version": "1.0.0",
+  "records": 10,
+  "sources": [
+    {
+      "institution": "NASA Space Science Data Coordinated Archive (NSSDCA), planetary fact sheets (D. R. Williams, NASA GSFC)",
+      "url": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/",
+      "notes": "Bond albedo, solar irradiance and black-body temperature per body, as printed"
+    }
+  ],
+  "adapter": "scripts/ingestion/planet-radiation.ts",
+  "warnings": [],
+  "output": "datasets/astronomical/planet-radiation.json",
+  "retrievedAt": "2026-11-27T18:06:14.230Z",
+  "bytes": 2032,
+  "sha256": "7d4aaf45ce6075fef7685a3a243ef2539957d25ba0edac431e7596069c018c78"
+}

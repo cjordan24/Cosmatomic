@@ -292,6 +292,13 @@ for (const [sp, ctx] of [['H I', 'hydrogenic lines from R_M with the proton mass
 registerRelationship({ from: 'instrument:spectroscopy', to: 'wave:em-microwave', type: 'explains', context: 'pure-rotation lines of diatomic molecules ν = 2B_v J′ − 4D_v J′³ (CO J = 1 ← 0 near 115 GHz)', source: 'nist-diatomic-database' });
 registerRelationship({ from: 'instrument:spectroscopy', to: 'wave:em-infrared', type: 'explains', context: 'vibrational quanta G(1) − G(0) of diatomic molecules (HCl ≈ 2885 cm⁻¹)', source: 'huber-herzberg-1979' });
 
+// ---------------------------------------------------------------- Phase 10, Gate 10.5: thermal radiation
+registerEntity(E('instrument:thermal-radiation', 'Thermal radiation and energy balance', '#/spectral/thermal', 'Planck, Wien and Stefan–Boltzmann; grey bodies by Kirchhoff’s law; radiative balance of the planets (Gate 10.5)'));
+registerRelationship({ from: 'instrument:thermal-radiation', to: 'wave:em-infrared', type: 'explains', context: 'bodies near room temperature radiate mostly in the infrared: λ_m T = b puts the peak near 10 µm at 300 K', source: 'planck-1914' });
+registerRelationship({ from: 'instrument:thermal-radiation', to: 'context:sunlight', type: 'explains', context: 'planet-averaged sunlight is one-fourth of the total solar irradiance, about 340 W/m² at Earth', source: 'nasa-earth-energy-budget' });
+for (const id of ['mercury', 'venus', 'earth', 'moon', 'mars', 'jupiter', 'saturn', 'uranus', 'neptune', 'pluto'])
+  if (REGISTRY.has(`body:${id}`)) registerRelationship({ from: `body:${id}`, to: 'instrument:thermal-radiation', type: 'has-property', context: 'Bond albedo, solar irradiance and black-body (balance) temperature', source: 'nssdc-factsheet' });
+
 export const getEntity = (id: string) => REGISTRY.get(id);
 export const allEntities = () => [...REGISTRY.values()];
 export const relationshipsFrom = (id: string) => RELATIONSHIPS.filter((r) => r.from === id);
