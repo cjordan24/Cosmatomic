@@ -262,6 +262,11 @@ registerEntity(E('instrument:audio-lab', 'Audio synthesis and FFT', '#/spectral/
 registerEntity(E('wave:sound-air', 'Sound waves in dry air', '#/spectral/lab?demo=traveling&medium=air&wave=longitudinal&f=440&A=1e-6', 'Wave lab: ideal-gas air, c = √(γRT/M)'));
 registerRelationship({ from: 'instrument:audio-lab', to: 'wave:sound-air', type: 'explains', context: 'a periodic sound is a sum of harmonics at multiples of its fundamental (classic Fourier series, Johnson §4.3)', source: 'johnson-fundamentals-ee' });
 
+// ---------------------------------------------------------------- Phase 9, Gate 9.7: room acoustics
+registerEntity(E('instrument:room-acoustics', 'Room acoustics and resonance', '#/spectral/roomacoustics', 'Room modes (Rayleigh), Sabine reverberation and a 2-D wave simulation (Gate 9.7)'));
+registerRelationship({ from: 'instrument:room-acoustics', to: 'wave:sound-air', type: 'explains', context: 'a rigid room rings only at f = (c/2)√((p/L)² + (q/W)² + (r/H)²); the gravest mode runs along the longest edge', source: 'rayleigh-1896' });
+registerRelationship({ from: 'instrument:room-acoustics', to: 'instrument:acoustic-lab', type: 'part-of', context: 'reverberation: t = 0.164 V/a with absorbing power in square metres of open window (Sabine)', source: 'sabine-1922' });
+
 export const getEntity = (id: string) => REGISTRY.get(id);
 export const allEntities = () => [...REGISTRY.values()];
 export const relationshipsFrom = (id: string) => RELATIONSHIPS.filter((r) => r.from === id);

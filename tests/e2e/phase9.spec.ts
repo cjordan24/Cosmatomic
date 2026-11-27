@@ -199,3 +199,21 @@ test('84 audio: Fourier synthesis with playback, sampling and aliasing, spectrog
   await expect(page.getByText('440 Hz + 444 Hz')).toBeVisible();
 });
 
+// ---------------- Gate 9.7 ----------------
+test('85 room acoustics: Rayleigh room modes, Sabine reverberation and a finite-difference room', async ({ page }) => {
+  await page.goto('/#/spectral');
+  await page.getByRole('navigation', { name: 'Spectral sections' }).getByRole('button', { name: 'Waves ▾' }).click();
+  await page.getByRole('menuitem', { name: 'Room acoustics' }).click();
+  await expect(page).toHaveURL(/#\/spectral\/roomacoustics$/);
+  await expect(page.getByRole('heading', { name: /Normal modes of a room/ })).toBeVisible();
+  const modes = page.getByRole('table', { name: 'Room modes' });
+  await expect(modes.getByRole('row').nth(1)).toContainText('(1,0,0)');
+  await expect(modes.getByRole('row').nth(1)).toContainText('28.6');
+  await shot(page, '85a-room-modes', 'Normal modes of a rigid 6 × 5 × 3 m room (Rayleigh §267): the (1,0,0) mode at 28.6 Hz along the longest edge, its pressure pattern and the crowding of modes with frequency.');
+  await page.getByRole('navigation', { name: 'Room acoustics sections' }).getByRole('button', { name: 'Reverberation' }).click();
+  await page.getByLabel('Number of people').fill('100');
+  await expect(page.getByLabel('Reverberation', { exact: true })).toContainText('0.301 s');
+  await shot(page, '85b-reverberation', 'Sabine reverberation: t = 0.164 V/a for a 90 m³ room with a pine floor, plaster walls and ceiling and 100 people, using Sabine’s 1900 coefficients (Collected Papers on Acoustics, 1922).');
+  await page.getByRole('navigation', { name: 'Room acoustics sections' }).getByRole('button', { name: 'Wave simulation' }).click();
+  await expect(page.getByRole('img', { name: 'Probe spectrum and analytic modes' })).toBeVisible({ timeout: 90_000 });
+});

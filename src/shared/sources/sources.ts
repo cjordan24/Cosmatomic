@@ -569,6 +569,14 @@ export const SOURCES: Source[] = [
     institution: 'OpenStax, Rice University', url: 'https://openstax.org/books/college-physics-2e/pages/17-7-ultrasound', license: 'CC BY-NC-SA (OpenStax; its pages also state that the book may not be ingested into large language models without OpenStax’s permission)',
     authorBio: 'Paul Peter Urone (California State University, Sacramento) and Roger Hinrichs (State University of New York, College at Oswego), the senior authors listed on the OpenStax page.',
     usedFor: ['acoustic impedance Z = ρv (eq. 17.38), intensity reflection coefficient a = (Z₂ − Z₁)²/(Z₁ + Z₂)² (eq. 17.39), Table 17.5 media and Example 17.7 (Gate 9.5)'] },
+  { id: 'rayleigh-1896', kind: 'book', citation: 'Strutt, J. W. (Lord Rayleigh) (1896) The Theory of Sound, Vol. II, 2nd edition, revised and enlarged. London: Macmillan, §267 (aerial vibrations in a rectangular chamber).', title: 'The Theory of Sound, Volume II', authors: 'J. W. Strutt, Baron Rayleigh', year: 1896,
+    institution: 'Macmillan and Co., London (printed at the Cambridge University Press); scan at the Internet Archive (theoryofsound02raylrich)', url: 'https://archive.org/details/theoryofsound02raylrich', license: 'Public domain (published 1896)',
+    authorBio: 'John William Strutt, Baron Rayleigh, Sc.D., F.R.S., Honorary Fellow of Trinity College, Cambridge (title page).',
+    usedFor: ['normal modes of a rigid rectangular chamber: φ = cos(pπx/α) cos(qπy/β) cos(rπz/γ) with k² = π²(p²/α² + q²/β² + r²/γ²), eqs. (3)–(4), checked on the page image; the gravest mode runs along the longest edge (Gate 9.7)'] },
+  { id: 'sabine-1922', kind: 'book', citation: 'Sabine, W. C. (1922) Collected Papers on Acoustics. Cambridge, MA: Harvard University Press (paper “Reverberation”, 1900).', title: 'Collected Papers on Acoustics', authors: 'W. C. Sabine', year: 1922,
+    institution: 'Harvard University Press; scan at the Internet Archive (collectedpaperso00sabiuoft)', url: 'https://archive.org/details/collectedpaperso00sabiuoft', license: 'Public domain (published 1922)',
+    authorBio: 'Wallace Clement Sabine, late Hollis Professor of Mathematics and Natural Philosophy in Harvard University (title page).',
+    usedFor: ['reverberation time t = K V/a with K = .164 for an initial intensity 10⁶ times minimum audible (table of K, p. 50; p. 105)', 'absorbing power of wall-surfaces, audiences and miscellaneous materials in square metres of open window, at 512 vibrations per second (tables pp. 56, 58, 60, checked on the page images)', 'Boston Public Library example: 70 m² × .061 = 4.3, 72 m² × .027 = 1.9'] },
 ];
 
 const BY_ID = new Map(SOURCES.map((s) => [s.id, s]));

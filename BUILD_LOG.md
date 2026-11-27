@@ -624,3 +624,12 @@ Phase 9 approved by the user (“you have my approval to go ahead with phase nin
 3. **View:** Fourier synthesis (5 shapes, up to 60 harmonics, playback, period plot, harmonic bars, FFT, coefficient table), sampling & aliasing (original vs “as sampled” playback, alias frequency), spectrogram (chirp, octave step, square wave, optional 3 s microphone recording kept in the page only). The Wave lab gains *🔊 Listen*.
 4. **Registry:** `instrument:audio-lab`, `wave:sound-air` (new entity, routed to the Wave lab).
 5. **Tests:** +5 science (`synthesis.test.ts`), browser test 84; full suite **79/79** (13.1 min) together with Gate 9.7.
+
+## Phase 9, Gate 9.7: room acoustics & resonance (`#/spectral/roomacoustics`), 2026-11-27
+
+1. **Sources:** Rayleigh, *The Theory of Sound* Vol. II, 2nd ed. 1896 (Internet Archive `theoryofsound02raylrich`; its metadata says 1894, the title page says 1896) §267; Sabine, *Collected Papers on Acoustics*, 1922 (`collectedpaperso00sabiuoft`). archive.org robots.txt allows `/download/`. The OCR text drops decimal points and equations, so Rayleigh's eqs. (3)–(4) (p. 70) and Sabine's tables (pp. 56, 60) were checked on page images rendered from the scanned PDFs. New Source-index entries `rayleigh-1896`, `sabine-1922`.
+2. **Dropped from the plan:** Eyring (1930, JASA; not read), the Helmholtz resonator (Rayleigh §§303–306 equations not yet checked on the scans).
+3. **Physics** (`src/core/physics/waves/roomAcoustics.ts`): mode list and shapes, Sabine time and absorbing power with 16 of Sabine's coefficients, 2-D FDTD pressure solver.
+4. **View:** modes (dimensions, slice pressure pattern, mode chart, table, play a mode), reverberation (floor/ceiling/wall materials from Sabine's tables, audience, open windows; decay plot), wave simulation (pulse in the floor plan, probe spectrum against the analytic modes). “Same room for radio waves →” opens Gate 9.3 with the same dimensions.
+5. **Registry:** `instrument:room-acoustics` with two sourced edges.
+6. **Tests:** +7 science (`roomAcoustics.test.ts`), browser test 85; full suite **79/79** (13.1 min) together with Gate 9.6.
