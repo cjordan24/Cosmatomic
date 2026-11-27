@@ -633,3 +633,9 @@ Phase 9 approved by the user (“you have my approval to go ahead with phase nin
 4. **View:** modes (dimensions, slice pressure pattern, mode chart, table, play a mode), reverberation (floor/ceiling/wall materials from Sabine's tables, audience, open windows; decay plot), wave simulation (pulse in the floor plan, probe spectrum against the analytic modes). “Same room for radio waves →” opens Gate 9.3 with the same dimensions.
 5. **Registry:** `instrument:room-acoustics` with two sourced edges.
 6. **Tests:** +7 science (`roomAcoustics.test.ts`), browser test 85; full suite **79/79** (13.1 min) together with Gate 9.6.
+
+### Production deploy and live verification (Phase 9, 2026-11-27)
+
+- Deployed by the user (`vercel deploy --prod`). Deployment `dpl_GFaorS7DN2Ff5CvsAiLvHovZPoSM`, aliased to https://voyager-ventures.vercel.app; production now serves `index-BHFEWWv3.js` (Phases 8 and 9; the previous production bundle was the Gate 7.5 build).
+- Full browser suite against production: **78/79** (12.5 min). The one failure is test 77: the notebook export reads “commit unknown”, because the Vercel CLI uploads the files without `.git`, so `git rev-parse` fails during the Vercel build. Fix: `vite.config.ts` now falls back to `VERCEL_GIT_COMMIT_SHA` when it is set; whether the CLI deploy sets it will show on the next deploy.
+

@@ -8,6 +8,8 @@ import { readFileSync } from 'node:fs';
 const pkgVersion = (JSON.parse(readFileSync(new URL('./package.json', import.meta.url), 'utf8')) as { version: string }).version;
 let commit = 'unknown';
 try { commit = execSync('git rev-parse --short HEAD', { stdio: ['ignore', 'pipe', 'ignore'] }).toString().trim(); } catch { /* not a git checkout */ }
+// Vercel builds the uploaded files without .git; use its commit variable when it is set.
+if (commit === 'unknown' && process.env.VERCEL_GIT_COMMIT_SHA) commit = process.env.VERCEL_GIT_COMMIT_SHA.slice(0, 7);
 
 export default defineConfig({
   plugins: [react()],
