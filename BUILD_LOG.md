@@ -747,3 +747,9 @@ Requested by the user, taking UI notes from the Lodestar Digital Studio site (ld
 6. **Problems found by the full browser suite and fixed:** the first run had 11 failures in 40.6 min. (a) To lay the starfield under the Cosmic pages I had also set the top bar to z-index 1, which put the page over the top-bar drop-down menus (9 tests could not click them); only the stage is lifted now. (b) Two perpetual animations (a starfield twinkle and a drifting atom pattern) repainted large areas under blurred glass every frame and slowed software rendering enough to time out 3D views; both backgrounds are now static (the reference's own notes warn about this). The universe-map label check waits up to 15 s for the first projected frame.
 7. **Tests:** science 793/793; full browser suite **87/87** (16.1 min). Phase 10 screenshots regenerated with the new look.
 8. **Universe map labels:** labels near the centre of the Local Group view overlapped; the map's label layer now declutters (a label that would overlap one already placed is hidden), placing the selected object first, then by kind (Sun, Galactic Centre, planets, nebulae, Local Group, galaxies, stars) and a curated order of notable objects (Andromeda, Triangulum, the Magellanic Clouds before dwarfs). The selection ring is larger and faces the camera.
+
+### Production deploy and live verification (universe map and interface pass, 2026-11-27)
+
+- Deployed by the user (`vercel deploy --prod`), deployment `dpl_A8EVjaCy5RYH9EmPNTsZgjJdC3Zj`; production serves `index-BQfHlCAA.js` (commit b03ad91 and the earlier Gate 10.8 and interface commits).
+- Full browser suite against production: **87/87** (16.6 min).
+
