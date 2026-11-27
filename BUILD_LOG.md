@@ -616,3 +616,11 @@ Phase 9 approved by the user (“you have my approval to go ahead with phase nin
 7. **Tests:** +9 science (`acoustics.test.ts`), browser test 83; full suite **77/77** together with Gate 9.4.
 
 **Gate 9.5 deploy:** not deployed.
+
+## Phase 9, Gate 9.6: audio synthesis & FFT (`#/spectral/audio`), 2026-11-27
+
+1. **Sources:** Johnson ch. 4 (crawled like ch. 5–6, 5 s apart): §4.3 classic Fourier series and the square wave's coefficients; §5.3, §§5.9–5.10 as in Gate 9.4.
+2. **Physics:** `src/core/physics/signals/synthesis.ts` (coefficients by numerical integration, partial sums, Nyquist-limited synthesis); `src/ui/audio.ts` (one shared AudioContext created on the first click, buffers with fades).
+3. **View:** Fourier synthesis (5 shapes, up to 60 harmonics, playback, period plot, harmonic bars, FFT, coefficient table), sampling & aliasing (original vs “as sampled” playback, alias frequency), spectrogram (chirp, octave step, square wave, optional 3 s microphone recording kept in the page only). The Wave lab gains *🔊 Listen*.
+4. **Registry:** `instrument:audio-lab`, `wave:sound-air` (new entity, routed to the Wave lab).
+5. **Tests:** +5 science (`synthesis.test.ts`), browser test 84; full suite **79/79** (13.1 min) together with Gate 9.7.

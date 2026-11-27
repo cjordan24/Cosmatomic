@@ -19,6 +19,7 @@ import { KV, Panel, ProvenanceBadge } from '@/ui/components';
 import { LinePlot } from '@/ui/plots';
 import { SourceLinks } from '@/ui/SourcesView';
 import { formatSig } from '@/core/units/units';
+import { audioSampleRate, playSamples, stopAudio } from '@/ui/audio';
 import { saveExperiment, WAVE_SOLVER_VERSION, type WaveExperiment } from '@/shared/notebook';
 import { MEDIA, getMedium } from '@/core/physics/waves/media';
 import { TAU, advanceFD, attenuated, beatFrequency, courant, createFD, deepWater, doppler, kinematics, modeFrequency, nonDispersive, packet, sinusoid, standingWave, twoSourceField, velocities, type Boundary, type FDString } from '@/core/physics/waves/waves';
@@ -375,6 +376,7 @@ export default function WaveLab() {
           {c.demo === 'doppler' && <><KV k="heard ahead of source" v={dopAhead} unit="Hz" sig={5} /><KV k="heard behind source" v={dopBehind} unit="Hz" sig={5} /></>}
           {c.demo === 'attenuation' && <KV k="amplitude half-distance ln2/α" v={Math.LN2 / c.alpha} unit="m" sig={4} />}
         </dl>
+        <Listen tones={c.demo === 'traveling' ? [[s.f, 1]] : c.demo === 'superposition' || c.demo === 'beats' ? [[s.f, c.A], [c.f2, c.A2]] : c.demo === 'standing' && s.v ? [[modeFrequency(c.bc, c.n, c.L, s.v), 1]] : c.demo === 'doppler' && dopAhead && dopBehind ? [[s.f, 1], [dopAhead, 1], [dopBehind, 1]] : []} sequential={c.demo === 'doppler'} />
         {fdError && <p className="note warn" role="alert">{fdError}</p>}
         {c.demo === 'attenuation' && <p className="note warn">α is a user-chosen illustrative value. Real absorption depends on frequency, humidity and the material, and none of it is bundled yet.</p>}
         {c.demo === 'standing' && c.bc !== 'fixed-fixed' && <p className="note">Pipes: the plot shows the PRESSURE standing wave. Open ends are pressure nodes, and a closed end is a pressure antinode, so only odd harmonics exist for open–closed.</p>}
@@ -400,6 +402,35 @@ function ParamSlider({ label, unit, value, min, max, step, log, onChange, aria }
       <input type="range" min={toS(min)} max={toS(max)} step={step ?? (log ? 0.01 : (max - min) / 200)} value={toS(Math.min(max, Math.max(min, value)))} onChange={(e) => onChange(Number(fromS(Number(e.target.value)).toPrecision(4)))} aria-label={aria} />
       <input value={txt} onChange={(e) => setTxt(e.target.value)} onBlur={() => { const v = Number(txt); if (Number.isFinite(v) && v >= min && v <= max) onChange(v); else setTxt(String(value)); }} aria-label={`${aria} (exact)`} style={{ width: 64, height: 24, borderRadius: 6, border: '1px solid var(--line)', background: 'rgba(255,255,255,0.05)', color: 'var(--text)', padding: '0 4px', fontFamily: 'var(--mono)', fontSize: 11 }} />
       <span style={{ fontSize: 10.5, minWidth: 30 }}>{unit}</span>
+    </div>
+  );
+}
+
+/**
+ * 🔊 Listen (Gate 9.6): play the demonstration's frequencies through Web Audio for 2 s (Doppler: source, then ahead,
+ * then behind, 1 s each). Amplitudes keep their ratio; the sum is scaled to full range. Limited to 20 Hz – 20 kHz.
+ */
+function Listen({ tones, sequential = false }: { tones: [number, number][]; sequential?: boolean }) {
+  const [state, setState] = useState<'idle' | 'playing' | 'unavailable'>('idle');
+  const ok = tones.length > 0 && tones.every(([f]) => f >= 20 && f <= 20000);
+  if (!tones.length) return null;
+  const play = () => {
+    const fs = audioSampleRate(), dur = sequential ? tones.length : 2, N = Math.round(fs * dur), out = new Float32Array(N);
+    let peak = 0;
+    for (let i = 0; i < N; i++) {
+      const t = i / fs;
+      let v = 0;
+      if (sequential) { const [f, a] = tones[Math.min(tones.length - 1, Math.floor(t))]; v = a * Math.sin(2 * Math.PI * f * t); }
+      else for (const [f, a] of tones) v += a * Math.sin(2 * Math.PI * f * t);
+      out[i] = v; peak = Math.max(peak, Math.abs(v));
+    }
+    if (peak > 0) for (let i = 0; i < N; i++) out[i] /= peak;
+    setState(playSamples(out, fs, 0.15, () => setState('idle')) ? 'playing' : 'unavailable');
+  };
+  return (
+    <div className="chip-row" style={{ gap: 6, alignItems: 'center', margin: '6px 0' }}>
+      <button className="chip" disabled={!ok} onClick={state === 'playing' ? () => { stopAudio(); setState('idle'); } : play} aria-label={state === 'playing' ? 'Stop sound' : 'Listen'}>{state === 'playing' ? '■ Stop' : '🔊 Listen'}</button>
+      <span className="note" style={{ fontSize: 10.5 }}>{!ok ? 'Playback is limited to 20 Hz – 20 kHz.' : state === 'unavailable' ? 'Audio is not available in this browser.' : sequential ? 'source, then ahead, then behind (1 s each)' : tones.map(([f]) => `${formatSig(f, 4)} Hz`).join(' + ')}</span>
     </div>
   );
 }

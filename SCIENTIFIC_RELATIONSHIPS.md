@@ -119,6 +119,10 @@ Every encyclopedia entry describes a registry entity, so E.2 registered the 11 s
 
 `instrument:acoustic-lab` (`#/spectral/acoustics`) *explains* sound in water (its impedance ρv and the near-total reflection of sound arriving from air, College Physics 2e §17.7) and reads the acoustic impedance of `material:water` (*property*, NIST WebBook).
 
+## Audio (Gate 9.6)
+
+`instrument:audio-lab` (`#/spectral/audio`) *explains* sound in air (`wave:sound-air`, registered here and routed to the Wave lab): a periodic sound is a sum of harmonics (Johnson §4.3).
+
 ## Rules
 
 1. No edge without a source.

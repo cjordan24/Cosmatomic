@@ -173,3 +173,29 @@ test('83 acoustic lab: inverse-square sound levels, impedance and reflection, mo
   await expect(page.getByLabel('Moving source', { exact: true })).toContainText('30 °');
   await expect(page.getByLabel('Moving source', { exact: true })).toContainText('unknown');
 });
+
+// ---------------- Gate 9.6 ----------------
+test('84 audio: Fourier synthesis with playback, sampling and aliasing, spectrograms; Wave lab playback', async ({ page }) => {
+  await page.goto('/#/spectral');
+  await page.getByRole('navigation', { name: 'Spectral sections' }).getByRole('button', { name: 'Waves ▾' }).click();
+  await page.getByRole('menuitem', { name: 'Audio & FFT' }).click();
+  await expect(page).toHaveURL(/#\/spectral\/audio$/);
+  await expect(page.getByRole('heading', { name: /Fourier synthesis/ })).toBeVisible();
+  const coeff = page.getByRole('table', { name: 'Fourier coefficients' });
+  await expect(coeff).toContainText('1.273');    // 4/π
+  await expect(coeff).toContainText('0.4244');   // 4/(3π)
+  await page.getByRole('button', { name: 'Play 2 s' }).click();
+  await expect(page.getByRole('button', { name: /Stop Play 2 s|Play 2 s/ })).toBeVisible();
+  await shot(page, '84a-fourier-synthesis', 'Square wave from its first 9 harmonics (b_k = 4/(πk), odd k, Johnson §4.3): one period against the ideal shape, harmonic amplitudes and the FFT of the synthesized sound.');
+  await page.goto('/#/spectral/audio?tab=sampling&f=7000&fs=10000');
+  const res = page.getByLabel('Sampling result');
+  await expect(res).toContainText('3,000 Hz');
+  await expect(res).toContainText('yes');
+  await shot(page, '84b-aliasing', 'A 7 kHz sinusoid sampled at 10 kHz: the samples fit a 3 kHz sinusoid, its alias below the 5 kHz Nyquist frequency (Johnson §5.3).');
+  await page.goto('/#/spectral/audio?tab=spectrogram&sig=square');
+  await expect(page.getByLabel('Spectrogram', { exact: true })).toBeVisible();
+  await page.goto('/#/spectral/lab?demo=beats');
+  await expect(page.getByRole('button', { name: 'Listen' })).toBeVisible();
+  await expect(page.getByText('440 Hz + 444 Hz')).toBeVisible();
+});
+

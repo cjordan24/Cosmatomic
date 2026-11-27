@@ -257,6 +257,11 @@ registerEntity(E('instrument:acoustic-lab', 'Acoustic lab', '#/spectral/acoustic
 registerRelationship({ from: 'instrument:acoustic-lab', to: 'wave:sound-water', type: 'explains', context: 'Z = ρv of water from the NIST data; sound arriving from air is almost entirely reflected (a = (Z₂ − Z₁)²/(Z₁ + Z₂)²)', source: 'openstax-college-physics-2e' });
 registerRelationship({ from: 'instrument:acoustic-lab', to: 'material:water', type: 'has-property', context: 'acoustic impedance ρv at 1 atm', source: 'nist-webbook-fluids' });
 
+// ---------------------------------------------------------------- Phase 9, Gate 9.6: audio synthesis & FFT
+registerEntity(E('instrument:audio-lab', 'Audio synthesis and FFT', '#/spectral/audio', 'Fourier synthesis with playback, sampling and aliasing, spectrograms (Gate 9.6)'));
+registerEntity(E('wave:sound-air', 'Sound waves in dry air', '#/spectral/lab?demo=traveling&medium=air&wave=longitudinal&f=440&A=1e-6', 'Wave lab: ideal-gas air, c = √(γRT/M)'));
+registerRelationship({ from: 'instrument:audio-lab', to: 'wave:sound-air', type: 'explains', context: 'a periodic sound is a sum of harmonics at multiples of its fundamental (classic Fourier series, Johnson §4.3)', source: 'johnson-fundamentals-ee' });
+
 export const getEntity = (id: string) => REGISTRY.get(id);
 export const allEntities = () => [...REGISTRY.values()];
 export const relationshipsFrom = (id: string) => RELATIONSHIPS.filter((r) => r.from === id);
