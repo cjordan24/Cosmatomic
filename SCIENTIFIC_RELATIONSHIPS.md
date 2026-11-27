@@ -103,6 +103,10 @@ Every encyclopedia entry describes a registry entity, so E.2 registered the 11 s
 
 `instrument:antennas` (`#/spectral/antennas?tab=pattern`) and `field:hertzian-dipole` (`#/spectral/antennas`). Edges, all sourced to Ellingson (2020): the dipole field *emits* radio waves; it *explains* the plane wave (far from the source the wave is locally plane, |E|/|H| = η₀); antennas are modelled as sums of Hertzian dipoles (*part of*); the Friis example links antennas to radio waves (a 6 GHz, 5 cm link; ISO 21348 keeps “microwave” for 1–15 mm).
 
+## RF atlas (Gate 9.2)
+
+`context:radio-allocations` (`#/spectral/rf`), `context:gps` and the spacecraft `body:voyager-1`, `body:voyager-2` (routed to the Cosmic view). Edges: FM allocations are *part of* radio waves (47 CFR §73.201); unlicensed transmitters are *observed with* antennas (§15.247 power limit at the antenna); GPS *emits* radio waves (IS-GPS-200N) and is *located in* Earth orbit (GPS.gov); Voyager 1 and 2 *emit* radio waves at X-band and Voyager 2's links are *part of* the allocations view (Ludwig & Taylor 2002). The X-band (3.6 cm) is radio, not ISO 21348 “microwave” (1–15 mm).
+
 ## Rules
 
 1. No edge without a source.

@@ -571,3 +571,14 @@ Phase 9 approved by the user (“you have my approval to go ahead with phase nin
 8. **Tests:** 652 science (+16, `tests/science/antennas.test.ts`), 73 browser (+1: test 79 in `tests/e2e/phase9.spec.ts`). Local full suite **73/73** (10.9 min). Layout: 1440 px and 390 px (scroll width 390) checked.
 
 **Gate 9.1 deploy:** not deployed (production still serves the Gate 7.5 build).
+
+## Phase 9, Gate 9.2: RF/wireless atlas (`#/spectral/rf`), 2026-11-27
+
+1. **Dataset** `datasets/spectral/rf-allocations.json` (manifest `rf-allocations`, adapter `scripts/ingestion/curated-rf.ts`), transcribed by hand with a verbatim quote per entry: 47 CFR §§73.14, 73.201, 18.301, 15.247, 15.407 from the eCFR (robots.txt allows `/current/`); IS-GPS-200N and IS-GPS-705J (gps.gov, Distribution A); GPS.gov *Space Segment*; Ludwig & Taylor (2002), JPL DESCANSO *Voyager Telecommunications* (no robots.txt on the host). The planned DSN 810-005 document was not needed: the DESCANSO article gives the Voyager frequencies and design control tables directly. ITU-R P.676 (atmospheric absorption) is not bundled.
+2. **View:** allocations on a log frequency axis under the ITU-R V.431 band names; per entry λ, λ/2, hf, ITU band, free-space path loss at a chosen distance, source text, all channel carriers; “Find a frequency”; links into the Friis calculator and the spectrum atlas. *Link budgets* tab: Voyager 2 X-band downlink and S-band uplink tables at DSS-43 (1996-01-01) summed again with the space loss recomputed by Friis (308.18 vs 308.19 dB; 296.18 vs 296.18 dB), the 880/221 turnaround (2113.3125 MHz → 8415.000000 MHz); GPS line-of-sight distance vs elevation and the implied minimum EIRP.
+3. **Finding:** the tables print received power as the *mean* of toleranced items, so the sum of design values differs by up to 0.18 dB (uplink: 70 m gain 62.10 dBi design, 61.9 mean). Shown and tested as such.
+4. **Registry:** `context:radio-allocations`, `context:gps`, `body:voyager-1`, `body:voyager-2` with 7 sourced edges. Voyager's 3.6 cm X-band and the 6 GHz Friis example are linked to *radio waves*, not *microwaves*, because the app's ISO 21348 microwave category is 1–15 mm (the Gate 9.1 edge was corrected before committing).
+5. **Sources:** `ecfr-47-cfr`, `is-gps-200n`, `is-gps-705j`, `gps-gov-space-segment`, `ludwig-taylor-2002`.
+6. **Tests:** 663 science (+11, `tests/science/rf.test.ts`), 74 browser (+1: test 80). Local full suite **74/74** (11.8 min).
+
+**Gate 9.2 deploy:** not deployed.

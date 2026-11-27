@@ -1,0 +1,33 @@
+{
+  "dataset": "rf-allocations",
+  "version": "1.0.0",
+  "records": 29,
+  "sources": [
+    {
+      "institution": "Code of Federal Regulations, Title 47 (FCC), eCFR (Office of the Federal Register / GPO)",
+      "url": "https://www.ecfr.gov/current/title-47",
+      "license": "U.S. Government work (public domain)",
+      "notes": "§73.14, §73.201, §18.301, §15.247, §15.407"
+    },
+    {
+      "institution": "IS-GPS-200N and IS-GPS-705J (U.S. Space Force, Space Systems Command), gps.gov",
+      "url": "https://www.gps.gov/interface-control-documents-icds-interface-specifications-iss",
+      "license": "Distribution Statement A: approved for public release",
+      "notes": "L1, L2, L5 carrier frequencies; minimum received power"
+    },
+    {
+      "institution": "Ludwig & Taylor (2002), Voyager Telecommunications, JPL DESCANSO Article 4",
+      "url": "https://descanso.jpl.nasa.gov/DPSummary/Descanso4--Voyager_new.pdf",
+      "notes": "frequencies and Voyager 2 design control tables"
+    }
+  ],
+  "adapter": "scripts/ingestion/curated-rf.ts",
+  "warnings": [
+    "Hand-transcribed; U.S. (FCC) rules only — other countries allocate differently.",
+    "Link budgets are 1996 predictions (design values), not measurements."
+  ],
+  "output": "datasets/spectral/rf-allocations.json",
+  "retrievedAt": "2026-11-27T14:38:51.401Z",
+  "bytes": 13224,
+  "sha256": "fa553cf53fede528ac0c25f481f1fa10c954a994f068c7d4811b65d068b922b0"
+}

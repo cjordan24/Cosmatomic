@@ -28,8 +28,8 @@ interface Hit { kind: 'element' | 'molecule' | 'body' | 'reaction' | 'material' 
 
 /** Cosmic sub-routes that are not solar-system bodies (#/cosmic/<id> otherwise focuses a body). */
 /** Spectral sub-routes other than the atlas; Phase 9 views sit in chip menus so the bar does not grow. */
-const RADIO_ITEMS: [string, string][] = [['Antennas & fields', '/spectral/antennas']];
-const SPECTRAL_SECTIONS = ['lab', 'fields', 'compare', 'antennas'];
+const RADIO_ITEMS: [string, string][] = [['Antennas & fields', '/spectral/antennas'], ['RF atlas', '/spectral/rf']];
+const SPECTRAL_SECTIONS = ['lab', 'fields', 'compare', 'antennas', 'rf'];
 const COSMIC_SECTIONS = ['stars', 'sandbox', 'relativity', 'compact', 'lensing', 'galaxies', 'nebulae', 'universe', 'ladder', 'cmb', 'darkmatter', 'gw'];
 
 /** A chip that opens a small menu of related sections; it is highlighted when one of them is open. */

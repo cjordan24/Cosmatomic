@@ -65,3 +65,34 @@ test('79 antennas: dipole near/far field, patterns checked against Ellingson, ar
   await expect(page.getByLabel('Link quantities')).toContainText('-120.05 dBm');
   await shot(page, '79d-friis', 'Friis link: Ellingson Example 10.11 (6 GHz, 30 km, 27 dBi dishes, −36.5 dBm transmitted) gives −120.05 dBm at the receiver with the exact c.');
 });
+
+// ---------------- Gate 9.2 ----------------
+test('80 RF atlas: allocations from 47 CFR, GPS and Voyager on the ITU bands; published link budgets re-derived', async ({ page }) => {
+  await page.goto('/#/spectral');
+  await page.getByRole('navigation', { name: 'Spectral sections' }).getByRole('button', { name: 'Radio ▾' }).click();
+  await page.getByRole('menuitem', { name: 'RF atlas' }).click();
+  await expect(page).toHaveURL(/#\/spectral\/rf$/);
+  await expect(page.getByRole('heading', { name: /Radio spectrum in use/ })).toBeVisible();
+  const sel = page.getByLabel('Selected allocation');
+  await expect(sel).toContainText('88 MHz – 108 MHz');
+  await expect(sel).toContainText('VHF (band 8)');
+  await expect(sel).toContainText('100 carriers');
+  await expect(page.getByLabel('Source text')).toContainText('It is divided into 100 channels of 200 kHz each.');
+  await page.getByRole('list', { name: 'Satellite navigation (GPS)' }).getByRole('button', { name: 'GPS L1' }).click();
+  await expect(sel).toContainText('1.57542 GHz');
+  await expect(sel).toContainText('UHF (band 9)');
+  await expect(page.getByLabel('Source text')).toContainText('IS-GPS-200N');
+  await page.goto('/#/spectral/rf?sel=voyager-x-downlink&q=1575420000');
+  await expect(page.getByRole('status', { name: 'Frequency lookup' })).toContainText('inside GPS L1');
+  await expect(sel).toContainText('SHF (band 10)');
+  await shot(page, '80a-rf-atlas', 'RF atlas: U.S. broadcast, unlicensed and ISM allocations (47 CFR), GPS carriers and Voyager links on the ITU-R V.431 bands; Voyager X-band selected with its source text; 1575.42 MHz looked up.');
+
+  await page.getByRole('navigation', { name: 'RF atlas sections' }).getByRole('button', { name: 'Link budgets' }).click();
+  const down = page.getByRole('table', { name: 'Budget voyager2-x-downlink-1996' });
+  await expect(down).toContainText('−308.18 dB');
+  await expect(down).toContainText('-145.5 dBm');
+  await expect(page.getByLabel('Coherent turnaround')).toContainText('8415.000000 MHz');
+  await page.getByLabel('Satellite elevation').fill('90');
+  await expect(page.getByLabel('GPS link')).toContainText(/20,?200 km/);
+  await shot(page, '80b-link-budgets', 'Voyager 2 X-band downlink design control table (Ludwig & Taylor 2002, Table 5-3): space loss recomputed with the Friis path loss, 308.18 vs 308.19 dB; GPS implied minimum EIRP from IS-GPS-200N.');
+});

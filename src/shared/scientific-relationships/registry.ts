@@ -227,6 +227,19 @@ registerRelationship({ from: 'field:hertzian-dipole', to: 'field:plane-wave-ex',
 registerRelationship({ from: 'instrument:antennas', to: 'field:hertzian-dipole', type: 'part-of', context: 'wire antennas are modelled as sums of Hertzian dipoles (Ellingson §9.6)', source: 'ellingson-2020-vol2' });
 registerRelationship({ from: 'instrument:antennas', to: 'wave:em-radio', type: 'emits', context: 'Friis example: a 6 GHz (5 cm) point-to-point link between 27 dBi dishes over 30 km (Ellingson Example 10.11)', source: 'ellingson-2020-vol2' });
 
+// ---------------------------------------------------------------- Phase 9, Gate 9.2: RF atlas
+registerEntity(E('context:radio-allocations', 'Radio-frequency allocations (U.S.)', '#/spectral/rf', 'AM/FM broadcast, ISM and unlicensed bands from 47 CFR, GPS carriers and Voyager links on the ITU band axis (Gate 9.2)'));
+registerEntity(E('context:gps', 'GPS navigation signals', '#/spectral/rf?sel=gps-l1', 'L1, L2 and L5 carriers and the minimum received power (IS-GPS-200N, IS-GPS-705J)'));
+registerEntity(E('body:voyager-1', 'Voyager 1', '#/cosmic/voyager-1'));
+registerEntity(E('body:voyager-2', 'Voyager 2', '#/cosmic/voyager-2'));
+registerRelationship({ from: 'context:radio-allocations', to: 'wave:em-radio', type: 'part-of', context: 'FM broadcasting occupies 88–108 MHz in 100 channels of 200 kHz (47 CFR §73.201)', source: 'ecfr-47-cfr' });
+registerRelationship({ from: 'context:radio-allocations', to: 'instrument:antennas', type: 'observed-with', context: 'unlicensed digital transmitters at 902–928 MHz, 2.4 GHz and 5.8 GHz may deliver up to 1 W to the antenna (47 CFR §15.247)', source: 'ecfr-47-cfr' });
+registerRelationship({ from: 'context:gps', to: 'wave:em-radio', type: 'emits', context: 'L1 1575.42 MHz, L2 1227.6 MHz; at least −158.5 dBW of L1 C/A reaches a 3 dBi antenna on the ground', source: 'is-gps-200n' });
+registerRelationship({ from: 'context:gps', to: 'body:earth', type: 'located-in', context: 'medium Earth orbit at about 20,200 km altitude', source: 'gps-gov-space-segment' });
+registerRelationship({ from: 'body:voyager-2', to: 'wave:em-radio', type: 'emits', context: 'X-band downlink 8415 MHz (λ 3.6 cm); −145.5 dBm predicted at the 70 m DSS-43 from 48.62 au (design control table, 1996)', source: 'ludwig-taylor-2002' });
+registerRelationship({ from: 'body:voyager-1', to: 'wave:em-radio', type: 'emits', context: 'X-band downlink 8420.432097 MHz (DSN channel 18, coherent)', source: 'ludwig-taylor-2002' });
+registerRelationship({ from: 'body:voyager-2', to: 'context:radio-allocations', type: 'part-of', context: 'S-band uplink 2113.3125 MHz and X-band downlink 8415 MHz (DSN channel 14)', source: 'ludwig-taylor-2002' });
+
 export const getEntity = (id: string) => REGISTRY.get(id);
 export const allEntities = () => [...REGISTRY.values()];
 export const relationshipsFrom = (id: string) => RELATIONSHIPS.filter((r) => r.from === id);
