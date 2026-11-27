@@ -150,3 +150,26 @@ test('82 modulation lab: AM and FM spectra by FFT, BPSK/FSK bit errors against t
   await expect(page.getByLabel('Capacity', { exact: true })).toContainText(/29,90[12]/);
 });
 
+// ---------------- Gate 9.5 ----------------
+test('83 acoustic lab: inverse-square sound levels, impedance and reflection, moving sources and the Mach cone', async ({ page }) => {
+  await page.goto('/#/spectral');
+  await page.getByRole('navigation', { name: 'Spectral sections' }).getByRole('button', { name: 'Waves ▾' }).click();
+  await page.getByRole('menuitem', { name: 'Acoustic lab' }).click();
+  await expect(page).toHaveURL(/#\/spectral\/acoustics$/);
+  await expect(page.getByRole('heading', { name: /Sound level/ })).toBeVisible();
+  // one 10 mW source 8 m away: I = 0.01/(4π·64), β = 70.95 dB
+  await expect(page.getByLabel('Sound at the listener')).toContainText('70.95 dB');
+  await page.getByRole('button', { name: '+ Add a source' }).click();
+  await expect(page.getByLabel('Sound at the listener')).toContainText('source 2 alone');
+  await shot(page, '83a-sound-level', 'Two 10 mW point sources on a 20 m floor: levels from inverse-square spreading, incoherent addition and the listener probe with the nearest row of University Physics Table 17.2.');
+  await page.getByRole('navigation', { name: 'Acoustic lab sections' }).getByRole('button', { name: 'Impedance & boundaries' }).click();
+  await page.getByRole('button', { name: 'Example 17.7: fat → muscle' }).click();
+  await expect(page.getByLabel('Boundary result')).toContainText('0.01402');
+  await page.goto('/#/spectral/acoustics?tab=boundary');
+  await expect(page.getByLabel('Boundary result')).toContainText(/reflected fraction a0\.99/);
+  await shot(page, '83b-impedance', 'Sound from air meeting water: impedances from the ideal-gas air model and NIST water, 99.9 % of the intensity reflected (College Physics 2e eq. 17.39).');
+  await page.getByRole('navigation', { name: 'Acoustic lab sections' }).getByRole('button', { name: 'Moving sources' }).click();
+  await page.getByLabel('Mach number').fill('2');
+  await expect(page.getByLabel('Moving source', { exact: true })).toContainText('30 °');
+  await expect(page.getByLabel('Moving source', { exact: true })).toContainText('unknown');
+});

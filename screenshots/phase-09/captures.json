@@ -5,5 +5,9 @@
   "79d-friis.png": "Friis link: Ellingson Example 10.11 (6 GHz, 30 km, 27 dBi dishes, −36.5 dBm transmitted) gives −120.05 dBm at the receiver with the exact c.",
   "80a-rf-atlas.png": "RF atlas: U.S. broadcast, unlicensed and ISM allocations (47 CFR), GPS carriers and Voyager links on the ITU-R V.431 bands; Voyager X-band selected with its source text; 1575.42 MHz looked up.",
   "80b-link-budgets.png": "Voyager 2 X-band downlink design control table (Ludwig & Taylor 2002, Table 5-3): space loss recomputed with the Friis path loss, 308.18 vs 308.19 dB; GPS implied minimum EIRP from IS-GPS-200N.",
-  "81a-comms-room.png": "A 2.45 GHz link between two vertical half-wave dipoles in a 6 × 5 × 3 m room (concrete, glass, plasterboard, ceiling board; ITU-R P.2040-4): coverage map at the receiver height, 3D rays and the line cut through the receiver."
+  "81a-comms-room.png": "A 2.45 GHz link between two vertical half-wave dipoles in a 6 × 5 × 3 m room (concrete, glass, plasterboard, ceiling board; ITU-R P.2040-4): coverage map at the receiver height, 3D rays and the line cut through the receiver.",
+  "83a-sound-level.png": "Two 10 mW point sources on a 20 m floor: levels from inverse-square spreading, incoherent addition and the listener probe with the nearest row of University Physics Table 17.2.",
+  "83b-impedance.png": "Sound from air meeting water: impedances from the ideal-gas air model and NIST water, 99.9 % of the intensity reflected (College Physics 2e eq. 17.39).",
+  "82a-fm-spectrum.png": "FM with β = 5: the FFT of the computed signal (cyan) lands on the Bessel lines J_n(5) at f_c + n f_m (gold); 99 % power bandwidth and the sideband table (DLMF 10.12.1; 47 CFR §73.310).",
+  "82b-bpsk.png": "BPSK at E_b/N₀ = 4 dB: sent and received waveforms, the two clusters of the correlation receiver and measured error rates on the theoretical curves Q(√(2E_b/N₀)) and Q(√(E_b/N₀)) (Johnson §§6.14–6.18)."
 }

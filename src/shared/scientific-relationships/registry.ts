@@ -252,6 +252,11 @@ registerRelationship({ from: 'instrument:modulation-lab', to: 'context:radio-all
 registerRelationship({ from: 'instrument:modulation-lab', to: 'context:gps', type: 'explains', context: 'each L1 carrier component “is bi-phase shift key (BPSK) modulated by a separate bit train” (IS-GPS-200N §3.2.3)', source: 'is-gps-200n' });
 registerRelationship({ from: 'instrument:modulation-lab', to: 'wave:em-radio', type: 'explains', context: 'a modulated carrier occupies f_c ± W; the coherent AM receiver multiplies by the carrier and low-pass filters', source: 'johnson-fundamentals-ee' });
 
+// ---------------------------------------------------------------- Phase 9, Gate 9.5: acoustic lab
+registerEntity(E('instrument:acoustic-lab', 'Acoustic lab', '#/spectral/acoustics', 'Sound level and inverse-square spreading, acoustic impedance and reflection, moving sources and the Mach cone (Gate 9.5)'));
+registerRelationship({ from: 'instrument:acoustic-lab', to: 'wave:sound-water', type: 'explains', context: 'Z = ρv of water from the NIST data; sound arriving from air is almost entirely reflected (a = (Z₂ − Z₁)²/(Z₁ + Z₂)²)', source: 'openstax-college-physics-2e' });
+registerRelationship({ from: 'instrument:acoustic-lab', to: 'material:water', type: 'has-property', context: 'acoustic impedance ρv at 1 atm', source: 'nist-webbook-fluids' });
+
 export const getEntity = (id: string) => REGISTRY.get(id);
 export const allEntities = () => [...REGISTRY.values()];
 export const relationshipsFrom = (id: string) => RELATIONSHIPS.filter((r) => r.from === id);

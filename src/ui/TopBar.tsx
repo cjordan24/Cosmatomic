@@ -28,8 +28,9 @@ interface Hit { kind: 'element' | 'molecule' | 'body' | 'reaction' | 'material' 
 
 /** Cosmic sub-routes that are not solar-system bodies (#/cosmic/<id> otherwise focuses a body). */
 /** Spectral sub-routes other than the atlas; Phase 9 views sit in chip menus so the bar does not grow. */
+const WAVE_ITEMS: [string, string][] = [['Wave lab', '/spectral/lab'], ['Acoustic lab', '/spectral/acoustics']];
 const RADIO_ITEMS: [string, string][] = [['Antennas & fields', '/spectral/antennas'], ['RF atlas', '/spectral/rf'], ['Comms room (3D)', '/spectral/room'], ['Modulation lab', '/spectral/modulation']];
-const SPECTRAL_SECTIONS = ['lab', 'fields', 'compare', 'antennas', 'rf', 'room', 'modulation'];
+const SPECTRAL_SECTIONS = ['lab', 'fields', 'compare', 'antennas', 'rf', 'room', 'modulation', 'acoustics'];
 const COSMIC_SECTIONS = ['stars', 'sandbox', 'relativity', 'compact', 'lensing', 'galaxies', 'nebulae', 'universe', 'ladder', 'cmb', 'darkmatter', 'gw'];
 
 /** A chip that opens a small menu of related sections; it is highlighted when one of them is open. */
@@ -278,7 +279,7 @@ export function TopBar() {
         {mode === 'spectral' && (
           <nav className="chip-row hide-mobile" aria-label="Spectral sections">
             <button className={`chip ${!SPECTRAL_SECTIONS.includes(path[1]) ? 'active' : ''}`} onClick={() => navigate('/spectral')}>Atlas</button>
-            <button className={`chip ${path[1] === 'lab' ? 'active' : ''}`} onClick={() => navigate('/spectral/lab')}>Wave lab</button>
+            <ChipMenu label="Waves" items={WAVE_ITEMS.map(([label, to]) => ({ label, to, active: `/${path.join('/')}` === to }))} />
             <ChipMenu label="Radio" items={RADIO_ITEMS.map(([label, to]) => ({ label, to, active: `/${path.join('/')}` === to }))} />
             <button className={`chip ${path[1] === 'fields' ? 'active' : ''}`} onClick={() => navigate('/spectral/fields')}>Fields</button>
             <button className={`chip ${path[1] === 'compare' ? 'active' : ''}`} onClick={() => navigate('/spectral/compare')}>Compare</button>
@@ -299,7 +300,7 @@ export function TopBar() {
           <button className={`icon-btn ${moreOpen ? 'active' : ''}`} aria-haspopup="menu" aria-expanded={moreOpen} aria-label="More" onClick={() => setMoreOpen((o) => !o)}>☰</button>
           {moreOpen && (
             <div className="chip-menu-list" role="menu" aria-label="More" style={{ right: 0, left: 'auto' }}>
-              {mode === 'spectral' && ([['Atlas', '/spectral'], ['Wave lab', '/spectral/lab'], ...RADIO_ITEMS, ['Fields', '/spectral/fields'], ['Compare spectra', '/spectral/compare']] as [string, string][]).map(([label, to]) =>
+              {mode === 'spectral' && ([['Atlas', '/spectral'], ...WAVE_ITEMS, ...RADIO_ITEMS, ['Fields', '/spectral/fields'], ['Compare spectra', '/spectral/compare']] as [string, string][]).map(([label, to]) =>
                 <button key={to} role="menuitem" className={`/${path.join('/')}` === to ? 'active' : ''} onClick={() => { setMoreOpen(false); navigate(to); }}>〰 {label}</button>)}
               {([['📖 Encyclopedia', () => setQuery({ enc: query.has('enc') ? null : 'index' })], ['🔗 Relationships', () => navigate('/relations')], ['📚 Sources', () => navigate('/sources')], ['📓 Notebook', () => navigate('/notebook')], ['📸 Snapshot this view', () => setSnapOpen(true)],
                 ['⟷ Scale', () => setScaleOpen((o) => !o)], ['⚙ Settings', () => setSettingsOpen(true)]] as [string, () => void][]).map(([label, act]) =>

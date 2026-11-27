@@ -176,7 +176,7 @@ export const SOURCES: Source[] = [
   { id: 'openstax-university-physics-1', kind: 'book', citation: 'Ling, S. J., Sanny, J. and Moebs, W. (2016) University Physics, Volume 1, chs. 16–17 (Waves; Sound). OpenStax, Rice University.', title: 'University Physics Volume 1', authors: 'S. J. Ling, J. Sanny, W. Moebs', year: 2016,
     institution: 'OpenStax, Rice University', url: 'https://openstax.org/details/books/university-physics-volume-1', license: 'CC BY 4.0',
     authorBio: 'Peer-reviewed open textbook from OpenStax (Rice University); senior contributing authors Samuel J. Ling (Truman State University), Jeff Sanny (Loyola Marymount University) and William Moebs.',
-    usedFor: ['wave kinematics, string wave speed, standing waves and harmonics, beats, Doppler effect, speed of sound in gases'] },
+    usedFor: ['wave kinematics, string wave speed, standing waves and harmonics, beats, Doppler effect, speed of sound in gases', 'sound intensity I = P/A, inverse-square spreading, I = Δp²/2ρv, sound level β = 10 log(I/I₀) with I₀ = 10⁻¹² W/m² and Table 17.2 (§17.3, eqs. 17.8–17.12); Doppler eq. 17.20; Mach number and shock-cone angle sin θ = 1/M (§17.8, eqs. 17.21–17.22) (Gate 9.5)'] },
 
   // ---------------- Phase 4: phase behaviour ----------------
   { id: 'iapws-sr1-86', kind: 'standard', citation: 'IAPWS SR1-86(1992) Revised Supplementary Release on Saturation Properties of Ordinary Water Substance. International Association for the Properties of Water and Steam.', title: 'Saturation properties of ordinary water substance', authors: 'IAPWS (equations of W. Wagner & A. Pruß)', year: 1992,
@@ -565,6 +565,10 @@ export const SOURCES: Source[] = [
     institution: 'National Institute of Standards and Technology (NIST)', url: 'https://dlmf.nist.gov/', license: 'U.S. Government work',
     authorBio: 'A NIST project begun as a complete revision of Abramowitz and Stegun’s Handbook of Mathematical Functions; its editors include Frank W. J. Olver, Daniel W. Lozier, Ronald F. Boisvert and Charles W. Clark (DLMF “About the Project”).',
     usedFor: ['Bessel functions: power series 10.2.2, J₋ₙ = (−1)ⁿJₙ 10.4.1, generating function (Jacobi–Anger) 10.12.1, J₀² + 2ΣJₖ² = 1 10.23.3', 'complementary error function 7.2.2 (Q(x) = ½ erfc(x/√2))'] },
+  { id: 'openstax-college-physics-2e', kind: 'book', citation: 'Urone, P. P. and Hinrichs, R. (2022) College Physics 2e, §17.7 Ultrasound. OpenStax, Houston, Texas.', title: 'College Physics 2e', authors: 'P. P. Urone, R. Hinrichs', year: 2022,
+    institution: 'OpenStax, Rice University', url: 'https://openstax.org/books/college-physics-2e/pages/17-7-ultrasound', license: 'CC BY-NC-SA (OpenStax; its pages also state that the book may not be ingested into large language models without OpenStax’s permission)',
+    authorBio: 'Paul Peter Urone (California State University, Sacramento) and Roger Hinrichs (State University of New York, College at Oswego), the senior authors listed on the OpenStax page.',
+    usedFor: ['acoustic impedance Z = ρv (eq. 17.38), intensity reflection coefficient a = (Z₂ − Z₁)²/(Z₁ + Z₂)² (eq. 17.39), Table 17.5 media and Example 17.7 (Gate 9.5)'] },
 ];
 
 const BY_ID = new Map(SOURCES.map((s) => [s.id, s]));

@@ -212,7 +212,8 @@ test('49 spectral atlas: band conventions, photon quantities, plane wave, blackb
   await expect(page.getByRole('img', { name: 'Visible spectrum colour comparison' })).toBeVisible();
   await expect(page.getByText('no precise limits')).toBeVisible();
   // TopBar chips
-  await page.locator('.chip-row[aria-label="Spectral sections"]').getByRole('button', { name: 'Wave lab' }).click();
+  await page.locator('.chip-row[aria-label="Spectral sections"]').getByRole('button', { name: 'Waves ▾' }).click();   // Gate 9.5: Wave lab moved into the Waves menu
+  await page.getByRole('menuitem', { name: 'Wave lab' }).click();
   await expect(page).toHaveURL(/#\/spectral\/lab/);
 });
 

@@ -604,3 +604,15 @@ Phase 9 approved by the user (“you have my approval to go ahead with phase nin
 6. **Tests:** +19 science (`dsp.test.ts` 9, `modulation.test.ts` 10), browser test 82. The full suite was run once for Gates 9.4 and 9.5 together: **77/77** (14.2 min).
 
 **Gate 9.4 deploy:** not deployed.
+
+## Phase 9, Gate 9.5: acoustic lab (`#/spectral/acoustics`), 2026-11-27
+
+1. **Sources:** OpenStax University Physics Vol. 1 §§17.3, 17.7, 17.8 (eqs. 17.8–17.12, 17.20–17.22, Table 17.2) and College Physics 2e §17.7 (eqs. 17.38–17.39, Table 17.5, Example 17.7); NIST WebBook fluids; the ideal-gas air model. New Source-index entry `openstax-college-physics-2e`.
+2. **OpenStax terms:** while reading these pages, the reuse notice was found: the book “may not be used in the training of large language models or otherwise be ingested into large language models or generative AI offerings without OpenStax's prior written permission.” No further OpenStax pages were fetched; recorded in `KNOWN_LIMITATIONS.md` for the owner's decision.
+3. **Physics** (`src/core/physics/waves/acoustics.ts`): intensity, inverse square, levels, pressure amplitude, incoherent sums, impedance, intensity reflection coefficient, Doppler, Mach cone; media from NIST fluids, ideal-gas air and Table 17.5.
+4. **View:** sound-level map with up to three sources and a listener probe (nearest Table 17.2 row), impedance/boundary tab (Example 17.7 preset), moving-source tab (wavefronts, Mach cone, Doppler; “unknown” ahead of a supersonic source).
+5. **Navigation:** the Spectral *Wave lab* chip became a *Waves ▾* menu (Wave lab, Acoustic lab) so the top bar stays at 1426 px; browser test 25 (phase 4) now opens the Wave lab through that menu.
+6. **Registry:** `instrument:acoustic-lab` with two sourced edges (sound in water; water's impedance).
+7. **Tests:** +9 science (`acoustics.test.ts`), browser test 83; full suite **77/77** together with Gate 9.4.
+
+**Gate 9.5 deploy:** not deployed.

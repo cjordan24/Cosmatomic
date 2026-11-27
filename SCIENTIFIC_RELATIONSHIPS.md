@@ -115,6 +115,10 @@ Every encyclopedia entry describes a registry entity, so E.2 registered the 11 s
 
 `instrument:modulation-lab` (`#/spectral/modulation`) *explains* the FM broadcast allocations (47 CFR §73.310 definition), GPS (BPSK modulation of L1, IS-GPS-200N §3.2.3) and radio waves (AM occupies f_c ± W, Johnson §6.11).
 
+## Acoustic lab (Gate 9.5)
+
+`instrument:acoustic-lab` (`#/spectral/acoustics`) *explains* sound in water (its impedance ρv and the near-total reflection of sound arriving from air, College Physics 2e §17.7) and reads the acoustic impedance of `material:water` (*property*, NIST WebBook).
+
 ## Rules
 
 1. No edge without a source.

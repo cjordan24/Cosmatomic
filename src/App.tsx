@@ -35,6 +35,7 @@ const AntennaView = lazy(() => import('@/modes/spectral/antennas/AntennaView'));
 const RfView = lazy(() => import('@/modes/spectral/rf/RfView'));
 const RoomView = lazy(() => import('@/modes/spectral/room/RoomView'));
 const ModulationView = lazy(() => import('@/modes/spectral/modulation/ModulationView'));
+const AcousticsView = lazy(() => import('@/modes/spectral/acoustics/AcousticsView'));
 const SourcesView = lazy(() => import('@/ui/SourcesView'));
 const MaterialsView = lazy(() => import('@/modes/atomic/materials/MaterialsView'));
 const PhasesView = lazy(() => import('@/modes/atomic/phases/PhasesView'));
@@ -70,7 +71,7 @@ export default function App() {
     else if (path[1] === 'phases') view = <PhasesView tab={path[2] ?? null} />;
     else view = <PeriodicTable />;
   } else if (mode === 'cosmic') view = path[1] === 'sandbox' ? <SandboxView /> : path[1] === 'relativity' ? <RelativityView /> : path[1] === 'compact' ? <CompactView /> : path[1] === 'lensing' ? <LensingView /> : path[1] === 'galaxies' ? <GalaxiesView /> : path[1] === 'nebulae' ? <NebulaeView /> : path[1] === 'universe' ? <UniverseView /> : path[1] === 'ladder' ? <LadderView /> : path[1] === 'cmb' ? <CmbView /> : path[1] === 'darkmatter' ? <DarkMatterView /> : path[1] === 'gw' ? <GwView /> : path[1] === 'stars' ? (path[2] === 'hr' ? <HrView /> : path[2] === 'planets' ? <PlanetsView /> : <StarsView />) : <CosmicView focusId={path[1] ?? 'sun'} />;
-  else if (mode === 'spectral') view = path[1] === 'lab' ? <WaveLab /> : path[1] === 'fields' ? <FieldsView /> : path[1] === 'compare' ? <CompareView /> : path[1] === 'antennas' ? <AntennaView /> : path[1] === 'rf' ? <RfView /> : path[1] === 'room' ? <RoomView /> : path[1] === 'modulation' ? <ModulationView /> : <SpectralAtlas />;
+  else if (mode === 'spectral') view = path[1] === 'lab' ? <WaveLab /> : path[1] === 'fields' ? <FieldsView /> : path[1] === 'compare' ? <CompareView /> : path[1] === 'antennas' ? <AntennaView /> : path[1] === 'rf' ? <RfView /> : path[1] === 'room' ? <RoomView /> : path[1] === 'modulation' ? <ModulationView /> : path[1] === 'acoustics' ? <AcousticsView /> : <SpectralAtlas />;
   else if (mode === 'notebook') view = <NotebookView />;
   else if (mode === 'scale') view = <ScaleView />;
   else if (mode === 'relations') view = <RelationsView />;
