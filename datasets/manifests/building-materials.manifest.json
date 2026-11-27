@@ -1,0 +1,20 @@
+{
+  "dataset": "building-materials",
+  "version": "1.0.0",
+  "records": 38,
+  "sources": [
+    {
+      "institution": "Recommendation ITU-R P.2040-4 (09/2025), Table 3",
+      "url": "https://www.itu.int/rec/R-REC-P.2040/en",
+      "notes": "Effects of building materials and structures on radiowave propagation above about 100 MHz"
+    }
+  ],
+  "adapter": "scripts/ingestion/curated-p2040.ts",
+  "warnings": [
+    "Hand-transcribed from the PDF text layer and checked against the printed table."
+  ],
+  "output": "datasets/spectral/building-materials.json",
+  "retrievedAt": "2026-11-27T14:49:56.159Z",
+  "bytes": 5566,
+  "sha256": "19b6dc74dba6fe144f920f6e0861664393e89fa64ddc41fa31762b84f77f2dfa"
+}

@@ -107,6 +107,10 @@ Every encyclopedia entry describes a registry entity, so E.2 registered the 11 s
 
 `context:radio-allocations` (`#/spectral/rf`), `context:gps` and the spacecraft `body:voyager-1`, `body:voyager-2` (routed to the Cosmic view). Edges: FM allocations are *part of* radio waves (47 CFR §73.201); unlicensed transmitters are *observed with* antennas (§15.247 power limit at the antenna); GPS *emits* radio waves (IS-GPS-200N) and is *located in* Earth orbit (GPS.gov); Voyager 1 and 2 *emit* radio waves at X-band and Voyager 2's links are *part of* the allocations view (Ludwig & Taylor 2002). The X-band (3.6 cm) is radio, not ISO 21348 “microwave” (1–15 mm).
 
+## Communications room (Gate 9.3)
+
+`instrument:comms-room` (`#/spectral/room`): built from the antenna models (*part of* antennas, Ellingson), its frequency presets are ISM allocations (*observed with* the RF atlas, 47 CFR §18.301), and it *explains* how walls reflect radio waves (ITU-R P.2040-4).
+
 ## Rules
 
 1. No edge without a source.

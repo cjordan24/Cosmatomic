@@ -553,6 +553,10 @@ export const SOURCES: Source[] = [
     institution: 'NASA Jet Propulsion Laboratory, California Institute of Technology (DESCANSO)', url: 'https://descanso.jpl.nasa.gov/DPSummary/Descanso4--Voyager_new.pdf',
     authorBio: 'Roger Ludwig and Jim Taylor of the Jet Propulsion Laboratory, California Institute of Technology (title page); DESCANSO is JPL’s Deep Space Communications and Navigation Systems Center of Excellence.',
     usedFor: ['Voyager uplink and downlink frequencies and DSN channels (§2.1.1, Table 2-1)', 'coherent turnaround ratio 880/221 at X-band (§2.2.1)', 'Voyager 2 design control tables at DSS-43 for 1996-01-01 (Tables 5-2, 5-3)'], datasets: ['rf-allocations'] },
+  { id: 'itu-r-p2040-4', kind: 'standard', citation: 'Recommendation ITU-R P.2040-4 (09/2025) Effects of building materials and structures on radiowave propagation above about 100 MHz. International Telecommunication Union, Geneva.', title: 'ITU-R P.2040-4: Effects of building materials and structures on radiowave propagation above about 100 MHz', authors: 'ITU-R (Radiocommunication Sector)', year: 2025,
+    institution: 'International Telecommunication Union, Radiocommunication Sector (Study Group 3)', url: 'https://www.itu.int/rec/R-REC-P.2040/en', license: '© ITU; numerical coefficients reproduced with attribution',
+    authorBio: 'ITU-R is the Radiocommunication Sector of the International Telecommunication Union, the UN specialised agency for information and communication technologies; its Recommendations are approved by member administrations.',
+    usedFor: ['complex permittivity of building materials ε′ = a f^b, σ = c f^d, ε″ = 17.98σ/f (Table 3, eqs. 57–59)', 'TE/TM reflection coefficients from air (eqs. 37a, 37b) and single-slab reflection/transmission (eqs. 43a, 43b, 44)'], datasets: ['building-materials'] },
 ];
 
 const BY_ID = new Map(SOURCES.map((s) => [s.id, s]));

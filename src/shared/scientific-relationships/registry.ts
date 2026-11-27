@@ -240,6 +240,12 @@ registerRelationship({ from: 'body:voyager-2', to: 'wave:em-radio', type: 'emits
 registerRelationship({ from: 'body:voyager-1', to: 'wave:em-radio', type: 'emits', context: 'X-band downlink 8420.432097 MHz (DSN channel 18, coherent)', source: 'ludwig-taylor-2002' });
 registerRelationship({ from: 'body:voyager-2', to: 'context:radio-allocations', type: 'part-of', context: 'S-band uplink 2113.3125 MHz and X-band downlink 8415 MHz (DSN channel 14)', source: 'ludwig-taylor-2002' });
 
+// ---------------------------------------------------------------- Phase 9, Gate 9.3: communications room
+registerEntity(E('instrument:comms-room', '3D communications room', '#/spectral/room', 'Dipole link in a room: image-method rays with ITU-R P.2040 building materials, multipath fading and delay spread (Gate 9.3)'));
+registerRelationship({ from: 'instrument:comms-room', to: 'instrument:antennas', type: 'part-of', context: 'half-wave dipoles transmit and receive; received voltage V = E · l_e (Ellingson eq. 10.114)', source: 'ellingson-2020-vol2' });
+registerRelationship({ from: 'instrument:comms-room', to: 'context:radio-allocations', type: 'observed-with', context: 'the 2.45, 5.8, 24.125 and 61.25 GHz presets are ISM frequencies of 47 CFR §18.301', source: 'ecfr-47-cfr' });
+registerRelationship({ from: 'instrument:comms-room', to: 'wave:em-radio', type: 'explains', context: 'walls reflect radio waves with TE and TM coefficients set by their complex permittivity (concrete, glass, plasterboard … at 1–100 GHz)', source: 'itu-r-p2040-4' });
+
 export const getEntity = (id: string) => REGISTRY.get(id);
 export const allEntities = () => [...REGISTRY.values()];
 export const relationshipsFrom = (id: string) => RELATIONSHIPS.filter((r) => r.from === id);

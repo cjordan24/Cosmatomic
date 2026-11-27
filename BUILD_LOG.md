@@ -582,3 +582,14 @@ Phase 9 approved by the user (“you have my approval to go ahead with phase nin
 6. **Tests:** 663 science (+11, `tests/science/rf.test.ts`), 74 browser (+1: test 80). Local full suite **74/74** (11.8 min).
 
 **Gate 9.2 deploy:** not deployed.
+
+## Phase 9, Gate 9.3: 3D communications room (`#/spectral/room`), 2026-11-27
+
+1. **Dataset** `datasets/spectral/building-materials.json` (manifest `building-materials`, adapter `scripts/ingestion/curated-p2040.ts`): all 38 rows of ITU-R P.2040-4 Table 3 (PDF from `itu.int/dms_pubrec`, a path robots.txt allows). The PDF text layer prints the metal conductivity as “107”; the rendered page shows 10⁷ S/m, which is what is stored. New Source-index entry `itu-r-p2040-4`.
+2. **Physics** (`src/core/physics/em/room.ts`): ε′ = a f^b, σ = c f^d, ε″ = 17.98σ/f; R_TE, R_TM from air (eqs. 37a, b) and single-slab R (eqs. 43a, 44); image method for a box (1/7/25/63 paths for 0–3 reflections); vector field carried along each ray with TE/TM splitting; half-wave dipoles at both ends (Ellingson eqs. 9.102, 10.113–10.114). Coverage maps run in a Web Worker (`src/workers/room.worker.ts`); 48 × 48 points with three reflections took 1.3 s on the main thread in a test, so the map is computed off-thread and streamed.
+3. **Checks:** Ellingson's air/glass Γ = −0.183 at normal incidence; Brewster angle; |R|² + |T|² = 1 for a lossless slab; transparent walls reproduce Friis with two half-wave dipoles; over a metal floor the two rays equal image theory to 1 % (this pins the TE/TM sign convention).
+4. **View:** controls for frequency (ISM presets from 47 CFR §18.301), power, reflections, transmitter/receiver positions and each surface's P.2040 material and thickness; top-view coverage map (click moves the receiver), 3D room with the 16 strongest rays and the map, line cut through the receiver (all paths vs the direct path), receiver probe (coherent, direct, power sum, fading, mean delay, RMS delay spread), strongest-path table, power-delay profile, per-surface ε′, σ and |R|; warning when a material is outside its fitted range.
+5. **Registry:** `instrument:comms-room` with three sourced edges.
+6. **Tests:** 678 science (+15, `tests/science/room.test.ts`), 75 browser (+1: test 81). Local full suite **75/75** (13.3 min).
+
+**Gate 9.3 deploy:** not deployed.

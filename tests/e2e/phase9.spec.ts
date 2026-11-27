@@ -96,3 +96,29 @@ test('80 RF atlas: allocations from 47 CFR, GPS and Voyager on the ITU bands; pu
   await expect(page.getByLabel('GPS link')).toContainText(/20,?200 km/);
   await shot(page, '80b-link-budgets', 'Voyager 2 X-band downlink design control table (Ludwig & Taylor 2002, Table 5-3): space loss recomputed with the Friis path loss, 308.18 vs 308.19 dB; GPS implied minimum EIRP from IS-GPS-200N.');
 });
+
+// ---------------- Gate 9.3 ----------------
+test('81 communications room: image-method rays with ITU-R P.2040 walls, coverage map, fading and delay spread', async ({ page }) => {
+  await page.goto('/#/spectral');
+  await page.getByRole('navigation', { name: 'Spectral sections' }).getByRole('button', { name: 'Radio ▾' }).click();
+  await page.getByRole('menuitem', { name: 'Comms room (3D)' }).click();
+  await expect(page).toHaveURL(/#\/spectral\/room$/);
+  await expect(page.getByRole('heading', { name: /A radio link in a room/ })).toBeVisible();
+  await expect(page.getByText(/120 × 100 points at z = 1\.20 m/)).toBeVisible({ timeout: 60_000 });
+  const rx = page.getByLabel('Received power at the receiver');
+  await expect(rx).toContainText('paths traced25');
+  await expect(page.getByRole('table', { name: 'Paths' })).toContainText('direct');
+  await expect(page.getByRole('table', { name: 'Surface properties' })).toContainText('5.24');   // concrete ε′ (P.2040 Table 3)
+  await shot(page, '81a-comms-room', 'A 2.45 GHz link between two vertical half-wave dipoles in a 6 × 5 × 3 m room (concrete, glass, plasterboard, ceiling board; ITU-R P.2040-4): coverage map at the receiver height, 3D rays and the line cut through the receiver.');
+  // all-metal room: almost every path keeps its power
+  await page.goto('/#/spectral/room?N=1&s=x0:Metal:0|x1:Metal:0|y0:Metal:0|y1:Metal:0|z0:Metal:0|z1:Metal:0');
+  await expect(rx).toContainText('paths traced7');
+  await expect(page.getByRole('table', { name: 'Surface properties' })).toContainText('1/1');
+  // transparent walls: the room is free space, so all paths = direct path
+  await page.goto('/#/spectral/room?N=2&s=x0:Vacuum (≈ air):0|x1:Vacuum (≈ air):0|y0:Vacuum (≈ air):0|y1:Vacuum (≈ air):0|z0:Vacuum (≈ air):0|z1:Vacuum (≈ air):0');
+  await expect(rx).toContainText('paths traced25');
+  const dd = await rx.locator('dd').allTextContents();
+  expect(dd[2]).toBe(dd[3]);   // all paths (coherent) = direct path only
+  await page.goto('/#/spectral/room?f=61250000000&s=x0:Brick:20');
+  await expect(page.getByRole('status').filter({ hasText: 'Outside the frequency range' })).toBeVisible();
+});
