@@ -414,3 +414,6 @@ Findings:
 5. **The Planck files reproduce each other.** The binned ℓ_b equal the ℓ(ℓ+1)-weighted mean multipole of each bin (Planck 2018 V eq. 22) to 5 × 10⁻⁶. The binned best-fit column equals the theory spectrum binned the same way to 4 × 10⁻⁹. The adapter fails if either check breaks.
 6. **Adiabatic cooling checks out.** T₀(1 + 0.88582) = 5.140 K, the 5.14 K Muller et al. quote; all six measurements lie within 1.5σ of T₀(1+z).
 7. **Phone layout.** The first tab labels (“Power spectrum (Planck)”) overflowed at 390 px; they are now Spectrum, Temperature and Power spectrum. Top bar at 1440 px: rightmost element at 1431 px.
+
+
+Gate 7.3 verified against production: 63/63 passed.
