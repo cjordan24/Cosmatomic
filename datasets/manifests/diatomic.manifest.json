@@ -1,0 +1,21 @@
+{
+  "dataset": "diatomic",
+  "version": "1.0.0",
+  "records": 6,
+  "sources": [
+    {
+      "institution": "NIST Chemistry WebBook (SRD 69), Constants of diatomic molecules; data compiled by K. P. Huber and G. H. Herzberg",
+      "url": "https://webbook.nist.gov/chemistry/",
+      "license": "NIST Standard Reference Data",
+      "notes": "ground-state (X) constants of the most abundant isotopologue; WebBook crawl-delay 5 s respected"
+    }
+  ],
+  "adapter": "scripts/ingestion/diatomic.ts",
+  "warnings": [
+    "Footnoted values are taken as printed; parentheses or brackets (uncertain or derived values in the compilation) are stripped and flagged nowhere else, so check the WebBook page for the notes."
+  ],
+  "output": "datasets/molecular/diatomic.json",
+  "retrievedAt": "2026-11-27T17:56:37.993Z",
+  "bytes": 2797,
+  "sha256": "d453e65e48de7a0c20438241ce4808580e04b3e4e71cdf55c72134a6572511bb"
+}

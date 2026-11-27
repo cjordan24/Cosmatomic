@@ -679,3 +679,13 @@ Phase 10 approved by the user (“approve phase 10”). The optics textbooks fir
 4. **Checks:** fused silica at 589 nm: polarizing angle 55.562°, p reflectance there 1.4 × 10⁻⁷ at the nearest 0.1° step; two reflections at α = 60° give 0.25; calcite n_o = 1.65836, n_e = 1.48614, quarter-wave thickness 0.855 µm.
 5. **Tests:** science 754/754 (+9, `tests/science/polarisation.test.ts`); browser test 88 (screenshots 88a–b).
 
+## Phase 10, Gate 10.4: spectroscopy (`#/spectral/spectroscopy`), 2026-11-27
+
+1. **View:** `#/spectral/spectroscopy?tab=hydrogen|widths|molecules` (Light ▾ → Spectroscopy).
+2. **Physics:** `src/core/physics/optics/spectroscopy.ts`: hydrogenic wavelengths with R_M (NIST Compendium eqs. 1, 2, 30), Bohr's 1913 factor, Doppler FWHM (eq. 40) and Lorentzian shape, diatomic terms and rotation lines (NIST Diatomic Spectral Database eqs. 1–8).
+3. **New dataset:** `datasets/molecular/diatomic.json` (40 manifests): ground-state constants of H₂, H³⁵Cl, CO, N₂, O₂ and NO from the NIST WebBook's Huber–Herzberg tables (Mask=1000), fetched at the 5 s crawl delay. The parser drops footnote links and keeps subscripted final digits.
+4. **Checks:** computed Balmer lines lie 2.4–4.3 pm above the NIST lines for n ≥ 4 (unresolved fine structure); Hα differs by 9.6 pm because NIST lists the blended line to 0.01 nm; D–H isotope shift of Hα −178.6 pm; Hα Doppler FWHM 46.82 pm at 10 000 K; CO J = 1 ← 0 at 115.2712 GHz from B_0 and D_e.
+5. **Left out:** vibration–rotation (P/R) bands and natural widths: no open source for the formulas was found (Herzberg's texts are not open; the NIST J. Res. candidate could not be fetched in this session).
+6. **Sources:** `nist-atomic-spectroscopy-compendium`, `bohr-1913`, `nist-diatomic-database` (169 entries); Huber & Herzberg and the WebBook now feed `diatomic`. Registry: `instrument:spectroscopy`.
+7. **Tests:** science 765/765 (+11, `tests/science/spectroscopy.test.ts`); browser test 89 (screenshots 89a–b).
+

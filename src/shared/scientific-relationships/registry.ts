@@ -285,6 +285,13 @@ registerRelationship({ from: 'instrument:polarisation', to: 'wave:em-visible', t
 registerRelationship({ from: 'instrument:polarisation', to: 'instrument:geometric-optics', type: 'part-of', context: 'the Fresnel amplitudes give the fraction reflected at each surface that the ray traces ignore', source: 'drude-1902' });
 for (const id of ['alpha-quartz', 'sapphire', 'rutile']) registerRelationship({ from: 'instrument:polarisation', to: `material:${id}`, type: 'has-property', context: 'ordinary and extraordinary refractive indices (birefringence)', source: id === 'alpha-quartz' ? 'ghosh-1999' : id === 'sapphire' ? 'malitson-dodge-1972' : 'devore-1951' });
 
+// ---------------------------------------------------------------- Phase 10, Gate 10.4: spectroscopy
+registerEntity(E('instrument:spectroscopy', 'Spectroscopy', '#/spectral/spectroscopy', 'Hydrogen-like series against NIST lines, Doppler and Lorentzian line widths, diatomic vibration and rotation (Gate 10.4)'));
+for (const [sp, ctx] of [['H I', 'hydrogenic lines from R_M with the proton mass'], ['D I', 'the isotope shift: the deuteron mass raises R_M'], ['He II', 'Z = 2: the same series four times as energetic']] as const)
+  registerRelationship({ from: 'instrument:spectroscopy', to: spectrumId(sp), type: 'explains', context: ctx, source: 'nist-atomic-spectroscopy-compendium' });
+registerRelationship({ from: 'instrument:spectroscopy', to: 'wave:em-microwave', type: 'explains', context: 'pure-rotation lines of diatomic molecules ν = 2B_v J′ − 4D_v J′³ (CO J = 1 ← 0 near 115 GHz)', source: 'nist-diatomic-database' });
+registerRelationship({ from: 'instrument:spectroscopy', to: 'wave:em-infrared', type: 'explains', context: 'vibrational quanta G(1) − G(0) of diatomic molecules (HCl ≈ 2885 cm⁻¹)', source: 'huber-herzberg-1979' });
+
 export const getEntity = (id: string) => REGISTRY.get(id);
 export const allEntities = () => [...REGISTRY.values()];
 export const relationshipsFrom = (id: string) => RELATIONSHIPS.filter((r) => r.from === id);

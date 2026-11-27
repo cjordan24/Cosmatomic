@@ -31,8 +31,8 @@ interface Hit { kind: 'element' | 'molecule' | 'body' | 'reaction' | 'material' 
 const WAVE_ITEMS: [string, string][] = [['Wave lab', '/spectral/lab'], ['Acoustic lab', '/spectral/acoustics'], ['Audio & FFT', '/spectral/audio'], ['Room acoustics', '/spectral/roomacoustics']];
 const RADIO_ITEMS: [string, string][] = [['Antennas & fields', '/spectral/antennas'], ['RF atlas', '/spectral/rf'], ['Comms room (3D)', '/spectral/room'], ['Modulation lab', '/spectral/modulation']];
 /** Phase 10: light and optics; the Compare chip moved here so the bar keeps its width. */
-const LIGHT_ITEMS: [string, string][] = [['Compare spectra', '/spectral/compare'], ['Geometric optics', '/spectral/optics'], ['Wave optics', '/spectral/waveoptics'], ['Polarisation', '/spectral/polarisation']];
-const SPECTRAL_SECTIONS = ['lab', 'fields', 'compare', 'antennas', 'rf', 'room', 'modulation', 'acoustics', 'audio', 'roomacoustics', 'optics', 'waveoptics', 'polarisation'];
+const LIGHT_ITEMS: [string, string][] = [['Compare spectra', '/spectral/compare'], ['Geometric optics', '/spectral/optics'], ['Wave optics', '/spectral/waveoptics'], ['Polarisation', '/spectral/polarisation'], ['Spectroscopy', '/spectral/spectroscopy']];
+const SPECTRAL_SECTIONS = ['lab', 'fields', 'compare', 'antennas', 'rf', 'room', 'modulation', 'acoustics', 'audio', 'roomacoustics', 'optics', 'waveoptics', 'polarisation', 'spectroscopy'];
 const COSMIC_SECTIONS = ['stars', 'sandbox', 'relativity', 'compact', 'lensing', 'galaxies', 'nebulae', 'universe', 'ladder', 'cmb', 'darkmatter', 'gw'];
 
 /** A chip that opens a small menu of related sections; it is highlighted when one of them is open. */

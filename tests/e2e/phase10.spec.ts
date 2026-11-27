@@ -95,3 +95,25 @@ test('88 polarisation: Fresnel s/p reflectance and the polarizing angle, cos² �
   await expect(cr).toContainText('negative');
   await shot(page, '88b-calcite', 'Calcite at 589 nm: n_o = 1.6584 and n_e = 1.4861 (Ghosh 1999 via refractiveindex.info), the extraordinary index against direction (Drude eq. 35) and a 0.855 µm quarter-wave thickness.');
 });
+
+// ---------------- Gate 10.4 ----------------
+test('89 spectroscopy: hydrogen-like series against NIST lines, Doppler widths, diatomic levels from Huber–Herzberg constants', async ({ page }) => {
+  await page.goto('/#/spectral');
+  await page.getByRole('navigation', { name: 'Spectral sections' }).getByRole('button', { name: 'Light ▾' }).click();
+  await page.getByRole('menuitem', { name: 'Spectroscopy' }).click();
+  await expect(page).toHaveURL(/#\/spectral\/spectroscopy$/);
+  const t = page.getByRole('table', { name: 'Line comparison' });
+  await expect(t).toContainText('3 → 2');
+  await expect(t).toContainText('656.4');
+  await expect(t).toContainText('486.2');
+  await shot(page, '89a-balmer', 'The Balmer series of hydrogen from R_M = R∞M/(M + m_e) (NIST Compendium eqs. 2, 30; Bohr 1913) against the bundled NIST H I lines.');
+  await page.getByLabel('Atom or ion').selectOption('d');
+  await expect(page.getByLabel('Hydrogen result')).toContainText(/isotope shift/);
+  await page.getByRole('navigation', { name: 'Spectroscopy sections' }).getByRole('button', { name: 'Line widths' }).click();
+  await expect(page.getByLabel('Width result')).toContainText(/46\.8\d pm/);    // Hα at 10 000 K: 7.16e-7 λ √(T/M)
+  await page.getByRole('navigation', { name: 'Spectroscopy sections' }).getByRole('button', { name: 'Diatomic molecules' }).click();
+  const mr = page.getByLabel('Molecule result');
+  await expect(mr).toContainText('2,169.8136');
+  await expect(mr).toContainText(/115\.2\d+ GHz/);
+  await shot(page, '89b-co-levels', 'Carbon monoxide: vibrational ladder and rotational sublevels to scale, and the pure-rotation lines (J = 1 ← 0 near 115 GHz) from the Huber–Herzberg constants via the NIST WebBook.');
+});
