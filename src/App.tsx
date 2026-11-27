@@ -1,3 +1,4 @@
+import { SpectralWheel } from '@/ui/SpectralWheel';
 import { lazy, Suspense, useEffect } from 'react';
 import { useRoute } from '@/shared/router';
 import { useVoyager } from '@/shared/store';
@@ -88,11 +89,16 @@ export default function App() {
   else if (mode === 'sources') view = <SourcesView id={path[1] ?? null} />;
   else view = <Landing />;
 
+  // fade between views: keyed by the view, not the full path, so picking a planet or an element does not remount a 3D scene
+  const COSMIC_VIEWS = ['map', 'stars', 'sandbox', 'relativity', 'compact', 'lensing', 'galaxies', 'nebulae', 'universe', 'ladder', 'cmb', 'darkmatter', 'gw'];
+  const viewKey = `${mode}:${mode === 'cosmic' && !COSMIC_VIEWS.includes(path[1]) ? 'solar' : mode === 'atomic' && path[1] === 'element' ? 'element' : path[1] ?? ''}`;
+
   return (
     <div className={`app mode-${mode} ${reducedMotion ? 'reduced-motion' : ''} ${highContrast ? 'high-contrast' : ''}`}>
       {mode !== 'landing' && <TopBar />}
       <main className="stage">
-        <Suspense fallback={<Loading />}>{view}</Suspense>
+        <Suspense fallback={<Loading />}><div className="route-fade" key={viewKey}>{view}</div></Suspense>
+        {mode === 'spectral' && <SpectralWheel />}
       </main>
     </div>
   );

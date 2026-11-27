@@ -735,3 +735,15 @@ Requested by the user: “include [galaxies and other objects] in a 3d map based
 5. **Sources:** `mcconnachie-2012`, `simbad` (181 entries; DOIs checked on Crossref); VizieR's usage extended.
 6. **Tests:** science 793/793 (+6, `tests/science/universeMap.test.ts`); browser test 93 (screenshots 93a–c).
 
+## Interface pass: glass, Spectral wheel, space-age Cosmic, atomic backdrop, fades (2026-11-27)
+
+Requested by the user, taking UI notes from the Lodestar Digital Studio site (ldsbyjordan.vercel.app; its source is bundled in the page, and its stylesheet was read for the glass recipe and the radial-menu layout).
+
+1. **Glass** (`src/ui/theme-glass.css`, loaded after `theme.css`): panels, the top bar, tab switches, hover cards and drop-down menus use the reference's recipe: 12 px blur at 160 % saturation, a diagonal white sheen, an accent glow from the top-left corner, a translucent tint, a white rim and inset highlights. Drop-down submenus use a lighter tint so the page shows through. High-contrast mode keeps opaque surfaces. The top bar's blur sits on a `::before` layer: a blurred element becomes the backdrop root of its children, which had stopped the drop-down menus from blurring the page behind them (seen on the first screenshot).
+2. **Fades:** opacity-only fades (no slides, as the reference notes they cost frames on software-rendered browsers) when a view changes (a wrapper keyed by the view, not the full path, so picking a planet or an element does not remount a 3D scene), when panels, tab switches and headings mount, and when a submenu opens. Reduced motion turns them off.
+3. **Spectral wheel** (`src/ui/SpectralWheel.tsx`): a glass hub at the bottom of every Spectral page opens a dial with the four groups (Atlas, Waves, Radio, Light) on an inner ring and the chosen group's views on an outer ring; the mouse wheel, the arrow keys or a click spin it. The items are the same as the top-bar menus (moved to `src/ui/navItems.ts`).
+4. **Cosmic, space age:** a static starfield and two nebula glows behind the Cosmic pages, HUD corner brackets on the panels, monospace glowing panel titles, a gradient horizon line under the top bar.
+5. **Atomic:** the periodic table sits on a faint pattern of outline drawings: a Bohr-style atom, a benzene ring, water, a tetrahedral molecule, electron shells and a lattice (decorative; no data).
+6. **Problems found by the full browser suite and fixed:** the first run had 11 failures in 40.6 min. (a) To lay the starfield under the Cosmic pages I had also set the top bar to z-index 1, which put the page over the top-bar drop-down menus (9 tests could not click them); only the stage is lifted now. (b) Two perpetual animations (a starfield twinkle and a drifting atom pattern) repainted large areas under blurred glass every frame and slowed software rendering enough to time out 3D views; both backgrounds are now static (the reference's own notes warn about this). The universe-map label check waits up to 15 s for the first projected frame.
+7. **Tests:** science 793/793; full browser suite **87/87** (16.1 min). Phase 10 screenshots regenerated with the new look.
+

@@ -1,3 +1,4 @@
+import { LIGHT_ITEMS, RADIO_ITEMS, WAVE_ITEMS } from '@/ui/navItems';
 import { UnitConverter } from '@/ui/instruments';
 import { SnapshotDialog } from '@/ui/Snapshot';
 import { Suspense, lazy, useEffect, useMemo, useRef, useState } from 'react';
@@ -28,10 +29,6 @@ interface Hit { kind: 'element' | 'molecule' | 'body' | 'reaction' | 'material' 
 
 /** Cosmic sub-routes that are not solar-system bodies (#/cosmic/<id> otherwise focuses a body). */
 /** Spectral sub-routes other than the atlas; Phase 9 views sit in chip menus so the bar does not grow. */
-const WAVE_ITEMS: [string, string][] = [['Wave lab', '/spectral/lab'], ['Acoustic lab', '/spectral/acoustics'], ['Audio & FFT', '/spectral/audio'], ['Room acoustics', '/spectral/roomacoustics']];
-const RADIO_ITEMS: [string, string][] = [['Antennas & fields', '/spectral/antennas'], ['RF atlas', '/spectral/rf'], ['Comms room (3D)', '/spectral/room'], ['Modulation lab', '/spectral/modulation']];
-/** Phase 10: light and optics; the Compare chip moved here so the bar keeps its width. */
-const LIGHT_ITEMS: [string, string][] = [['Compare spectra', '/spectral/compare'], ['Geometric optics', '/spectral/optics'], ['Wave optics', '/spectral/waveoptics'], ['Polarisation', '/spectral/polarisation'], ['Spectroscopy', '/spectral/spectroscopy'], ['Thermal radiation', '/spectral/thermal'], ['Telescopes', '/spectral/telescopes'], ['Atmosphere & remote sensing', '/spectral/atmosphere']];
 const SPECTRAL_SECTIONS = ['lab', 'fields', 'compare', 'antennas', 'rf', 'room', 'modulation', 'acoustics', 'audio', 'roomacoustics', 'optics', 'waveoptics', 'polarisation', 'spectroscopy', 'thermal', 'telescopes', 'atmosphere'];
 const COSMIC_SECTIONS = ['map', 'stars', 'sandbox', 'relativity', 'compact', 'lensing', 'galaxies', 'nebulae', 'universe', 'ladder', 'cmb', 'darkmatter', 'gw'];
 

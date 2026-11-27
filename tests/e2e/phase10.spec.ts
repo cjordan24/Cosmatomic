@@ -185,7 +185,7 @@ test('93 universe map: zoom out from the planets through the nearest stars and t
   await expect(page).toHaveURL(/#\/cosmic\/map/);
   const scale = page.getByLabel('Map scale');
   await expect(scale).toContainText('AU');
-  await expect(page.getByText('☉ Sun — you are here')).toBeVisible();
+  await expect(page.getByText('☉ Sun — you are here')).toBeVisible({ timeout: 15000 });   // labels appear on the first projected frame of the 3D scene
   await page.getByRole('button', { name: 'Nearest stars' }).click();
   await expect(scale).toContainText(/ly \(\d/, { timeout: 8000 });
   await expect(page.getByText('Proxima Cen', { exact: true })).toBeVisible({ timeout: 8000 });

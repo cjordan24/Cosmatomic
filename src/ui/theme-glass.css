@@ -1,0 +1,167 @@
+/*
+ * Voyager Ventures — glass layer, view fades, the Spectral wheel and the mode backdrops.
+ * Loaded after theme.css. Glass recipe after the Lodestar Digital Studio UI: a 12 px blur with 160 % saturation, a
+ * diagonal white sheen, an accent-tinted glow from the top-left corner, a translucent tint, a thin white rim and
+ * inset highlights. Fades are opacity only (no slides): cheap on software-rendered browsers.
+ */
+:root {
+  --glass-sheen: linear-gradient(155deg, rgba(255, 255, 255, 0.14) 0, rgba(255, 255, 255, 0.045) 32%, rgba(255, 255, 255, 0) 58%, rgba(255, 255, 255, 0.06) 100%);
+  --glass-glow: radial-gradient(120% 90% at 0 0, color-mix(in srgb, var(--accent) 13%, transparent), transparent 62%);
+  --glass-tint: rgba(9, 14, 30, 0.5);
+  --glass-tint-menu: rgba(9, 14, 30, 0.4);
+  --glass-blur: blur(12px) saturate(160%);
+  --glass-rim: rgba(255, 255, 255, 0.16);
+  --glass-inset: inset 0 1px 0 rgba(255, 255, 255, 0.22), inset 0 -1px 0 rgba(255, 255, 255, 0.05), inset 0 0 0 1px rgba(255, 255, 255, 0.03);
+  --fade-time: 0.32s;
+}
+
+/* ---------- glass surfaces ---------- */
+.panel {
+  background: var(--glass-sheen), var(--glass-glow), var(--glass-tint);
+  -webkit-backdrop-filter: var(--glass-blur); backdrop-filter: var(--glass-blur);
+  border-color: var(--glass-rim); border-radius: 18px;
+  box-shadow: var(--glass-inset), 0 18px 48px rgba(0, 0, 0, 0.38), 0 2px 8px rgba(0, 0, 0, 0.18);
+}
+.panel-head { border-bottom-color: rgba(255, 255, 255, 0.08); }
+/* The bar's own blur sits on ::before: an element with backdrop-filter becomes the backdrop root of its children, so a
+   blurred bar would stop the drop-down menus inside it from blurring the page behind them. */
+.topbar { background: none; -webkit-backdrop-filter: none; backdrop-filter: none; border-bottom-color: var(--glass-rim); box-shadow: 0 10px 28px rgba(0, 0, 0, 0.3); isolation: isolate; }
+.topbar::before {
+  content: ''; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background: var(--glass-sheen), linear-gradient(180deg, rgba(5, 8, 18, 0.72), rgba(5, 8, 18, 0.42));
+  -webkit-backdrop-filter: var(--glass-blur); backdrop-filter: var(--glass-blur);
+  box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.04);
+}
+/* submenus: lighter tint, so the page shows through */
+.chip-menu-list {
+  background: var(--glass-sheen), var(--glass-glow), var(--glass-tint-menu);
+  -webkit-backdrop-filter: blur(16px) saturate(170%); backdrop-filter: blur(16px) saturate(170%);
+  border-color: var(--glass-rim); border-radius: 14px;
+  box-shadow: var(--glass-inset), 0 14px 36px rgba(0, 0, 0, 0.34);
+  animation: vv-fade-in 0.16s ease-out both;
+}
+.chip-menu-list button:hover { background: rgba(255, 255, 255, 0.09); }
+.view-switch, .ptable-hover {
+  background: var(--glass-sheen), var(--glass-glow), var(--glass-tint);
+  -webkit-backdrop-filter: var(--glass-blur); backdrop-filter: var(--glass-blur);
+  border-color: var(--glass-rim); box-shadow: var(--glass-inset), 0 10px 28px rgba(0, 0, 0, 0.3);
+}
+.chip { background: rgba(255, 255, 255, 0.05); border-color: rgba(255, 255, 255, 0.12); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08); transition: background 0.15s, border-color 0.15s, color 0.15s; }
+.chip:not(.active):hover { background: rgba(255, 255, 255, 0.1); border-color: rgba(255, 255, 255, 0.22); }
+.icon-btn { background: rgba(255, 255, 255, 0.05); border-color: rgba(255, 255, 255, 0.12); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08); }
+.high-contrast .panel, .high-contrast .chip-menu-list, .high-contrast .topbar::before, .high-contrast .view-switch, .high-contrast .ptable-hover, .high-contrast .wheel, .high-contrast .wheel-hub {
+  background: var(--glass-strong); -webkit-backdrop-filter: none; backdrop-filter: none; border-color: var(--line); box-shadow: none;
+}
+
+/* ---------- fades instead of hard cuts ---------- */
+@keyframes vv-fade-in { from { opacity: 0; } }
+.route-fade { position: absolute; inset: 0; animation: vv-fade-in var(--fade-time) ease-out both; }
+.panel, .center-stage, .stage-head, .view-switch { animation: vv-fade-in var(--fade-time) ease-out both; }
+
+/* ---------- Spectral wheel ---------- */
+.wheel-hub {
+  position: absolute; z-index: 40; bottom: 18px; left: 50%; transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0;
+  width: 60px; height: 60px; border-radius: 50%; cursor: pointer; color: var(--accent);
+  border: 1px solid var(--glass-rim);
+  background: var(--glass-sheen), radial-gradient(circle at 50% 35%, color-mix(in srgb, var(--accent) 22%, transparent), transparent 70%), var(--glass-tint);
+  -webkit-backdrop-filter: var(--glass-blur); backdrop-filter: var(--glass-blur);
+  box-shadow: var(--glass-inset), 0 0 22px var(--accent-glow), 0 10px 26px rgba(0, 0, 0, 0.4);
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+.wheel-hub:hover, .wheel-hub.open { box-shadow: var(--glass-inset), 0 0 34px var(--accent-glow), 0 10px 26px rgba(0, 0, 0, 0.4); }
+.wheel-hub-icon { font-size: 20px; line-height: 1; }
+.wheel-hub-label { font-size: 8.5px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-dim); margin-top: 2px; }
+.wheel-backdrop {
+  position: fixed; inset: 0; z-index: 70; display: grid; place-items: center;
+  background: rgba(2, 4, 10, 0.42); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+  animation: vv-fade-in 0.2s ease-out both;
+}
+.wheel {
+  position: relative; width: 470px; height: 470px; border-radius: 50%;
+  border: 1px solid var(--glass-rim);
+  background: var(--glass-sheen), radial-gradient(circle, color-mix(in srgb, var(--accent) 10%, transparent) 0 26%, transparent 27%), var(--glass-tint);
+  -webkit-backdrop-filter: var(--glass-blur); backdrop-filter: var(--glass-blur);
+  box-shadow: var(--glass-inset), 0 0 60px var(--accent-glow), 0 30px 80px rgba(0, 0, 0, 0.5);
+  animation: vv-fade-in 0.22s ease-out both;
+}
+.wheel::before, .wheel::after { content: ''; position: absolute; left: 50%; top: 50%; border-radius: 50%; pointer-events: none; transform: translate(-50%, -50%); }
+.wheel::before { width: 208px; height: 208px; border: 1px dashed color-mix(in srgb, var(--accent) 40%, transparent); }
+.wheel::after { width: 372px; height: 372px; border: 1px solid rgba(255, 255, 255, 0.07); }
+.wheel-ring { position: absolute; inset: 0; transition: transform 0.55s cubic-bezier(0.2, 0.8, 0.2, 1); }
+.wheel-group {
+  position: absolute; display: flex; flex-direction: column; align-items: center; gap: 2px; width: 74px; padding: 7px 4px;
+  border-radius: 14px; border: 1px solid var(--glass-rim); background: rgba(255, 255, 255, 0.06); color: var(--text-dim);
+  font-size: 11px; letter-spacing: 0.08em; cursor: pointer; transition: transform 0.55s cubic-bezier(0.2, 0.8, 0.2, 1), background 0.2s, color 0.2s;
+}
+.wheel-group span { font-size: 18px; line-height: 1.1; }
+.wheel-group.active { background: var(--accent); color: #04101a; box-shadow: 0 0 20px var(--accent-glow); }
+@keyframes wheel-pop { from { opacity: 0; scale: 0.7; } }
+.wheel-item {
+  position: absolute; transform: translate(-50%, -50%); padding: 6px 11px; border-radius: 999px; white-space: nowrap; cursor: pointer;
+  border: 1px solid var(--glass-rim); color: var(--text);
+  background: var(--glass-sheen), rgba(10, 16, 34, 0.7); box-shadow: var(--glass-inset), 0 6px 16px rgba(0, 0, 0, 0.35);
+  font-size: 11.5px; animation: wheel-pop 0.32s ease-out both;
+}
+.wheel-item:hover, .wheel-item:focus-visible { border-color: var(--accent); color: var(--accent); }
+.wheel-item.active { border-color: var(--accent); color: var(--accent); box-shadow: var(--glass-inset), 0 0 16px var(--accent-glow); }
+.wheel-centre { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); text-align: center; pointer-events: none; }
+.wheel-centre-icon { font-size: 30px; color: var(--accent); text-shadow: 0 0 16px var(--accent-glow); }
+.wheel-centre-label { font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase; }
+.wheel-hint { margin-top: 4px; font-size: 9px; color: var(--text-faint); letter-spacing: 0.06em; }
+@media (max-width: 760px) {
+  .wheel-hub { left: auto; right: 12px; bottom: calc(40% + 22px); transform: none; width: 52px; height: 52px; }
+  .wheel { transform: scale(0.74); }
+}
+
+/* ---------- Cosmic: space-age ---------- */
+.app.mode-cosmic {
+  background:
+    radial-gradient(900px 520px at 82% 8%, rgba(177, 140, 255, 0.16), transparent 60%),
+    radial-gradient(700px 480px at 6% 92%, rgba(80, 140, 255, 0.12), transparent 60%),
+    radial-gradient(1200px 800px at 70% -10%, var(--bg-2), var(--bg) 60%);
+}
+.app.mode-cosmic::before, .app.mode-cosmic::after { content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 0; }
+.app.mode-cosmic::before {
+  background-image:
+    radial-gradient(1px 1px at 20px 30px, rgba(255, 255, 255, 0.8), transparent 50%),
+    radial-gradient(1px 1px at 140px 90px, rgba(200, 210, 255, 0.7), transparent 50%),
+    radial-gradient(1.5px 1.5px at 260px 160px, rgba(255, 240, 220, 0.8), transparent 50%),
+    radial-gradient(1px 1px at 70px 210px, rgba(255, 255, 255, 0.6), transparent 50%),
+    radial-gradient(1px 1px at 300px 40px, rgba(190, 200, 255, 0.7), transparent 50%);
+  background-size: 340px 250px; opacity: 0.55;
+}
+.app.mode-cosmic::after {
+  background-image: radial-gradient(1.5px 1.5px at 60px 120px, rgba(255, 255, 255, 0.9), transparent 50%), radial-gradient(1px 1px at 210px 20px, rgba(220, 200, 255, 0.9), transparent 50%);
+  background-size: 290px 230px; opacity: 0.4;
+}
+/* no perpetual animation (twinkle, drift): repainting full-screen layers under blurred glass every frame is costly on
+   software-rendered browsers, as the reference's own notes warn */
+/* lift the stage above the starfield layers; the top bar keeps z-index 20 so its menus stay on top */
+.mode-cosmic .stage { position: relative; z-index: 1; }
+.mode-cosmic .topbar::after { content: ''; position: absolute; left: 0; right: 0; bottom: -1px; height: 1px; background: linear-gradient(90deg, transparent, var(--accent) 30%, #f5c76b 70%, transparent); opacity: 0.6; }
+.mode-cosmic .panel-head { font-family: var(--mono); letter-spacing: 0.26em; color: var(--accent); text-shadow: 0 0 10px var(--accent-glow); border-bottom: 0; background: linear-gradient(90deg, color-mix(in srgb, var(--accent) 12%, transparent), transparent 70%); }
+.mode-cosmic .panel::before {
+  /* HUD corner brackets */
+  content: ''; position: absolute; inset: 5px; pointer-events: none; z-index: 2; border-radius: 14px;
+  background:
+    linear-gradient(var(--accent), var(--accent)) top left / 14px 1px no-repeat, linear-gradient(var(--accent), var(--accent)) top left / 1px 14px no-repeat,
+    linear-gradient(var(--accent), var(--accent)) top right / 14px 1px no-repeat, linear-gradient(var(--accent), var(--accent)) top right / 1px 14px no-repeat,
+    linear-gradient(var(--accent), var(--accent)) bottom left / 14px 1px no-repeat, linear-gradient(var(--accent), var(--accent)) bottom left / 1px 14px no-repeat,
+    linear-gradient(var(--accent), var(--accent)) bottom right / 14px 1px no-repeat, linear-gradient(var(--accent), var(--accent)) bottom right / 1px 14px no-repeat;
+  opacity: 0.55;
+}
+.mode-cosmic .section-title { font-family: var(--mono); letter-spacing: 0.28em; }
+.mode-cosmic .stage-head h1 { font-weight: 300; letter-spacing: 0.06em; text-shadow: 0 0 18px var(--accent-glow); }
+.mode-cosmic .chip.active, .mode-cosmic .view-switch button.active { box-shadow: 0 0 14px var(--accent-glow); }
+
+/* ---------- Atomic: outlines of atoms and molecules behind the periodic table ---------- */
+.mode-atomic .ptable-wrap {
+  background-color: transparent;
+  background-image:
+    radial-gradient(900px 600px at 15% 0%, rgba(125, 249, 255, 0.07), transparent 60%),
+    radial-gradient(700px 500px at 100% 100%, rgba(92, 242, 200, 0.06), transparent 60%),
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='520' height='520' viewBox='0 0 520 520' fill='none' stroke='rgba(125,249,255,0.11)' stroke-width='1.1'><g transform='translate(95 95)'><circle r='5' fill='rgba(125,249,255,0.12)'/><ellipse rx='58' ry='20'/><ellipse rx='58' ry='20' transform='rotate(60)'/><ellipse rx='58' ry='20' transform='rotate(-60)'/></g><g transform='translate(390 120)'><polygon points='0,-40 34.6,-20 34.6,20 0,40 -34.6,20 -34.6,-20'/><circle r='22'/><line x1='0' y1='-40' x2='0' y2='-62'/><line x1='34.6' y1='20' x2='53.7' y2='31'/><line x1='-34.6' y1='20' x2='-53.7' y2='31'/></g><g transform='translate(120 380)'><circle r='16'/><circle cx='-38' cy='26' r='10'/><circle cx='38' cy='26' r='10'/><line x1='-12' y1='9' x2='-30' y2='20'/><line x1='12' y1='9' x2='30' y2='20'/></g><g transform='translate(400 400)'><circle r='12'/><circle cx='0' cy='-44' r='7'/><circle cx='42' cy='16' r='7'/><circle cx='-42' cy='16' r='7'/><circle cx='0' cy='30' r='7' stroke-dasharray='3 3'/><line x1='0' y1='-12' x2='0' y2='-37'/><line x1='11' y1='4' x2='36' y2='13'/><line x1='-11' y1='4' x2='-36' y2='13'/></g><g transform='translate(260 255)' stroke='rgba(125,249,255,0.07)'><circle r='12'/><circle r='26'/><circle r='42'/><circle r='60' stroke-dasharray='2 5'/><circle cx='26' cy='0' r='2.5' fill='rgba(125,249,255,0.14)'/><circle cx='-29.7' cy='29.7' r='2.5' fill='rgba(125,249,255,0.14)'/><circle cx='0' cy='-42' r='2.5' fill='rgba(125,249,255,0.14)'/></g><g transform='translate(250 470)' stroke='rgba(125,249,255,0.08)'><path d='M-60 0h120M-60 -20h120M-60 20h120M-40 -30v60M0 -30v60M40 -30v60'/></g></svg>");
+  background-size: auto, auto, 520px 520px;
+  background-attachment: local, local, local;
+}
