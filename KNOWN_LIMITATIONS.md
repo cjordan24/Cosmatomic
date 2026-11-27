@@ -185,4 +185,9 @@
   * Recorders keep the latest 400 samples of the current session only; they are not yet saved with notebook experiments (Gate 8.5).
   * Units without a registry entry (W/(m·K), J/(kg·K), m²/s, kg·km/s …) are shown as fixed labels and cannot be switched.
   * The Wave lab probe is one point along the medium; the 2D demos (two-source interference, Doppler) have no probe.
+* **Encyclopedia E.2 (celestial objects, elements, molecules):**
+  * Celestial objects: only the 12 bodies with a NASA “Facts” page; Eris, Haumea, Makemake, Phobos, Deimos, the spacecraft and the stars have no entry. NASA’s figures are rounded popular values and can differ from Voyager’s data panels.
+  * Elements: LANL’s current pages are informal in places and are quoted as published. Jefferson Lab’s “It’s Elemental” is not used (its robots.txt disallows Anthropic agents and signals use=reference); the older LANL text mirrored by PubChem is not used because it can no longer be checked against LANL’s site.
+  * Molecules: the text is PubChem’s description built from ChEBI data, credited to ChEBI, not ChEBI’s own page wording. Eight molecules have no openly licensed description (hydrogen peroxide, hydrogen chloride, hydrogen fluoride, hydrogen sulfide and anthracene, whose PubChem ChEBI items describe an atom or a class; cyanoacetylene, ketene and vinyl alcohol, which have none).
+  * The registry gained 236 entities (bodies, all elements, all molecules) so every entry has one; most have no relationship edge yet (282 unlinked of 436).
 

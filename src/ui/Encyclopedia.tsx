@@ -8,7 +8,7 @@
 import { useState } from 'react';
 import { navigate, setQuery, useRoute } from '@/shared/router';
 import { useVoyager } from '@/shared/store';
-import { CATEGORIES, entriesIn, getEntry, searchEntries, type EncyclopediaEntry } from '@/shared/encyclopedia/encyclopedia';
+import { CATEGORIES, entriesIn, entryForEntity, getEntry, searchEntries, useEncyclopedia, type EncyclopediaEntry } from '@/shared/encyclopedia/encyclopedia';
 import { getSource } from '@/shared/sources/sources';
 import { SourceLinks } from './SourcesView';
 
@@ -29,7 +29,7 @@ export function EntryBody({ entry, limit }: { entry: EncyclopediaEntry; limit?: 
       ))}
       <p className="enc-credit">
         Quoted from “<a href={entry.url} target="_blank" rel="noreferrer">{entry.pageTitle}</a>”, {getSource(entry.source)?.title} · <SourceLinks ids={[entry.source]} />.{' '}
-        {entry.omittedSentences > 0 && <>Sentences that describe pictures on the source page are omitted ([…]). </>}
+        {entry.omittedSentences > 0 && <>{entry.omittedSentences} {entry.omittedSentences === 1 ? 'sentence is' : 'sentences are'} omitted: text that describes pictures on the source page ([…]) or a reviewed section that is not about the subject’s science. </>}
         {entry.license}
       </p>
     </div>
@@ -44,7 +44,7 @@ export function EncyclopediaBio({ entries, what = 'this' }: { entries: Encyclope
   return (
     <section className="enc-bio" aria-label="Encyclopedia">
       <button className="enc-bio-head" aria-expanded={!collapsed} onClick={() => toggle('enc-bio')}>
-        <span>📖 About {what}{entries.length ? `: ${entries.map((e) => e.title).join(' · ')}` : ''}</span><span>{collapsed ? '▸' : '▾'}</span>
+        <span>📖 About {what}{entries.length && entries.map((e) => e.title).join(' · ').replace(/^The /, '').toLowerCase() !== what.toLowerCase() ? `: ${entries.map((e) => e.title).join(' · ')}` : ''}</span><span>{collapsed ? '▸' : '▾'}</span>
       </button>
       {!collapsed && (entries.length === 0
         ? <p className="note">No encyclopedia entry covers this range yet.</p>
@@ -64,6 +64,7 @@ export function EncyclopediaBio({ entries, what = 'this' }: { entries: Encyclope
 
 export default function EncyclopediaDrawer() {
   const { query, path } = useRoute();
+  useEncyclopedia();
   const enc = query.get('enc');
   const [q, setQ] = useState('');
   const collapsed = useVoyager((s) => !!s.panelsCollapsed['enc-drawer']);
@@ -71,7 +72,7 @@ export default function EncyclopediaDrawer() {
   if (!enc) return null;
   const entry = enc !== 'index' ? getEntry(enc) : undefined;
   const hits = new Set(searchEntries(q).map((e) => e.id));
-  const route = entry && entry.category === 'radiation' ? `/spectral?lambda=${entry.exampleWavelengthM}` : null;
+  const route = entry?.category === 'radiation' ? `/spectral?lambda=${entry.exampleWavelengthM}` : entry?.category === 'celestial' ? `/cosmic/${entry.entity.split(':')[1]}` : entry?.category === 'element' ? `/atomic/element/${entry.entity.split(':')[1]}` : entry?.category === 'molecule' ? `/atomic/molecules/${entry.entity.split(':')[1]}` : null;
   const openRoute = (r: string) => { const sep = r.includes('?') ? '&' : '?'; navigate(`${r}${sep}enc=${entry!.id}`); };
   return (
     <aside className={`panel enc-drawer ${collapsed ? 'collapsed' : ''}`} aria-label="Encyclopedia drawer">
@@ -85,7 +86,7 @@ export default function EncyclopediaDrawer() {
         {entry ? (
           <>
             <h2 style={{ margin: '0 0 6px', fontWeight: 400 }}>{entry.title}</h2>
-            {route && !(path[0] === 'spectral' && (path[1] ?? '') === '') && <button className="chip" onClick={() => openRoute(route)}>Show in the Spectral atlas →</button>}
+            {route && `#${route}`.split('?')[0] !== `#/${path.join('/')}` && <button className="chip" onClick={() => openRoute(route)}>{entry!.category === 'radiation' ? 'Show in the Spectral atlas →' : entry!.category === 'celestial' ? 'Open in Cosmic mode →' : 'Open in Atomic mode →'}</button>}
             {route && path[0] === 'spectral' && (path[1] ?? '') === '' && <button className="chip" onClick={() => openRoute(route)}>Go to a typical wavelength →</button>}
             <EntryBody entry={entry} />
             {entry.seeAlso.length > 0 && <>
@@ -115,4 +116,11 @@ export default function EncyclopediaDrawer() {
       </div>
     </aside>
   );
+}
+
+/** About section for one registry entity; loads the lazy categories (elements, molecules) when needed. */
+export function EntityBio({ entity, what }: { entity: string; what: string }) {
+  useEncyclopedia();
+  const e = entryForEntity(entity);
+  return e ? <EncyclopediaBio entries={[e]} what={what} /> : null;
 }

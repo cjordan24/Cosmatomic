@@ -1,0 +1,21 @@
+{
+  "dataset": "encyclopedia-elements",
+  "version": "1.0.0",
+  "records": 118,
+  "sources": [
+    {
+      "institution": "Los Alamos National Laboratory (Triad National Security, LLC, for the U.S. DOE), Periodic Table of Elements",
+      "url": "https://www.lanl.gov/science-engineering/periodic-table",
+      "license": "Public may copy and use without charge provided the LANL notice and any statement of authorship are reproduced (lanl.gov web policies)",
+      "notes": "118 pages; verbatim paragraphs of the article sections"
+    }
+  ],
+  "adapter": "scripts/ingestion/encyclopedia-lanl-elements.ts",
+  "warnings": [
+    "Text is quoted as published and not edited, including LANL’s informal asides. Figures in the excerpts are LANL’s and may differ from Voyager’s sourced data values."
+  ],
+  "output": "datasets/encyclopedia/elements.json",
+  "retrievedAt": "2026-11-27T08:02:46.147Z",
+  "bytes": 522990,
+  "sha256": "be639eda442d442b138edb3e0a485a67639701e0d757955315f5e73df5424f38"
+}

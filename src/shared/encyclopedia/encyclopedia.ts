@@ -3,10 +3,14 @@
  * for. Nothing here is written by Voyager; each entry is quoted from a source in the Source index, with
  * its own citation, link and licence. Omitted sentences are marked […].
  *
- * Categories are added pass by pass. Radiation is available; elements, molecules and celestial objects
- * are planned (shown as such in the encyclopedia menu).
+ * Categories: radiation (E.1, NASA), celestial objects (E.2a, NASA), elements (E.2b, Los Alamos National
+ * Laboratory) and molecules (E.2c, PubChem descriptions from ChEBI / NCI Thesaurus). Radiation and celestial
+ * entries are bundled; the larger element and molecule sets are loaded on first use (`loadEncyclopedia`,
+ * `useEncyclopedia`) and appended to ENTRIES, so every lookup sees them once loaded.
  */
+import { useEffect, useSyncExternalStore } from 'react';
 import radiation from '@datasets/encyclopedia/em-radiation.json';
+import celestial from '@datasets/encyclopedia/celestial.json';
 import { CONVENTIONS, bandsAt } from '@/modes/spectral/atlas/bands';
 
 export type EncyclopediaCategory = 'radiation' | 'element' | 'molecule' | 'celestial';
@@ -29,19 +33,42 @@ export interface EncyclopediaEntry {
   /** band ids (datasets/spectral/em-bands.json) whose range this entry describes */
   match: string[];
   seeAlso: string[];
-  exampleWavelengthM: number;
+  /** radiation entries: a wavelength inside the matched bands; null for other categories */
+  exampleWavelengthM: number | null;
   sections: EncyclopediaSection[];
   omittedSentences: number;
 }
 
 export const CATEGORIES: { id: EncyclopediaCategory; label: string; status: 'available' | 'planned' }[] = [
   { id: 'radiation', label: 'Radiation', status: 'available' },
-  { id: 'element', label: 'Elements', status: 'planned' },
-  { id: 'molecule', label: 'Molecules', status: 'planned' },
-  { id: 'celestial', label: 'Celestial objects', status: 'planned' },
+  { id: 'element', label: 'Elements', status: 'available' },
+  { id: 'molecule', label: 'Molecules', status: 'available' },
+  { id: 'celestial', label: 'Celestial objects', status: 'available' },
 ];
 
-export const ENTRIES = (radiation as unknown as { entries: EncyclopediaEntry[] }).entries;
+/** Gate E.1 radiation (NASA Tour of the EM Spectrum) + Gate E.2a celestial objects (NASA Science Facts pages). */
+export const ENTRIES: EncyclopediaEntry[] = [...(radiation as unknown as { entries: EncyclopediaEntry[] }).entries, ...(celestial as unknown as { entries: EncyclopediaEntry[] }).entries];
+
+// ---------------------------------------------------------------- lazily loaded categories (E.2b, E.2c)
+let loaded = false, version = 0;
+let pending: Promise<void> | null = null;
+const listeners = new Set<() => void>();
+/** Load the element and molecule entries (two lazy chunks) and append them to ENTRIES once. */
+export function loadEncyclopedia(): Promise<void> {
+  if (loaded) return Promise.resolve();
+  pending ??= Promise.all([import('@datasets/encyclopedia/elements.json'), import('@datasets/encyclopedia/molecules.json')]).then(([el, mol]) => {
+    for (const d of [el, mol]) ENTRIES.push(...((d.default ?? d) as unknown as { entries: EncyclopediaEntry[] }).entries);
+    loaded = true; version++; listeners.forEach((l) => l());
+  });
+  return pending;
+}
+export const encyclopediaLoaded = () => loaded;
+/** Re-renders the caller once the lazy categories have loaded (and starts loading them). Returns a version number. */
+export function useEncyclopedia(): number {
+  const v = useSyncExternalStore((cb) => { listeners.add(cb); return () => listeners.delete(cb); }, () => version);
+  useEffect(() => { void loadEncyclopedia(); }, []);
+  return v;
+}
 export const getEntry = (id: string) => ENTRIES.find((e) => e.id === id);
 export const entryForEntity = (entity: string) => ENTRIES.find((e) => e.entity === entity);
 export const entriesIn = (cat: EncyclopediaCategory) => ENTRIES.filter((e) => e.category === cat);

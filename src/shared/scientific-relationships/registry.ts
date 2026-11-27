@@ -10,8 +10,9 @@
  * See SCIENTIFIC_RELATIONSHIPS.md.
  */
 import { REACTIONS } from '@/modes/atomic/reactions/library';
-import { elementBySymbol } from '@/modes/atomic/atoms/elements';
+import { ELEMENTS, elementBySymbol } from '@/modes/atomic/atoms/elements';
 import { MATERIALS } from '@/modes/atomic/materials/materials';
+import { MOLECULES } from '@/modes/atomic/molecules/molecules';
 import { MEDIA } from '@/core/physics/waves/media';
 import { SOURCES } from '@/shared/sources/sources';
 import curated from '@datasets/curated/curated-reference.json';
@@ -108,6 +109,13 @@ for (const spec of NIST_SPECTRA) {
 
 // 2. Sun → Planck spectrum (IAU 2015 nominal T_eff = 5772 K) → Spectral atlas
 registerEntity(E('body:sun', 'Sun', '#/cosmic/sun'));
+// Gate E.2a: solar-system bodies with an encyclopedia entry (NASA Facts pages) are registered so the entry has an entity
+for (const [id, label] of [['mercury', 'Mercury'], ['venus', 'Venus'], ['earth', 'Earth'], ['moon', 'Moon'], ['mars', 'Mars'], ['jupiter', 'Jupiter'], ['saturn', 'Saturn'], ['uranus', 'Uranus'], ['neptune', 'Neptune'], ['pluto', 'Pluto'], ['ceres', 'Ceres']] as const)
+  registerEntity(E(`body:${id}`, label, `#/cosmic/${id}`));
+// Gate E.2b: every element has an encyclopedia entry (LANL periodic table), so every element is an entity
+for (const el of ELEMENTS) registerEntity(E(`element:${el.Z}`, el.name, `#/atomic/element/${el.Z}`));
+// Gate E.2c: molecules of the library (encyclopedia definitions from ChEBI / NCIt where openly licensed)
+for (const m of MOLECULES) registerEntity(E(`molecule:${m.id}`, m.name, `#/atomic/molecules/${m.id}`));
 registerEntity(E('spectrum:blackbody-5772', 'Planck spectrum at 5772 K (model of the Sun)', '#/spectral?tab=blackbody&T=5772', 'Ideal blackbody at the IAU 2015 nominal solar effective temperature; the real solar spectrum deviates'));
 registerRelationship({ from: 'body:sun', to: 'spectrum:blackbody-5772', type: 'has-spectrum', context: 'blackbody model at T_eff', source: 'iau-2015-b3' });
 registerRelationship({ from: 'body:sun', to: 'context:sunlight', type: 'emits', source: 'iau-2015-b3' });

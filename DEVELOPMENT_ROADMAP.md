@@ -17,7 +17,7 @@ Treat each phase below as a proposal. Re-assess numerical methods, dataset acces
 | **5 Interstellar & Stellar** | 5.1 nearby stars · 5.2 stellar classes & HR diagram · 5.3 exoplanets · 5.4 stellar spectra & thermal radiation · 5.5 cross-links | **Complete** (Gates 5.1–5.5) |
 | **6 Deep Space & Invisible Gravity** | 6.1 relativity foundations · 6.2 compact objects & black holes · 6.3 gravitational lensing · 6.4 galaxies & rotation curves · 6.5 nebulae & image galleries | **Complete** (Gates 6.1–6.5) |
 | **7 Cosmology & Observable Universe** | 7.1 expansion & distances · 7.2 distance ladder · 7.3 CMB · 7.4 dark-matter evidence explorer · 7.5 gravitational waves (GWOSC) | **Complete** (Gates 7.1–7.5) |
-| **8 Unified Scale & Relationships** | 8.1 universal scale navigator · 8.2 relationship explorer · 8.3 integrated spectroscopy · 8.4 shared instruments · 8.5 unified notebook · 8.6 pathways | **In progress** (Gates 8.1–8.4 done; approved 2026-11-27) |
+| **8 Unified Scale & Relationships** | 8.1 universal scale navigator · 8.2 relationship explorer · 8.3 integrated spectroscopy · 8.4 shared instruments · 8.5 unified notebook · 8.6 pathways | **In progress** (Gates 8.1–8.4 and E.2 done; approved 2026-11-27) |
 | 9 Applied Waves & Communications | 9.1 EM fields & antennas · 9.2 RF/wireless atlas · 9.3 3D communications room · 9.4 modulation lab · 9.5 acoustic lab · 9.6 audio synthesis/FFT · 9.7 room acoustics & resonance | Planned |
 | 10 Optics, Radiation & Energy | 10.1 geometric optics · 10.2 wave optics · 10.3 polarisation & optical materials · 10.4 atomic/molecular spectroscopy · 10.5 thermal radiation & energy transfer · 10.6 camera/telescope instruments · 10.7 atmospheric radiation & remote sensing | Planned |
 | 11 Biologic Foundations | 11.1 bio data infrastructure & atlas · 11.2 biomolecular encyclopedia · 11.3 protein structures · 11.4 cells · 11.5 organelles & membranes · 11.6 transport & biochemistry · 11.7 plant cells & microorganisms | Planned |
@@ -66,7 +66,9 @@ The goal is learning, so values are explained with cited text: verbatim excerpts
 | Gate | Deliverable | Status |
 |---|---|---|
 | E.1 | Encyclopedia framework: corner menu (📖, deep link `?enc=`), a collapsible *About* section for the selected item, search; 8 radiation entries from NASA's *Tour of the Electromagnetic Spectrum*, matched to wavelengths through ISO 21348 / ITU-R V.431 | **Done** |
-| E.2+ | Elements, molecules, celestial objects (sources to be checked per category) | Planned |
+| E.2a | Celestial objects: 12 entries (Sun, eight planets, Moon, Pluto, Ceres) quoted from NASA Science “Facts” pages; *About* section in the Cosmic object panel | **Done** |
+| E.2b | Elements: 118 entries quoted from the Los Alamos National Laboratory periodic table with LANL’s reuse notice; *About* section in every element view (loaded on demand) | **Done** |
+| E.2c | Molecules: 129 of 137 molecules with PubChem’s description built from ChEBI data (CC BY 4.0); mis-mapped items rejected; *About* section in the molecule view (loaded on demand) | **Done** |
 
 ## Phase 7 gates
 

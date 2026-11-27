@@ -1,0 +1,21 @@
+{
+  "dataset": "encyclopedia-celestial",
+  "version": "1.0.0",
+  "records": 12,
+  "sources": [
+    {
+      "institution": "NASA Science Mission Directorate, Solar System “Facts” pages",
+      "url": "https://science.nasa.gov/solar-system/",
+      "license": "NASA content, generally not subject to U.S. copyright; acknowledge NASA",
+      "notes": "12 pages; verbatim paragraphs"
+    }
+  ],
+  "adapter": "scripts/ingestion/encyclopedia-nasa-solar-system.ts",
+  "warnings": [
+    "Text is quoted as published and not edited. Numbers in the excerpts are NASA’s rounded popular figures; Voyager’s data panels use the sourced datasets, and the two can differ in the last digits."
+  ],
+  "output": "datasets/encyclopedia/celestial.json",
+  "retrievedAt": "2026-11-27T07:54:53.728Z",
+  "bytes": 113058,
+  "sha256": "5a5af34ca62f54b329660971bdfb01c4a1e8352dc47b9080e1c7296e4044b317"
+}

@@ -1,5 +1,4 @@
-import { EncyclopediaBio } from '@/ui/Encyclopedia';
-import { entryForEntity } from '@/shared/encyclopedia/encyclopedia';
+import { EntityBio } from '@/ui/Encyclopedia';
 import { Ruler } from '@/ui/instruments';
 import { ruler } from '@/shared/instruments/instruments';
 import { SOLAR_LOG_EPS, relationshipsFrom } from '@/shared/scientific-relationships/registry';
@@ -49,7 +48,7 @@ function InfoPanel({ body, jd, measureId, setMeasureId }: { body: CelestialBody;
     <>
       <h2 style={{ margin: '0 0 2px', fontWeight: 400, fontSize: 24 }}>{body.name}</h2>
       <div className="note">{body.classification}</div>
-      {(() => { const e = entryForEntity(`body:${body.id}`); return e ? <EncyclopediaBio entries={[e]} what={body.name} /> : null; })()}
+      <EntityBio entity={`body:${body.id}`} what={body.name} />
       {body.radiusKm === null && <p className="note warn">Radius not available in the ingested catalogue — drawn as a small marker, not to scale.</p>}
 
       <div className="section-title">Physical</div>

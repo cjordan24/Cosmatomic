@@ -271,7 +271,7 @@ test('66 encyclopedia: cited radiation entries in a corner menu and an About sec
   await expect(page).toHaveURL(/enc=index/);
   const drawer = page.getByRole('complementary', { name: 'Encyclopedia drawer' });
   await expect(drawer.getByRole('list', { name: 'Radiation entries' }).getByRole('listitem')).toHaveCount(8);
-  await expect(drawer).toContainText('coming soon');
+  await expect(drawer.getByRole('list', { name: 'Elements entries' }).getByRole('listitem')).toHaveCount(118); // Gate E.2b (was “coming soon” at E.1)
   await drawer.getByLabel('Search the encyclopedia').fill('Roentgen');
   await drawer.getByRole('listitem').filter({ hasText: 'X-rays' }).click();
   await expect(page).toHaveURL(/enc=em-xray/);

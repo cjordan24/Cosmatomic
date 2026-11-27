@@ -1,3 +1,4 @@
+import { EntityBio } from '@/ui/Encyclopedia';
 import { RelatedLinks } from '@/ui/RelatedLinks';
 import { useMemo, useState } from 'react';
 import curated from '@datasets/curated/curated-reference.json';
@@ -108,6 +109,7 @@ export default function ElementView({ Z }: { Z: number }) {
             <div style={{ marginTop: 6 }}>{element.hasStableIsotope ? <ProvenanceBadge cls="observed" title="Measured data" /> : <span className="badge" style={{ color: 'var(--warn)' }}>☢ no stable isotope</span>}</div>
           </div>
         </div>
+        <EntityBio entity={`element:${element.Z}`} what={element.name} />
 
         <div className="section-title">Composition</div>
         <dl className="kv">

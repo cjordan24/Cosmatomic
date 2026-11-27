@@ -7,5 +7,7 @@
   "74a-compare-sun-cmb.png": "Spectrum comparison, 50 nm – 3 cm: NIST H I lines, the 5772 K solar blackbody and the 2.72548 K CMB blackbody (models, dashed) with the 43 COBE/FIRAS points (observed), all as λB_λ = νB_ν on one log scale.",
   "74b-compare-redshift.png": "NIST H I lines and the Ring Nebula’s [O III] and [N II] lines (NIST rest wavelengths) shifted by 1 + z = 2, beside the refractive index of water (not shifted); the readout gives the rest wavelength.",
   "75a-instruments-sandbox.png": "Shared instruments in the gravitational sandbox: the energy-error recorder (ΔE/E₀ against simulated years, statistics, CSV export), the probe on Earth and the Earth–Mars ruler with its distance switched to au.",
-  "75b-instruments-fields.png": "Fields explorer probe with convertible units (cm, V, kV/m) and a pinned point: the readout measures the distance from the pin to the cursor."
+  "75b-instruments-fields.png": "Fields explorer probe with convertible units (cm, V, kV/m) and a pinned point: the readout measures the distance from the pin to the cursor.",
+  "76a-encyclopedia-element.png": "Iron with its encyclopedia About section: verbatim History, Properties and Uses from the Los Alamos National Laboratory periodic table, with LANL’s reuse notice.",
+  "76b-encyclopedia-index.png": "Encyclopedia index with all four categories: 8 radiation types (NASA), 118 elements (Los Alamos), 129 molecules (ChEBI data via PubChem) and 12 solar-system bodies (NASA Facts pages)."
 }

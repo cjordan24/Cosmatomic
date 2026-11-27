@@ -232,3 +232,37 @@ test('75 shared instruments: one ruler, probe, time-series recorder and unit con
   await conv.getByLabel('To unit').selectOption('K');
   await expect(conv.getByLabel('Converted value')).toHaveText('298.15');
 });
+
+// ---------------- Gate E.2 (encyclopedia: celestial objects, elements, molecules) ----------------
+test('76 encyclopedia E.2: cited About sections for planets (NASA), elements (Los Alamos) and molecules (ChEBI via PubChem)', async ({ page }) => {
+  await page.goto('/#/cosmic/mars');
+  const bio = page.getByRole('region', { name: 'Encyclopedia' }).first();
+  await expect(bio).toContainText('About Mars');
+  await expect(bio).toContainText('Mars is one of the most explored bodies in our solar system');
+  await bio.getByRole('button', { name: /Read more/ }).click();
+  await expect(bio).toContainText('With a radius of 2,106 miles (3,390 kilometers), Mars is about half the size of Earth.');
+  await expect(bio.getByLabel('Source of this entry')).toContainText('Mars Facts');
+
+  await page.goto('/#/atomic/element/26');
+  await expect(bio).toContainText('About Iron');
+  await expect(bio).toContainText('the first evidence of ancient iron use came in the form of a bead');
+  await bio.getByRole('button', { name: /Read more/ }).click();
+  await expect(bio).toContainText('Pure iron is very chemically reactive');
+  await expect(bio).toContainText('provided that this Notice and any statement of authorship are reproduced on all copies');
+  await shot(page, '76a-encyclopedia-element', 'Iron with its encyclopedia About section: verbatim History, Properties and Uses from the Los Alamos National Laboratory periodic table, with LANL’s reuse notice.');
+
+  await page.goto('/#/atomic/molecules/pubchem-962');
+  await expect(bio).toContainText('Water is an oxygen hydride');
+  await expect(bio).toContainText('CC BY 4.0');
+
+  // drawer: elements and molecules listed; an element entry opens its Atomic view
+  await page.goto('/#/atomic?enc=element-79');
+  const drawer = page.getByRole('complementary', { name: 'Encyclopedia drawer' });
+  await expect(drawer).toContainText('Gold is one of the first metals ever used by humans.');
+  await drawer.getByRole('button', { name: 'Open in Atomic mode →' }).click();
+  await expect(page).toHaveURL(/#\/atomic\/element\/79\?enc=element-79/);
+  await page.goto('/#/atomic?enc=index');
+  await expect(drawer.getByRole('list', { name: 'Molecules entries' }).getByRole('listitem')).toHaveCount(129);
+  await expect(drawer.getByRole('list', { name: 'Celestial objects entries' }).getByRole('listitem')).toHaveCount(12);
+  await shot(page, '76b-encyclopedia-index', 'Encyclopedia index with all four categories: 8 radiation types (NASA), 118 elements (Los Alamos), 129 molecules (ChEBI data via PubChem) and 12 solar-system bodies (NASA Facts pages).');
+});

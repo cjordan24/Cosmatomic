@@ -1,3 +1,4 @@
+import { EntityBio } from '@/ui/Encyclopedia';
 import { lazy, Suspense, useEffect, useMemo, useRef, useState } from 'react';
 import { Viewport } from '@/rendering/Viewport';
 import { navigate, setQuery, useRoute } from '@/shared/router';
@@ -218,6 +219,7 @@ export default function MoleculeView({ id }: { id: string | null }) {
           <span className="badge" style={{ color: 'var(--text-dim)' }}>{mol.category}</span>
         </div>
         {mol.context && <p className="note">{mol.context}</p>}
+        <EntityBio entity={`molecule:${mol.id}`} what={mol.name} />
 
         <div className="section-title">Measure</div>
         <p className="note">{measurement ?? 'Click 2 atoms for a distance or 3 atoms for an angle (vertex = second atom). Click empty space to clear.'}</p>

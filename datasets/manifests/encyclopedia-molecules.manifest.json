@@ -1,0 +1,28 @@
+{
+  "dataset": "encyclopedia-molecules",
+  "version": "1.0.0",
+  "records": 129,
+  "sources": [
+    {
+      "institution": "ChEBI, EMBL-European Bioinformatics Institute (via PubChem PUG View)",
+      "url": "https://www.ebi.ac.uk/chebi/",
+      "license": "CC BY 4.0",
+      "notes": "definitions"
+    },
+    {
+      "institution": "NCI Thesaurus, National Cancer Institute (via PubChem PUG View)",
+      "url": "https://ncit.nci.nih.gov/",
+      "license": "free of copyright; credit NCI",
+      "notes": "definitions where ChEBI has none"
+    }
+  ],
+  "adapter": "scripts/ingestion/encyclopedia-molecules.ts",
+  "warnings": [
+    "8 of 137 molecules have no openly licensed description and no entry.",
+    "Text was read from PubChem’s copy of each source and is credited to the original source."
+  ],
+  "output": "datasets/encyclopedia/molecules.json",
+  "retrievedAt": "2026-11-27T08:04:27.424Z",
+  "bytes": 132163,
+  "sha256": "966f551be34181329b5655335bd57da01a1cc2ef68d2af5a9bbfb291b0fa52fd"
+}

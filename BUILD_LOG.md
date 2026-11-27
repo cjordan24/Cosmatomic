@@ -532,3 +532,14 @@ Phase 8 approved by the user (“proceed as planned”): 8.1 scale navigator · 
 4. **Tests:** 617 science (+11, `tests/science/instruments.test.ts`), 69 browser (+1: test 75). Existing selectors kept (“Second body to measure to”, “Light time”, “Field values at the probe point”). Local full suite **69/69** (10.5 min).
 
 **Gate 8.4 deploy:** not deployed (user: continue without deploying).
+
+## Encyclopedia pass E.2 (celestial objects, elements, molecules), 2026-11-27
+
+Split into documented sub-gates (the plan allowed it):
+1. **E.2a celestial objects:** 12 entries quoted verbatim from NASA Science “Facts” pages (Sun, Mercury–Neptune, Moon, Pluto, Ceres; robots.txt allows all; 2 s between requests). Mechanical extraction of the CMS article blocks only; every paragraph checked against the page text; Ceres’ “Pop Culture” section left out after review. *About* section in the Cosmic object panel. Adapter `scripts/ingestion/encyclopedia-nasa-solar-system.ts`.
+2. **E.2b elements:** all 118 entries quoted verbatim from the Los Alamos National Laboratory periodic table (lanl.gov; robots.txt allows all; reuse notice “The public may copy and use this information without charge, provided that this Notice and any statement of authorship are reproduced on all copies” shown with every entry). Element Stats tables and Fun Facts left out. Jefferson Lab text was **not** used: education.jlab.org’s robots.txt disallows ClaudeBot / anthropic-ai and signals use=reference. Adapter `scripts/ingestion/encyclopedia-lanl-elements.ts`.
+3. **E.2c molecules:** 129 of 137 molecules, PubChem PUG View “Record Description” items from openly licensed sources only (ChEBI, CC BY 4.0 confirmed on ChEBI’s About page; NCI Thesaurus as fallback). The text is PubChem’s description built from ChEBI data and is labelled so. Five PubChem→ChEBI mappings to an atom or a class (e.g. hydrogen sulfide → “Sulfur atom”) were rejected; MeSH, DrugBank and CAMEO were excluded for licence reasons. Adapter `scripts/ingestion/encyclopedia-molecules.ts`.
+4. **Loading:** radiation and celestial entries are bundled; elements (517 kB, 138 kB gzip) and molecules (128 kB) are separate chunks loaded when an element or molecule view or the encyclopedia drawer opens.
+5. **Sources:** `nasa-science-solar-system`, `lanl-periodic-table`, `chebi` (Malik et al. 2025, NAR, DOI 10.1093/nar/gkaf1271 checked on Crossref), `nci-thesaurus` (author note null: not verified). Registry: 436 entities, 140 edges.
+6. **Tests:** 623 science (encyclopedia 17, was 8), 70 browser (+1: test 76; test 66 now checks the 118 element entries instead of “coming soon”).
+

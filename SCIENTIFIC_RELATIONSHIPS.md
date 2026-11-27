@@ -95,6 +95,10 @@ At Gate 8.2 the registry holds 199 entities (186 available, 13 planned) in 27 co
 
 `instrument:spectral-compare` (`#/spectral/compare`) is registered so the explorer lists and opens the view; it has no edges, because it is a view, not a scientific entity. Each layer of the comparison links to the entity it stands for (`spectrum:H-I`, `spectrum:blackbody-5772`, `spectrum:n-water`, `nebula:ring`, `context:cmb` …) and shows that entity’s *Related across modes* list. The registry now holds 200 entities and 140 edges; 46 entities have no edge.
 
+## Encyclopedia entities (Gate E.2)
+
+Every encyclopedia entry describes a registry entity, so E.2 registered the 11 solar-system bodies with a NASA Facts page (`body:<id>`), all 118 elements (`element:<Z>`) and all 137 library molecules (`molecule:<id>`), each routed to its view. No edges were added: the registry holds 436 entities (423 available, 13 planned) and still 140 edges, so 282 entities have none.
+
 ## Rules
 
 1. No edge without a source.
