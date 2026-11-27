@@ -662,3 +662,12 @@ Phase 10 approved by the user (“approve phase 10”). The optics textbooks fir
 4. **Sources:** `drude-1902`, `southall-1910` (165 Source-index entries). Registry: `instrument:geometric-optics` explains visible light and has-property links to the nine materials with n(λ).
 5. **Tests:** science 737/737 (+14, `tests/science/geometricOptics.test.ts`); browser test 86 (new `tests/e2e/phase10.spec.ts`, screenshots `screenshots/phase-10/86a–c`).
 
+## Phase 10, Gate 10.2: wave optics (`#/spectral/waveoptics`), 2026-11-27
+
+1. **View:** `#/spectral/waveoptics?tab=two|slit|grating|film` (Light ▾ → Wave optics).
+2. **Physics:** `src/core/physics/optics/wave.ts` from Drude Pt II Sec. I: two-source interference (eqs. 11–13) with the exact path difference; slit (eq. 78); m-slit grating (eq. 85), orders (eq. 86) and resolving power (eq. 88); thin-film phase with the reversal at one face (eqs. 14–17), dark wavelengths found by bisection with the film's n(λ).
+3. **Data link:** the grating resolves the two strongest NIST lines of Na I (589.1583 and 589.7558 nm, needing hm ≥ 987) and Hg I (577.12 and 579.23 nm). A 400-line grating with d = 2 µm does not resolve sodium in order 1 and does in order 3.
+4. **Fix during the gate:** the first version listed thin-film minima with n at 550 nm while the curve used n(λ), so the marked minima sat a few nm off the curve's zeros; both now use n(λ) (`filmMinimaDispersive`, tested).
+5. **Sources:** `huygens-1912` added; Drude's usage extended (166 entries). Registry: `instrument:wave-optics`.
+6. **Tests:** science 745/745 (+8, `tests/science/waveOptics.test.ts`); browser test 87 (screenshots 87a–c).
+

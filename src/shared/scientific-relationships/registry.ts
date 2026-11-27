@@ -272,6 +272,13 @@ registerEntity(E('instrument:geometric-optics', 'Geometric optics', '#/spectral/
 registerRelationship({ from: 'instrument:geometric-optics', to: 'wave:em-visible', type: 'explains', context: 'rays obey n_a sin φ_a = n_b sin φ_b; “The refractive index depends on the color” (dispersion)', source: 'drude-1902' });
 for (const m of MATERIALS.filter((x) => x.refractiveIndex)) registerRelationship({ from: 'instrument:geometric-optics', to: `material:${m.id}`, type: 'has-property', context: 'refractive index n(λ) used for refraction, lenses and prisms', source: m.refractiveIndex!.sources[0] });
 
+// ---------------------------------------------------------------- Phase 10, Gate 10.2: wave optics
+registerEntity(E('instrument:wave-optics', 'Wave optics', '#/spectral/waveoptics', 'Two-source interference, slit and grating diffraction, resolving power and thin-film colours (Gate 10.2)'));
+registerRelationship({ from: 'instrument:wave-optics', to: 'wave:em-visible', type: 'explains', context: 'interference J = A₁² + A₂² + 2A₁A₂ cos 2π(r₁ − r₂)/λ; fringes aλ/d; grating maxima sin φ = hλ/d', source: 'drude-1902' });
+registerRelationship({ from: 'instrument:wave-optics', to: 'instrument:geometric-optics', type: 'part-of', context: 'Huygens’ principle: every point reached by a light-wave is a source of elementary waves, which “produce an appreciable effect only upon the surface of their envelope”', source: 'drude-1902' });
+registerRelationship({ from: 'instrument:wave-optics', to: spectrumId('Na I'), type: 'explains', context: 'the sodium D doublet (589.16 and 589.76 nm) is resolved when the resolving power hm reaches 987', source: 'nist-asd' });
+registerRelationship({ from: 'instrument:wave-optics', to: spectrumId('Hg I'), type: 'explains', context: 'the mercury yellow lines (577.1 and 579.2 nm) resolved by a grating', source: 'nist-asd' });
+
 export const getEntity = (id: string) => REGISTRY.get(id);
 export const allEntities = () => [...REGISTRY.values()];
 export const relationshipsFrom = (id: string) => RELATIONSHIPS.filter((r) => r.from === id);

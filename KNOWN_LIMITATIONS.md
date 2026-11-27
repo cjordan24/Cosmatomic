@@ -210,4 +210,4 @@
 
 ## Phase 10 (Optics, Radiation & Energy)
 * **Geometric optics (Gate 10.1):** rays only (no diffraction or interference); meridional rays in one plane (no skew rays, no astigmatism); air taken as n = 1, Drude's reference medium (real air is about 1.0003); materials only inside their dispersion formula's wavelength range (“unknown” outside); no absorption, coatings or Fresnel losses (Gate 10.3); the anisotropic crystals (rutile, quartz, sapphire) use their ordinary index only. The lens diagram stretches its vertical scale for long focal lengths, and says so.
-
+* **Wave optics (Gate 10.2):** scalar Fraunhofer (far-field) diffraction at normal incidence; no Fresnel (near-field) diffraction, no circular apertures (Gate 10.6), no partial coherence or finite source size; the two-source sources have equal amplitudes; thin films use two beams of equal amplitude (no multiple reflections, no absolute reflectance) and the film colours are shown per wavelength, not as perceived colours (no colour-matching data bundled).

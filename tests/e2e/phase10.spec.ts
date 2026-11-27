@@ -47,3 +47,28 @@ test('86 geometric optics: refraction and total reflection, lens and mirror trac
   await expect(page.getByRole('table', { name: 'Prism deviation' })).toContainText('700');
   await shot(page, '86c-prism', 'A 60° fused-silica prism at minimum deviation for 589 nm (33.6°, Southall eq. 27): seven wavelengths from 400 to 700 nm traced through both faces, blue deviated most.');
 });
+
+// ---------------- Gate 10.2 ----------------
+test('87 wave optics: two-source fringes, slit and grating against Drude, the NIST sodium doublet resolved, thin-film minima', async ({ page }) => {
+  await page.goto('/#/spectral');
+  await page.getByRole('navigation', { name: 'Spectral sections' }).getByRole('button', { name: 'Light ▾' }).click();
+  await page.getByRole('menuitem', { name: 'Wave optics' }).click();
+  await expect(page).toHaveURL(/#\/spectral\/waveoptics$/);
+  const fr = page.getByLabel('Fringe result');
+  await expect(fr).toContainText('1.178 mm');              // aλ/d = 1 m × 589 nm / 0.5 mm
+  await expect(fr).toContainText(/ratio to s\/2(1|0\.9999\d|1\.0000\d)$/);   // exact first dark fringe at s/2
+  await shot(page, '87a-two-sources', 'Two coherent sources 0.5 mm apart, screen at 1 m, 589 nm: the exact path-difference pattern and its 1.178 mm fringe spacing aλ/d (Drude §3).');
+  await page.getByRole('navigation', { name: 'Wave optics sections' }).getByRole('button', { name: 'Single slit' }).click();
+  await expect(page.getByLabel('Slit result')).toContainText('0.11');   // λ/a = 550 nm / 5 µm
+  await page.getByRole('navigation', { name: 'Wave optics sections' }).getByRole('button', { name: 'Grating' }).click();
+  const gr = page.getByLabel('Grating result');
+  await expect(gr).toContainText('589.1583 and 589.7558');
+  await expect(gr).toContainText('987');
+  await expect(gr).toContainText(/resolvedno/);              // 400 lines in order 1
+  await page.getByLabel('Diffraction order').fill('3');
+  await expect(gr).toContainText(/resolvedyes/);             // 3 × 400 = 1200 > 987
+  await shot(page, '87b-grating-sodium', 'A 400-line grating (d = 2 µm) in order 3 resolves the NIST sodium D lines 589.158 and 589.756 nm: resolving power hm = 1200 against the 987 needed (Drude eq. 88).');
+  await page.getByRole('navigation', { name: 'Wave optics sections' }).getByRole('button', { name: 'Thin film' }).click();
+  await expect(page.getByLabel('Film result')).toContainText('k = 2');
+  await shot(page, '87c-thin-film', 'A 500 nm water film at normal incidence: reflection minima where 2nd cos χ = kλ (Drude eq. 17), with the reflected light against thickness at 450, 550 and 650 nm.');
+});

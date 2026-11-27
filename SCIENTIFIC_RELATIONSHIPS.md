@@ -127,6 +127,7 @@ Every encyclopedia entry describes a registry entity, so E.2 registered the 11 s
 ## Optics (Phase 10)
 
 `instrument:geometric-optics` (`#/spectral/optics`) *explains* visible light (Snell's law and dispersion, Drude 1902) and reads the refractive index n(λ) of every material that has one (`has-property`, cited to each material's dispersion source).
+`instrument:wave-optics` (`#/spectral/waveoptics`) *explains* visible light (interference and diffraction, Drude), is *part of* geometric optics through Huygens' principle, and *explains* the Na I and Hg I spectra (doublets resolved by a grating, NIST ASD).
 
 ## Rules
 
