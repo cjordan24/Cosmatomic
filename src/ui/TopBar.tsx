@@ -25,7 +25,7 @@ function EncyclopediaButton() {
 interface Hit { kind: 'element' | 'molecule' | 'body' | 'reaction' | 'material' | 'star' | 'exoplanet'; label: string; sub: string; to: string; score: number }
 
 /** Cosmic sub-routes that are not solar-system bodies (#/cosmic/<id> otherwise focuses a body). */
-const COSMIC_SECTIONS = ['stars', 'sandbox', 'relativity', 'compact', 'lensing', 'galaxies', 'nebulae', 'universe', 'ladder', 'cmb'];
+const COSMIC_SECTIONS = ['stars', 'sandbox', 'relativity', 'compact', 'lensing', 'galaxies', 'nebulae', 'universe', 'ladder', 'cmb', 'darkmatter'];
 
 /** A chip that opens a small menu of related sections; it is highlighted when one of them is open. */
 function ChipMenu({ label, items }: { label: string; items: { label: string; to: string; active: boolean }[] }) {
@@ -135,7 +135,7 @@ export function currentScaleId(path: string[], query: URLSearchParams): string |
     if (path[1] === 'element') return query.get('view') === 'nucleus' ? 'nucleus' : 'atom';
     return 'atom';
   }
-  if (path[0] === 'cosmic') return path[1] === 'stars' ? 'stellar' : path[1] === 'galaxies' ? 'galaxy' : path[1] === 'universe' ? 'observable' : ['relativity', 'compact', 'lensing', 'nebulae', 'ladder', 'cmb'].includes(path[1]) ? null : path[1] && path[1] !== 'sun' && path[1] !== 'sandbox' ? 'planet' : 'solar-system';
+  if (path[0] === 'cosmic') return path[1] === 'stars' ? 'stellar' : path[1] === 'galaxies' ? 'galaxy' : path[1] === 'universe' ? 'observable' : ['relativity', 'compact', 'lensing', 'nebulae', 'ladder', 'cmb', 'darkmatter'].includes(path[1]) ? null : path[1] && path[1] !== 'sun' && path[1] !== 'sandbox' ? 'planet' : 'solar-system';
   return null;
 }
 
@@ -234,6 +234,7 @@ export function TopBar() {
               { label: 'Expansion', to: '/cosmic/universe', active: path[1] === 'universe' },
               { label: 'Distance ladder', to: '/cosmic/ladder', active: path[1] === 'ladder' },
               { label: 'Cosmic microwave background', to: '/cosmic/cmb', active: path[1] === 'cmb' },
+              { label: 'Dark-matter evidence', to: '/cosmic/darkmatter', active: path[1] === 'darkmatter' },
             ]} />
             <button className={`chip ${path[1] === 'sandbox' ? 'active' : ''}`} onClick={() => navigate('/cosmic/sandbox')}>Sandbox</button>
           </nav>

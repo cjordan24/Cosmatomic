@@ -356,3 +356,23 @@ input[type='range'] { accent-color: var(--accent); }
 .ladder-rung-sub { color: var(--text-dim); }
 .ladder-rung svg { display: block; width: 100%; height: auto; margin-top: 3px; }
 .ladder-axis { display: block; width: 100%; height: auto; padding: 0 6px; box-sizing: border-box; font-size: 12px; fill: var(--text-dim); }
+
+/* ---- Gate 7.4: dark-matter evidence (#/cosmic/darkmatter) ---- */
+.dm-legend { display: flex; flex-wrap: wrap; gap: 4px 16px; margin: 4px 0 8px; }
+.dm-legend span { display: inline-flex; align-items: center; gap: 6px; }
+.dm-legend i { display: inline-block; width: 14px; height: 4px; border-radius: 2px; }
+.dm-quote { margin: 6px 0; padding: 4px 8px; border-left: 2px solid var(--line); font-size: 10.5px; line-height: 1.5; color: var(--text-dim); }
+.dm-quote .f { opacity: 0.8; }
+.table-scroll { overflow-x: auto; max-width: 100%; }
+.dm-table td, .dm-table th { text-align: left; font-family: var(--font); vertical-align: top; line-height: 1.45; }
+.dm-table td:nth-child(2), .dm-table td:nth-child(3), .dm-table td:nth-child(4) { min-width: 150px; }
+.dm-bars { display: grid; gap: 4px; margin: 8px 0; font-size: 11.5px; }
+.dm-bars > div { display: grid; grid-template-columns: 150px 1fr 1fr; gap: 10px; align-items: center; padding: 3px 4px; border-radius: 4px; cursor: pointer; }
+.dm-bars > div.active { background: rgba(255, 255, 255, 0.06); }
+.dm-bars-head { color: var(--text-dim); cursor: default !important; }
+.dm-bars span[role='cell'] { display: flex; align-items: center; gap: 0; min-width: 0; }
+.dm-bars .bar { display: inline-block; height: 10px; }
+.dm-bars b { font-weight: 500; font-family: var(--mono); margin-left: 6px; white-space: nowrap; }
+.dm-stack { display: flex; height: 26px; border-radius: 4px; overflow: hidden; margin: 8px 0 4px; font-size: 11px; color: #0b1020; }
+.dm-stack > div { display: flex; align-items: center; justify-content: center; white-space: nowrap; overflow: hidden; font-weight: 600; }
+@media (max-width: 900px) { .dm-bars > div { grid-template-columns: 92px 1fr 1fr; gap: 6px; font-size: 10.5px; } }

@@ -64,9 +64,13 @@ Neutron stars and black holes are registered as `compact-object:<id>` (route `#/
 | `galaxy:milky-way` | part-of | `context:distance-ladder` (Gaia EDR3 parallaxes of Milky Way Cepheids are one of the three anchors) | Riess et al. 2022 | Galaxies (Milky Way) ↔ Distance ladder |
 | `context:cosmic-expansion` | explains | `context:cmb` (adiabatic expansion cools the CMB as T₀(1 + z), measured at z = 0.89–2.69) | Noterdaeme et al. 2011 | Expansion view ↔ CMB view |
 | `context:cmb` | explains | `context:cosmic-expansion` (the Planck power spectrum fixes the base-ΛCDM parameters; θ∗ = r∗/D_M(z∗)) | Planck 2018 VI | CMB view ↔ Expansion view |
+| `context:dark-matter` | observed-with | `context:gravitational-lensing` (Bullet Cluster: lensing peaks on the galaxies, ∼8σ from the gas) | Clowe et al. 2006 | Dark-matter view ↔ Lensing view |
+| `context:dark-matter` | observed-with | `context:cmb` (Ω_c h² = 0.11933 ± 0.00091 against Ω_b h² = 0.02242 ± 0.00014 in base ΛCDM) | Planck 2018 VI | Dark-matter view ↔ CMB view |
+| `context:dark-matter` | explains | `galaxy:milky-way` (M₂₀₀ = (1.1 ± 0.3) × 10¹² M☉ against M⋆ = (5 ± 1) × 10¹⁰ M☉) | Bland-Hawthorn & Gerhard 2016 | Dark-matter view ↔ Milky Way tab |
+| `context:dark-matter` | part-of | `context:cosmic-expansion` (cold dark matter ≈ 84 % of Ω_m) | Planck 2018 VI | Dark-matter view ↔ Expansion view |
 | `context:cmb` | emits | `wave:em-microwave` (B_ν peak at 160 GHz, 1.87 mm, in the ISO 21348 microwave category) | Fixsen et al. 1996 | CMB view ↔ Spectral atlas |
 
-`context:cosmic-expansion` routes to `#/cosmic/universe`; `context:distance-ladder` routes to `#/cosmic/ladder` (Gate 7.2); `context:cmb` routes to `#/cosmic/cmb` (Gate 7.3). The *Observable universe* scale level is now interactive and opens its Expansion history tab.
+`context:cosmic-expansion` routes to `#/cosmic/universe`; `context:distance-ladder` routes to `#/cosmic/ladder` (Gate 7.2); `context:cmb` routes to `#/cosmic/cmb` (Gate 7.3); `context:dark-matter` routes to `#/cosmic/darkmatter` (Gate 7.4). The *Observable universe* scale level is now interactive and opens its Expansion history tab.
 
 ## Encyclopedia entities (Gate E.1)
 

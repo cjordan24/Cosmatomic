@@ -140,6 +140,13 @@
   * The power spectrum is TT only (no TE, EE or lensing), with diagonal errors; the covariance matrix is not bundled. The best-fit curve is Planck’s (TT,TE,EE+lowl+lowE+lensing, without BAO), so its parameters differ slightly from the Table 2 column used elsewhere. No spectrum is computed here (no Boltzmann code), and the peaks are local maxima of the thinned curve (± 2 in ℓ).
   * Planck data are CC BY-NC 3.0 IGO: non-commercial use only without ESA’s authorisation.
   * No CMB sky map image is shown (licence not checked).
+* **Dark-matter evidence (Gate 7.4):**
+  * Newtonian gravity throughout. The visible-matter column is what stars and gas would do under Newton’s law; modified gravity (MOND, the radial acceleration relation) is not modelled or fitted (planned for Phase 14.6). Nothing here identifies what dark matter is.
+  * SPARC accelerations use random errors only (no distance or inclination systematics) and fixed Υ; V²R/G is the spherical approximation.
+  * Bullet Cluster: only Table 2 (four 100 kpc apertures) and the quoted peak offsets are bundled; no κ map or X-ray image. The main-cluster κ peak is not drawn (its offset is given from two BCGs and Table 2 does not say which it lists). Stellar masses scale with the assumed M/L_I and are upper limits (no colour selection). The masses assume Clowe et al.’s cosmology (H₀ = 70, Ω_m = 0.3); ratios do not depend on it.
+  * Coma: the mass model is Łokas & Mamon’s, recomputed from their equations; the measured velocity-dispersion and kurtosis profiles are published only as figures and are not bundled, so the σ_los curves are model predictions without data points. The model assumes spherical symmetry, equilibrium and constant anisotropy; Coma has substructure. M/L_B recomputes to 361 against the printed ≈ 351 (3 %). Gas parameters (Briel et al. 1992) are as quoted in the paper, not read from the original.
+  * Cosmic census: Ω_c h² is a base-ΛCDM parameter fitted to the CMB, not a direct measurement; no visible-matter-only CMB spectrum is computed (no Boltzmann solver). BBN values are Cooke et al.’s, not recomputed; their stated 2σ agreement is with Planck 2015, and against Planck 2018 the same gap is 3.3σ (independent Gaussian errors).
+  * Galaxy-cluster gas fractions from X-ray samples, the Zwicky (1937) analysis and weak-lensing masses of other clusters are not bundled.
 
 ## Encyclopedia (Gate E.1)
 * Only radiation is covered (8 NASA entries). Elements, molecules and celestial objects are listed as *coming soon*.

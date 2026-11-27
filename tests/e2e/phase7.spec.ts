@@ -136,6 +136,63 @@ test('69 CMB: FIRAS blackbody, T(z) measurements and the Planck 2018 power spect
   await shot(page, '69c-cmb-power', 'Planck 2018 TT power spectrum: Commander ℓ = 2–29 and 83 Plik bins (ESA, Planck Collaboration; CC BY-NC 3.0 IGO) with the best-fit base-ΛCDM curve and residuals; peaks of the best fit, C_ℓ, and θ∗ linked to the Expansion model.');
 });
 
+test('70 dark-matter evidence: galaxies, the Bullet Cluster, Coma and the cosmic census, with observations and models kept apart', async ({ page }) => {
+  await page.goto('/#/cosmic');
+  await page.getByRole('navigation', { name: 'Cosmic sections' }).getByRole('button', { name: /^Universe/ }).click();
+  await page.getByRole('menu', { name: 'Universe' }).getByRole('menuitem', { name: 'Dark-matter evidence' }).click();
+  await expect(page).toHaveURL(/#\/cosmic\/darkmatter$/);
+  const dmTabs = page.getByRole('navigation', { name: 'Dark-matter sections' });
+  const lines = page.getByRole('table', { name: 'Lines of evidence' });
+  await expect(lines.locator('tbody tr')).toHaveCount(5);
+  await expect(lines).toContainText(/median V_obs²\/V_bar² = \d\.\d/); // SPARC loaded and evaluated
+  await expect(lines).toContainText('103 km/s'); // stars-only Keplerian speed of the Milky Way at 20.27 kpc
+  await expect(page.getByLabel('Colour key')).toContainText('Visible matter only, Newtonian gravity');
+  await shot(page, '70a-darkmatter-overview', 'Dark-matter evidence (#/cosmic/darkmatter): five lines of evidence, each with the observation (gold), what the visible matter would do under Newtonian gravity (green) and a model with dark matter (violet): SPARC galaxies, the Milky Way, the Bullet Cluster, Coma and the BBN/CMB census.');
+
+  await page.getByRole('button', { name: 'Open Bullet Cluster (lensing)' }).click();
+  await expect(page).toHaveURL(/tab=lensing/);
+  await expect(page.getByRole('img', { name: 'Bullet Cluster aperture positions' })).toBeVisible();
+  await expect(page.getByLabel('Bullet Cluster distances')).toContainText('4.4130'); // Clowe et al.’s 4.413 kpc/″ recomputed
+  const gas = page.getByLabel('Gas against galaxies');
+  await expect(gas).toContainText('1.80×');
+  await expect(gas).toContainText('0.10×');
+  await page.getByRole('radio', { name: 'Subcluster plasma' }).check();
+  await expect(page).toHaveURL(/c=sub-plasma/);
+  await expect(page.getByLabel('Selected aperture')).toContainText('5.8 ± 0.6 × 10¹² M☉');
+  await expect(page.getByLabel('Selected aperture')).toContainText('0.02 ± 0.06');
+  await shot(page, '70b-darkmatter-bullet', 'Bullet Cluster (Clowe et al. 2006, Table 2): the four 100 kpc apertures, visible mass (X-ray gas + stars) against the lensing convergence; the lensing peak follows the galaxies, not the gas that holds most of the visible mass.');
+
+  await dmTabs.getByRole('button', { name: 'Galaxies', exact: true }).click();
+  await expect(page).toHaveURL(/tab=galaxies/);
+  await expect(page.getByRole('img', { name: 'Observed against baryonic acceleration for SPARC galaxies' })).toBeVisible();
+  await expect(page.getByLabel('Sample statistics')).toContainText('of 3389');
+  await page.getByLabel('Galaxy', { exact: true }).selectOption('NGC2403');
+  await expect(page).toHaveURL(/g=NGC2403/);
+  await expect(page.getByLabel('Selected galaxy')).toContainText('V_obs² / V_bar²');
+  await shot(page, '70c-darkmatter-galaxies', 'SPARC: observed against Newtonian baryonic acceleration at 3389 radii in 175 galaxies (Υ_disk = 0.5, Υ_bul = 0.7); the green line is the visible matter alone. Below: V_obs²/V_bar² along NGC 2403.');
+
+  await dmTabs.getByRole('button', { name: 'Clusters', exact: true }).click();
+  const coma = page.getByLabel('Coma model against published values');
+  await expect(coma).toContainText('2.74 Mpc');
+  await expect(coma).toContainText('1.41 × 10¹⁵');
+  await expect(coma).toContainText('1.8 % / 13.0 % / 85.2 %');
+  await page.getByRole('button', { name: 'α = 1', exact: true }).click();
+  await expect(page).toHaveURL(/a=1/);
+  await expect(page.getByLabel('Coma mass inside the chosen radius')).toContainText('km/s');
+  await shot(page, '70d-darkmatter-coma', 'Coma cluster: Łokas & Mamon’s (2003) mass model recomputed from their equations (stars, X-ray gas, NFW dark matter): masses inside r, and the Jeans line-of-sight dispersion for stars + gas alone against the full model, with the paper’s printed numbers beside the recomputed ones.');
+
+  await dmTabs.getByRole('button', { name: 'Cosmic', exact: true }).click();
+  await expect(page.getByLabel('Cosmic densities')).toContainText('5.32');
+  await expect(page.getByLabel('Cosmic densities')).toContainText('3.3σ');
+  await page.getByRole('checkbox', { name: 'Use the empirical reaction rate' }).check();
+  await expect(page).toHaveURL(/rate=emp/);
+  await expect(page.getByLabel('Baryon density from BBN and from the CMB')).toContainText('0.02235');
+  await expect(page.locator('.note').filter({ hasText: 'CC BY-NC 3.0 IGO' }).first()).toBeVisible();
+  await shot(page, '70e-darkmatter-census', 'Cosmic census: Planck 2018 Ω_b h² and Ω_c h² (base ΛCDM) beside the BBN baryon density from deuterium (Cooke et al. 2018); baryons are about 16 % of the matter; the Planck TT spectrum with its best fit.');
+  await page.getByRole('button', { name: 'The Planck power spectrum →' }).click();
+  await expect(page).toHaveURL(/cosmic\/cmb\?tab=power/);
+});
+
 test('66 encyclopedia: cited radiation entries in a corner menu and an About section for the selected wavelength', async ({ page }) => {
   await page.goto('/#/spectral?lambda=1e-5');
   const bio = page.getByRole('region', { name: 'Encyclopedia' });

@@ -1,0 +1,32 @@
+{
+  "dataset": "dark-matter",
+  "version": "1.0.0",
+  "records": 10,
+  "sources": [
+    {
+      "institution": "Clowe et al. (2006), ApJ 648, L109",
+      "url": "https://doi.org/10.1086/508162",
+      "notes": "Bullet Cluster: Table 2 (M_X, M∗, κ̄ in 100 kpc apertures), peak offsets §3 (arXiv:astro-ph/0608407v1)"
+    },
+    {
+      "institution": "Łokas & Mamon (2003), MNRAS 343, 401",
+      "url": "https://doi.org/10.1046/j.1365-8711.2003.06684.x",
+      "notes": "Coma mass model: eqs. 1–12, Table 1, results §5–§6 (arXiv:astro-ph/0302461v2)"
+    },
+    {
+      "institution": "Cooke, Pettini & Steidel (2018), ApJ 855, 102",
+      "url": "https://doi.org/10.3847/1538-4357/aaab53",
+      "notes": "primordial D/H and the BBN baryon density, eqs. 9–14 (arXiv:1710.11129v3)"
+    }
+  ],
+  "adapter": "scripts/ingestion/curated-dark-matter.ts",
+  "warnings": [
+    "Hand-transcribed (manually transcribed values from the arXiv PDF text; Clowe et al. from the accepted preprint v1).",
+    "Clowe et al. Table 2 and Cooke et al. eq. 12 attach no probability level to “±”: read as 1σ (implied).",
+    "Coma’s measured velocity-dispersion and kurtosis profiles are published only as figures and are not bundled; the mass model is."
+  ],
+  "output": "datasets/astronomical/dark-matter.json",
+  "retrievedAt": "2026-11-27T04:14:01.426Z",
+  "bytes": 9568,
+  "sha256": "03977e4c4f7c36a081b50d33a568f6ec72e702620e309c05a86ff373f097a2f3"
+}

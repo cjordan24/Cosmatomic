@@ -417,3 +417,37 @@ Findings:
 
 
 Gate 7.3 verified against production: 63/63 passed.
+
+## 2026-11-27 — Gate 7.4 (dark-matter evidence)
+New view `#/cosmic/darkmatter` (*Universe ▾ → Dark-matter evidence*) with five tabs: Overview, Galaxies, Lensing, Clusters and Cosmic. Every tab uses the same colour key: the observation (gold), the visible matter alone under Newtonian gravity (green), and a model with dark matter (violet).
+
+What was built:
+- **Data:** `dark-matter` (adapter `scripts/ingestion/curated-dark-matter.ts`), transcribed from the arXiv PDF text:
+  - Clowe et al. (2006), the Bullet Cluster: Table 2 (X-ray gas mass, stellar mass and mean κ in four 100 kpc apertures), the peak offsets and quotations;
+  - Łokas & Mamon (2003), the Coma cluster: the stellar, gas and dark-matter mass model (eqs. 1–12), Table 1 and the published results;
+  - Cooke, Pettini & Steidel (2018): primordial D/H, η₁₀ and the BBN baryon density (eqs. 9–14).
+- **Physics:** `src/core/physics/darkMatter.ts`:
+  - g = V²/R, V²R/G and the mass discrepancy;
+  - the generalised halo profile normalised at Δ_c ρ_crit;
+  - the Coma model and the spherical Jeans equation projected to σ_los;
+  - sky offsets.
+  - The Cosmological module is now v1.3.0.
+- **View:**
+  - Overview: a table of five lines of evidence (SPARC, the Milky Way, the Bullet Cluster, Coma, BBN + CMB).
+  - Galaxies: g_obs against g_bar at 3389 SPARC radii with the visible-matter line, and V_obs²/V_bar² along a chosen curve, with Υ sliders.
+  - Lensing: a schematic of the four apertures with the subcluster κ peak; bars of visible mass against κ̄; an M/L_I slider; distances recomputed with the Expansion model.
+  - Clusters: Coma masses by component, and σ_los for stars + gas against the full model for the four Table 1 fits, beside the paper’s printed numbers.
+  - Cosmic: the Planck matter budget, BBN against the CMB baryon density (switchable reaction rate) and the TT spectrum with its best fit.
+- **Registry:** `context:dark-matter`. It is observed with lensing and the CMB, explains the Milky Way mass budget, and is part of the expansion background.
+- **Source index:** `clowe-2006`, `lokas-mamon-2003`, `cooke-2018` (DOIs checked with Crossref; affiliations from each paper’s first page).
+
+26 new science tests (532 total) and e2e test 70.
+
+Findings:
+1. **The Coma model reproduces the paper.** Recomputed from the printed equations: total mass 1.41 × 10¹⁵ M☉ at r_v = 2.74 Mpc (printed 1.4 × 10¹⁵ and 2.7 Mpc); galaxies, gas and dark matter 1.8, 13.0 and 85.2 % (printed 2, 13 and 85 %); total-mass r_v 2.93 Mpc (2.9); 1.65 × 10¹⁵ inside 3.6 Mpc ((1.6 ± 0.5) × 10¹⁵). M/L_B recomputes to 361 against the printed ≈ 351 (3 %).
+2. **Galaxy speeds need the dark matter.** With the published model, the E-S0 galaxies have σ_los ≈ 790–1050 km/s. Stars and gas alone would hold them at 170–335 km/s, under 45 % of that. The measured profile appears only in the paper’s figures, so the view shows these as model curves without data points and quotes the authors (“the velocity dispersion profile is well reproduced”).
+3. **The Bullet Cluster numbers are consistent with the text.** Clowe et al.’s 4.413 kpc/″ is reproduced by the Expansion model with their cosmology (4.4130). The BCG separation from Table 2 is 721 kpc (stated 0.72 Mpc). The subcluster’s visible mass is 1.8× larger at the gas (stated “a factor of 2”), while its κ̄ is 10× smaller there.
+4. **The BBN–CMB comparison depends on the Planck release.** Cooke et al. quote 2σ against Planck 2015 (reproduced: 2.1σ). Against the Planck 2018 value bundled here, the same BBN number is 3.3σ away with independent Gaussian errors; with their empirical d(p,γ)³He rate it is 0.2σ. The view shows both and labels which Planck release each comparison uses.
+5. **One position was left out rather than guessed.** The main-cluster κ peak is given relative to the “northern” and “southern” BCGs, and Table 2 does not say which BCG it lists, so only the subcluster peak is drawn.
+6. **Access:** arxiv.org `/pdf` only (three PDFs, 16 s apart) and the Crossref API. No new off-limits hosts.
+7. **Layout:** top bar at 1440 px: rightmost element at 1431 px. At 390 px nothing overflows (scroll width 390 on every tab).

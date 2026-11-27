@@ -195,6 +195,12 @@ registerRelationship({ from: 'context:cosmic-expansion', to: 'context:cmb', type
 registerRelationship({ from: 'context:cmb', to: 'context:cosmic-expansion', type: 'explains', context: 'the Planck power spectrum fixes the base-ΛCDM parameters used for every distance (θ∗ = r∗/D_M(z∗))', source: 'planck-2018-vi' });
 registerRelationship({ from: 'context:cmb', to: 'wave:em-microwave', type: 'emits', context: 'today a 2.72548 K blackbody whose B_ν peak (160 GHz, 1.87 mm by Wien’s law) falls in the ISO 21348 microwave category; FIRAS measured 68–640 GHz', source: 'fixsen-1996' });
 registerRelationship({ from: 'context:cosmic-expansion', to: 'context:gravitational-lensing', type: 'explains', context: 'angular-diameter distances D_d, D_s, D_ds set the Einstein radius of distant lenses', source: 'hogg-1999' });
+// Phase 7, Gate 7.4: dark-matter evidence
+registerEntity(E('context:dark-matter', 'Dark-matter evidence', '#/cosmic/darkmatter', 'Galaxy rotation, the Bullet Cluster, Coma and the cosmic census: observations beside visible-matter and dark-matter models (Gate 7.4)'));
+registerRelationship({ from: 'context:dark-matter', to: 'context:gravitational-lensing', type: 'observed-with', context: 'Bullet Cluster: the lensing mass peaks sit on the galaxies, offset at ∼8σ from the X-ray gas that holds most of the visible mass', source: 'clowe-2006' });
+registerRelationship({ from: 'context:dark-matter', to: 'context:cmb', type: 'observed-with', context: 'base ΛCDM fitted to the Planck spectra gives Ω_c h² = 0.11933 ± 0.00091 against Ω_b h² = 0.02242 ± 0.00014', source: 'planck-2018-vi' });
+registerRelationship({ from: 'context:dark-matter', to: 'galaxy:milky-way', type: 'explains', context: 'M₂₀₀ = (1.1 ± 0.3) × 10¹² M☉ against a stellar mass of (5 ± 1) × 10¹⁰ M☉', source: 'bland-hawthorn-gerhard-2016' });
+registerRelationship({ from: 'context:dark-matter', to: 'context:cosmic-expansion', type: 'part-of', context: 'cold dark matter is about 84 % of Ω_m in the Planck 2018 background used for every distance', source: 'planck-2018-vi' });
 
 export const getEntity = (id: string) => REGISTRY.get(id);
 export const allEntities = () => [...REGISTRY.values()];
