@@ -7,6 +7,8 @@
  * convention is presented as "the" definition. Colours drawn for visible wavelengths are
  * ILLUSTRATIVE: a perceived colour is not a single wavelength.
  */
+import { EncyclopediaBio } from '@/ui/Encyclopedia';
+import { entriesForWavelength } from '@/shared/encyclopedia/encyclopedia';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
@@ -103,6 +105,7 @@ export default function SpectralAtlas() {
       </div>
 
       <Panel id="spectral-readout" className="right-panel" title="Quantities & band names">
+        <EncyclopediaBio entries={entriesForWavelength(lambda)} what="this radiation" />
         <div className="section-title">Photon <ProvenanceBadge cls="derived" title="Computed from the vacuum wavelength with exact SI constants (CODATA)" /></div>
         <dl className="kv" aria-label="Photon quantities">
           <KV k="vacuum wavelength λ" v={fmtQ('wavelength', ph.lambda, 6)} />

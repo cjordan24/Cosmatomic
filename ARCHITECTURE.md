@@ -46,6 +46,7 @@ src/
 │       └── universe/               ΛCDM distances, expansion history, cosmological lensing distances (#/cosmic/universe)
 ├── core/fields/                    FIELDS layer interface + gravity, Coulomb, plane-wave, heat layers (FIELDS_ARCHITECTURE.md)
 ├── shared/scientific-relationships typed, sourced entity/edge registry; ui/RelatedLinks renders both directions (SCIENTIFIC_RELATIONSHIPS.md)
+├── shared/encyclopedia/            cited verbatim entries (datasets/encyclopedia); ui/Encyclopedia.tsx: corner drawer (lazy) + About section (Gate E.1)
 ├── rendering/                      Viewport (adaptive DPR, log depth), PointCloud shader, labels, colours
 ├── workers/orbital.worker.ts       Monte-Carlo sampling off the UI thread
 ├── shared/{router,store}.ts        hash router (deep links) + Zustand store

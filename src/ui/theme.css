@@ -64,7 +64,7 @@ a { color: var(--accent); }
 .search { position: relative; width: min(340px, 34vw); }
 .search input { width: 100%; height: 34px; padding: 0 12px 0 32px; border-radius: 10px; border: 1px solid var(--line); background: rgba(255, 255, 255, 0.04); color: var(--text); font: inherit; }
 .search input::placeholder { color: var(--text-faint); }
-.search .glyph { position: absolute; left: 10px; top: 9px; width: 14px; height: 14px; opacity: 0.6; }
+.search .glyph { position: absolute; left: 10px; top: 9px; width: 14px; height: 14px; opacity: 0.6; pointer-events: none; }
 .search-results { position: absolute; top: 40px; left: 0; right: 0; max-height: 60vh; overflow: auto; padding: 6px; border-radius: 12px; border: 1px solid var(--line-strong); background: var(--glass-strong); backdrop-filter: blur(16px); box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6); }
 .search-results button { display: flex; width: 100%; align-items: center; gap: 10px; padding: 8px 10px; border: 0; background: none; border-radius: 8px; cursor: pointer; text-align: left; }
 .search-results button[aria-selected='true'], .search-results button:hover { background: rgba(255, 255, 255, 0.07); }
@@ -306,7 +306,7 @@ input[type='range'] { accent-color: var(--accent); }
 .topbar .search { min-width: 110px; flex-shrink: 1; }
 @media (max-width: 1500px) { .search { width: min(280px, 24vw); } }
 @media (max-width: 1280px) { .topbar .icon-btn .hide-mobile { display: none; } }
-/* Cosmic has the most section chips: icon-only buttons below 1500 px so nothing overflows (Gate 7.1) */
+/* Cosmic and Atomic have the most section chips: icon-only buttons below 1500 px so nothing overflows (Gates 7.1, E.1) */
 @media (max-width: 1500px) { .topbar.many-chips .icon-btn .hide-mobile { display: none; } }
 .mode-spectral { --accent: #f5c76b; --accent-2: #ffb347; --accent-3: #ffe2a8; --accent-glow: rgba(245, 199, 107, 0.35); --bg-2: #160f05; }
 .mode-switch button.spectral.active { background: #f5c76b; color: #1a1205; }
@@ -319,3 +319,31 @@ input[type='range'] { accent-color: var(--accent); }
 @media (max-width: 900px) { .star-legend { display: none; } .cosmic-tools.stars-tools { left: 8px; } }
 .hr-stage { top: 56px; }
 .hr-stage .plot.scatter text { font-size: 10px; fill: var(--text-dim); }
+
+/* ---------- encyclopedia (Gate E.1) ---------- */
+.enc-drawer { position: absolute; z-index: 16; top: 64px; right: 12px; width: 440px; max-height: calc(100% - 76px); display: flex; flex-direction: column; background: var(--glass-strong); }
+.enc-drawer .panel-body { flex: 1; }
+.enc-drawer.collapsed { max-height: none; }
+.enc-heading { margin: 12px 0 4px; font-size: 10.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); }
+.enc-quote { margin: 6px 0; padding: 2px 0 2px 10px; border-left: 2px solid var(--line-strong); font-size: 12.5px; line-height: 1.55; color: var(--text); }
+.enc-source { margin: 2px 0 6px; font-size: 11px; line-height: 1.45; color: var(--text-dim); }
+.enc-source a { color: var(--accent); }
+.enc-credit { margin: 10px 0 4px; font-size: 10.5px; line-height: 1.5; color: var(--text-dim); }
+.enc-bio { margin: 0 0 10px; border: 1px solid var(--line); border-radius: 10px; padding: 0 10px 8px; background: rgba(255, 255, 255, 0.02); }
+.enc-bio-head { display: flex; justify-content: space-between; gap: 8px; width: 100%; padding: 8px 0; border: 0; background: none; cursor: pointer; color: var(--text); font: inherit; font-size: 12px; text-align: left; }
+.enc-bio .chip-row { flex-wrap: wrap; margin-top: 6px; }
+@media (max-width: 900px) { .enc-drawer { top: 60px; left: 8px; right: 8px; width: auto; max-height: calc(100% - 70px); z-index: 30; } }
+
+/* ---------- phone top bar (Gate E.1): search collapses to an icon, actions fold into ☰ ---------- */
+.topbar-actions { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
+@media (max-width: 900px) {
+  .topbar-actions { display: none; }
+  .topbar .search { flex: 0 0 36px; width: 36px; min-width: 0; }
+  .topbar .search input { padding-right: 0; }
+  .topbar .search input::placeholder { color: transparent; }
+  .topbar .search:focus-within { position: absolute; left: 8px; right: 8px; width: auto; z-index: 40; }
+  .topbar .search:focus-within input::placeholder { color: var(--text-faint); }
+  .topbar-more .chip-menu-list { min-width: 170px; background: #0a0f1f; }
+  .topbar .search:focus-within input { background: #0a0f1f; border-color: var(--line-strong); }
+}
+

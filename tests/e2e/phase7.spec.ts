@@ -57,6 +57,45 @@ test('64 expansion and distances: ΛCDM distances, expansion history, cosmologic
   await expect(page.locator('.right-panel')).toContainText('10¹¹ M☉ galaxy at z = 0.5');
 });
 
+// ---------------- Gate E.1 (encyclopedia) ----------------
+test('66 encyclopedia: cited radiation entries in a corner menu and an About section for the selected wavelength', async ({ page }) => {
+  await page.goto('/#/spectral?lambda=1e-5');
+  const bio = page.getByRole('region', { name: 'Encyclopedia' });
+  await expect(bio).toContainText('About this radiation: Infrared waves');
+  await expect(bio).toContainText('thermal infrared'); // first section only
+  const srcLine = bio.getByLabel('Source of this entry');
+  await expect(srcLine).toContainText('Source: “Infrared Waves”, Tour of the Electromagnetic Spectrum, NASA Science Mission Directorate (2010)');
+  await expect(srcLine.getByRole('link', { name: '“Infrared Waves”' })).toHaveAttribute('href', 'https://science.nasa.gov/ems/07_infraredwaves/');
+  // the citation sits directly under the heading, above the quoted text
+  expect((await srcLine.boundingBox())!.y).toBeLessThan((await bio.locator('.enc-quote').first().boundingBox())!.y);
+  await expect(bio).not.toContainText('Herschel');
+  await bio.getByRole('button', { name: /Read more/ }).click();
+  await expect(bio).toContainText('In 1800, William Herschel');
+  await expect(bio).toContainText('Tour of the Electromagnetic Spectrum');
+  await shot(page, '66a-encyclopedia-bio', 'Spectral atlas at λ = 10 µm: the About this radiation section quotes NASA’s Tour of the Electromagnetic Spectrum (Infrared Waves) verbatim, with the page link, the Source-index entry and NASA’s reuse terms.');
+  await bio.getByRole('button', { name: /About this radiation/ }).click(); // collapse
+  await expect(bio).not.toContainText('thermal infrared');
+  await bio.getByRole('button', { name: /About this radiation/ }).click();
+  await page.getByRole('button', { name: 'Encyclopedia', exact: true }).click();
+  await expect(page).toHaveURL(/enc=index/);
+  const drawer = page.getByRole('complementary', { name: 'Encyclopedia drawer' });
+  await expect(drawer.getByRole('list', { name: 'Radiation entries' }).getByRole('listitem')).toHaveCount(8);
+  await expect(drawer).toContainText('coming soon');
+  await drawer.getByLabel('Search the encyclopedia').fill('Roentgen');
+  await drawer.getByRole('listitem').filter({ hasText: 'X-rays' }).click();
+  await expect(page).toHaveURL(/enc=em-xray/);
+  await expect(drawer).toContainText('between 0.03 and 3 nanometers');
+  await expect(drawer.getByLabel('Source of this entry')).toContainText('“X-Rays”, Tour of the Electromagnetic Spectrum');
+  await shot(page, '66b-encyclopedia-drawer', 'Encyclopedia corner menu (deep link ?enc=em-xray): the X-rays entry quoted from NASA, with See also links and a button to the same type in the Spectral atlas.');
+  await drawer.getByRole('button', { name: /Go to a typical wavelength/ }).click();
+  await expect(page).toHaveURL(/lambda=1e-9.*enc=em-xray/);
+  await expect(bio).toContainText('About this radiation: X-rays');
+  await drawer.getByRole('button', { name: 'Gamma rays' }).click();
+  await expect(drawer).toContainText('Compton scattering');
+  await drawer.getByRole('button', { name: 'Close encyclopedia' }).click();
+  await expect(drawer).toHaveCount(0);
+});
+
 test.describe('mobile', () => {
   test.use({ viewport: { width: 390, height: 844 } });
   test('65 mobile panels: collapsed panels shrink to their header; right panels open from a floating button', async ({ page }) => {
@@ -83,5 +122,22 @@ test.describe('mobile', () => {
     await left.getByRole('button', { name: 'Expand panel' }).click();
     await page.goto('/#/atomic/element/1');
     await expect(page.locator('.panel-mobile-toggle')).toHaveCount(0); // the element view keeps its own Diagrams button
+  });
+  test('67 phone top bar fits 390 px; the ☰ menu opens the encyclopedia; search expands when tapped', async ({ page }) => {
+    await page.goto('/#/spectral?lambda=5.5e-7');
+    // string form: e2e specs are typechecked without the DOM library
+    const right = Number(await page.evaluate(`Math.max(...[...document.querySelectorAll('.topbar > *')].filter((c) => getComputedStyle(c).display !== 'none').map((c) => c.getBoundingClientRect().right))`));
+    expect(right).toBeLessThanOrEqual(390);
+    await page.getByRole('button', { name: 'More' }).click();
+    await page.getByRole('menu', { name: 'More' }).getByRole('menuitem', { name: /Encyclopedia/ }).click();
+    const drawer = page.getByRole('complementary', { name: 'Encyclopedia drawer' });
+    await expect(drawer).toBeVisible();
+    await drawer.getByRole('listitem').filter({ hasText: 'Visible light' }).click();
+    await expect(drawer).toContainText('380 to 700 nanometers');
+    await shot(page, '67a-phone-encyclopedia', 'Phone (390×844): the encyclopedia opened from the ☰ menu, showing NASA’s Visible Light entry.');
+    await drawer.getByRole('button', { name: 'Close encyclopedia' }).click();
+    await page.getByLabel('Universal search').click();
+    await page.getByLabel('Universal search').fill('iron');
+    await expect(page.getByRole('option', { name: /Iron/ }).first()).toBeVisible();
   });
 });

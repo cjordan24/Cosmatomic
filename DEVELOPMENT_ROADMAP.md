@@ -59,6 +59,15 @@ The astronomy roadmap (Phases 5–8) keeps its place. It is not postponed until 
 | 6.4 | Galaxies and rotation curves (`#/cosmic/galaxies`): SPARC (175 galaxies) vs baryons-only Newtonian and a fitted NFW halo (labelled a model), adjustable Υ; Milky Way parameters (Bland-Hawthorn & Gerhard 2016) and rotation curve (Eilers et al. 2019); Galaxies scale level now interactive | **Done** |
 | 6.5 | Nebulae and image gallery (`#/cosmic/nebulae`): 7 CC BY 4.0 images (ESA/Hubble, ESA/Webb, ESO/EHT) with verbatim credits and checksums; 5 nebula records (Menten 2007, OpenStax §20.2/§22.4); Hα, [N II], [O III] links into the Spectral atlas; EHT images in the Black holes panel | **Done** |
 
+## Encyclopedia (cross-cutting)
+
+The goal is learning, so values are explained with cited text: verbatim excerpts with a credit line, link and licence, never text written by Voyager. Open and public-domain sources are preferred, and short attributed quotations from copyrighted sources are allowed (user decision, 2026-11-26).
+
+| Gate | Deliverable | Status |
+|---|---|---|
+| E.1 | Encyclopedia framework: corner menu (📖, deep link `?enc=`), a collapsible *About* section for the selected item, search; 8 radiation entries from NASA's *Tour of the Electromagnetic Spectrum*, matched to wavelengths through ISO 21348 / ITU-R V.431 | **Done** |
+| E.2+ | Elements, molecules, celestial objects (sources to be checked per category) | Planned |
+
 ## Phase 7 gates
 
 | Gate | Deliverable | Status |

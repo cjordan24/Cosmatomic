@@ -319,3 +319,33 @@ Changes:
   - The button never appears on desktop.
 
 New e2e test 65 checks, at 390 × 844, that the Expansion results panel opens and closes, that the collapsed control panel is under 60 px high and still at the bottom, and that the element view has no second toggle.
+
+## 2026-11-26 — Gate E.1 (encyclopedia: radiation)
+First, a live re-check of the mobile panel fix against production: 59/59 passed.
+
+The user asked for an encyclopedia, because the app's goal is learning and a wavelength without an explanation teaches little. The user's decisions:
+- entries are cited excerpts, never text written by Claude;
+- open sources plus short attributed quotations from copyrighted sources are allowed;
+- it is built as its own gate before 7.2, with radiation first.
+
+What was built:
+- **Data:** `encyclopedia-em-radiation`, 8 entries quoted verbatim from NASA's *Tour of the Electromagnetic Spectrum* (Science Mission Directorate, 2010).
+  - robots.txt allows all agents. The NASA Media Usage Guidelines say NASA content is generally not subject to U.S. copyright and that NASA must be acknowledged.
+  - The adapter takes the article body mechanically, keeps NASA's own citation line (with the retrieval date filled in), and checks that every kept passage occurs verbatim in the page.
+- **Matching:** entries are matched to a wavelength only through bands already bundled (ISO 21348 top-level categories; ITU-R V.431 up to EHF for long radio waves).
+- **UI:**
+  - 📖 Encyclopedia in the top bar opens a corner drawer, lazy-loaded at 52 kB (`?enc=index` or `?enc=<id>`). It has search, categories (Elements, Molecules and Celestial objects marked *coming soon*), See also links and a jump to a typical wavelength.
+  - The Spectral atlas readout starts with a collapsible *About this radiation* section showing the first section of each matching entry, with *Read more*.
+- **Registry:** 6 new `wave:*` entities.
+- **Source index:** `nasa-tour-ems`.
+
+11 new science tests (471 total) and e2e tests 66–67.
+
+Findings:
+1. **Picture references.** The NASA pages often say "the image below". A blanket "below/above" rule also removed real content ("positioned above Earth's atmosphere"). The final rule drops only sentences that name a picture together with a position word, "this image", false-colour descriptions or caption questions. A reviewed per-page list catches the rest, including sentences left dangling once a picture sentence is removed. Each gap is marked […] and counted.
+2. **Conventions disagree on microwaves.** NASA's 12 cm oven example is "radio" in ISO 21348, whose microwave category is 1–15 mm. The atlas follows the bundled conventions and offers *See also: Microwaves*. Likewise 1 pm is ISO's gamma/X-ray edge and counts as X-ray, so the gamma example is 0.1 pm.
+3. **Bundle size.** Importing the registry and band data into the top bar added 138 kB to the main chunk. The drawer is now lazy-loaded, and the main chunk is back to 1403 kB.
+4. **The phone top bar overflowed.** It needed 617 px in a 390 px screen; the user's screenshots showed cut-off icons. On phones, search becomes an icon that expands when tapped, and the five action buttons fold into a ☰ menu. The search glyph had been swallowing taps on the narrow input, so it now ignores pointer events.
+5. **The citation goes next to the bio (user request).** Every entry, in the About section and in the drawer, now opens with a source line directly under its heading: the page title linked to NASA, the series, the publisher and year, and the Source-index entry. The full credit and licence remain at the end. Test 66 checks that the source line sits above the first quotation.
+6. **The desktop top bar overflowed in Atomic.** The new Encyclopedia button pushed it to 1593 px at 1440, and two earlier tests (17 and 58) could no longer reach the Scale button. Atomic now uses the same icon-only buttons below 1500 px as Cosmic. Every route measured ≤ 1431 px.
+

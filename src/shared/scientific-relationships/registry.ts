@@ -62,6 +62,13 @@ const BASE_ENTITIES: Entity[] = [
   E('context:gravitational-lensing', 'Gravitational lensing', '#/cosmic/lensing', 'Point-mass lens plane, microlensing and astrometric deflection (Gate 6.3)'),
   E('context:cosmic-expansion', 'Cosmic expansion and distances', '#/cosmic/universe', 'ΛCDM distances, lookback time and expansion history with Planck 2018 parameters (Gate 7.1)'),
   E('wave:em-visible', 'Visible light', '#/spectral?lambda=5.5e-7', 'Spectral atlas: visible range (no precise limits, CIE)'),
+  // Gate E.1: the remaining broad radiation types, each with an encyclopedia entry (NASA Tour of the EM Spectrum)
+  E('wave:em-spectrum', 'Electromagnetic spectrum', '#/spectral', 'Spectral atlas: one wavelength in every band convention'),
+  E('wave:em-radio', 'Radio waves', '#/spectral?lambda=1', 'Spectral atlas: ITU-R V.431 bands and the ISO 21348 radio category'),
+  E('wave:em-microwave', 'Microwaves', '#/spectral?lambda=0.005', 'Spectral atlas: ISO 21348 microwave category (1–15 mm), inside its radio range'),
+  E('wave:em-infrared', 'Infrared radiation', '#/spectral?lambda=1e-5', 'Spectral atlas: ISO 21348, CIE and detector infrared divisions'),
+  E('wave:em-xray', 'X-rays', '#/spectral?lambda=1e-9', 'Spectral atlas: ISO 21348 hard and soft X-rays'),
+  E('wave:em-gamma', 'Gamma rays', '#/spectral?lambda=1e-13', 'Spectral atlas: ISO 21348 gamma-ray category'),
 ];
 
 const REGISTRY = new Map<string, Entity>();

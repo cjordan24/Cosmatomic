@@ -1,15 +1,26 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { Suspense, lazy, useEffect, useMemo, useRef, useState } from 'react';
 import type { NearbyObject } from '@/modes/cosmic/star-systems/stars';
 import { ELEMENTS } from '@/modes/atomic/atoms/elements';
 import { MOLECULES, prettyFormula } from '@/modes/atomic/molecules/molecules';
 import { BODIES } from '@/modes/cosmic/solar-system/bodies';
 import { REACTIONS } from '@/modes/atomic/reactions/library';
 import { MATERIALS } from '@/modes/atomic/materials/materials';
-import { navigate, useRoute } from '@/shared/router';
+import { navigate, setQuery, useRoute } from '@/shared/router';
 import { useVoyager } from '@/shared/store';
 import { SCALE_LEVELS, type ScaleLevel } from '@/core/scale/scale';
 import { PHYSICS_MODULES } from '@/core/physics/modules';
 import { Logo, SearchGlyph } from './components';
+const EncyclopediaDrawer = lazy(() => import('./Encyclopedia'));
+
+/** Opens the encyclopedia corner menu (?enc=index); the drawer itself is lazy-loaded. Gate E.1. */
+function EncyclopediaButton() {
+  const { query } = useRoute();
+  const open = query.has('enc');
+  return (
+    <button className={`icon-btn ${open ? 'active' : ''}`} aria-label="Encyclopedia" aria-pressed={open} title="Encyclopedia: cited explanations of radiation, elements, molecules and celestial objects"
+      onClick={() => setQuery({ enc: open ? null : 'index' })}>📖 <span className="hide-mobile">Encyclopedia</span></button>
+  );
+}
 
 interface Hit { kind: 'element' | 'molecule' | 'body' | 'reaction' | 'material' | 'star' | 'exoplanet'; label: string; sub: string; to: string; score: number }
 
@@ -180,13 +191,14 @@ function SettingsModal({ onClose }: { onClose: () => void }) {
 }
 
 export function TopBar() {
-  const { path } = useRoute();
+  const { path, query } = useRoute();
   const mode = path[0];
   const [scaleOpen, setScaleOpen] = useState(false);
   const [settingsOpen, setSettingsOpen] = useState(false);
+  const [moreOpen, setMoreOpen] = useState(false);
   return (
     <>
-      <header className={`topbar ${mode === 'cosmic' ? 'many-chips' : ''}`}>
+      <header className={`topbar ${mode === 'cosmic' || mode === 'atomic' ? 'many-chips' : ''}`}>
         <button className="brand" onClick={() => navigate('/')} aria-label="Voyager Ventures home"><Logo /><span className="wordmark">VOYAGER VENTURES</span></button>
         <nav className="mode-switch" aria-label="Mode">
           <button className={mode === 'atomic' ? 'active' : ''} onClick={() => navigate('/atomic')}>ATOMIC</button>
@@ -233,12 +245,27 @@ export function TopBar() {
         )}
         <div className="spacer" />
         <Search />
-        <button className="icon-btn" aria-label="Sources" onClick={() => navigate('/sources')} title="Source index: every citation, link and author note">📚 <span className="hide-mobile">Sources</span></button>
-        <button className="icon-btn" aria-label="Notebook" onClick={() => navigate('/notebook')} title="Scientific notebook (saved experiments)">📓 <span className="hide-mobile">Notebook</span></button>
-        <button className={`icon-btn ${scaleOpen ? 'active' : ''}`} onClick={() => setScaleOpen((o) => !o)} aria-pressed={scaleOpen} aria-label="Scale" title="Universal scale navigator">⟷ <span className="hide-mobile">Scale</span></button>
-        <button className="icon-btn" onClick={() => setSettingsOpen(true)} title="Settings & engine status" aria-label="Settings">⚙</button>
+        <div className="topbar-actions">
+          <EncyclopediaButton />
+          <button className="icon-btn" aria-label="Sources" onClick={() => navigate('/sources')} title="Source index: every citation, link and author note">📚 <span className="hide-mobile">Sources</span></button>
+          <button className="icon-btn" aria-label="Notebook" onClick={() => navigate('/notebook')} title="Scientific notebook (saved experiments)">📓 <span className="hide-mobile">Notebook</span></button>
+          <button className={`icon-btn ${scaleOpen ? 'active' : ''}`} onClick={() => setScaleOpen((o) => !o)} aria-pressed={scaleOpen} aria-label="Scale" title="Universal scale navigator">⟷ <span className="hide-mobile">Scale</span></button>
+          <button className="icon-btn" onClick={() => setSettingsOpen(true)} title="Settings & engine status" aria-label="Settings">⚙</button>
+        </div>
+        {/* Phones: the five buttons above fold into one menu so the bar fits in 390 px */}
+        <div className="chip-menu mobile-only topbar-more">
+          <button className={`icon-btn ${moreOpen ? 'active' : ''}`} aria-haspopup="menu" aria-expanded={moreOpen} aria-label="More" onClick={() => setMoreOpen((o) => !o)}>☰</button>
+          {moreOpen && (
+            <div className="chip-menu-list" role="menu" aria-label="More" style={{ right: 0, left: 'auto' }}>
+              {([['📖 Encyclopedia', () => setQuery({ enc: query.has('enc') ? null : 'index' })], ['📚 Sources', () => navigate('/sources')], ['📓 Notebook', () => navigate('/notebook')],
+                ['⟷ Scale', () => setScaleOpen((o) => !o)], ['⚙ Settings', () => setSettingsOpen(true)]] as [string, () => void][]).map(([label, act]) =>
+                <button key={label} role="menuitem" onClick={() => { setMoreOpen(false); act(); }}>{label}</button>)}
+            </div>
+          )}
+        </div>
       </header>
       {scaleOpen && <ScaleNavigator onClose={() => setScaleOpen(false)} />}
+      {query.has('enc') && <Suspense fallback={null}><EncyclopediaDrawer /></Suspense>}
       {settingsOpen && <SettingsModal onClose={() => setSettingsOpen(false)} />}
     </>
   );

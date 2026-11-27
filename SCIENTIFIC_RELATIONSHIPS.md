@@ -62,6 +62,10 @@ Neutron stars and black holes are registered as `compact-object:<id>` (route `#/
 
 `context:cosmic-expansion` routes to `#/cosmic/universe`. The *Observable universe* scale level is now interactive and opens its Expansion history tab.
 
+## Encyclopedia entities (Gate E.1)
+
+`wave:em-spectrum`, `wave:em-radio`, `wave:em-microwave`, `wave:em-infrared` (new) and the existing `wave:em-visible`, `wave:em-ultraviolet`, plus `wave:em-xray` and `wave:em-gamma` (new). Each has an encyclopedia entry and routes to a typical wavelength in the Spectral atlas. No new edges: an entry describes its entity and is not a relationship.
+
 ## Earlier relationships (Gate 4.1)
 
 Reaction → process/context (`participates-in`), e.g. net photosynthesis → `process:photosynthesis` (planned, Biologic Mode Phase 11), combustion → `context:energy-production`.

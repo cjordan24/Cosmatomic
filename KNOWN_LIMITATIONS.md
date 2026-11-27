@@ -104,7 +104,7 @@
   * Point lenses only: no binary lenses or caustics, no extended mass distributions (galaxies, clusters) and no finite-source effects in the light curves.
   * The galaxy-scale preset is a point mass at an effective distance, following Narayan & Bartelmann's order-of-magnitude example. It is not a model of a real lens system, and no observed strong-lens system is bundled.
   * The lens-plane brightness and colour are illustrative. Only the image geometry is computed.
-* **Navigation:** the Cosmic chips are grouped into *Stars ▾* (Nearby stars, HR diagram, Exoplanets), *Gravity ▾* (Relativity, Black holes, Lensing) and, from Gate 7.1, *Universe ▾*. Below 1500 px the Sources, Notebook and Scale buttons show icons only in Cosmic, so the top bar fits at 1440 px; the active menu shows its section in a tooltip, not in the chip.
+* **Navigation:** the Cosmic chips are grouped into *Stars ▾* (Nearby stars, HR diagram, Exoplanets), *Gravity ▾* (Relativity, Black holes, Lensing) and, from Gate 7.1, *Universe ▾*. Below 1500 px the Encyclopedia, Sources, Notebook and Scale buttons show icons only in Cosmic and Atomic, so the top bar fits at 1440 px; the active menu shows its section in a tooltip, not in the chip.
 * **Galaxies (Gate 6.4):**
   * The NFW fit holds Υ fixed and uses SPARC's random errors only (no inclination or distance systematics). V₂₀₀, c and Υ are degenerate, so the fitted halo parameters are indicative only. No other halo profiles (Burkert, pseudo-isothermal, Einasto) and no MOND/RAR comparison yet (planned for Phase 14.6).
   * H₀ = 73 km/s/Mpc is used for r₂₀₀ for consistency with the SPARC distances. Other H₀ values shift M₂₀₀.
@@ -126,4 +126,12 @@
   * The distance modulus is bolometric: no k-corrections or extinction.
   * Hogg's lensing distance (eq. 19) is invalid for closed models, so it is not shown for them. The cosmological lens is a point mass; no observed strong-lens system is bundled.
   * Custom models keep Planck's radiation density whatever H₀ is chosen.
+
+## Encyclopedia (Gate E.1)
+* Only radiation is covered (8 NASA entries). Elements, molecules and celestial objects are listed as *coming soon*.
+* The text is quoted as NASA published it in 2010 and is not edited. Some figures are rounded or differ from the bundled standards. NASA's visible range is "380 to 700 nanometers"; the CIE says the visible range has no precise limits, and ISO 21348 uses 380–760 nm. NASA's solar surface temperature is "5,500°C".
+* Conventions differ on where microwaves begin. NASA calls 12 cm oven waves microwaves, but ISO 21348's microwave category is 1–15 mm, so the atlas shows the *Radio waves* entry at 12 cm (with a See also link to Microwaves). Matching uses only the bundled conventions (ISO 21348 categories and ITU-R V.431 bands up to EHF); the excerpts never set band limits.
+* Sentences that refer to pictures on the NASA pages are omitted, because the pictures are not reproduced.
+* The About section appears in the Spectral atlas only. The element view's spectrum and the stellar classes do not show it yet.
+* On phones the top bar folds Encyclopedia, Sources, Notebook, Scale and Settings into a ☰ menu, and search is an icon that expands when tapped.
 

@@ -1,0 +1,21 @@
+{
+  "dataset": "encyclopedia-em-radiation",
+  "version": "1.0.0",
+  "records": 8,
+  "sources": [
+    {
+      "institution": "NASA Science Mission Directorate (2010), Tour of the Electromagnetic Spectrum",
+      "url": "https://science.nasa.gov/ems/",
+      "license": "NASA content, generally not subject to U.S. copyright; acknowledge NASA",
+      "notes": "8 pages; verbatim paragraphs"
+    }
+  ],
+  "adapter": "scripts/ingestion/encyclopedia-nasa-ems.ts",
+  "warnings": [
+    "Text is quoted as published in 2010 and not edited; some figures are rounded or dated (e.g. the 380–700 nm visible range, the solar surface temperature)."
+  ],
+  "output": "datasets/encyclopedia/em-radiation.json",
+  "retrievedAt": "2026-11-27T00:42:00.118Z",
+  "bytes": 34052,
+  "sha256": "76d0761af310b3f7bda968a4b93db0d37926bda15c02d82faec19c2432d7b8c8"
+}

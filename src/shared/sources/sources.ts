@@ -404,6 +404,11 @@ export const SOURCES: Source[] = [
     institution: 'Institute for Advanced Study, Princeton', url: 'https://arxiv.org/abs/astro-ph/9905116', license: 'arXiv non-exclusive distribution licence (free to read); unrefereed review note',
     authorBio: 'David W. Hogg, astrophysicist; the note lists him at the Institute for Advanced Study, Princeton. It is a widely cited summary of the standard formulas, with references to Weinberg (1972) and Peebles (1993) for the derivations.',
     usedFor: ['E(z), comoving, transverse comoving, angular-diameter, luminosity distance and distance modulus (eqs. 14–21, 25)', 'angular-diameter distance between two redshifts for lensing (eq. 19, valid for Ω_k ≥ 0)', 'lookback time (eq. 30)', 'definitions of the distance measures used in the explanatory text'] },
+  // ---------------- Gate E.1: encyclopedia ----------------
+  { id: 'nasa-tour-ems', kind: 'report', citation: 'National Aeronautics and Space Administration, Science Mission Directorate (2010) Tour of the Electromagnetic Spectrum. NASA Science website (science.nasa.gov/ems).', title: 'Tour of the Electromagnetic Spectrum', authors: 'NASA Science Mission Directorate', year: 2010,
+    institution: 'National Aeronautics and Space Administration (NASA), Science Mission Directorate', url: 'https://science.nasa.gov/ems/', license: 'NASA content, generally not subject to U.S. copyright (NASA Media Usage Guidelines, nasa.gov/nasa-brand-center/images-and-media); NASA acknowledged as the source; no endorsement implied',
+    authorBio: 'An educational series published by NASA’s Science Mission Directorate, the part of NASA that runs its Earth-science, heliophysics, planetary and astrophysics programmes. Each page gives NASA’s own suggested citation (Science Mission Directorate, 2010).',
+    usedFor: ['encyclopedia entries (verbatim excerpts) for the electromagnetic spectrum, radio waves, microwaves, infrared, visible light, ultraviolet, X-rays and gamma rays'], datasets: ['encyclopedia-em-radiation'] },
 ];
 
 const BY_ID = new Map(SOURCES.map((s) => [s.id, s]));
