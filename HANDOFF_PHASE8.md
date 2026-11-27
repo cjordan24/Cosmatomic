@@ -1,29 +1,64 @@
 # Handoff — Voyager Ventures, Phase 8 (Unified Scale & Relationships)
 
-Written 2026-11-27 after Gate 8.1. Conventions, standing rules, commands and the robots.txt lists are unchanged: read `HANDOFF_PHASE7_REVIEW.md` for them, then `DEVELOPMENT_ROADMAP.md` (Phase 8 gates), `SCIENTIFIC_MODELS.md` §27 and the end of `BUILD_LOG.md`.
+Written 2026-11-27 after Gate 8.2. Read this first, then `DEVELOPMENT_ROADMAP.md` (Phase 8 gates table), `SCIENTIFIC_MODELS.md` §27–§28, `SCIENTIFIC_RELATIONSHIPS.md`, `KNOWN_LIMITATIONS.md` (Phase 8 section) and the end of `BUILD_LOG.md`. `HANDOFF_PHASE7_REVIEW.md` holds the older history; the essentials are repeated below.
 
 ## ▶ RESUME HERE
 
-- Phase 8 was approved by the user on 2026-11-27 (“proceed as planned”). Gates: 8.1 scale navigator (**done**) · 8.2 relationship explorer `#/relations` (**done**) · 8.3 integrated spectroscopy `#/spectral/compare` · 8.4 shared instruments · 8.5 unified notebook · 8.6 pathways. Encyclopedia E.2 follows 8.3. Stop at the Phase 8 boundary for review.
-- **Deploy:** Claude Code’s classifier blocks `vercel deploy`, even when the user asks. Ask the user to run `! export PATH=~/.local/node/bin:$PATH && npx vercel deploy --prod --yes --project voyager-ventures`, then verify the bundle and run the live suite.
-- Deploys of 8.1 and 8.2 were skipped at the user’s request; production still serves Gate 7.5. Ask before deploying again.
-- Next: Gate 8.3 (integrated spectroscopy `#/spectral/compare`), then encyclopedia E.2.
+**State (HEAD `8ecd56d` on `main`, pushed, working tree clean):**
+- Phase 8 was approved by the user on 2026-11-27 (“proceed as planned”). Gates: **8.1 scale navigator — done** · **8.2 relationship explorer — done** · 8.3 integrated spectroscopy `#/spectral/compare` · 8.4 shared instruments · 8.5 unified notebook · 8.6 pathways. Encyclopedia pass E.2 (elements, molecules, celestial objects) comes after 8.3. Stop at the Phase 8 boundary for review.
+- At the end of 8.2 I asked the user whether to continue with 8.3; they asked for this handoff instead. **Confirm with the user before starting 8.3.** A pasted handoff on its own is not approval to continue.
+- **Production is behind:** the user said to skip deploying 8.1 (“Skip deployment and move on to the next step”), and 8.2 was not deployed either. Production still serves the Gate 7.5 build (`index-Qc9NTZFA.js`). Ask the user before deploying again.
+- **Deploying:** Claude Code’s auto-mode classifier blocks `vercel deploy`, even when the user asks directly. Don’t retry it; give the user this command (the `!` shell has no Node on its PATH, so plain `npx` fails):
+  `! export PATH=~/.local/node/bin:$PATH && cd "/Users/chrisjordan/Desktop/Voyager Ventures" && npx vercel deploy --prod --yes --project voyager-ventures`
+  Then compare production’s `index-*.js` with `dist/assets`, run the live suite and record it in `BUILD_LOG.md`.
 
-**Counts:** 585 science tests, 67 browser tests (8 spec files), 33 dataset manifests, 127 Source-index entries.
+**Counts:** 585 science tests (Vitest, 32 files), 67 browser tests (Playwright, 8 spec files; next test number is 74), 33 dataset manifests, 127 Source-index entries.
 
-## Gate 8.1
+## What Phase 8 has added so far
 
-| Item | Where |
-|---|---|
-| `#/scale?z=<log10 m>&sel=<id>` | `src/modes/scale/ScaleView.tsx`; reference lengths in `src/modes/scale/references.ts` |
-| Source | `codata-2022` (proton rms charge radius, NIST now serves CODATA 2022) |
-| Level change | `cluster` level interactive → `#/cosmic/darkmatter?tab=clusters` |
-| Tests | `tests/science/scale.test.ts` (15); e2e test 72 in `tests/e2e/phase8.spec.ts` |
+| Gate | What | Code | Tests |
+|---|---|---|---|
+| 8.1 | `#/scale?z=<log10 m>&sel=<id>`: powers-of-ten zoom from 10⁻¹⁶ to 10²⁷·⁵ m; 29 reference lengths drawn to one linear scale, each read from bundled data with interval, provenance class and sources; log ruler; *Galaxy clusters* scale level now interactive (Coma) | `src/modes/scale/{references.ts,ScaleView.tsx}`; “Open the scale explorer →” in the Scale navigator | `tests/science/scale.test.ts` (15); e2e 72 |
+| 8.2 | `#/relations?tab=map\|path\|links\|planned&e=&depth=&from=&to=&types=&q=&stars=1`: neighbourhood map, shortest chain of sourced edges, all-links table, planned entities; registry stats (199 entities, 140 edges, 27 groups, 45 unlinked) | `src/modes/relations/RelationsView.tsx`, `src/shared/scientific-relationships/graph.ts`; 🔗 in the top bar and ☰ menu; “map ↗” in `RelatedLinks` | `tests/science/relations.test.ts` (10); e2e 73 |
 
-## Gate 8.2
+**Lessons from this phase:**
+- NIST’s CODATA pages (`physics.nist.gov/cgi-bin/cuu/Value?…`) now serve **CODATA 2022**, not 2018. Check the edition before citing; `codata-2022` is in the Source index (the proton radius uses it; the rest of `constants.ts` is still CODATA 2018).
+- **Top-bar width:** at 1440 px the rightmost top-bar element must be ≤ 1440 (tests 17 and 58). With six icon buttons, Cosmic mode sits at 1427 px. Crowded bars use 6 px gaps and 7 px padding (`theme.css`, the `many-chips` media rule), and search is at most 306 px. Adding another top-bar button will overflow, so put new entry points in menus instead.
+- `RelatedLinks` buttons are matched by substring in older e2e tests, so the “map ↗” button’s accessible name is just “Relationship map” (no entity label).
 
-| Item | Where |
-|---|---|
-| `#/relations?tab=map\|path\|links\|planned&e=&depth=&from=&to=&types=&q=&stars=1` | `src/modes/relations/RelationsView.tsx`; queries in `src/shared/scientific-relationships/graph.ts` |
-| Entry points | 🔗 in the top bar and ☰ menu; “map ↗” in every *Related across modes* list |
-| Tests | `tests/science/relations.test.ts` (10); e2e test 73 |
+## Gate 8.3 plan (as approved)
+
+Integrated spectroscopy `#/spectral/compare` overlays any bundled spectra on one wavelength / frequency / energy axis: NIST atomic lines (`datasets/atomic/spectra-nist.json`, 33 spectra), NIST molecular IR (Phase 2), stellar and solar blackbody models, the FIRAS CMB (`cmb.json`), nebula emission lines and refractive-index curves (`materials.json`). Label each layer *observed* or *model*. An optional redshift control applies λ_obs = λ_rest(1 + z) and is labelled a transformation, not data. Register the view in the registry and in the Spectral chips (watch the top-bar width). Check where each spectrum type already lives before writing (`src/modes/spectral/atlas/`, `src/core/physics/em.ts`, `src/modes/cosmic/universe/cmb.ts`). `spectra-nist.json` is about 950 KB: grep it, don’t print it.
+
+## Standing user rules (unchanged)
+
+1. **Source index.** Every new value needs an entry in `src/shared/sources/sources.ts` (rendered at `#/sources`) with a link and a verified author note (`authorBio: null` if unverified; never guess). Add `datasets: [...]` per manifest and `sources: [ids]` on records. Check DOIs with Crossref; read affiliations from the paper’s first page.
+2. **Never invent scientific values.** Unknown values show as “unknown”. Every value carries a provenance class (observed / derived / simulated / illustrative / hypothetical); every model states its validity limits (`src/core/physics/modules.ts`). Explanatory text must be sourced. Store each published value with its interval type.
+3. **Gate routine:** commit to `main`, push, ask the user about deploying (see above), report at the phase boundary and stop for review.
+4. **Respect robots.txt, bot walls and rate limits.**
+   - Off-limits: iopscience.iop.org; wiki.cosmos.esa.int; COD, AMCSD, iso.org and the SIMBAD CfA mirror; the NASA Exoplanet Archive; export.arxiv.org; Springer link.springer.com PDFs; gwosc.org `/catalog/`, `/archive/` and the per-event data directories.
+   - Fine: arxiv.org `/abs` and `/pdf` (crawl-delay 15 s), the Crossref API, the VizieR CfA mirror, exoplanet.eu, OpenStax, SPARC, esahubble.org, esawebb.org, eso.org/public, lambda.gsfc.nasa.gov, www.cosmos.esa.int, irsa.ipac.caltech.edu `.txt` files, science.nasa.gov and nasa.gov, gwosc.org `/eventapi/`, and physics.nist.gov (no robots.txt).
+5. **No secrets, paid services or fabricated images.** Images only with a stated reuse licence and visible credit.
+6. **Shared mechanisms.** New relationships go through the registry (sourced edges, both directions). New fields go through `FieldLayer`.
+7. **Encyclopedia:** verbatim cited excerpts only, never text written by Claude; open sources preferred; no Wikipedia.
+
+## Environment and commands
+
+```bash
+export PATH=~/.local/node/bin:$PATH        # Node 24
+cd "/Users/chrisjordan/Desktop/Voyager Ventures"
+npm run dev | typecheck | test | build | test:e2e | data:validate
+npx playwright test --config tests/e2e/playwright.config.ts tests/e2e/phase8.spec.ts   # one spec
+```
+
+- A full local e2e run takes about 10 min; run it in the background. While it runs, don’t edit `*.spec.ts` or run `npm run build`. Afterwards run `git checkout -- screenshots/phase-0{1,2,3,4,5,6,7}` before committing (Phase 8 screenshots are committed).
+- To look at a view: `npx vite preview --port 4174` after `npm run build`, then a scratch Playwright `.cjs` in the scratchpad run with `NODE_PATH=$(pwd)/node_modules node …`. Check 1440 × 900 and 390 × 844 (scroll width must stay 390).
+- `npm run build` also typechecks `scripts/` and `tests/`. Science tests have no Node types; import JSON through `@datasets/...`. E2E specs have no DOM types.
+- Live test against production: build `tests/e2e/playwright.live.config.ts` with sed (base URL `https://voyager-ventures.vercel.app`, delete the `webServer` block), run it in the background, then delete the config and `git checkout -- screenshots`.
+
+**Commit trailer:**
+
+```
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_012kk9KUmhZje176cLaiTwHQ
+```
