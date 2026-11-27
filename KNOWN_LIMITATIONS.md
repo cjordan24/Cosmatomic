@@ -122,10 +122,17 @@
   * Homogeneous FLRW background only: no perturbations, structure, peculiar velocities or inhomogeneous lensing distances.
   * Dark energy is a cosmological constant. No w ≠ −1 or evolving dark energy, and no model fits to supernova or BAO data (the distance ladder is Gate 7.2).
   * Radiation is massless at all redshifts, and Planck's 0.06 eV neutrino is treated as matter at all redshifts. Ω_r is inferred from Planck's z_eq, not tabulated by Planck. Effects are at the 0.1 % level for z ≳ 100 and negligible below.
-  * Planck parameters are the TT,TE,EE+lowE+lensing+BAO column only. They depend on base ΛCDM and are not a direct measurement of H₀; the H₀ tension with local distance-ladder values is not yet shown.
+  * Planck parameters are the TT,TE,EE+lowE+lensing+BAO column only. They depend on base ΛCDM and are not a direct measurement of H₀; the H₀ tension with local distance-ladder values is shown in the Distance ladder view (Gate 7.2).
   * The distance modulus is bolometric: no k-corrections or extinction.
   * Hogg's lensing distance (eq. 19) is invalid for closed models, so it is not shown for them. The cosmological lens is a point mass; no observed strong-lens system is bundled.
   * Custom models keep Planck's radiation density whatever H₀ is chosen.
+* **Distance ladder (Gate 7.2):**
+  * The published relations are applied to user inputs. Nothing is refitted: no extinction, crowding, metallicity-gradient or covariance modelling. The SH0ES global fit (Cepheids, SNe and their covariances together) is not reproduced; the simple weighted mean of the 42 calibrator M⁰_B,i is shown next to the published M⁰_B and differs from it by 0.013 mag.
+  * The 277 Hubble-flow SNe Ia (Pantheon+) are not bundled; only the fitted intercept a_B is. The Hubble-flow curves are ΛCDM predictions with Planck’s Ω; SH0ES use q₀ = −0.55 instead. TRGB host distances (CCHP) are not bundled; only the zero-point table is.
+  * The papers write “±” without a probability level, so those intervals are read as 1σ and labelled “1σ (implied)”. Planck intervals are 68 % as stated.
+  * The tension column (Δ/σ) assumes independent Gaussian errors and ignores shared systematics. It is labelled derived; each team’s own statement is quoted beside it.
+  * CCHP 2025 has an erratum (ApJ 993, 252) whose content was not read, because iopscience.iop.org’s robots.txt disallows automated agents. The value is flagged in the view.
+  * The Milky Way Cepheid anchor is represented only by its mean parallax (650 µas); the individual Gaia parallaxes are not bundled.
 
 ## Encyclopedia (Gate E.1)
 * Only radiation is covered (8 NASA entries). Elements, molecules and celestial objects are listed as *coming soon*.

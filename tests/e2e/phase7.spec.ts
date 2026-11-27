@@ -58,6 +58,49 @@ test('64 expansion and distances: ΛCDM distances, expansion history, cosmologic
 });
 
 // ---------------- Gate E.1 (encyclopedia) ----------------
+test('68 distance ladder: anchors, Cepheids, TRGB, SNe Ia from cited tables; local H₀ against Planck', async ({ page }) => {
+  await page.goto('/#/cosmic');
+  await page.getByRole('navigation', { name: 'Cosmic sections' }).getByRole('button', { name: /^Universe/ }).click();
+  await page.getByRole('menu', { name: 'Universe' }).getByRole('menuitem', { name: 'Distance ladder' }).click();
+  await expect(page).toHaveURL(/#\/cosmic\/ladder$/);
+  const ladder = page.getByRole('group', { name: /Distance ladder: ranges/ });
+  await expect(ladder.getByRole('button')).toHaveCount(7);
+  await expect(ladder).toContainText('42 SNe in Cepheid hosts');
+  const info = page.locator('.right-panel');
+  await expect(info.getByLabel('Anchor distance moduli')).toContainText('18.477');
+  await expect(info).toContainText('H₀ = 73.04 km/s/Mpc'); // eq. 5 from M⁰_B and a_B reproduces the published value
+  await shot(page, '68a-ladder-overview', 'Distance ladder (#/cosmic/ladder): parallaxes (10 pc sample, Milky Way Cepheids), eclipsing binaries in the LMC and masers in NGC 4258 anchor the Cepheid and TRGB rungs, which calibrate 42 SNe Ia (SH0ES 2022 Table 6); 277 Hubble-flow SNe give H₀; the CMB route is shown for contrast.');
+  await ladder.getByRole('button', { name: /^Parallax/ }).click();
+  await expect(page).toHaveURL(/tab=parallax/);
+  await expect(page.getByRole('img', { name: /Parallax precision against distance/ })).toBeVisible();
+  await expect(page.getByLabel('Parallax of the selected star')).toContainText('768.0665 ± 0.0499 mas'); // Proxima Cen
+  await expect(page.getByLabel('Geometric anchors')).toContainText('7.576 ± 0.082 (stat) ± 0.076 (sys) Mpc');
+  await page.getByRole('button', { name: 'Cepheids', exact: true }).click();
+  await expect(page.getByRole('img', { name: 'Cepheid period–luminosity relation' })).toBeVisible();
+  await page.getByRole('button', { name: 'NGC 4258', exact: true }).click();
+  await expect(page).toHaveURL(/at=n4258/);
+  await expect(page.getByLabel('Cepheid distance')).toContainText('7.576 Mpc'); // placing a Cepheid at the maser distance returns it
+  await shot(page, '68b-ladder-cepheids', 'Cepheid Leavitt law in the Wesenheit H band (SH0ES 2022 eq. 1, baseline b_W = −3.299, Z_W = −0.217, M_H,1^W = −5.894) for solar and LMC metallicity with the 0.07 mag instability-strip width; a 30-day Cepheid placed at the NGC 4258 maser distance.');
+  await page.getByRole('button', { name: 'TRGB', exact: true }).click();
+  await expect(page.getByLabel('TRGB calibrations')).toContainText('-4.049'); // toFixed prints an ASCII hyphen-minus
+  await expect(page.getByLabel('TRGB distance')).toContainText('7.576 Mpc');
+  await page.getByRole('button', { name: 'Supernovae', exact: true }).click();
+  await expect(page.getByRole('img', { name: 'SN Ia peak magnitude against Cepheid distance modulus' })).toBeVisible();
+  await expect(page.getByLabel('Selected supernova')).toContainText('M101');
+  await page.getByRole('button', { name: /value that gives Planck/ }).click();
+  await expect(page.getByLabel('H0 from the supernova calibration')).toContainText('67.66');
+  await shot(page, '68c-ladder-supernovae', 'Type Ia supernovae: the 42 SH0ES calibrators (peak magnitude against host Cepheid distance modulus) with m = μ + M⁰_B; H₀ = 10^(0.2 M⁰_B + a_B + 5), here with the M⁰_B that would give Planck’s 67.66 (0.166 mag brighter), and the Hubble-flow predictions for both H₀ values.');
+  await page.getByRole('button', { name: 'H₀', exact: true }).click();
+  await expect(page.getByRole('img', { name: 'H0 measurements compared' })).toBeVisible();
+  const diff = page.getByLabel('Differences from Planck');
+  await expect(diff).toContainText('4.8σ'); // SH0ES 2022 vs Planck+BAO, independent Gaussian errors
+  await expect(page.locator('.enc-quote').first()).toContainText('5σ difference');
+  await expect(info).toContainText('erratum');
+  await shot(page, '68d-ladder-h0', 'Local H₀ against Planck: SH0ES 2022 (73.04 ± 1.04), SH0ES Cepheids + TRGB, CCHP TRGB 2021 (69.8 ± 0.6 ± 1.6) and CCHP 2025 (70.39, erratum flagged) against Planck 2018 with and without BAO; differences in σ computed with independent Gaussian errors, and each team’s own statement quoted verbatim.');
+  await page.getByRole('button', { name: /Expansion with H₀ = 73.04/ }).click();
+  await expect(page).toHaveURL(/cosmic\/universe\?m=custom&H0=73.04/);
+});
+
 test('66 encyclopedia: cited radiation entries in a corner menu and an About section for the selected wavelength', async ({ page }) => {
   await page.goto('/#/spectral?lambda=1e-5');
   const bio = page.getByRole('region', { name: 'Encyclopedia' });

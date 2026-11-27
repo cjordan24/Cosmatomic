@@ -60,7 +60,10 @@ Neutron stars and black holes are registered as `compact-object:<id>` (route `#/
 |---|---|---|---|---|
 | `context:cosmic-expansion` | explains | `context:gravitational-lensing` (angular-diameter distances set the Einstein radius of distant lenses) | Hogg 1999 eq. 19 | Expansion view ↔ Lensing view |
 
-`context:cosmic-expansion` routes to `#/cosmic/universe`. The *Observable universe* scale level is now interactive and opens its Expansion history tab.
+| `context:distance-ladder` | explains | `context:cosmic-expansion` (measures H₀ directly, to compare with Planck’s ΛCDM inference) | Riess et al. 2022 | Distance ladder ↔ Expansion view |
+| `galaxy:milky-way` | part-of | `context:distance-ladder` (Gaia EDR3 parallaxes of Milky Way Cepheids are one of the three anchors) | Riess et al. 2022 | Galaxies (Milky Way) ↔ Distance ladder |
+
+`context:cosmic-expansion` routes to `#/cosmic/universe`; `context:distance-ladder` routes to `#/cosmic/ladder` (Gate 7.2). The *Observable universe* scale level is now interactive and opens its Expansion history tab.
 
 ## Encyclopedia entities (Gate E.1)
 

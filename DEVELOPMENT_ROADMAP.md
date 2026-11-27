@@ -16,7 +16,7 @@ Treat each phase below as a proposal. Re-assess numerical methods, dataset acces
 | **4 Matter, Materials, Energy & Wave Foundations** | 4.1 reactions · 4.2 thermochemistry · 4.3 crystals & materials · 4.4 phases · 4.5 wave engine · 4.6 Spectral Mode · 4.7 FIELDS + cross-mode links | **Complete** (Gates 4.1–4.7) |
 | **5 Interstellar & Stellar** | 5.1 nearby stars · 5.2 stellar classes & HR diagram · 5.3 exoplanets · 5.4 stellar spectra & thermal radiation · 5.5 cross-links | **Complete** (Gates 5.1–5.5) |
 | **6 Deep Space & Invisible Gravity** | 6.1 relativity foundations · 6.2 compact objects & black holes · 6.3 gravitational lensing · 6.4 galaxies & rotation curves · 6.5 nebulae & image galleries | **Complete** (Gates 6.1–6.5) |
-| **7 Cosmology & Observable Universe** | 7.1 expansion & distances · 7.2 distance ladder · 7.3 CMB · 7.4 dark-matter evidence explorer · 7.5 gravitational waves (GWOSC) | **In progress** (Gate 7.1 done) |
+| **7 Cosmology & Observable Universe** | 7.1 expansion & distances · 7.2 distance ladder · 7.3 CMB · 7.4 dark-matter evidence explorer · 7.5 gravitational waves (GWOSC) | **In progress** (Gates 7.1–7.2 done) |
 | 8 Unified Scale & Relationships | universal scale navigation, relationship registry UI, integrated spectroscopy, shared instruments, unified notebook, pathways | Planned (registry started in 4.1) |
 | 9 Applied Waves & Communications | 9.1 EM fields & antennas · 9.2 RF/wireless atlas · 9.3 3D communications room · 9.4 modulation lab · 9.5 acoustic lab · 9.6 audio synthesis/FFT · 9.7 room acoustics & resonance | Planned |
 | 10 Optics, Radiation & Energy | 10.1 geometric optics · 10.2 wave optics · 10.3 polarisation & optical materials · 10.4 atomic/molecular spectroscopy · 10.5 thermal radiation & energy transfer · 10.6 camera/telescope instruments · 10.7 atmospheric radiation & remote sensing | Planned |
@@ -73,7 +73,7 @@ The goal is learning, so values are explained with cited text: verbatim excerpts
 | Gate | Deliverable | Status |
 |---|---|---|
 | 7.1 | Expansion and distances (`#/cosmic/universe`): Planck 2018 ΛCDM (Table 2) with radiation from z_eq; comoving, luminosity, angular-diameter and light-travel distances, lookback time and age (Hogg 1999); expansion history (a(t), Ω_i(z), q, acceleration onset); cosmological lensing distances (Hogg eq. 19) linked to the Lensing view; checked against Planck's age and r∗/θ∗; Observable-universe scale level interactive | **Done** |
-| 7.2 | Distance ladder: parallax (10 pc sample), Cepheids, TRGB, SNe Ia from cited tables; local H₀ against Planck | Planned |
+| 7.2 | Distance ladder (`#/cosmic/ladder`): parallax precision of the 10 pc sample and three geometric anchors (Gaia Cepheid parallaxes, LMC eclipsing binaries, NGC 4258 masers); Cepheid Leavitt law (SH0ES 2022 eq. 1, baseline fit); TRGB zero point (Freedman 2021 Table 3); 42 calibrator SNe Ia (SH0ES Table 6) and H₀ = 10^(0.2 M⁰_B + a_B + 5); local H₀ (SH0ES 2022, CCHP 2021, CCHP 2025) against Planck 2018, with each team’s own statement quoted | **Done** |
 | 7.3 | CMB: FIRAS blackbody, temperature–redshift relation, published power spectrum if its licence allows | Planned |
 | 7.4 | Dark-matter evidence explorer: rotation curves, lensing, cluster dynamics, CMB; models separated from observations | Planned |
 | 7.5 | Gravitational waves: GWOSC event parameters (terms and robots.txt to be checked) | Planned |

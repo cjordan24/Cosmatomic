@@ -351,3 +351,32 @@ Findings:
 
 
 Gate E.1 verified against production: 61/61 passed.
+
+## 2026-11-27 — Gate 7.2 (distance ladder)
+New view `#/cosmic/ladder` (*Universe ▾ → Distance ladder*) with six tabs: Overview, Parallax, Cepheids, TRGB, Supernovae and H₀.
+
+What was built:
+- **Data:** `distance-ladder`, manually transcribed from five papers (arXiv PDFs, ≥ 15 s apart; DOIs checked on Crossref; affiliations from each first page):
+  - SH0ES 2022 (Riess et al., ApJL 934, L7): eq. 1, eq. 5, Table 5 row 1, and Table 6 (42 calibrator SNe Ia in 37 hosts), copied from the PDF text and checked row by row (m − μ = M to 0.002 mag);
+  - Freedman 2021 (ApJ 919, 16): TRGB zero-point Table 3 and H₀;
+  - Freedman et al. 2025 (ApJ 985, 203): H₀ from HST + JWST;
+  - Pietrzyński et al. 2019 (Nature 567, 200): LMC distance;
+  - Reid, Pesce & Riess 2019 (ApJL 886, L27): NGC 4258 distance.
+- **Physics:** `src/core/physics/distanceLadder.ts` (distance modulus, parallax, Leavitt law, TRGB, H₀ from M⁰_B and a_B, quadrature, tension). The Cosmological module is now v1.1.0.
+- **View:**
+  - Overview: one clickable rung per method on a shared log-distance axis, from the 10 pc sample to the Hubble flow, with the CMB shown as a separate route.
+  - Parallax: σϖ/ϖ against distance for the 10 pc sample, the anchors table with derived μ.
+  - Cepheids and TRGB: calculators that turn an apparent magnitude into μ and a distance, with "place it at" presets (LMC, NGC 4258, M101, NGC 105).
+  - Supernovae: the 42 calibrators against m = μ + M⁰_B, an M⁰_B slider that recomputes H₀, and Hubble-flow predictions.
+  - H₀: a forest plot of SH0ES, CCHP and Planck; a derived Δ/σ table; each team's own statement quoted verbatim; a link to the Expansion view with H₀ = 73.04.
+- **Registry:** `context:distance-ladder` explains `context:cosmic-expansion`; `galaxy:milky-way` is part of the ladder.
+- **Source index:** `riess-2022`, `freedman-2021`, `freedman-2025`, `pietrzynski-2019`, `reid-2019`.
+
+17 new science tests (488 total) and e2e test 68.
+
+Findings:
+1. **The published numbers reproduce.** Eq. 5 with Table 5's baseline M⁰_B and a_B gives 73.04 and 5 log H₀ = 9.318, as printed in §5. The LMC distance gives μ = 18.477, the value SH0ES adopt. CCHP's adopted TRGB zero point equals the inverse-variance mean of its four geometric calibrations to 0.002 mag.
+2. **One of my own expected values had the wrong sign.** I expected Planck's lower H₀ to need a fainter supernova. It needs a brighter one: M⁰_B 0.166 mag more negative, since intrinsically brighter supernovae at the same apparent magnitude are farther away. The code was right; the test and the view text were corrected.
+3. **The tension depends on how it is computed.** With independent Gaussian errors, SH0ES against Planck 67.4 ± 0.5 is 4.9σ; SH0ES quote 5.0σ from the difference in 5 log H₀. The view shows the simple Δ/σ as derived and quotes each team's statement: SH0ES report a 5σ difference, CCHP find no statistically significant one.
+4. **Access:** IOPscience hosts the CCHP 2025 erratum (ApJ 993, 252). Its robots.txt disallows all automated agents and names Anthropic's, so the erratum was not read and the value carries a visible flag. One landing-page request was made before the robots.txt check; its content was discarded. Added to the off-limits list.
+5. **Overview layout.** The first version drew captions inside one SVG; they were clipped at the right edge and unreadable on phones. Each rung is now an HTML button with a wrapping caption above its bar.

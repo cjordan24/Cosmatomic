@@ -336,3 +336,23 @@ One `FieldLayer` interface (quantity, units, frame, resolution, sources, display
     * D_ds ≠ D_s − D_d, and closed models are refused.
     * The cosmological Einstein radius matches the Euclidean one at low z.
     * 10¹¹ M☉ at z = 0.5 with a source at z = 2 gives θ_E = 0.63″, 1.54 × the naive value.
+
+## 23. Distance ladder (Phase 7, Gate 7.2): `src/core/physics/distanceLadder.ts`, `#/cosmic/ladder`
+* **Distance modulus:** μ = m − M = 5 log₁₀(D/10 pc) = 5 log₁₀(D/Mpc) + 25 (Riess et al. 2022 §2.1). σ_μ = (5/ln 10)·σ_D/D (linear propagation).
+* **Parallax (Observed):** d = 1/ϖ (parsec definition, IAU 2015 B2). The 10 pc sample shows σϖ/ϖ against distance; the Milky Way Cepheid anchor is represented by the mean parallax SH0ES quote (650 µas, §4.1).
+* **Geometric anchors (Observed, manually transcribed):** LMC 49.59 ± 0.09 (stat) ± 0.54 (sys) kpc from 20 detached eclipsing binaries (Pietrzyński et al. 2019), μ = 18.477 (SH0ES adopt 18.477 ± 0.0263); NGC 4258 7.576 ± 0.082 (stat) ± 0.076 (sys) Mpc from its water-maser disc (Reid, Pesce & Riess 2019), μ = 29.397.
+* **Cepheids:** m_H^W = μ₀ + M_H,1^W + b_W(log P − 1) + Z_W[O/H] (Riess et al. 2022 eq. 1), baseline fit (Table 5 row 1): M_H,1^W = −5.894 ± 0.017, b_W = −3.299 ± 0.015 mag/dex, Z_W = −0.217 ± 0.046 mag/dex; instability-strip width 0.07 mag; period range of the host fits 5–120 d. The calculator propagates the three parameter σ’s and optionally the strip width.
+* **TRGB:** μ = m_tip − M_TRGB with the adopted F814W zero point −4.049 ± 0.015 (stat) ± 0.035 (sys) (Freedman 2021 Table 3, eight rows shown).
+* **SNe Ia:** m⁰_B = μ₀ + M⁰_B (eq. 3); log H₀ = 0.2 M⁰_B + a_B + 5 (eq. 5) with M⁰_B = −19.253 ± 0.027 and a_B = 0.714158. Table 6 (42 SNe in 37 hosts) is plotted as m⁰_B against μ_Ceph. Hubble-flow curves m = M⁰_B + 5 log₁₀(D_L/Mpc) + 25 use the Gate 7.1 ΛCDM D_L (Planck Ω) for 0.0233 < z < 0.15; SH0ES use q₀ = −0.55 (eq. 4).
+* **H₀ comparison:** SH0ES 2022 baseline 73.04 ± 1.04 and Cepheids + TRGB 72.53 ± 0.99; CCHP 2021 69.8 ± 0.6 (stat) ± 1.6 (sys); CCHP 2025 70.39 ± 1.22 (stat) ± 1.33 (sys) ± 0.70 (σ_SN), erratum flagged; Planck 2018 67.66 ± 0.42 (with BAO) and 67.36 ± 0.54 (without), read from the Planck dataset. Totals combine components in quadrature. Δ/σ = |ΔH₀|/√(σ₁² + σ₂²) is labelled derived (independent Gaussian errors); the teams’ own statements are quoted verbatim.
+* **Validity:** published relations applied to user inputs; no extinction, crowding or covariance modelling; the SH0ES global fit is not reproduced; the Hubble-flow SNe are not bundled. “±” in the ladder papers is read as 1σ (implied).
+* *Validation (tests/science/ladder.test.ts, 17 tests):*
+  * **Transcription:** Table 6 has 42 SNe in 37 hosts, m⁰_B − μ_Ceph = M⁰_B,i in every row (≤ 0.002 mag), spot rows (SN 2011fe, SN 2003du, the three SNe in NGC 3147); Table 5 baseline; anchors; TRGB table and adopted value; H₀ components; the unread CCHP 2025 erratum is flagged; every record has an interval type and an indexed source; Planck values come from the Planck dataset.
+  * **Against the papers’ own numbers:**
+    * the LMC distance reproduces the μ = 18.477 that SH0ES adopt, and 7.576 Mpc gives 29.397;
+    * eq. 5 with the baseline M⁰_B and a_B gives H₀ = 73.04 and 5 log H₀ = 9.318, as printed in §5;
+    * the adopted TRGB zero point equals the inverse-variance mean of its four geometric calibrations to 0.002 mag;
+    * SH0ES against Planck 67.4 ± 0.5 is 4.89σ with independent Gaussian errors, against the 5.0σ they quote in 5 log H₀ (0.175 against their 0.176 ± 0.035 mag);
+    * CCHP 2021 against Planck is below 2σ, consistent with “no statistically significant difference”.
+  * **Relations:** μ inverses; the Leavitt-law fiducial point, slope and metallicity term; µ round-trips through the Cepheid and TRGB calculators; synthetic low-z Hubble-law supernovae return their input H₀ through the a_B definition; the ΛCDM D_L at z = 0.0233 matches (cz/H₀)(1 + (1 − q₀)z/2) to 0.05 %, with q₀ = −0.53 (SH0ES adopt −0.55).
+  * **Registry:** the ladder explains cosmic expansion; the Milky Way is part of the ladder; both directions resolve.

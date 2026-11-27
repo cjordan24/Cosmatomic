@@ -1,0 +1,43 @@
+{
+  "dataset": "distance-ladder",
+  "version": "1.0.0",
+  "records": 57,
+  "sources": [
+    {
+      "institution": "Riess et al. (2022), ApJL 934, L7",
+      "url": "https://doi.org/10.3847/2041-8213/ac5c5b",
+      "notes": "SH0ES: eq. 1, eq. 5, Table 5 row 1, Table 6 (42 calibrators), anchors §4, baseline H₀ §5"
+    },
+    {
+      "institution": "Freedman (2021), ApJ 919, 16",
+      "url": "https://doi.org/10.3847/1538-4357/ac0e95",
+      "notes": "CCHP: TRGB zero point, Table 3; H₀ (abstract)"
+    },
+    {
+      "institution": "Freedman et al. (2025), ApJ 985, 203",
+      "url": "https://doi.org/10.3847/1538-4357/adce78",
+      "notes": "CCHP HST + JWST: H₀ (abstract, arXiv v3). Erratum ApJ 993, 252 not read"
+    },
+    {
+      "institution": "Pietrzyński et al. (2019), Nature 567, 200",
+      "url": "https://doi.org/10.1038/s41586-019-0999-4",
+      "notes": "LMC distance, 20 detached eclipsing binaries"
+    },
+    {
+      "institution": "Reid, Pesce & Riess (2019), ApJL 886, L27",
+      "url": "https://doi.org/10.3847/2041-8213/ab552d",
+      "notes": "NGC 4258 maser distance"
+    }
+  ],
+  "adapter": "scripts/ingestion/curated-distance-ladder.ts",
+  "warnings": [
+    "Hand-transcribed (manually transcribed values; Table 6 copied from the arXiv PDF text and checked row by row: m − µ = M to 0.002 mag).",
+    "“±” is read as 1σ: the papers quote significances in σ but do not attach a probability level to each interval.",
+    "CCHP 2025: an erratum (ApJ 993, 252) exists and was not read (iopscience.iop.org robots.txt disallows automated agents).",
+    "The 277 Hubble-flow SNe Ia (Pantheon+) are not bundled; only the fitted intercept a_B is."
+  ],
+  "output": "datasets/astronomical/distance-ladder.json",
+  "retrievedAt": "2026-11-27T01:26:08.920Z",
+  "bytes": 13742,
+  "sha256": "125b9942336b663b8f8f53c90f0d2ecea4f05fa59d61e9529c9f0d0a514cae2d"
+}
