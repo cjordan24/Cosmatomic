@@ -83,7 +83,7 @@ function ClassTable({ ten, hl }: { ten: NearbyObject[]; hl: string | null }) {
         </tbody>
       </table>
       <p className="note" style={{ fontSize: 10.5 }}>Rows from E. Mamajek’s mean dwarf sequence (version {DWARF_SEQUENCE_VERSION}), whose content is published in part as Pecaut &amp; Mamajek (2013) Table 5 <SourceLinks ids={['pecaut-mamajek-2013']} />. Masses and radii are mean values for luminosity class V; blank cells are not tabulated. Counts use the catalogue spectral types (<SourceLinks ids={['reyle-2021']} />), {counts['?'] ?? 0} objects have none.</p>
-      <p className="note">The letters order stellar spectra by temperature: in the hottest O stars only lines of ionised helium and highly ionised atoms stand out, the hydrogen Balmer lines are strongest around A, and the coolest M stars show strong titanium-oxide bands, which disappear again in L brown dwarfs <SourceLinks ids={['openstax-astronomy-2e']} />. The Sun’s IAU nominal effective temperature, {TEFF_SUN_NOMINAL} K <SourceLinks ids={['iau-2015-b3']} />, is close to the G2 V mean in this table. Most objects within 10 pc are M dwarfs (counts above).</p>
+      <p className="note">The letters follow the surface temperature, O, B, A, F, G, K, M from hottest to coldest, a sequence now extended to the cooler types L, T and Y. O stars are identified by lines of ionised helium, B stars by neutral helium, A stars by strong hydrogen lines, F and G stars by ionised calcium, K stars by lines of iron and manganese atoms and M stars by molecular bands, mainly titanium oxide <SourceLinks ids={['iau-oae-glossary']} />; the TiO bands disappear in the cooler L dwarfs <SourceLinks ids={['kirkpatrick-1999']} />. The Sun’s IAU nominal effective temperature, {TEFF_SUN_NOMINAL} K <SourceLinks ids={['iau-2015-b3']} />, is close to the G2 V mean in this table. Most objects within 10 pc are M dwarfs (counts above).</p>
     </>
   );
 }
@@ -166,7 +166,7 @@ export default function HrView() {
         {d === 'hr' && <label className="toggle-row"><span>Lines of constant radius</span><input type="checkbox" checked={showR} onChange={(e) => setShowR(e.target.checked)} /></label>}
         <Legend bg={bg && d === 'cmd'} />
         <p className="note">Click a coloured point to select a 10 pc object. {d === 'cmd' ? `${cmdPoints.length} points plotted.` : ''}</p>
-        <p className="note" style={{ fontSize: 10.5 }}>An H–R diagram plots luminosity against temperature (or absolute magnitude against colour). Most stars fall in a narrow band, the main sequence, which turns out to be a sequence of stellar masses. <SourceLinks ids={['openstax-astronomy-2e']} /></p>
+        <p className="note" style={{ fontSize: 10.5 }}>An H–R diagram plots the luminosity of stars against their effective temperature or spectral type; main-sequence stars lie on a diagonal band from upper left to lower right <SourceLinks ids={['iau-oae-glossary']} />. Along it massive stars sit at the upper left, Sun-like stars mid-way and low-mass stars at the lower right <SourceLinks ids={['esa-gaia-hrd-2018']} />.</p>
       </Panel>
       <Panel id="hr-info" className="right-panel" title="Selected">
         {sel ? <SelectedPanel o={sel} hr={hrPoint(sel)} cns={match?.get(sel.seq)} /> : <p className="note">Select a point on the diagram, or open a star from the star map.</p>}

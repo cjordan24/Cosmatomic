@@ -86,7 +86,7 @@ test('55 HR diagrams: observed CMD, luminosity–temperature with the IAU Sun, s
   const table = page.getByRole('table', { name: 'Spectral classes' });
   await expect(table.locator('tbody tr')).toHaveCount(11);
   await expect(table).toContainText('O3V');
-  await shot(page, '55c-spectral-classes', 'MK spectral classes O–Y with class V temperature, mass and radius ranges from the Mamajek dwarf sequence, counts of 10 pc objects per class, and the textbook description of the class criteria (OpenStax Astronomy 2e).');
+  await shot(page, '55c-spectral-classes', 'MK spectral classes O–Y with class V temperature, mass and radius ranges from the Mamajek dwarf sequence, counts of 10 pc objects per class, and the class criteria from the IAU OAE Glossary.');
 });
 
 async function seqOf(page: Page, name: string): Promise<number> {
@@ -125,7 +125,7 @@ test('57 stellar spectra: Planck model per star, star ↔ blackbody and class �
   const info = page.locator('.right-panel');
   await expect(info.getByLabel('Thermal model')).toContainText('989');
   await expect(info.getByRole('img', { name: 'Blackbody model of this star' })).toBeVisible();
-  await expect(info).toContainText('not a blackbody');
+  await expect(info).toContainText('only roughly a blackbody');
   await expect(info.locator('.related-links').first()).toContainText('Class M stars');
   await info.getByLabel('Thermal model').scrollIntoViewIfNeeded();
   await shot(page, '57a-star-thermal-model', 'Proxima Centauri: Planck model at the M5.5 V mean T_eff (2930 K, peak 989 nm in the near infrared) with the visible range marked, the caveat that real M-dwarf spectra are dominated by molecular bands, and registry links to its class and its blackbody model.');
@@ -139,8 +139,8 @@ test('57 stellar spectra: Planck model per star, star ↔ blackbody and class �
   await expect(page.locator(`.related-links[data-entity="spectrum:Ca-II"]`)).toContainText('Class G stars');
   await page.locator(`.related-links[data-entity="spectrum:Ca-II"]`).getByRole('button', { name: 'Class G stars' }).click();
   await expect(page).toHaveURL(/stars\/hr\?d=classes&cls=G/);
-  await expect(page.getByRole('table', { name: 'Spectral classes' })).toContainText('ionised metals');
-  await shot(page, '57c-classes-lines', 'Spectral-class table reached from the Ca II lines in the Spectral atlas, with class G highlighted and each class linked to the NIST line spectra that dominate it (OpenStax Astronomy 2e §17.3).');
+  await expect(page.getByRole('table', { name: 'Spectral classes' })).toContainText('ionised calcium');
+  await shot(page, '57c-classes-lines', 'Spectral-class table reached from the Ca II lines in the Spectral atlas, with class G highlighted and each class linked to the NIST line spectra that dominate it (IAU OAE Glossary).');
 });
 
 // ---------------- Gate 5.5 ----------------
@@ -161,7 +161,7 @@ test('58 cross-links: star search, Sun ↔ class G and composition, Sun on the H
   await expect(sun.locator('.related-links')).toContainText('Class G stars');
   await expect(sun.getByLabel('Solar photospheric elements')).toContainText('Fe');
   await sun.getByLabel('Solar photospheric elements').scrollIntoViewIfNeeded();
-  await shot(page, '58b-sun-crosslinks', 'Sun info panel: member of class G (OpenStax: G2), Planck model link, photospheric composition (Asplund et al. 2009 log ε, each element linked to its atomic view) and links to the HR diagram and nearby stars.');
+  await shot(page, '58b-sun-crosslinks', 'Sun info panel: member of class G (IAU OAE: G2), Planck model link, photospheric composition (Asplund et al. 2009 log ε, each element linked to its atomic view) and links to the HR diagram and nearby stars.');
   await sun.getByRole('button', { name: 'The Sun on the HR diagram →' }).click();
   await expect(page).toHaveURL(/stars\/hr\?d=hr/);
   await expect(page.getByRole('img', { name: 'Luminosity–temperature diagram' })).toContainText('Sun');

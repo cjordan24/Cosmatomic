@@ -9,7 +9,7 @@
  *    r = 6GM/c² (7.55), static-observer proper time (7.58), exact frequency shift (7.61) and its
  *    weak-field limit (7.62), apsidal precession (7.56) with Mercury's 42.9″/century.
  *  - narayan-bartelmann-1996: deflection angle of a point mass α̂ = 4GM/(c²b) (eq. 7), valid for |Φ| ≪ c².
- *  - openstax-university-physics-3: time dilation Δt = γΔτ, γ = 1/√(1 − v²/c²) (§5.3).
+ *  - einstein-1905 (§4): a clock moving with speed v marks τ = t√(1 − v²/c²), i.e. Δt = γΔτ with γ = 1/√(1 − v²/c²).
  *
  * Validity: non-rotating, uncharged mass; vacuum exterior (outside the body's surface); static or
  * circular-orbit observers. Kerr (spin) and charge are not modelled. Results inside the horizon
@@ -97,7 +97,7 @@ export const perihelionAdvancePerOrbit = (gm: number, a: number, e: number) => (
 /** Weak-field light deflection α̂ = 4GM/(c²b) (rad), valid for b ≫ r_s (Narayan & Bartelmann eq. 7). */
 export const weakDeflection = (gm: number, b: number) => (4 * gm) / (C2 * b);
 
-/** Lorentz factor γ = 1/√(1 − v²/c²); null at or above c (OpenStax University Physics 3 §5.3). */
+/** Lorentz factor γ = 1/√(1 − v²/c²); null at or above c (Einstein 1905 §4). */
 export function lorentzFactor(v: number): number | null {
   const beta2 = (v * v) / C2;
   return beta2 < 1 ? 1 / Math.sqrt(1 - beta2) : null;

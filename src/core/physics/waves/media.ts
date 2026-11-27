@@ -48,15 +48,15 @@ const fluid = (id: string, name: string, kind: 'gas' | 'liquid'): Medium => {
 export const MEDIA: Medium[] = [
   { id: 'string', name: 'Stretched string', kind: 'string', waveType: 'transverse',
     speed: (s) => (s.tensionN > 0 && s.linearDensity > 0 ? Math.sqrt(s.tensionN / s.linearDensity) : null),
-    provenance: 'derived', model: 'v = √(T/μ), ideal flexible string', validity: ['Small displacements (slope ≪ 1)', 'Perfectly flexible, uniform string; no stiffness or damping'], sources: ['openstax-university-physics-1'] },
+    provenance: 'derived', model: 'v = √(T/μ), ideal flexible string', validity: ['Small displacements (slope ≪ 1)', 'Perfectly flexible, uniform string; no stiffness or damping'], sources: ['rayleigh-1894-vol1'] },
   { id: 'air', name: 'Dry air (ideal gas)', kind: 'gas', waveType: 'longitudinal',
     speed: (s) => (s.temperatureK > 0 ? Math.sqrt((AIR_GAMMA * R_GAS * s.temperatureK) / AIR_MOLAR_MASS) : null),
-    provenance: 'derived', model: `c = √(γRT/M), γ = 1.4, M = ${(AIR_MOLAR_MASS * 1000).toFixed(3)} g/mol (derived from NSSDC composition)`, validity: ['Ideal-gas approximation', 'Dry air; humidity raises c slightly', 'γ taken as constant (diatomic, no vibrational excitation)'], sources: ['nssdc-factsheet', 'iupac-ciaaw', 'openstax-university-physics-1'], TrangeK: [200, 400] },
+    provenance: 'derived', model: `c = √(γRT/M), γ = 1.4, M = ${(AIR_MOLAR_MASS * 1000).toFixed(3)} g/mol (derived from NSSDC composition)`, validity: ['Ideal-gas approximation', 'Dry air; humidity raises c slightly', 'γ taken as constant (diatomic, no vibrational excitation)'], sources: ['nssdc-factsheet', 'iupac-ciaaw', 'nasa-glenn-bga', 'rayleigh-1896'], TrangeK: [200, 400] },
   fluid('water', 'Water (liquid, 1 atm)', 'liquid'),
   fluid('nitrogen', 'Nitrogen (1 atm)', 'gas'),
   fluid('helium', 'Helium (1 atm)', 'gas'),
   fluid('carbon-dioxide', 'Carbon dioxide (1 atm)', 'gas'),
   fluid('argon', 'Argon (1 atm)', 'gas'),
-  { id: 'vacuum', name: 'Vacuum', kind: 'vacuum', waveType: 'none', speed: () => null, provenance: 'derived', model: 'No particles → no restoring pressure', validity: ['Mechanical (sound) waves cannot propagate; light can (Spectral → EM)'], sources: ['openstax-university-physics-1'] },
+  { id: 'vacuum', name: 'Vacuum', kind: 'vacuum', waveType: 'none', speed: () => null, provenance: 'derived', model: 'No particles → no restoring pressure', validity: ['Mechanical (sound) waves cannot propagate; light can (Spectral → EM)'], sources: ['rayleigh-1894-vol1'] },
 ];
 export const getMedium = (id: string) => MEDIA.find((m) => m.id === id) ?? MEDIA[0];

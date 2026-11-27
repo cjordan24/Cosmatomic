@@ -310,9 +310,9 @@ test('78 pathways: curated walks along sourced relationships with encyclopedia e
   await expect(page).toHaveURL(/s=2/);
   const s3 = page.getByRole('region', { name: 'Stop 3 of 6' });
   await expect(s3).toContainText('Orion Nebula');
-  await expect(s3).toContainText('Hα 656 nm: the red glow of the nebula is the first Balmer line of hydrogen');
-  await expect(s3).toContainText('Fraknoi');
-  await shot(page, '78-pathways', 'Pathway “Hydrogen, from its spectrum to cosmic expansion”, stop 3: the Orion Nebula reached through the sourced relationship “emits H I (Hα 656 nm)” (OpenStax Astronomy 2e).');
+  await expect(s3).toContainText('Hα 656 nm: the nebula’s red light comes from its hydrogen gas');
+  await expect(s3).toContainText('Nemiroff');
+  await shot(page, '78-pathways', 'Pathway “Hydrogen, from its spectrum to cosmic expansion”, stop 3: the Orion Nebula reached through the sourced relationship “emits H I (Hα 656 nm)” (NASA APOD).');
   await page.getByRole('list', { name: 'Pathways' }).getByRole('button', { name: 'The oldest light' }).click();
   await page.getByRole('list', { name: 'Stops' }).getByRole('button', { name: /4\. Microwaves/ }).click();
   const s4 = page.getByRole('region', { name: 'Stop 4 of 4' });

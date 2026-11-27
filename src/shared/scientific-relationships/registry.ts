@@ -145,29 +145,29 @@ for (const [id, label, route] of [
 ] as const) registerEntity(E(id, label, route));
 registerRelationship({ from: 'field:plane-wave-ex', to: 'wave:em-visible', type: 'explains', context: 'same analytic plane wave as the atlas', source: 'codata-2018' });
 
-// 5. Stellar classes (Gate 5.4) → the atomic line spectra that dominate them (OpenStax Astronomy 2e §17.3:
-// ionised helium peaks at O, neutral helium at B, hydrogen at about A, ionised metals between F and G,
-// neutral metals at K, molecules beyond M). Calcium and iron stand in for "metals" because both
+// 5. Stellar classes (Gate 5.4) → the atomic line spectra that identify them (IAU OAE Glossary, one entry per
+// class: ionized helium for O, neutral helium for B, strong hydrogen for A, ionized calcium and other metals for F and
+// G, lines of iron and manganese atoms for K, titanium-oxide bands for M; these replaced OpenStax Astronomy 2e).
 // ionisation stages are in the bundled NIST set. Star entities are registered when the 10 pc
 // catalogue loads (src/modes/cosmic/star-systems/starRegistry.ts).
 export const CLASS_LINES: Record<string, { spectra: string[]; note: string }> = {
   O: { spectra: ['He II'], note: 'ionised helium' },
   B: { spectra: ['He I'], note: 'neutral helium' },
-  A: { spectra: ['H I'], note: 'hydrogen (Balmer lines)' },
-  F: { spectra: ['Ca II', 'Fe II'], note: 'ionised metals' },
-  G: { spectra: ['Ca II', 'Fe II'], note: 'ionised metals' },
-  K: { spectra: ['Ca I', 'Fe I'], note: 'neutral metals' },
-  M: { spectra: [], note: 'molecular bands such as TiO (no molecular band data bundled)' },
+  A: { spectra: ['H I'], note: 'strong hydrogen lines' },
+  F: { spectra: ['Ca II', 'Fe II'], note: 'ionised calcium and other metal lines' },
+  G: { spectra: ['Ca II', 'Fe II'], note: 'strong ionised calcium; metal lines stronger than in F stars' },
+  K: { spectra: ['Ca I', 'Fe I'], note: 'lines of iron and manganese atoms' },
+  M: { spectra: [], note: 'molecular bands, mainly titanium oxide (no molecular band data bundled)' },
 };
 for (const [cls, { spectra, note }] of Object.entries(CLASS_LINES)) {
   registerEntity(E(`stellar-class:${cls}`, `Class ${cls} stars`, `#/cosmic/stars/hr?d=classes&cls=${cls}`));
-  for (const spec of spectra) registerRelationship({ from: `stellar-class:${cls}`, to: spectrumId(spec), type: 'absorbs', context: `strongest lines: ${note}`, source: 'openstax-astronomy-2e' });
+  for (const spec of spectra) registerRelationship({ from: `stellar-class:${cls}`, to: spectrumId(spec), type: 'absorbs', context: `identified by: ${note}`, source: 'iau-oae-glossary' });
 }
 
-// 6. The Sun among the stars (Gate 5.5): its class (OpenStax §17.3: "the spectral class assigned to
-// the Sun is G2") and its photospheric composition (Asplund et al. 2009, the abundances already shown
+// 6. The Sun among the stars (Gate 5.5): its class (IAU OAE Glossary, Spectral Type: "The Sun is spectral type G2"; NASA's
+// Sun fact sheet: G2 V) and its photospheric composition (Asplund et al. 2009, the abundances already shown
 // in the element views). Planned link texts are not needed: every target here has a route.
-registerRelationship({ from: 'body:sun', to: 'stellar-class:G', type: 'part-of', context: 'G2', source: 'openstax-astronomy-2e' });
+registerRelationship({ from: 'body:sun', to: 'stellar-class:G', type: 'part-of', context: 'G2', source: 'iau-oae-glossary' });
 export const SOLAR_LOG_EPS = curated.solarPhotosphericAbundances.logEpsilon as Record<string, number>;
 for (const sym of Object.keys(SOLAR_LOG_EPS)) {
   const el = elementBySymbol(sym);
@@ -254,7 +254,7 @@ registerRelationship({ from: 'instrument:modulation-lab', to: 'wave:em-radio', t
 
 // ---------------------------------------------------------------- Phase 9, Gate 9.5: acoustic lab
 registerEntity(E('instrument:acoustic-lab', 'Acoustic lab', '#/spectral/acoustics', 'Sound level and inverse-square spreading, acoustic impedance and reflection, moving sources and the Mach cone (Gate 9.5)'));
-registerRelationship({ from: 'instrument:acoustic-lab', to: 'wave:sound-water', type: 'explains', context: 'Z = ρv of water from the NIST data; sound arriving from air is almost entirely reflected (a = (Z₂ − Z₁)²/(Z₁ + Z₂)²)', source: 'openstax-college-physics-2e' });
+registerRelationship({ from: 'instrument:acoustic-lab', to: 'wave:sound-water', type: 'explains', context: 'sound arriving from air is almost entirely reflected: “Even at perpendicular incidence the reflection is sensibly perfect” (Rayleigh §270)', source: 'rayleigh-1896' });
 registerRelationship({ from: 'instrument:acoustic-lab', to: 'material:water', type: 'has-property', context: 'acoustic impedance ρv at 1 atm', source: 'nist-webbook-fluids' });
 
 // ---------------------------------------------------------------- Phase 9, Gate 9.6: audio synthesis & FFT

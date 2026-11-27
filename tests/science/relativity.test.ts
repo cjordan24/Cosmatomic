@@ -1,6 +1,6 @@
 /**
  * Phase 6, Gate 6.1 — relativity foundations. Closed forms from Carroll (1997) ch. 7, Narayan &
- * Bartelmann (1996) eq. 7 and OpenStax University Physics 3 §5.3. Tolerances are explicit.
+ * Bartelmann (1996) eq. 7 and Einstein (1905) §4. Tolerances are explicit.
  */
 import { describe, expect, it } from 'vitest';
 import { CONSTANTS } from '@/core/constants/constants';

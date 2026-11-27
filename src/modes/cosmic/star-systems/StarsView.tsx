@@ -59,7 +59,7 @@ function ThermalModel({ o }: { o: NearbyObject }) {
         <KV k="Peak wavelength λ_max = b/T" v={lp * 1e9} unit="nm" sig={4} />
         <KV k="Surface flux σT⁴" v={SIGMA_SB * T ** 4} unit="W/m²" sig={4} />
       </dl>
-      <p className="note" style={{ fontSize: 10.5 }}>Dashed lines mark 380 and 750 nm. A real stellar spectrum is not a blackbody: it carries absorption lines and, in M dwarfs, strong molecular (TiO) bands <SourceLinks ids={['openstax-astronomy-2e']} />. Planck law and constants: <SourceLinks ids={['codata-2018']} />.</p>
+      <p className="note" style={{ fontSize: 10.5 }}>Dashed lines mark 380 and 750 nm. A real stellar spectrum is only roughly a blackbody: stars show continuous spectra with absorption lines, and M stars molecular bands, mainly titanium oxide <SourceLinks ids={['iau-oae-glossary']} />. Planck law and constants: <SourceLinks ids={['codata-2018']} />.</p>
       <div className="chip-row">
         <button className="chip" onClick={() => navigate(blackbodyRoute(T, o.seq).slice(1))}>Open the {T} K blackbody in the Spectral atlas →</button>
       </div>

@@ -9,10 +9,9 @@
       "notes": "Orion Nebula Cluster distance"
     },
     {
-      "institution": "OpenStax Astronomy 2e §20.2 and §22.4",
-      "url": "https://openstax.org/books/astronomy-2e/pages/22-4-further-evolution-of-stars",
-      "license": "CC BY-NC-SA 4.0",
-      "notes": "H II regions, Hα, planetary nebulae, Ring Nebula emission"
+      "institution": "NASA APOD and Hubble pages; IAU OAE Glossary (CC BY 4.0); Henney (2006); O’Dell et al. (2013)",
+      "url": "https://science.nasa.gov/asset/hubble/the-ring-nebula-m57/",
+      "notes": "H II regions, Hα, planetary nebulae, Ring Nebula emission (replaced OpenStax Astronomy 2e, 2026-11-27)"
     },
     {
       "institution": "ESA/Hubble and ESA/Webb image pages",
@@ -26,7 +25,7 @@
     "Hand-transcribed; approximate distances are flagged as such."
   ],
   "output": "datasets/astronomical/nebulae.json",
-  "retrievedAt": "2026-11-26T22:56:55.054Z",
-  "bytes": 2946,
-  "sha256": "6a17133ab8181fed1ca80478500ae5963183a458f9d04813afa55928f5eff46a"
+  "retrievedAt": "2026-11-27T17:21:04.650Z",
+  "bytes": 3315,
+  "sha256": "c03bfb567345e4cc75e37b71c89c79e64e2d93896ad9e762c92c74b632b9f3ac"
 }

@@ -4,10 +4,9 @@
   "records": 52,
   "sources": [
     {
-      "institution": "OpenStax Chemistry 2e",
-      "url": "https://openstax.org/details/books/chemistry-2e",
-      "license": "CC BY 4.0",
-      "notes": "stoichiometry, acid–base, precipitation, redox"
+      "institution": "NIST Chemistry WebBook; CODATA Key Values (1989); J. Phys. Chem. Ref. Data (Goldberg 2002, Bandura & Lvov 2006, Bratsch 1989); NBS and USGS reports",
+      "url": "https://webbook.nist.gov/chemistry/",
+      "notes": "combustion, formation, acid–base, precipitation, redox (replaced OpenStax Chemistry 2e, 2026-11-27)"
     },
     {
       "institution": "Greenwood & Earnshaw, Chemistry of the Elements (2nd ed.)",
@@ -35,7 +34,7 @@
     "Hand-curated stoichiometric equations (no numeric values). Balance and charge are verified by tests/science/reactions.test.ts."
   ],
   "output": "datasets/chemistry/reactions.json",
-  "retrievedAt": "2026-11-26T16:33:31.942Z",
-  "bytes": 33001,
-  "sha256": "67a73b1382330b51d34ec2d257f92efdfa4672cdf49791e93481cef55250c8ed"
+  "retrievedAt": "2026-11-27T17:16:38.869Z",
+  "bytes": 33873,
+  "sha256": "741b0fb9f9121350add6d5b19dd92c9c5459f75fa53ceb1d1af808a4f0612163"
 }

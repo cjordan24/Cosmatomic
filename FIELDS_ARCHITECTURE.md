@@ -30,7 +30,7 @@ interface FieldLayer<Ctx> {
 | id | quantity | frame | fidelity | provenance | sources |
 |---|---|---|---|---|---|
 | `gravity-potential` | Φ = −Σ G mᵢ / √(r² + ε²), J/kg (vector: g) | planetary-system plane (au) | exact analytic | Derived | CODATA G |
-| `coulomb-potential` | V = Σ qᵢ / (4πε₀ r), V (vector: E = −∇V) | laboratory plane (m) | exact analytic | Derived | CODATA ε₀; OpenStax UP2 §5.3 |
+| `coulomb-potential` | V = Σ qᵢ / (4πε₀ r), V (vector: E = −∇V) | laboratory plane (m) | exact analytic | Derived | CODATA ε₀; Ellingson Vol. 1 §5.1 |
 | `plane-wave-ex` | Eₓ of the vacuum plane wave (`em.ts` `planeE`), V/m | laboratory plane (m) | exact analytic | Derived | CODATA c; CIE S 017 |
 | `heat-diffusion` | T = T₀ + Q/(ρcₚ(4παt)^{3/2}) · e^{−r²/4αt}, K | laboratory plane (m) | analytic, idealised | Simulated | NIST WebBook fluids; Carslaw & Jaeger (1959) |
 

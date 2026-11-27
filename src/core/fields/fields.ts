@@ -95,7 +95,7 @@ export function coulombField(ctx: CoulombCtx, x: number, y: number): [number, nu
 }
 export const COULOMB_LAYER: FieldLayer<CoulombCtx> = {
   id: 'coulomb-potential', label: 'Electrostatic potential', quantity: 'Coulomb potential of point charges (arrows: E = −∇V)', symbol: 'V', units: 'V', kind: 'vector',
-  frame: FRAMES.lab, resolution: 160, sources: ['codata-2018', 'openstax-university-physics-2'], transform: 'symlog', fidelity: 'exact-analytic', provenance: 'derived',
+  frame: FRAMES.lab, resolution: 160, sources: ['codata-2018', 'ellingson-2018-vol1'], transform: 'symlog', fidelity: 'exact-analytic', provenance: 'derived',
   validity: ['Electrostatics in vacuum (charges at rest)', 'Ideal point charges: the field diverges at each charge', 'Charge values are user inputs, so the configuration is hypothetical'],
   sample: coulombPotential, vector: coulombField,
 };

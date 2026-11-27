@@ -153,7 +153,7 @@ test('63 nebulae and gallery: licensed images with credits, nebula records, emis
   const info = page.locator('.right-panel');
   await expect(info.getByLabel('Nebula properties')).toContainText('planetary nebula');
   await expect(info.getByLabel('Emission lines')).toContainText('[O III] 501 nm');
-  await shot(page, '63b-ring-nebula', 'The Ring Nebula: planetary nebula about 2000 light-years away (OpenStax), with its ionized-nitrogen and oxygen emission linked to the NIST [N II] and [O III] forbidden lines.');
+  await shot(page, '63b-ring-nebula', 'The Ring Nebula: planetary nebula about 2000 light-years away (ESA/Hubble), with its ionized-nitrogen and oxygen emission linked to the NIST [N II] and [O III] forbidden lines.');
   await info.getByLabel('Emission lines').getByRole('button', { name: '[O III] 501 nm' }).click();
   await expect(page).toHaveURL(/spectral\?tab=lines&spec=O%20III/);
   await expect(page.locator('.related-links[data-entity="spectrum:O-III"]')).toContainText('Ring Nebula');

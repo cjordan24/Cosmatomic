@@ -48,7 +48,19 @@ const sp = (c: number, s: string, name?: string): Species => {
   return { c, s, ...(name ? { name } : {}), ...(MOL[bare] && !s.includes('^') ? { mol: MOL[bare] } : {}) };
 };
 
-const OPENSTAX = 'OpenStax Chemistry 2e (Flowers, Theopold, Langley & Robinson, 2019; CC BY 4.0)';
+// Open sources for the general-chemistry reactions (they replaced OpenStax Chemistry 2e on 2026-11-27; OpenStax forbids AI ingestion).
+const WEBBOOK = 'NIST Chemistry WebBook (SRD 69)';
+const KEYVALS = 'CODATA Key Values for Thermodynamics (Cox, Wagman & Medvedev, 1989)';
+const GOLDBERG = 'Goldberg, Kishore & Lennen (2002) J. Phys. Chem. Ref. Data 31, 231';
+const BANDURA = 'Bandura & Lvov (2006) J. Phys. Chem. Ref. Data 35, 15';
+const BRATSCH = 'Bratsch (1989) J. Phys. Chem. Ref. Data 18, 1';
+const PROSEN = 'Prosen & Goldberg (1973) NBSIR 73-180';
+const FOWLER = 'Fowler & Bright (1935) J. Res. Natl. Bur. Stand. 15, 493';
+const ROMANOFF = 'Romanoff (1957) Underground Corrosion, NBS Circular 579';
+const BARITE = 'USGS Mineral Commodity Summaries 2026: Barite';
+const CARMODY = 'Carmody, Plummer, Busenberg & Coplen (1998) USGS Open-File Report 97-234';
+const HARDNESS = 'USGS Water Science School: Hardness of Water';
+const CLARKE = 'Clarke & Wheeler (1917) USGS Professional Paper 102';
 const SEINFELD = 'Seinfeld & Pandis, Atmospheric Chemistry and Physics, 3rd ed. (Wiley, 2016)';
 const CHAPMAN = 'Chapman, S. (1930) Mem. R. Meteorol. Soc. 3, 103 — oxygen-only stratospheric ozone cycle';
 const MOLINA = 'Molina & Rowland (1974) Nature 249, 810 — chlorine-catalysed ozone destruction';
@@ -59,29 +71,29 @@ const GREENWOOD = 'Greenwood & Earnshaw, Chemistry of the Elements, 2nd ed. (But
 const R: Reaction[] = [
   // ---------- combustion ----------
   { id: 'methane-combustion', name: 'Combustion of methane', reactants: [sp(1, 'CH4(g)', 'methane'), sp(2, 'O2(g)', 'oxygen')], products: [sp(1, 'CO2(g)', 'carbon dioxide'), sp(2, 'H2O(l)', 'water')], contexts: ['combustion'], net: true,
-    description: 'Complete combustion of natural gas. Liquid water is the conventional product for the standard enthalpy of combustion (higher heating value).', caveats: ['Real flames proceed through hundreds of radical elementary steps (e.g. GRI-Mech 3.0).'], relationships: ['context:energy-production'], citation: OPENSTAX + ', §5.3' },
+    description: 'Complete combustion of natural gas. Liquid water is the conventional product for the standard enthalpy of combustion (higher heating value).', caveats: ['Real flames proceed through hundreds of radical elementary steps (e.g. GRI-Mech 3.0).'], relationships: ['context:energy-production'], citation: WEBBOOK + '; ' + KEYVALS },
   { id: 'hydrogen-combustion', name: 'Combustion of hydrogen', reactants: [sp(2, 'H2(g)', 'hydrogen'), sp(1, 'O2(g)', 'oxygen')], products: [sp(2, 'H2O(l)', 'water')], contexts: ['combustion'], net: true,
-    description: 'Formation of water from its elements; twice the standard enthalpy of formation of liquid water.', relationships: ['context:energy-production'], citation: OPENSTAX + ', §5.3' },
+    description: 'Formation of water from its elements; twice the standard enthalpy of formation of liquid water.', relationships: ['context:energy-production'], citation: WEBBOOK + '; ' + KEYVALS },
   { id: 'hydrogen-combustion-gas', name: 'Combustion of hydrogen (water vapour product)', reactants: [sp(2, 'H2(g)', 'hydrogen'), sp(1, 'O2(g)', 'oxygen')], products: [sp(2, 'H2O(g)', 'water vapour')], contexts: ['combustion'], net: true,
-    description: 'Same stoichiometry with gaseous water (lower heating value). Comparing with the liquid-water version isolates the enthalpy of vaporisation (Hess’s law).', citation: OPENSTAX + ', §5.3' },
+    description: 'Same stoichiometry with gaseous water (lower heating value). Comparing with the liquid-water version isolates the enthalpy of vaporisation (Hess’s law).', citation: WEBBOOK + '; ' + KEYVALS },
   { id: 'ethanol-combustion', name: 'Combustion of ethanol', reactants: [sp(1, 'C2H5OH(l)', 'ethanol'), sp(3, 'O2(g)', 'oxygen')], products: [sp(2, 'CO2(g)', 'carbon dioxide'), sp(3, 'H2O(l)', 'water')], contexts: ['combustion'], net: true,
-    description: 'Complete combustion of liquid ethanol (biofuel).', citation: OPENSTAX + ', §5.3' },
+    description: 'Complete combustion of liquid ethanol (biofuel).', citation: WEBBOOK + '; ' + KEYVALS },
   { id: 'propane-combustion', name: 'Combustion of propane', reactants: [sp(1, 'C3H8(g)', 'propane'), sp(5, 'O2(g)', 'oxygen')], products: [sp(3, 'CO2(g)', 'carbon dioxide'), sp(4, 'H2O(l)', 'water')], contexts: ['combustion'], net: true,
-    description: 'Complete combustion of propane (LPG).', citation: OPENSTAX + ', §4.1' },
+    description: 'Complete combustion of propane (LPG).', citation: WEBBOOK + '; ' + KEYVALS },
   { id: 'ethane-combustion', name: 'Combustion of ethane', reactants: [sp(2, 'C2H6(g)', 'ethane'), sp(7, 'O2(g)', 'oxygen')], products: [sp(4, 'CO2(g)', 'carbon dioxide'), sp(6, 'H2O(l)', 'water')], contexts: ['combustion'], net: true,
-    description: 'Complete combustion of ethane.', citation: OPENSTAX + ', §4.1' },
+    description: 'Complete combustion of ethane.', citation: WEBBOOK + '; ' + KEYVALS },
   { id: 'octane-combustion', name: 'Combustion of n-octane', reactants: [sp(2, 'C8H18(l)', 'n-octane'), sp(25, 'O2(g)', 'oxygen')], products: [sp(16, 'CO2(g)', 'carbon dioxide'), sp(18, 'H2O(l)', 'water')], contexts: ['combustion'], net: true,
-    description: 'Idealised gasoline combustion (gasoline is a mixture; n-octane is a model compound).', citation: OPENSTAX + ', §4.1' },
+    description: 'Idealised gasoline combustion (gasoline is a mixture; n-octane is a model compound).', citation: WEBBOOK + '; ' + KEYVALS },
   { id: 'methanol-combustion', name: 'Combustion of methanol', reactants: [sp(2, 'CH3OH(l)', 'methanol'), sp(3, 'O2(g)', 'oxygen')], products: [sp(2, 'CO2(g)', 'carbon dioxide'), sp(4, 'H2O(l)', 'water')], contexts: ['combustion'], net: true,
-    description: 'Complete combustion of liquid methanol.', citation: OPENSTAX + ', §4.1' },
+    description: 'Complete combustion of liquid methanol.', citation: WEBBOOK + '; ' + KEYVALS },
   { id: 'acetylene-combustion', name: 'Combustion of acetylene', reactants: [sp(2, 'C2H2(g)', 'acetylene'), sp(5, 'O2(g)', 'oxygen')], products: [sp(4, 'CO2(g)', 'carbon dioxide'), sp(2, 'H2O(l)', 'water')], contexts: ['combustion'], net: true,
-    description: 'Oxy-acetylene welding flame chemistry (net).', citation: OPENSTAX + ', §4.1' },
+    description: 'Oxy-acetylene welding flame chemistry (net).', citation: WEBBOOK + '; ' + KEYVALS },
   { id: 'graphite-combustion', name: 'Combustion of carbon (graphite)', reactants: [sp(1, 'C(s)', 'graphite'), sp(1, 'O2(g)', 'oxygen')], products: [sp(1, 'CO2(g)', 'carbon dioxide')], contexts: ['combustion'], net: true,
-    description: 'Formation reaction of CO₂ from its elements in their reference states.', citation: OPENSTAX + ', §5.3' },
+    description: 'Formation reaction of CO₂ from its elements in their reference states.', citation: WEBBOOK + '; ' + KEYVALS },
   { id: 'co-oxidation', name: 'Oxidation of carbon monoxide', reactants: [sp(2, 'CO(g)', 'carbon monoxide'), sp(1, 'O2(g)', 'oxygen')], products: [sp(2, 'CO2(g)', 'carbon dioxide')], contexts: ['combustion', 'industrial'], net: true,
-    description: 'Burning of CO (the second step of a Hess cycle C → CO → CO₂); also the main reaction in automotive catalytic converters.', citation: OPENSTAX + ', §5.3' },
+    description: 'Burning of CO (the second step of a Hess cycle C → CO → CO₂); also the main reaction in automotive catalytic converters.', citation: WEBBOOK + '; ' + KEYVALS },
   { id: 'graphite-partial-oxidation', name: 'Partial oxidation of carbon', reactants: [sp(2, 'C(s)', 'graphite'), sp(1, 'O2(g)', 'oxygen')], products: [sp(2, 'CO(g)', 'carbon monoxide')], contexts: ['combustion'], net: true,
-    description: 'Formation of CO; cannot be measured cleanly by calorimetry (some CO₂ always forms), so its enthalpy is classically obtained by Hess’s law.', citation: OPENSTAX + ', §5.3' },
+    description: 'Formation of CO from its elements. Subtracting the burning of CO from the formation of CO₂ gives the same enthalpy as the tabulated value (Hess’s law).', citation: WEBBOOK + '; ' + KEYVALS },
 
   // ---------- industrial synthesis ----------
   { id: 'haber-bosch', name: 'Haber–Bosch ammonia synthesis', reactants: [sp(1, 'N2(g)', 'nitrogen'), sp(3, 'H2(g)', 'hydrogen')], products: [sp(2, 'NH3(g)', 'ammonia')], reversible: true, contexts: ['industrial'], net: true,
@@ -101,41 +113,41 @@ const R: Reaction[] = [
   { id: 'limestone-calcination', name: 'Calcination of limestone', reactants: [sp(1, 'CaCO3(s)', 'calcite')], products: [sp(1, 'CaO(s)', 'quicklime'), sp(1, 'CO2(g)', 'carbon dioxide')], reversible: true, contexts: ['industrial', 'geochemical'], net: true,
     conditions: '> ~850 °C', description: 'Lime production; a major industrial CO₂ source independent of fuel combustion.', citation: GREENWOOD + ', ch. 5' },
   { id: 'water-electrolysis', name: 'Electrolysis of water', reactants: [sp(2, 'H2O(l)', 'water')], products: [sp(2, 'H2(g)', 'hydrogen'), sp(1, 'O2(g)', 'oxygen')], contexts: ['redox', 'industrial'], net: true,
-    description: 'Reverse of hydrogen combustion, driven by electrical work (ΔG° = +237 kJ per mol H₂O must be supplied).', citation: OPENSTAX + ', §17.7' },
+    description: 'Reverse of hydrogen combustion, driven by electrical work: ΔG° = +237.1 kJ per mol H₂O must be supplied (derived from the CODATA ΔfH° and S° of H₂O, H₂ and O₂).', citation: KEYVALS },
 
   // ---------- acid–base ----------
   { id: 'hcl-naoh', name: 'Neutralisation of HCl by NaOH (molecular equation)', reactants: [sp(1, 'HCl(aq)', 'hydrochloric acid'), sp(1, 'NaOH(aq)', 'sodium hydroxide')], products: [sp(1, 'NaCl(aq)', 'sodium chloride'), sp(1, 'H2O(l)', 'water')], contexts: ['acid-base'], net: true,
-    description: 'Strong acid + strong base. In solution all species except water are ions; see the net ionic form.', citation: OPENSTAX + ', §4.2' },
+    description: 'Strong acid + strong base; NBS used the heat of this neutralisation (−55.74 kJ/mol measured) to test a microcalorimeter. See the net ionic form.', citation: PROSEN },
   { id: 'neutralisation-net-ionic', name: 'Neutralisation (net ionic equation)', reactants: [sp(1, 'H^+(aq)', 'hydrogen ion'), sp(1, 'OH^-(aq)', 'hydroxide')], products: [sp(1, 'H2O(l)', 'water')], contexts: ['acid-base'], net: true,
-    description: 'The only chemical change in any strong acid–strong base neutralisation; H⁺(aq) stands for the hydrated proton (H₃O⁺ and larger clusters).', citation: OPENSTAX + ', §4.2' },
+    description: 'The reverse of the ionisation of water, the change measured in any strong acid–strong base neutralisation (ΔrH° = −55.8 kJ/mol from the CODATA values of H₂O(l) and OH⁻(aq)).', citation: PROSEN + '; ' + KEYVALS },
   { id: 'ammonia-base', name: 'Ammonia as a Brønsted base', reactants: [sp(1, 'NH3(aq)', 'ammonia'), sp(1, 'H2O(l)', 'water')], products: [sp(1, 'NH4^+(aq)', 'ammonium'), sp(1, 'OH^-(aq)', 'hydroxide')], reversible: true, contexts: ['acid-base'], net: false, elementary: false,
-    description: 'Weak-base equilibrium (K_b ≈ 1.8 × 10⁻⁵ at 25 °C, OpenStax Appendix I).', citation: OPENSTAX + ', §14.3' },
+    description: 'Weak-base equilibrium: K_b ≈ 1.8 × 10⁻⁵ at 25 °C, derived from pK = 9.245 for NH₄⁺ (Goldberg et al.) and pK_w = 13.99 (Bandura & Lvov).', citation: GOLDBERG + '; ' + BANDURA },
   { id: 'acetic-acid-dissociation', name: 'Dissociation of acetic acid', reactants: [sp(1, 'CH3COOH(aq)', 'acetic acid')], products: [sp(1, 'CH3COO^-(aq)', 'acetate'), sp(1, 'H^+(aq)', 'hydrogen ion')], reversible: true, contexts: ['acid-base', 'biological'], net: false,
-    description: 'Weak-acid equilibrium (K_a ≈ 1.8 × 10⁻⁵ at 25 °C, OpenStax Appendix H).', citation: OPENSTAX + ', §14.3' },
+    description: 'Weak-acid equilibrium: pK = 4.756 at 25 °C and zero ionic strength, K_a = 1.75 × 10⁻⁵.', citation: GOLDBERG },
   { id: 'co2-carbonic', name: 'Dissolved CO₂ ⇌ bicarbonate', reactants: [sp(1, 'CO2(aq)', 'dissolved carbon dioxide'), sp(1, 'H2O(l)', 'water')], products: [sp(1, 'H^+(aq)', 'hydrogen ion'), sp(1, 'HCO3^-(aq)', 'bicarbonate')], reversible: true, contexts: ['acid-base', 'geochemical', 'biological'], net: true,
     description: 'Combines hydration of CO₂ to H₂CO₃ and its first dissociation. Governs ocean acidification and (via carbonic anhydrase) blood pH buffering.', relationships: ['process:blood-co2-transport', 'context:ocean-acidification'], citation: 'Zeebe & Wolf-Gladrow, CO₂ in Seawater: Equilibrium, Kinetics, Isotopes (Elsevier, 2001)' },
 
   // ---------- precipitation ----------
   { id: 'agcl-precipitation', name: 'Precipitation of silver chloride', reactants: [sp(1, 'Ag^+(aq)', 'silver ion'), sp(1, 'Cl^-(aq)', 'chloride')], products: [sp(1, 'AgCl(s)', 'silver chloride')], contexts: ['precipitation'], net: true,
-    description: 'Classical chloride test (K_sp ≈ 1.6 × 10⁻¹⁰, OpenStax Appendix J).', citation: OPENSTAX + ', §15.1' },
+    description: 'Classical chloride test. K_sp ≈ 1.8 × 10⁻¹⁰ at 25 °C, derived from the CODATA ΔfH° and S° of AgCl(cr), Ag⁺(aq) and Cl⁻(aq).', citation: KEYVALS },
   { id: 'baso4-precipitation', name: 'Precipitation of barium sulfate', reactants: [sp(1, 'Ba^2+(aq)', 'barium ion'), sp(1, 'SO4^2-(aq)', 'sulfate')], products: [sp(1, 'BaSO4(s)', 'barium sulfate')], contexts: ['precipitation'], net: true,
-    description: 'Gravimetric sulfate determination; BaSO₄ is also the X-ray contrast agent (high-Z barium attenuates X-rays).', citation: OPENSTAX + ', §15.1' },
+    description: 'Dissolved sulfate is collected by precipitating it as BaSO₄ (also weighed: gravimetric determination); ultrapure barite (BaSO₄) is the contrast medium in X-ray examinations of the gut.', citation: CARMODY + '; ' + BARITE },
   { id: 'caco3-precipitation', name: 'Precipitation of calcium carbonate', reactants: [sp(1, 'Ca^2+(aq)', 'calcium ion'), sp(1, 'CO3^2-(aq)', 'carbonate')], products: [sp(1, 'CaCO3(s)', 'calcium carbonate')], reversible: true, contexts: ['precipitation', 'geochemical', 'biological'], net: true,
-    description: 'Limescale, limestone and the shells/skeletons of many marine organisms.', citation: OPENSTAX + ', §15.1' },
+    description: 'Limescale in water heaters, and the shells and corals whose remains build limestone.', citation: HARDNESS + '; ' + CLARKE },
   { id: 'limestone-weathering', name: 'Carbonation weathering of limestone', reactants: [sp(1, 'CaCO3(s)', 'calcite'), sp(1, 'CO2(aq)', 'dissolved carbon dioxide'), sp(1, 'H2O(l)', 'water')], products: [sp(1, 'Ca^2+(aq)', 'calcium ion'), sp(2, 'HCO3^-(aq)', 'bicarbonate')], reversible: true, contexts: ['geochemical'], net: true,
     description: 'Dissolution of limestone by carbonic acid (karst caves); the reverse forms stalactites.', citation: 'Zeebe & Wolf-Gladrow, CO₂ in Seawater (Elsevier, 2001)' },
 
   // ---------- redox ----------
   { id: 'zn-cu-displacement', name: 'Zinc displaces copper (Daniell cell reaction)', reactants: [sp(1, 'Zn(s)', 'zinc'), sp(1, 'Cu^2+(aq)', 'copper(II) ion')], products: [sp(1, 'Zn^2+(aq)', 'zinc ion'), sp(1, 'Cu(s)', 'copper')], contexts: ['redox'], net: true,
-    description: 'Overall cell reaction of the Daniell cell; E°cell = +1.10 V (OpenStax Appendix L).', citation: OPENSTAX + ', §17.2' },
+    description: 'Overall cell reaction of the Daniell cell: E°cell = E°(Cu²⁺/Cu) − E°(Zn²⁺/Zn) = 0.339 − (−0.762) = +1.101 V.', citation: BRATSCH },
   { id: 'permanganate-iron', name: 'Permanganate oxidises iron(II)', reactants: [sp(1, 'MnO4^-(aq)', 'permanganate'), sp(5, 'Fe^2+(aq)', 'iron(II)'), sp(8, 'H^+(aq)', 'hydrogen ion')], products: [sp(1, 'Mn^2+(aq)', 'manganese(II)'), sp(5, 'Fe^3+(aq)', 'iron(III)'), sp(4, 'H2O(l)', 'water')], contexts: ['redox'], net: true,
-    description: 'Classic redox titration in acid solution. Atoms and charge (+17 on each side) must balance.', citation: OPENSTAX + ', §17.1' },
+    description: 'Classic redox titration of ferrous iron in sulfuric acid. Atoms and charge (+17 on each side) must balance; E°(MnO₄⁻/Mn²⁺) = 1.507 V, E°(Fe³⁺/Fe²⁺) = 0.771 V.', citation: FOWLER + '; ' + BRATSCH },
   { id: 'iron-rusting', name: 'Oxidation of iron (idealised rusting)', reactants: [sp(4, 'Fe(s)', 'iron'), sp(3, 'O2(g)', 'oxygen')], products: [sp(2, 'Fe2O3(s)', 'iron(III) oxide')], contexts: ['redox'], net: true,
-    description: 'Net formation of anhydrous Fe₂O₃. Real rust is hydrated and forms electrochemically through Fe²⁺ intermediates in the presence of water.', caveats: ['Corrosion is an electrochemical multi-step process.'], citation: OPENSTAX + ', §17.6' },
+    description: 'Net formation of anhydrous Fe₂O₃. Real corrosion is electrochemical: iron is lost as Fe²⁺ ions, which first form Fe(OH)₂; oxygen then converts the outer layers to ferric hydroxide and magnetic oxide (Fe₃O₄).', caveats: ['Corrosion is an electrochemical multi-step process.'], citation: ROMANOFF },
   { id: 'thermite', name: 'Thermite reaction', reactants: [sp(2, 'Al(s)', 'aluminium'), sp(1, 'Fe2O3(s)', 'iron(III) oxide')], products: [sp(1, 'Al2O3(s)', 'aluminium oxide'), sp(2, 'Fe(s)', 'iron')], contexts: ['redox'], net: true,
     description: 'Highly exothermic metal–oxide exchange (molten iron produced).', citation: GREENWOOD + ', ch. 7' },
   { id: 'sodium-chlorine', name: 'Sodium + chlorine → sodium chloride', reactants: [sp(2, 'Na(s)', 'sodium'), sp(1, 'Cl2(g)', 'chlorine')], products: [sp(2, 'NaCl(s)', 'sodium chloride')], contexts: ['redox'], net: true,
-    description: 'Formation of an ionic solid from its elements.', citation: OPENSTAX + ', §7.5' },
+    description: 'Formation of an ionic solid from its elements (ΔfH° of NaCl(s) = −411.12 kJ/mol).', citation: WEBBOOK },
 
   // ---------- atmospheric ----------
   { id: 'chapman-o2-photolysis', name: 'Chapman cycle 1: photolysis of O₂', reactants: [sp(1, 'O2(g)', 'oxygen'), sp(1, 'hν', 'UV photon (λ < 242 nm)')], products: [sp(2, 'O(g)', 'atomic oxygen')], contexts: ['atmospheric', 'photochemical'], net: false, elementary: true,
@@ -181,7 +193,7 @@ const R: Reaction[] = [
 ];
 
 // Map each citation to Source-index ids (src/shared/sources/sources.ts); tests require every reaction to have ≥ 1.
-const SOURCE_KEYS: [string, string][] = [['OpenStax', 'openstax-chemistry-2e'], ['Greenwood', 'greenwood-earnshaw-1997'], ['Seinfeld', 'seinfeld-pandis-2016'], ['Chapman', 'chapman-1930'],
+const SOURCE_KEYS: [string, string][] = [['NIST Chemistry WebBook', 'nist-webbook'], ['CODATA Key Values', 'codata-key-values'], ['Kishore', 'goldberg-2002'], ['Bandura', 'bandura-lvov-2006'], ['Bratsch', 'bratsch-1989'], ['Prosen', 'prosen-goldberg-1973'], ['Fowler & Bright', 'fowler-bright-1935'], ['Romanoff', 'romanoff-1957'], ['Barite', 'usgs-mcs-2026-barite'], ['Carmody', 'carmody-1998'], ['Hardness of Water', 'usgs-water-hardness'], ['Clarke & Wheeler', 'clarke-wheeler-1917'], ['Greenwood', 'greenwood-earnshaw-1997'], ['Seinfeld', 'seinfeld-pandis-2016'], ['Chapman', 'chapman-1930'],
   ['Molina', 'molina-rowland-1974'], ['Tielens', 'tielens-2013'], ['Gould & Salpeter', 'gould-salpeter-1963'], ['Hollenbach', 'hollenbach-salpeter-1971'], ['Berg,', 'berg-biochemistry-2019'], ['Zeebe', 'zeebe-wolf-gladrow-2001']];
 const withSources = R.map((r) => ({ ...r, sources: SOURCE_KEYS.filter(([k]) => r.citation.includes(k)).map(([, id]) => id) }));
 
@@ -190,7 +202,7 @@ writeDataset('datasets/chemistry/reactions.json', { version: '1.0.0', speciesSyn
   version: '1.0.0',
   records: R.length,
   sources: [
-    { institution: 'OpenStax Chemistry 2e', url: 'https://openstax.org/details/books/chemistry-2e', license: 'CC BY 4.0', notes: 'stoichiometry, acid–base, precipitation, redox' },
+    { institution: 'NIST Chemistry WebBook; CODATA Key Values (1989); J. Phys. Chem. Ref. Data (Goldberg 2002, Bandura & Lvov 2006, Bratsch 1989); NBS and USGS reports', url: 'https://webbook.nist.gov/chemistry/', notes: 'combustion, formation, acid–base, precipitation, redox (replaced OpenStax Chemistry 2e, 2026-11-27)' },
     { institution: 'Greenwood & Earnshaw, Chemistry of the Elements (2nd ed.)', url: 'https://doi.org/10.1016/C2009-0-30414-6', notes: 'industrial processes (cited, not reproduced)' },
     { institution: 'Seinfeld & Pandis (2016); Chapman (1930); Molina & Rowland (1974)', url: 'https://doi.org/10.1038/249810a0', notes: 'atmospheric chemistry' },
     { institution: 'Tielens (2013) Rev. Mod. Phys. 85, 1021; Gould & Salpeter (1963)', url: 'https://doi.org/10.1103/RevModPhys.85.1021', notes: 'interstellar chemistry' },

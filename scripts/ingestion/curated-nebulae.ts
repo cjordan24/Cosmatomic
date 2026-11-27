@@ -5,11 +5,18 @@
  *
  * Transcribed by hand. Each statement cites where it was read:
  *  - menten-2007: Orion Nebula Cluster distance 414 ± 7 pc (VLBA trigonometric parallax; arXiv PDF).
- *  - openstax-astronomy-2e §20.2: “The red glow that pervades the great Orion Nebula is produced by the
- *    first line in the Balmer series of hydrogen”; “A cloud of ionized hydrogen is called an H II region”.
- *  - openstax-astronomy-2e §22.4: the Ring Nebula “located about 2000 light-years away”; red = ionized
- *    nitrogen (coolest gas, farthest from the star), green = oxygen emission (intermediate), blue = very
- *    hot helium; planetary nebulae imaged in once-ionized nitrogen and twice-ionized oxygen.
+ *  - nasa-apod (1998 Aug 28, “Hydrogen Trifid”): at visible wavelengths the strongest emission line of recombining
+ *    hydrogen “is in the red part of the spectrum and is known as "Hydrogen-alpha"”; (2000 Nov 22) the Orion Nebula's red
+ *    light is emitted by its hydrogen gas. iau-oae-glossary (Nebula): massive stars make the surrounding gas emit
+ *    reddish light, “nebulae of hot and ionized hydrogen gas which are called HII regions”. henney-2006: the
+ *    equilibrium temperature of an H II region “is ≃ 9000 K”.
+ *  - nasa-hubble-ring-1999 (Hubble Heritage, filters F469N He II, F501N [O III], F658N [N II]): blue = very hot helium
+ *    close to the star, green = ionized oxygen farther out, red = ionized nitrogen “radiated from the coolest gas,
+ *    located farthest from the star”. odell-2013: the same zones from calibrated HST images; distance 740 (+400/−200) pc.
+ *    esa-hubble-images (heic1310): “thought to lie just over 2000 light-years from Earth”; the name of planetary nebulae
+ *    comes from “their roughly circular appearance through low-magnification telescopes”. nasa-hubble-ring-2013: a red
+ *    giant expels its outer layers, exposing its hot core, whose ultraviolet light makes the material glow.
+ *  (These replaced OpenStax Astronomy 2e on 2026-11-27: OpenStax forbids AI ingestion.)
  *  - esa-hubble-images / esa-webb-images: object type and the approximate distance printed on the image
  *    page ("About the Object"), and the Webb caption for NGC 3324.
  * Line links point to spectra already bundled from NIST (H I 656.45 nm Hα; [N II] 658.53 nm; [O III]
@@ -29,16 +36,16 @@ const nebulae: Nebula[] = [
   { id: 'orion', name: 'Orion Nebula', aliases: ['Messier 42', 'M42'], type: 'H II region (star-forming)', typeSource: 'esa-hubble-images',
     distance: { value: [414, 7, 7], unit: 'pc', approximate: false, method: 'VLBA trigonometric parallax of Orion Nebula Cluster stars', source: 'menten-2007' },
     image: 'heic0601a',
-    lines: [{ spectrum: 'H I', label: 'Hα 656 nm', context: 'the red glow of the nebula is the first Balmer line of hydrogen', source: 'openstax-astronomy-2e' }],
-    notes: [{ text: 'A cloud of ionized hydrogen is called an H II region; the red hydrogen line is generally the strongest, which is why H II regions look red. Their gas is at about 10 000 K.', source: 'openstax-astronomy-2e' }] },
+    lines: [{ spectrum: 'H I', label: 'Hα 656 nm', context: 'the nebula’s red light comes from its hydrogen gas; Hα is the strongest visible line of recombining hydrogen', source: 'nasa-apod' }],
+    notes: [{ text: 'The intense radiation of massive young stars makes the surrounding gas glow with a reddish light: nebulae of hot, ionized hydrogen called H II regions.', source: 'iau-oae-glossary' }, { text: 'The gas of an H II region settles at an equilibrium temperature of about 9000 K.', source: 'henney-2006' }] },
   { id: 'ring', name: 'Ring Nebula', aliases: ['Messier 57', 'M57', 'NGC 6720'], type: 'planetary nebula', typeSource: 'esa-hubble-images',
-    distance: { value: 2000, unit: 'ly', approximate: true, method: 'as stated in the textbook (“about 2000 light-years”); the ESA/Hubble image page lists 2500 ly', source: 'openstax-astronomy-2e' },
+    distance: { value: 2000, unit: 'ly', approximate: true, method: 'ESA/Hubble heic1310: “its precise distance is not known, but it is thought to lie just over 2000 light-years”; the image page lists 2500 ly and O’Dell et al. (2013) 740 (+400/−200) pc', source: 'esa-hubble-images' },
     image: 'heic1310a',
     lines: [
-      { spectrum: 'N II', label: '[N II] 658 nm', context: 'ionized nitrogen, radiated by the coolest gas farthest from the star', source: 'openstax-astronomy-2e' },
-      { spectrum: 'O III', label: '[O III] 501 nm', context: 'oxygen emission from gas at intermediate temperature and distance; the same section shows planetary nebulae imaged in twice-ionized oxygen', source: 'openstax-astronomy-2e' },
+      { spectrum: 'N II', label: '[N II] 658 nm', context: 'red in the Hubble image: ionized nitrogen, radiated from the coolest gas, farthest from the star (F658N filter)', source: 'nasa-hubble-ring-1999' },
+      { spectrum: 'O III', label: '[O III] 501 nm', context: 'green in the Hubble image: ionized oxygen, farther from the star than the helium and closer than the nitrogen (F501N filter)', source: 'nasa-hubble-ring-1999' },
     ],
-    notes: [{ text: 'A planetary nebula is the shed outer layers of a red giant, heated, ionized and set aglow by the hot exposed core; the name comes from the planet-like round shape some show in small telescopes.', source: 'openstax-astronomy-2e' }] },
+    notes: [{ text: 'A red giant expels its outer layers and exposes its hot core; ultraviolet light from the core makes the discarded material glow.', source: 'nasa-hubble-ring-2013' }, { text: 'Planetary nebulae take their name from their roughly circular appearance through low-magnification telescopes; they have nothing to do with planets.', source: 'esa-hubble-images' }] },
   { id: 'crab', name: 'Crab Nebula', aliases: ['Messier 1', 'M1'], type: 'supernova remnant', typeSource: 'esa-hubble-images',
     distance: { value: 6500, unit: 'ly', approximate: true, method: 'approximate distance printed on the ESA/Hubble image page', source: 'esa-hubble-images' },
     image: 'heic0515a', lines: [], notes: [] },
@@ -57,7 +64,7 @@ writeDataset('datasets/astronomical/nebulae.json', { version: '1.0.0', nebulae }
   records: nebulae.length,
   sources: [
     { institution: 'Menten, Reid, Forbrich & Brunthaler (2007), A&A 474, 515', url: 'https://doi.org/10.1051/0004-6361:20078247', notes: 'Orion Nebula Cluster distance' },
-    { institution: 'OpenStax Astronomy 2e §20.2 and §22.4', url: 'https://openstax.org/books/astronomy-2e/pages/22-4-further-evolution-of-stars', license: 'CC BY-NC-SA 4.0', notes: 'H II regions, Hα, planetary nebulae, Ring Nebula emission' },
+    { institution: 'NASA APOD and Hubble pages; IAU OAE Glossary (CC BY 4.0); Henney (2006); O’Dell et al. (2013)', url: 'https://science.nasa.gov/asset/hubble/the-ring-nebula-m57/', notes: 'H II regions, Hα, planetary nebulae, Ring Nebula emission (replaced OpenStax Astronomy 2e, 2026-11-27)' },
     { institution: 'ESA/Hubble and ESA/Webb image pages', url: 'https://esahubble.org/copyright/', license: 'CC BY 4.0', notes: 'object types, approximate distances, Webb caption' },
   ],
   adapter: 'scripts/ingestion/curated-nebulae.ts',

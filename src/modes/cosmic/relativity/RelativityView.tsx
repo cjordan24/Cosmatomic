@@ -192,7 +192,7 @@ function LorentzCalc() {
         <KV k="Lorentz factor γ = 1/√(1 − v²/c²)" v={g} sig={6} />
         <KV k="One hour on the moving clock lasts, for you" v={g * 60} unit="min" sig={5} />
       </dl>
-      <p className="note" style={{ fontSize: 10.5 }}>The proper time Δτ is measured by the clock that moves with the events; any other observer measures the longer interval Δt = γΔτ <SourceLinks ids={['openstax-university-physics-3']} />.</p>
+      <p className="note" style={{ fontSize: 10.5 }}>The proper time Δτ is measured by the clock that moves with the events; any other observer measures the longer interval Δt = γΔτ: in Einstein’s words the moving clock “is slow by 1 − √(1 − v²/c²) seconds per second” <SourceLinks ids={['einstein-1905']} />.</p>
     </>
   );
 }

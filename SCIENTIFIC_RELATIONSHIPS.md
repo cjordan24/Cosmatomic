@@ -28,11 +28,11 @@ The Sun's blackbody is labelled a *model*: the real solar spectrum has absorptio
 
 | From | Edge | To (route) | Source | Shown in |
 |---|---|---|---|---|
-| `stellar-class:O…K` | absorbs | `spectrum:He-II`, `He-I`, `H-I`, `Ca-II`, `Fe-II`, `Ca-I`, `Fe-I` | OpenStax Astronomy 2e §17.3 | Star panel ("typical lines"), class table, atlas Lines tab |
+| `stellar-class:O…K` | absorbs | `spectrum:He-II`, `He-I`, `H-I`, `Ca-II`, `Fe-II`, `Ca-I`, `Fe-I` | IAU OAE Glossary (class entries) | Star panel ("typical lines"), class table, atlas Lines tab |
 | `star:<seq>` (10 pc) | part-of | `stellar-class:<letter>` → `#/cosmic/stars/hr?d=classes&cls=…` | Reylé et al. 2021 (spectral type) | Star panel, class table |
 | `star:<seq>` | has-spectrum | `spectrum:blackbody-<T>` → `#/spectral?tab=blackbody&T=…&star=…` | Pecaut & Mamajek 2013 (class V mean T_eff) | Star panel ↔ atlas Blackbody tab |
 
-| `body:sun` | part-of | `stellar-class:G` (context G2) | OpenStax Astronomy 2e §17.3 | Sun panel ↔ class table |
+| `body:sun` | part-of | `stellar-class:G` (context G2) | IAU OAE Glossary (Spectral Type) | Sun panel ↔ class table |
 | `body:sun` | has-property (photospheric abundance) | `element:<Z>` × 28 | Asplund et al. 2009 | Sun panel composition strip (element views keep their own Sun line; the duplicate edge is filtered there) |
 
 Star entities are registered at run time when the 10 pc catalogue loads (`starRegistry.ts`). The atlas loads the catalogue itself when opened with `star=`.
@@ -48,8 +48,8 @@ Star entities are registered at run time when the 10 pc catalogue loads (`starRe
 | `body:sun` | located-in | `galaxy:milky-way` → `#/cosmic/galaxies?tab=mw` (context: R₀ = 8.2 kpc) | Bland-Hawthorn & Gerhard 2016 | Milky Way panel, Sun panel |
 | `compact-object:sgr-a-star` | located-in | `galaxy:milky-way` (at the Galactic Centre) | EHT 2022 Paper I | Milky Way panel, compact-objects panel |
 
-| `nebula:orion` | emits | `spectrum:H-I` (Hα, the red glow) | OpenStax Astronomy 2e §20.2 | Nebula panel ↔ atlas Lines tab |
-| `nebula:ring` | emits | `spectrum:N-II`, `spectrum:O-III` | OpenStax Astronomy 2e §22.4 | Nebula panel ↔ atlas Lines tab |
+| `nebula:orion` | emits | `spectrum:H-I` (Hα, the red glow) | NASA APOD (1998, 2000) | Nebula panel ↔ atlas Lines tab |
+| `nebula:ring` | emits | `spectrum:N-II`, `spectrum:O-III` | Hubble Heritage, Ring Nebula (1999) | Nebula panel ↔ atlas Lines tab |
 | `nebula:*` (5) | located-in | `galaxy:milky-way` | ESA/Hubble, ESA/Webb image pages | Nebula panel, Milky Way panel |
 
 Neutron stars and black holes are registered as `compact-object:<id>` (route `#/cosmic/compact?sel=<id>`). The four white dwarfs with measured masses stay `star:<seq>`, so they are not duplicated.
@@ -117,7 +117,7 @@ Every encyclopedia entry describes a registry entity, so E.2 registered the 11 s
 
 ## Acoustic lab (Gate 9.5)
 
-`instrument:acoustic-lab` (`#/spectral/acoustics`) *explains* sound in water (its impedance ρv and the near-total reflection of sound arriving from air, College Physics 2e §17.7) and reads the acoustic impedance of `material:water` (*property*, NIST WebBook).
+`instrument:acoustic-lab` (`#/spectral/acoustics`) *explains* sound in water (its impedance ρv and the near-total reflection of sound arriving from air, Rayleigh §270) and reads the acoustic impedance of `material:water` (*property*, NIST WebBook).
 
 ## Audio and room acoustics (Gates 9.6–9.7)
 
