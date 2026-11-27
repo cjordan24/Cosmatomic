@@ -451,3 +451,37 @@ Findings:
 5. **One position was left out rather than guessed.** The main-cluster κ peak is given relative to the “northern” and “southern” BCGs, and Table 2 does not say which BCG it lists, so only the subcluster peak is drawn.
 6. **Access:** arxiv.org `/pdf` only (three PDFs, 16 s apart) and the Crossref API. No new off-limits hosts.
 7. **Layout:** top bar at 1440 px: rightmost element at 1431 px. At 390 px nothing overflows (scroll width 390 on every tab).
+
+## Phase 7, Gate 7.5: gravitational waves (`#/cosmic/gw`), 2026-11-27
+
+Before starting: production still served the pre-7.4 bundle (`index-ChcjBNsZ.js` against local `index-B7O7TXVr.js`). `vercel deploy --prod` was blocked again by the Claude Code auto-mode permission classifier, so Gates 7.4 and 7.5 both await a production deploy by the user.
+
+What was built:
+- **Data:** `gravitational-waves` (adapter `scripts/ingestion/gwosc.ts`):
+  - one request to the GWOSC Event Portal API `eventapi/jsonfull/GWTC/` (robots.txt read first: `/eventapi/` allowed, `/catalog/` and `/archive/` disallowed; data CC BY 4.0). 391 confident events in GWTC-1 (1), GWTC-2.1 (54), GWTC-3 (35), GWTC-4.1 (140) and GWTC-5.0 (161); 282 with parameters. The GWOSC API documentation defines the bounds as the 90 % interval;
+  - transcribed from the arXiv PDF text: the LIGO/Virgo “basic physics of GW150914” estimates (Ann. Phys. 2017); the GW170817–GRB 170817A delay and speed bounds (ApJL 848, L13); the standard-siren inputs and H₀ (Nature 551, 85).
+- **Physics:** `src/core/physics/gravitationalWaves.ts` (chirp mass, f(t), ḟ, phase, Kepler separation, compactness, ISCO frequency, face-on strain, luminosity, energy and distance estimates, speed-of-gravity relation) and `redshiftAtLuminosityDistance` in `cosmology.ts`. The Relativistic module is now v1.1.0.
+- **View:** Catalog (m₁–m₂ by release, cumulative detections, per-event values and derived quantities, GW150914 2016 vs now); Chirp model (waveform to the ISCO, f vs t_c − t, the paper’s numbers beside the same formulas); GW170817 (Δv/v against the assumed emission lag; H₀ comparison).
+- **Registry:** `context:gravitational-waves`, with 5 sourced edges (GW150914 remnant, Hulse–Taylor, expansion ×2, gamma rays).
+- **Source index:** 9 entries (DOIs checked with Crossref; collaboration names from each paper’s first page).
+
+28 new science tests (560 total) and e2e test 71 (65 total). Local suite: 65/65 passed.
+
+Findings:
+1. **GWOSC matches the papers.** 13 values checked by hand against GWTC-1 Table III and GWTC-5.0 Table 3 are identical. The exception is the SNR: GWOSC’s is a different quantity (GW250114_082203: 78.6 against 76.9 in the paper). GW240420_175625 lacks χ_eff in the API.
+2. **Every catalog redshift is reproduced.** For all 281 events, z = z(median d_L) in flat ΛCDM with H₀ = 67.9 and Ωm = 0.3065, within the printed rounding. Medians commute with this monotone map.
+3. **GW170817’s remnant mass is an upper bound.** The API returns 2.8 with no interval; GWTC-1 prints “≤ 2.8”, so it is stored as a bound.
+4. **The basic-physics numbers are reproduced:**
+
+   | Quantity | Recomputed | Paper |
+   |---|---|---|
+   | separation at 150 Hz | 345 km | 350 km |
+   | compactness ratio | 1.70 | 1.7 |
+   | energy radiated to there | 2.6 M☉c² | ∼3 |
+   | distance from h_max | 300 Mpc | ∼300 |
+   | time from 35 Hz to merger | 0.170 s | ≈ 0.15 s visible |
+5. **The GW170817 speed bounds are reproduced:** 6.69 × 10⁻¹⁶ and −3.11 × 10⁻¹⁵ (published +7 × 10⁻¹⁶ and −3 × 10⁻¹⁵).
+6. **Access:** arxiv.org `/abs` and `/pdf` (16 s apart), gwosc.org (robots.txt read before any fetch) and the Crossref API.
+7. **Layout:** at 1440 px the top bar’s rightmost element is at 1431 px. At 390 px nothing overflows (scroll width 390 on every tab).
+
+Phase 7 is complete. Stopping for user review; resume from `HANDOFF_PHASE7_REVIEW.md`.

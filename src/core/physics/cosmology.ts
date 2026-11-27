@@ -123,6 +123,13 @@ function bisect(f: (z: number) => number, lo: number, hi: number): number | null
 export const accelerationOnsetZ = (c: Cosmology) => bisect((z) => decelerationParameter(z, c), 0, 20);
 /** Redshift at which matter and dark-energy densities were equal. */
 export const matterDarkEnergyEqualityZ = (c: Cosmology) => (c.Ode > 0 ? Math.cbrt(c.Ode / c.Om) - 1 : null);
+/** Redshift whose luminosity distance is d_L (Mpc), by bisection in ln(1 + z) up to z = 100; null if out of range. */
+export function redshiftAtLuminosityDistance(dLMpc: number, c: Cosmology): number | null {
+  if (!(dLMpc >= 0)) return null;
+  if (dLMpc === 0) return 0;
+  const lz = bisect((lz) => luminosityDistanceMpc(Math.expm1(lz), c) - dLMpc, 0, Math.log1p(100));
+  return lz === null ? null : Math.expm1(lz);
+}
 /** Redshift at which the universe had age t (Gyr); null outside (0, age now]. */
 export function redshiftAtAge(tGyr: number, c: Cosmology): number | null {
   if (!(tGyr > 0) || tGyr > ageGyr(0, c)) return null;

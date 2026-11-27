@@ -1,0 +1,75 @@
+{
+  "dataset": "gravitational-waves",
+  "version": "1.0.0",
+  "records": 391,
+  "sources": [
+    {
+      "institution": "Gravitational Wave Open Science Center (GWOSC), Event Portal API",
+      "url": "https://gwosc.org/eventapi/jsonfull/GWTC/",
+      "license": "CC BY 4.0 (gwosc.org/acknowledge); cite the LIGO/Virgo/KAGRA open-data papers",
+      "notes": "cumulative GWTC, latest version of each event: 391 events, 282 with parameters (GWTC-1-confident 1, GWTC-2.1-confident 54, GWTC-3-confident 35, GWTC-4.1 140, GWTC-5.0 161)"
+    },
+    {
+      "institution": "LIGO, Virgo and KAGRA Collaborations: Open Data through the Second Part of O4 (arXiv:2605.27090)",
+      "url": "https://arxiv.org/abs/2605.27090",
+      "notes": "citation requested by GWOSC"
+    },
+    {
+      "institution": "Abbott et al. (2019), PRX 9, 031040 (GWTC-1)",
+      "url": "https://doi.org/10.1103/PhysRevX.9.031040",
+      "notes": "Table III (GW170817 row; final mass ≤ 2.8 M☉), App. B cosmology"
+    },
+    {
+      "institution": "Abbott et al. (2024), PRD 109, 022001 (GWTC-2.1)",
+      "url": "https://doi.org/10.1103/PhysRevD.109.022001",
+      "notes": "release of the O3a events and the O1–O2 re-analysis"
+    },
+    {
+      "institution": "Abbott et al. (2023), PRX 13, 041039 (GWTC-3)",
+      "url": "https://doi.org/10.1103/PhysRevX.13.041039",
+      "notes": "O3b events; naming GWYYMMDD_hhmmss (Table I caption)"
+    },
+    {
+      "institution": "LIGO, Virgo and KAGRA Collaborations (2026), GWTC-5.0 results (arXiv:2605.27225)",
+      "url": "https://arxiv.org/abs/2605.27225",
+      "notes": "O4a (GWTC-4.1) and O4b (GWTC-5.0) events; Table 3 checked against GWOSC"
+    },
+    {
+      "institution": "LIGO, Virgo and KAGRA Collaborations (2026), GWTC-5.0 introduction (arXiv:2605.27223)",
+      "url": "https://arxiv.org/abs/2605.27223",
+      "notes": "flat ΛCDM: H₀ = 67.9 km/s/Mpc, Ωm = 0.3065"
+    },
+    {
+      "institution": "LIGO and Virgo Collaborations (2017), Ann. Phys. 529, 1600209",
+      "url": "https://doi.org/10.1002/andp.201600209",
+      "license": "CC BY 4.0",
+      "notes": "GW150914 read off the strain data: f_max, chirp mass, separation, distance and energy estimates (eqs. 2–23)"
+    },
+    {
+      "institution": "Abbott et al. (2017), ApJL 848, L13",
+      "url": "https://doi.org/10.3847/2041-8213/aa920c",
+      "license": "CC BY 3.0",
+      "notes": "GW170817–GRB 170817A delay and speed-of-gravity bounds"
+    },
+    {
+      "institution": "Abbott et al. (2017), Nature 551, 85",
+      "url": "https://doi.org/10.1038/nature24471",
+      "notes": "GW170817 standard-siren H₀ (arXiv:1710.05835v1)"
+    }
+  ],
+  "adapter": "scripts/ingestion/gwosc.ts",
+  "warnings": [
+    "109 of 391 events have no parameters in the event API (GWOSC releases them only for the events in each paper’s source-properties table); they are listed with “unknown” values.",
+    "GWOSC’s network SNR differs from the SNR column of GWTC-5.0 Table 3 (e.g. GW250114_082203: 78.6 vs 76.9; GW240413_022019: 18.1 vs 17.3). GWOSC describes its value as the default parameter-estimation SNR or the highest search SNR; it is shown labelled as GWOSC’s, not as the paper’s.",
+    "GW240420_175625: χ_eff is missing from the event API although GWTC-5.0 Table 3 prints 0.00 +0.23 −0.25; shown as unknown.",
+    "GW170817: GWTC-1 Table III gives the final mass only as an upper bound (≤ 2.8 M☉); the event API returns 2.8 without bounds, stored here as the bound. Its redshift is that of NGC 4993, not z(d_L).",
+    "Medians of different parameters are not related exactly by the physical formulas (e.g. chirp mass from median m₁ and m₂, or M − M_f as radiated energy).",
+    "catalog redshift reproduced from the median d_L in flat ΛCDM (H₀ = 67.9, Ωm = 0.3065) for 281 events; largest difference 0.0115 (GW231005_021030), within the rounding of the printed values",
+    "chirp mass recomputed from the median m₁ and m₂ differs from the catalog median chirp mass by a median 0.9 % (largest 16.2 %, GW200322_091133); medians of different parameters are not related by the formula exactly",
+    "13 values checked against the printed tables of GWTC-1 (Table III) and GWTC-5.0 (Table 3): all identical"
+  ],
+  "output": "datasets/astronomical/gravitational-waves.json",
+  "retrievedAt": "2026-11-27T04:46:48.417Z",
+  "bytes": 99591,
+  "sha256": "2f8d04c6d46a555b471b350d6225002c4aff9bf0546039795e3c7317df13fa40"
+}

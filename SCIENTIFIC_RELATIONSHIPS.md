@@ -69,8 +69,13 @@ Neutron stars and black holes are registered as `compact-object:<id>` (route `#/
 | `context:dark-matter` | explains | `galaxy:milky-way` (M₂₀₀ = (1.1 ± 0.3) × 10¹² M☉ against M⋆ = (5 ± 1) × 10¹⁰ M☉) | Bland-Hawthorn & Gerhard 2016 | Dark-matter view ↔ Milky Way tab |
 | `context:dark-matter` | part-of | `context:cosmic-expansion` (cold dark matter ≈ 84 % of Ω_m) | Planck 2018 VI | Dark-matter view ↔ Expansion view |
 | `context:cmb` | emits | `wave:em-microwave` (B_ν peak at 160 GHz, 1.87 mm, in the ISO 21348 microwave category) | Fixsen et al. 1996 | CMB view ↔ Spectral atlas |
+| `compact-object:gw150914-final` | observed-with | `context:gravitational-waves` (the 62 ± 4 M☉ remnant is measured only through the waveform) | Abbott et al. 2016 (PRL) | Compact objects ↔ GW view |
+| `context:gravitational-waves` | explains | `compact-object:psr-b1913` (Hulse–Taylor orbital decay, observed/predicted 0.9983 ± 0.0016) | Weisberg & Huang 2016 | GW view ↔ Compact objects |
+| `context:cosmic-expansion` | explains | `context:gravitational-waves` (source-frame mass = detector-frame mass ÷ (1 + z), z from d_L in flat ΛCDM, H₀ = 67.9, Ωm = 0.3065) | GWTC-5.0 introduction | Expansion view ↔ GW view |
+| `context:cosmic-expansion` | observed-with | `context:gravitational-waves` (GW170817 standard siren: H₀ = 70.0 +12.0/−8.0, no distance ladder) | Abbott et al. 2017 (Nature) | Expansion view ↔ GW view |
+| `context:gravitational-waves` | observed-with | `wave:em-gamma` (GRB 170817A 1.74 ± 0.05 s after GW170817: speeds of gravity and light agree to a few parts in 10¹⁵) | Abbott et al. 2017 (ApJL) | GW view ↔ Spectral atlas |
 
-`context:cosmic-expansion` routes to `#/cosmic/universe`; `context:distance-ladder` routes to `#/cosmic/ladder` (Gate 7.2); `context:cmb` routes to `#/cosmic/cmb` (Gate 7.3); `context:dark-matter` routes to `#/cosmic/darkmatter` (Gate 7.4). The *Observable universe* scale level is now interactive and opens its Expansion history tab.
+`context:cosmic-expansion` routes to `#/cosmic/universe`; `context:distance-ladder` routes to `#/cosmic/ladder` (Gate 7.2); `context:cmb` routes to `#/cosmic/cmb` (Gate 7.3); `context:dark-matter` routes to `#/cosmic/darkmatter` (Gate 7.4); `context:gravitational-waves` routes to `#/cosmic/gw` (Gate 7.5). The *Observable universe* scale level is now interactive and opens its Expansion history tab.
 
 ## Encyclopedia entities (Gate E.1)
 

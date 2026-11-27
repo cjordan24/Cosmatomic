@@ -201,6 +201,13 @@ registerRelationship({ from: 'context:dark-matter', to: 'context:gravitational-l
 registerRelationship({ from: 'context:dark-matter', to: 'context:cmb', type: 'observed-with', context: 'base ΛCDM fitted to the Planck spectra gives Ω_c h² = 0.11933 ± 0.00091 against Ω_b h² = 0.02242 ± 0.00014', source: 'planck-2018-vi' });
 registerRelationship({ from: 'context:dark-matter', to: 'galaxy:milky-way', type: 'explains', context: 'M₂₀₀ = (1.1 ± 0.3) × 10¹² M☉ against a stellar mass of (5 ± 1) × 10¹⁰ M☉', source: 'bland-hawthorn-gerhard-2016' });
 registerRelationship({ from: 'context:dark-matter', to: 'context:cosmic-expansion', type: 'part-of', context: 'cold dark matter is about 84 % of Ω_m in the Planck 2018 background used for every distance', source: 'planck-2018-vi' });
+// Phase 7, Gate 7.5: gravitational waves
+registerEntity(E('context:gravitational-waves', 'Gravitational waves', '#/cosmic/gw', 'The GWOSC catalog of compact-binary mergers, a leading-order chirp model and GW170817 with light (Gate 7.5)'));
+registerRelationship({ from: 'compact-object:gw150914-final', to: 'context:gravitational-waves', type: 'observed-with', context: 'the 62 ± 4 M☉ remnant (90 %) is measured only through the waveform of GW150914', source: 'abbott-2016-gw150914' });
+registerRelationship({ from: 'context:gravitational-waves', to: 'compact-object:psr-b1913', type: 'explains', context: 'the Hulse–Taylor orbit shrinks as gravitational-wave emission predicts: observed / predicted decay 0.9983 ± 0.0016', source: 'weisberg-huang-2016' });
+registerRelationship({ from: 'context:cosmic-expansion', to: 'context:gravitational-waves', type: 'explains', context: 'expansion stretches the waves: source-frame masses are the detector-frame masses ÷ (1 + z), with z from d_L in flat ΛCDM (H₀ = 67.9, Ωm = 0.3065)', source: 'gwtc-5-intro' });
+registerRelationship({ from: 'context:cosmic-expansion', to: 'context:gravitational-waves', type: 'observed-with', context: 'GW170817 as a standard siren: H₀ = 70.0 +12.0/−8.0 km/s/Mpc (68.3 %) without a distance ladder', source: 'abbott-2017-h0' });
+registerRelationship({ from: 'context:gravitational-waves', to: 'wave:em-gamma', type: 'observed-with', context: 'GRB 170817A arrived 1.74 ± 0.05 s after GW170817: the speeds of gravity and light differ by less than a few parts in 10¹⁵', source: 'abbott-2017-grb' });
 
 export const getEntity = (id: string) => REGISTRY.get(id);
 export const allEntities = () => [...REGISTRY.values()];

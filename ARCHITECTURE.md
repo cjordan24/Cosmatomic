@@ -19,7 +19,7 @@ src/
 │   ├── units/{dimensions,units}.ts dimension vectors, unit registry, checked conversion (fm…Mpc, eV, u, M☉ …)
 │   ├── mathematics/{vec3,kepler}.ts float64 vectors, frame rotations, Kepler solver
 │   ├── simulation/                 clock (TDB JD, leap seconds), seeded PRNG, snapshots & replay
-│   ├── physics/                    gravity (leapfrog N-body + diagnostics), relativity (Schwarzschild exterior, Gate 6.1), lensing (point lens, Gate 6.3), cosmology (FLRW with radiation, distances, ages, lensing distances; Gate 7.1), distanceLadder (distance modulus, Leavitt law, TRGB, H₀ from M_B and a_B; Gate 7.2), cmb (FIRAS residuals and χ², T(z), C_ℓ ↔ D_ℓ; Gate 7.3), darkMatter (g = V²/R, generalised halo profile, Coma mass model, spherical Jeans σ_los, sky offsets; Gate 7.4), waves (Gate 4.5), em (photon, plane wave, Planck; Gate 4.6), module registry
+│   ├── physics/                    gravity (leapfrog N-body + diagnostics), relativity (Schwarzschild exterior, Gate 6.1), lensing (point lens, Gate 6.3), cosmology (FLRW with radiation, distances, ages, lensing distances; Gate 7.1), distanceLadder (distance modulus, Leavitt law, TRGB, H₀ from M_B and a_B; Gate 7.2), cmb (FIRAS residuals and χ², T(z), C_ℓ ↔ D_ℓ; Gate 7.3), darkMatter (g = V²/R, generalised halo profile, Coma mass model, spherical Jeans σ_los, sky offsets; Gate 7.4), gravitationalWaves (leading-order chirp, strain, ISCO frequency, speed-of-gravity bound; Gate 7.5), waves (Gate 4.5), em (photon, plane wave, Planck; Gate 4.6), module registry
 │   ├── provenance/provenance.ts    five reliability classes + record metadata
 │   └── scale/scale.ts              16-level logarithmic scale ladder
 ├── modes/
@@ -43,7 +43,7 @@ src/
 │       ├── lensing/                point-lens plane, microlensing, astrometric deflection (#/cosmic/lensing)
 │       ├── galaxies/               SPARC rotation curves, baryons vs NFW halo, Milky Way (#/cosmic/galaxies)
 │       ├── nebulae/                licensed image gallery, nebula records, emission-line links (#/cosmic/nebulae)
-│       └── universe/               ΛCDM distances, expansion history, cosmological lensing distances (#/cosmic/universe); distance ladder (#/cosmic/ladder); CMB (#/cosmic/cmb); dark-matter evidence (#/cosmic/darkmatter)
+│       └── universe/               ΛCDM distances, expansion history, cosmological lensing distances (#/cosmic/universe); distance ladder (#/cosmic/ladder); CMB (#/cosmic/cmb); dark-matter evidence (#/cosmic/darkmatter); gravitational waves (#/cosmic/gw)
 ├── core/fields/                    FIELDS layer interface + gravity, Coulomb, plane-wave, heat layers (FIELDS_ARCHITECTURE.md)
 ├── shared/scientific-relationships typed, sourced entity/edge registry; ui/RelatedLinks renders both directions (SCIENTIFIC_RELATIONSHIPS.md)
 ├── shared/encyclopedia/            cited verbatim entries (datasets/encyclopedia); ui/Encyclopedia.tsx: corner drawer (lazy) + About section (Gate E.1)

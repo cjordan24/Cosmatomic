@@ -193,6 +193,62 @@ test('70 dark-matter evidence: galaxies, the Bullet Cluster, Coma and the cosmic
   await expect(page).toHaveURL(/cosmic\/cmb\?tab=power/);
 });
 
+// ---------------- Gate 7.5 ----------------
+test('71 gravitational waves: the GWOSC catalog, a leading-order chirp checked against GW150914, and GW170817 with light', async ({ page }) => {
+  await page.goto('/#/cosmic');
+  await page.getByRole('navigation', { name: 'Cosmic sections' }).getByRole('button', { name: /^Universe/ }).click();
+  await page.getByRole('menu', { name: 'Universe' }).getByRole('menuitem', { name: 'Gravitational waves' }).click();
+  await expect(page).toHaveURL(/#\/cosmic\/gw$/);
+  const masses = page.getByRole('img', { name: 'Component masses of the gravitational-wave events' });
+  await expect(masses).toBeVisible();
+  await expect(masses.locator('circle')).toHaveCount(283); // 282 events with parameters + the selection ring
+  const params = page.getByLabel('Event parameters');
+  await expect(params).toContainText('34.6 +4.4 / −2.6 M☉'); // GW150914, GWTC-2.1 re-analysis
+  await expect(params).toContainText('470 +140 / −160 Mpc');
+  await expect(page.getByLabel('Derived from the medians')).toContainText('0.099'); // z(d_L) in the catalog cosmology
+  await expect(page.getByRole('table', { name: 'GW150914 then and now' })).toContainText('36 +5 / −4');
+  await shot(page, '71a-gw-catalog', 'Gravitational waves (#/cosmic/gw): 282 of 391 confident mergers in the cumulative GWOSC catalog (GWTC-1 to GWTC-5.0) by source-frame mass, coloured by release, with cumulative detections by date; GW150914 selected: GWTC-2.1 medians with 90 % intervals beside the 2016 PRL values, z(d_L) in the catalog cosmology.');
+
+  await page.getByRole('checkbox', { name: 'Show GWTC-5.0' }).uncheck();
+  await expect(page).toHaveURL(/rel=GWTC-5\.0/);
+  await expect(masses.locator('circle')).toHaveCount(283 - 104);
+  await page.getByRole('region', { name: 'Releases' }).getByRole('button', { name: 'GW170817', exact: true }).click();
+  await expect(page).toHaveURL(/ev=GW170817/);
+  await expect(params).toContainText('≤ 2.8 M☉ (upper bound)');
+  await expect(params).toContainText('1.186 +0.001 / −0.001 M☉');
+
+  await page.getByRole('region', { name: 'Releases' }).getByRole('button', { name: 'GW150914', exact: true }).click();
+  await page.getByRole('button', { name: 'Inspiral model of this event →' }).click();
+  await expect(page).toHaveURL(/tab=chirp/);
+  await expect(page.getByRole('img', { name: 'Leading-order inspiral waveform' })).toBeVisible();
+  const insp = page.getByLabel('Inspiral quantities');
+  await expect(insp).toContainText('61.9 Hz'); // ISCO frequency, detector-frame M = 71.0 M☉
+  await expect(insp).toContainText('28.03 / 30.81 M☉');
+  const bp = page.getByRole('table', { name: 'GW150914 basic physics' });
+  await expect(bp).toContainText('345 km'); // paper: 350 km
+  await expect(bp).toContainText('1.70'); // paper: 1.7
+  await expect(bp).toContainText('300 Mpc'); // eq. 22
+  await expect(bp).toContainText('0.170 s');
+  await shot(page, '71b-gw-chirp', 'Leading-order chirp for GW150914’s medians: Newtonian orbit + quadrupole formula, h(t) to the ISCO and f ∝ (t_c − t)^(−3/8); the LIGO/Virgo “basic physics” estimates (𝓜 ≈ 30 M☉, 350 km at 150 Hz, compactness 1.7, ∼300 Mpc, ∼3 M☉c²) beside the same formulas computed here.');
+  await page.getByRole('region', { name: 'Binary' }).getByRole('button', { name: 'GW170817', exact: true }).click();
+  await expect(insp).toContainText('1596.3 Hz');
+  await expect(page.locator('.note').filter({ hasText: 'Only the last 40 cycles are drawn' })).toBeVisible();
+
+  await page.getByRole('navigation', { name: 'Gravitational-wave sections' }).getByRole('button', { name: 'GW170817' }).click();
+  await expect(page).toHaveURL(/tab=gw170817/);
+  const speed = page.getByLabel('Speed-of-gravity bounds');
+  await expect(speed).toContainText('6.69 × 10⁻¹⁶'); // published +7 × 10⁻¹⁶
+  await expect(speed).toContainText('-3.11 × 10⁻¹⁵'); // published −3 × 10⁻¹⁵
+  await expect(page.getByLabel('Standard-siren values')).toContainText('68.9 km/s/Mpc');
+  await expect(page.getByLabel('Hubble constant list').locator('li')).toHaveCount(5);
+  await page.getByRole('button', { name: 'gamma rays 10 s later' }).click();
+  await expect(page).toHaveURL(/lag=10/);
+  await expect(speed).toContainText('-3.09 × 10⁻¹⁵');
+  await shot(page, '71c-gw170817', 'GW170817 with GRB 170817A: Δv/v_EM ≈ cΔt/D against the assumed emission lag, reproducing the published bounds (−3 × 10⁻¹⁵, +7 × 10⁻¹⁶; D = 26 Mpc); the standard-siren H₀ = 70.0 +12.0/−8.0 beside Planck and SH0ES, as quoted in 2017 and as bundled in the Distance ladder view.');
+  await page.getByRole('button', { name: 'H₀ from the distance ladder →' }).click();
+  await expect(page).toHaveURL(/cosmic\/ladder\?tab=h0/);
+});
+
 test('66 encyclopedia: cited radiation entries in a corner menu and an About section for the selected wavelength', async ({ page }) => {
   await page.goto('/#/spectral?lambda=1e-5');
   const bio = page.getByRole('region', { name: 'Encyclopedia' });
