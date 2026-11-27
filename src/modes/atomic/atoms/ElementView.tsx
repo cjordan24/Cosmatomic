@@ -207,7 +207,7 @@ export default function ElementView({ Z }: { Z: number }) {
         {view === 'orbital' && !oneElectron && <div className="note" style={{ marginTop: 4 }}>Excitation demonstrations are available for one-electron systems (H, He⁺, Li²⁺ …), where transition energies are exact.</div>}
       </div>
 
-      <Panel id="element-diagrams" className={`right-panel ${mobileDiagrams ? 'mobile-open' : ''}`} title="2D diagrams · shared data">
+      <Panel id="element-diagrams" mobileToggle={false} className={`right-panel ${mobileDiagrams ? 'mobile-open' : ''}`} title="2D diagrams · shared data">
         <div className="diagram-tabs" role="tablist">
           {DIAGRAMS.map((d) => <button key={d.id} role="tab" aria-selected={diagram === d.id} className={`chip ${diagram === d.id ? 'active' : ''}`} onClick={() => setQuery({ diagram: d.id })}>{d.label}</button>)}
         </div>

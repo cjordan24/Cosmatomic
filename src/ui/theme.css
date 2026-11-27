@@ -156,6 +156,8 @@ input[type='range'] { accent-color: var(--accent); }
 .left-panel .panel-body { flex: 1; }
 .right-panel { top: 12px; right: 12px; width: 420px; max-height: calc(100% - 24px); display: flex; flex-direction: column; }
 .right-panel .panel-body { flex: 1; }
+/* a collapsed panel shrinks to its header instead of leaving an empty frame */
+.left-panel.collapsed, .right-panel.collapsed, .bodies-panel.collapsed { bottom: auto; height: auto; }
 .view-switch { position: absolute; z-index: 10; top: 12px; left: 50%; transform: translateX(-50%); display: flex; gap: 4px; padding: 4px; border-radius: 999px; border: 1px solid var(--line); background: var(--glass); backdrop-filter: blur(12px); }
 .view-switch button { border: 0; background: none; padding: 7px 12px; border-radius: 999px; cursor: pointer; font-size: 11.5px; color: var(--text-dim); white-space: nowrap; }
 .view-switch button.active { background: var(--accent); color: #04101a; }
@@ -252,6 +254,7 @@ input[type='range'] { accent-color: var(--accent); }
   .left-panel { top: auto; bottom: 8px; left: 8px; right: 8px; width: auto; height: 40%; }
   .right-panel { display: none; }
   .right-panel.mobile-open { display: flex; top: auto; bottom: 8px; left: 8px; right: 8px; width: auto; height: 46%; }
+  .left-panel.collapsed, .right-panel.mobile-open.collapsed { top: auto; bottom: 8px; height: auto; }
   .view-switch { top: 8px; max-width: calc(100% - 16px); overflow-x: auto; }
   .model-label { display: none; }
   .bodies-panel { display: none; }
@@ -263,6 +266,9 @@ input[type='range'] { accent-color: var(--accent); }
   .center-controls { left: 8px; right: 8px; top: 56px; }
   .ptable-wrap { padding: 10px 8px 80px; }
   .mobile-only { display: inline-flex !important; }
+  /* floating opener for right panels on phones (sits above the bottom left panel, or above the open right panel) */
+  .panel-mobile-toggle { position: absolute; z-index: 12; right: 8px; bottom: calc(40% + 14px); box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5); background: var(--glass-strong); }
+  .panel-mobile-toggle.open { bottom: calc(46% + 14px); }
   .cosmic-tools { display: flex; left: 8px; right: 8px; top: auto; bottom: 118px; flex-wrap: wrap; justify-content: center; max-width: calc(100% - 16px); border-radius: 14px; }
   .cosmic-tools label { display: none; }
 }

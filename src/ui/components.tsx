@@ -1,16 +1,23 @@
-import type { CSSProperties, ReactNode } from 'react';
+import { useState, type CSSProperties, type ReactNode } from 'react';
 import { PROVENANCE_LABEL, type Provenance, type ProvenanceClass } from '@/core/provenance/provenance';
 import { formatSig } from '@/core/units/units';
 import { useVoyager } from '@/shared/store';
 
 /** Collapsible / dismissible glass panel. Collapse state is global so it persists across views. */
-export function Panel({ id, title, className = '', style, children, actions, onClose }: {
+export function Panel({ id, title, className = '', style, children, actions, onClose, mobileToggle = true }: {
   id: string; title: ReactNode; className?: string; style?: CSSProperties; children: ReactNode; actions?: ReactNode; onClose?: () => void;
+  /** Right panels are hidden on phones; by default a floating button opens them. False when the view has its own toggle. */
+  mobileToggle?: boolean;
 }) {
   const collapsed = useVoyager((s) => !!s.panelsCollapsed[id]);
   const toggle = useVoyager((s) => s.togglePanel);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const autoToggle = mobileToggle && /\bright-panel\b/.test(className);
+  const label = typeof title === 'string' ? title : 'Details';
   return (
-    <section className={`panel ${className} ${collapsed ? 'collapsed' : ''}`} style={style} aria-label={typeof title === 'string' ? title : id}>
+    <>
+    {autoToggle && <button className={`chip mobile-only panel-mobile-toggle ${mobileOpen ? 'active open' : ''}`} aria-expanded={mobileOpen} onClick={() => setMobileOpen((o) => !o)}>{label} {mobileOpen ? "▾" : "▴"}</button>}
+    <section className={`panel ${className} ${autoToggle && mobileOpen ? 'mobile-open' : ''} ${collapsed ? 'collapsed' : ''}`} style={style} aria-label={typeof title === 'string' ? title : id}>
       <header className="panel-head">
         <span className="title">{title}</span>
         {actions}
@@ -19,6 +26,7 @@ export function Panel({ id, title, className = '', style, children, actions, onC
       </header>
       <div className="panel-body">{children}</div>
     </section>
+    </>
   );
 }
 

@@ -25,6 +25,7 @@
 * **Notebook:** stored per browser only (no accounts, sync or sharing yet); laboratory structures are saved to the molecule library rather than as notebook experiments; electric/magnetic field instruments await the electromagnetic module.
 
 ## Visual / UX
+* **Phones (≤ 900 px):** the left (controls) panel is a bottom sheet at 40 % height and the right (details) panel opens over it from a floating button; both cannot be seen at once. Collapsed panels shrink to their header.
 * Planets use flat colours and illustrative banding (no imagery/textures yet). No starfield background — catalog stars arrive with Gaia in Phase 5.
 * Saturn's rings are uniform-opacity annuli per ring (no radial optical-depth profile); no Uranian/Neptunian rings.
 * With true scale (default) most bodies are sub-pixel in the overview; labels mark them. Moon labels are decluttered by apparent separation.

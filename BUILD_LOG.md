@@ -305,3 +305,17 @@ Findings:
 3. **Three of my own expected values were wrong; the code was right.** The acceleration onset is z = 0.642, not ≈ 0.63. The 10¹¹ M☉ ring is 0.63″, not ≈ 0.8″. Dropping radiation shifts D_M(z∗) by 0.5 %, not 1.6 %. The tests now pin computed values with independent cross-checks: the closed form (2Ω_Λ/Ω_m)^⅓ − 1, the ratio √(D_ds/(D_s − D_d)), and the Planck mismatch.
 4. **Top-bar overflow again.** The fifth Cosmic group pushed Scale and Settings off-screen at 1440 px. Menu chips no longer append the active section to their label; it moves to a tooltip. In Cosmic below 1500 px the Sources, Notebook and Scale buttons show icons only, with aria-labels so their accessible names do not change.
 5. **Access:** arxiv.org /pdf was used for Planck 2018 VI, Hogg 1999 and Carroll 1997, one request at a time, at least 15 s apart. Crossref was used for the DOI. export.arxiv.org was not used.
+
+## 2026-11-26 — Mobile panel fix (between Gates 7.1 and 7.2)
+First, a live re-check of Gate 7.1 against production: 58/58 passed.
+
+The user reported from a phone that collapsing a panel left a blank box. Cause: on screens ≤ 900 px the bottom panels have a fixed height (40 % or 46 %). Collapsing hid only the panel body, so the empty frame stayed. Desktop left panels, pinned top and bottom, had the same problem.
+
+Changes:
+- **Collapsed panels shrink to their header.** On phones they stay docked at the bottom; on desktop they stay at the top.
+- **Right panels can be opened on phones.** Right panels are hidden on phones, and only the element view (Diagrams) and the solar system (Objects) had a button to open them. 19 views had no way to show their right panel on a phone.
+  - `Panel` now renders a floating button for every right panel on phones, labelled with the panel title.
+  - Views with their own toggle opt out with `mobileToggle={false}`.
+  - The button never appears on desktop.
+
+New e2e test 65 checks, at 390 × 844, that the Expansion results panel opens and closes, that the collapsed control panel is under 60 px high and still at the bottom, and that the element view has no second toggle.

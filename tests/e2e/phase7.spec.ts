@@ -56,3 +56,32 @@ test('64 expansion and distances: ΛCDM distances, expansion history, cosmologic
   await expect(page).toHaveURL(/#\/cosmic\/lensing\?lens=cosmo/);
   await expect(page.locator('.right-panel')).toContainText('10¹¹ M☉ galaxy at z = 0.5');
 });
+
+test.describe('mobile', () => {
+  test.use({ viewport: { width: 390, height: 844 } });
+  test('65 mobile panels: collapsed panels shrink to their header; right panels open from a floating button', async ({ page }) => {
+    await page.goto('/#/cosmic/universe');
+    const left = page.locator('.left-panel');
+    const right = page.locator('.right-panel');
+    await expect(right).toBeHidden();
+    const toggle = page.locator('.panel-mobile-toggle');
+    await expect(toggle).toHaveText('At z = 1.000 ▴');
+    await toggle.click();
+    await expect(right).toBeVisible();
+    await expect(right.getByLabel('Distances at the selected redshift')).toContainText('Gpc');
+    await shot(page, '65a-mobile-right-panel', 'Mobile layout (390×844): the Expansion view’s results panel opened from its floating button, which phones previously could not reach.');
+    await toggle.click();
+    await expect(right).toBeHidden();
+    const full = (await left.boundingBox())!.height;
+    await left.getByRole('button', { name: 'Collapse panel' }).click();
+    const collapsed = (await left.boundingBox())!.height;
+    expect(collapsed).toBeLessThan(60);
+    expect(full).toBeGreaterThan(200);
+    const vp = page.viewportSize()!;
+    expect((await left.boundingBox())!.y + collapsed).toBeGreaterThan(vp.height - 20); // still docked at the bottom
+    await shot(page, '65b-mobile-collapsed', 'Mobile layout (390×844): the collapsed control panel shrinks to its header at the bottom instead of leaving an empty frame.');
+    await left.getByRole('button', { name: 'Expand panel' }).click();
+    await page.goto('/#/atomic/element/1');
+    await expect(page.locator('.panel-mobile-toggle')).toHaveCount(0); // the element view keeps its own Diagrams button
+  });
+});
