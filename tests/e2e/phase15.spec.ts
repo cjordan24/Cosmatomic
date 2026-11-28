@@ -52,7 +52,8 @@ test('116 engineering mode: portal, bits, gates and a ripple-carry adder', async
 // ---------------- Gate 15.2 ----------------
 test('117 semiconductors: silicon’s band gap and Shockley’s junction equation', async ({ page }) => {
   await page.goto('/#/engineering');
-  await page.getByRole('navigation', { name: 'Engineering sections' }).getByRole('button', { name: 'Semiconductors' }).click();
+  await page.getByRole('navigation', { name: 'Engineering sections' }).getByRole('button', { name: 'Hardware ▾' }).click();
+  await page.getByRole('menuitem', { name: 'Semiconductors' }).click();
   await expect(page).toHaveURL(/#\/engineering\/semiconductors$/);
   const v = page.getByLabel('Junction values');
   await expect(v).toContainText('12 mA'); await expect(v).toContainText('25.85'); await expect(v).toContainText('0.536');
@@ -66,7 +67,8 @@ test('117 semiconductors: silicon’s band gap and Shockley’s junction equatio
 // ---------------- Gate 15.3 ----------------
 test('118 integrated circuits: Kilby’s and Noyce’s 1959 patents and the planar process', async ({ page }) => {
   await page.goto('/#/engineering/semiconductors');
-  await page.getByRole('navigation', { name: 'Engineering sections' }).getByRole('button', { name: 'Chips' }).click();
+  await page.getByRole('navigation', { name: 'Engineering sections' }).getByRole('button', { name: 'Hardware ▾' }).click();
+  await page.getByRole('menuitem', { name: 'Chips' }).click();
   await expect(page).toHaveURL(/#\/engineering\/chips$/);
   const bar = await page.locator('header.topbar').boundingBox(), acts = await page.locator('.topbar-actions').boundingBox();
   expect(acts!.x + acts!.width).toBeLessThanOrEqual(bar!.x + bar!.width + 1);
@@ -79,4 +81,22 @@ test('118 integrated circuits: Kilby’s and Noyce’s 1959 patents and the plan
   await page.getByRole('button', { name: /^Kilby — / }).click();
   await expect(page.locator('.stage-head')).toContainText('all components of the electronic circuit are completely integrated');
   await shot(page, '118b-kilby', 'Kilby’s US 3,138,743 (filed February 1959): the integrated circuit in one body of semiconductor, with drawing sheet 4.');
+});
+
+// ---------------- Gate 15.4 ----------------
+test('119 stored-program computer: von Neumann’s five parts, one memory for orders and numbers, 6 × 7 by repeated addition', async ({ page }) => {
+  await page.goto('/#/engineering/chips');
+  await page.getByRole('navigation', { name: 'Engineering sections' }).getByRole('button', { name: 'Hardware ▾' }).click();
+  await page.getByRole('menuitem', { name: 'Stored-program computer' }).click();
+  await expect(page).toHaveURL(/#\/engineering\/architecture$/);
+  const bar = await page.locator('header.topbar').boundingBox(), acts = await page.locator('.topbar-actions').boundingBox();
+  expect(acts!.x + acts!.width).toBeLessThanOrEqual(bar!.x + bar!.width + 1);
+  await expect(page.locator('.stage-head')).toContainText('from the same place where the numerical material is stored');
+  const st = page.getByLabel('Machine state');
+  await page.getByRole('button', { name: 'Step', exact: true }).click();
+  await expect(st).toContainText('LOAD 13: accumulator ← 7');
+  for (let i = 0; i < 80; i++) { if (await page.getByRole('button', { name: 'Step', exact: true }).isDisabled()) break; await page.getByRole('button', { name: 'Step', exact: true }).click(); }
+  await expect(st).toContainText('42');
+  await expect(st).toContainText('HALT');
+  await shot(page, '119a-computer', 'The stored-program computer (Gate 15.4): a teaching machine laid out as von Neumann’s 1945 EDVAC report divides it — CA, CC, M, I, O — with orders and numbers in one marked memory; 6 × 7 = 42 by repeated addition, stepped cycle by cycle.');
 });

@@ -418,6 +418,10 @@ registerRelationship({ from: 'instrument:semiconductors', to: 'wave:em-infrared'
 registerEntity(E('instrument:chips', 'Integrated circuits', '#/engineering/chips', 'Kilby’s and Noyce’s 1959 patents; the planar process (Gate 15.3)'));
 registerRelationship({ from: 'instrument:semiconductors', to: 'instrument:chips', type: 'part-of', context: '“a body of semiconductor material containing a diffused p-n junction wherein all components of the electronic circuit are completely integrated” (Kilby)', source: 'kilby-us3138743' });
 registerRelationship({ from: 'element:14', to: 'instrument:chips', type: 'part-of', context: '“the surface of the silicon oxidizes and forms an oxide layer” — a good electrical insulator (Noyce)', source: 'noyce-us2981877' });
+registerEntity(E('instrument:architecture', 'The stored-program computer', '#/engineering/architecture', 'A teaching machine organised as the EDVAC report describes (Gate 15.4)'));
+registerRelationship({ from: 'instrument:logic', to: 'instrument:architecture', type: 'part-of', context: '“a central arithmetical part of the device will probably have to exist … CA” (EDVAC report p. 3)', source: 'vonneumann-edvac-1945' });
+registerRelationship({ from: 'instrument:architecture', to: 'instrument:nerves', type: 'explains', context: '“The three specific parts CA, CC (together C) and M correspond to the associative neurons in the human nervous system” (von Neumann 1945, p. 6)', source: 'vonneumann-edvac-1945' });
+registerRelationship({ from: 'instrument:chips', to: 'instrument:architecture', type: 'part-of', context: '“to facilitate the inclusion of numerous semiconductor devices within a single body of material” (Noyce)', source: 'noyce-us2981877' });
 
 export const getEntity = (id: string) => REGISTRY.get(id);
 export const allEntities = () => [...REGISTRY.values()];

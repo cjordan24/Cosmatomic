@@ -950,3 +950,10 @@ Committed together (one view with six tabs, one dataset).
 2. **Read:** both patents on the USPTO page images (rendered with PDFKit); the research agent's Google Patents OCR text was replaced by image readings.
 3. **Sources (+2, 268 entries):** kilby-us3138743, noyce-us2981877.
 4. **Tests:** browser test 118.
+
+## Gate 15.4: the stored-program computer (`#/engineering/architecture`), 2026-11-28
+
+1. **View:** Engineering → Hardware ▾ → Stored-program computer: pick a program, step or run it; memory words marked order/number; the part acting on each cycle lights up; von Neumann's five parts quoted. The Engineering bar now groups Semiconductors, Chips and the computer under Hardware ▾ (the 1440 px bar overflowed by 5 px).
+2. **Read on page images:** EDVAC report pp. 3, 6, 7, 85.
+3. **Sources (+1, 269 entries):** vonneumann-edvac-1945.
+4. **Tests:** science `cpu.test.ts` (6); browser test 119.

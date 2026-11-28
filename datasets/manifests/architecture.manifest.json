@@ -1,0 +1,19 @@
+{
+  "dataset": "architecture",
+  "version": "1.0.0",
+  "records": 8,
+  "sources": [
+    {
+      "institution": "von Neumann, First Draft of a Report on the EDVAC (Moore School, University of Pennsylvania, 1945)",
+      "url": "https://archive.org/details/20200901-vN_First_Draft_Report_EDVAC_Moore_Sch_1945",
+      "license": "archive.org Public Domain Mark; no copyright notice on the 1945 title page",
+      "notes": "pp. 3, 6, 7, 85 read on the page images"
+    }
+  ],
+  "adapter": "scripts/ingestion/curated-architecture.ts",
+  "warnings": [],
+  "output": "datasets/engineering/architecture.json",
+  "retrievedAt": "2026-11-28T11:01:40.895Z",
+  "bytes": 2039,
+  "sha256": "3ca8c59141ff96bec2080b633a7c0345e681312867dd329f08f40643e8b1cee7"
+}

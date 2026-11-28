@@ -716,3 +716,9 @@ Five new pathways through the Phase 11–14 records — From quarks to leaves; F
 * Kilby US 3,138,743 and Noyce US 2,981,877 read on the USPTO page images (robots.txt absent; U.S. patents public domain). Quotes from cols. 1–2; drawing sheets reproduced unaltered (downscaled) in `public/images/patents/`.
 * Noyce's planar process as four steps in his words (oxide formed during diffusion; “a good electrical insulator”; photoengraved windows; metal strips over the oxide), drawn as a schematic section after his Fig. 2, labelled not to scale.
 * Moore (1965) left out: the only copy is on intel.com, whose terms forbid bots.
+
+## 69. The stored-program computer (Phase 15, Gate 15.4): `src/core/computing/cpu.ts`, `src/modes/engineering/architecture/`
+
+* A teaching machine (labelled illustrative) organised as von Neumann's *First Draft of a Report on the EDVAC* (1945) divides a computer, read on the page images: CA (p. 3), CC (p. 3), M (p. 6), I and O (p. 7); orders fetched “from the same place where the numerical material is stored”, each word marked number or order (p. 85); orders in his four classes (a)–(d) (p. 85). JZ is our addition. **Noted difference:** his preference that output go “from M (by O) into R, and never directly from C” (p. 7) — our OUT sends the accumulator directly; said so in the view.
+* Programs: 7 + 35; count down from 5; 6 × 7 by repeated addition (61 cycles). Executing a number word stops the machine.
+* **Tests:** `tests/science/cpu.test.ts` (6).
