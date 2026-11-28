@@ -24,6 +24,7 @@ Treat each phase below as a proposal. Re-assess numerical methods, dataset acces
 | 12 Human Anatomy & Physiology | 12.1 reference model · 12.2 skeletal/muscular · 12.3 cardiovascular/respiratory · 12.4 nervous system & electrophysiology · 12.5 digestive/urinary/endocrine · 12.6 immune/reproductive/integumentary · 12.7 organ-to-cell navigation | Planned |
 | 13 Waves, Life & Imaging | 13.1 vision · 13.2 hearing · 13.3 bioelectricity · 13.4 EM–tissue interactions · 13.5 optical & electron microscopy · 13.6 ultrasound/X-ray/MRI · 13.7 integrated visualisations | Planned |
 | 14 Advanced Foundations | 14.1 Standard Model atlas · 14.2 quantum lab · 14.3 nuclear physics & nucleosynthesis · 14.4 plasma/MHD · 14.5 advanced relativity · 14.6 cosmology & dark-matter model comparison · 14.7 unified pathways | Planned |
+| Queued: Meteorology & Climate | atmospheric physics · Earth weather atlas · storm laboratory · planetary meteorology · climate through geological time · oceans and biomes · human technology and environmental change · future climate · environmental sandbox (brief: [METEOROLOGY_EXPANSION_BRIEF](METEOROLOGY_EXPANSION_BRIEF.md), its phases A–G) | **Queued** (requested 2026-11-28 “once the computing and engineering section is complete”; that section is not yet in this roadmap; phase numbers assigned when it starts) |
 
 The astronomy roadmap (Phases 5–8) keeps its place. It is not postponed until every new field is finished.
 
