@@ -396,6 +396,14 @@ registerRelationship({ from: 'instrument:imaging', to: 'wave:em-xray', type: 'ab
 registerRelationship({ from: 'instrument:imaging', to: 'wave:em-radio', type: 'absorbs', context: 'tissue heating by radio waves, SAR = σ|E|²/ρ; MRI’s protons precess at 42.58 MHz per tesla', source: 'usaf-rf-dosimetry-1986' });
 registerRelationship({ from: 'instrument:imaging', to: 'instrument:acoustic-lab', type: 'part-of', context: 'ultrasound echoes come from changes of ρV at tissue boundaries (Rayleigh §270)', source: 'rayleigh-1896' });
 registerRelationship({ from: 'instrument:imaging', to: 'instrument:proteins', type: 'observed-with', context: 'electron microscopes at 120–300 kV have wavelengths of 2–3 pm (de Broglie eq. 24)', source: 'debroglie-1930' });
+// ---------------- Phase 14: advanced foundations ----------------
+registerEntity(E('instrument:particles', 'Particles of the Standard Model', '#/atomic/particles', 'Quarks, leptons, gauge bosons and the Higgs with PDG 2025 values (Gate 14.1)'));
+registerEntity(E('instrument:quantum', 'Quantum lab', '#/atomic/quantum', 'Schrödinger’s equation solved for wells, oscillators and barriers (Gate 14.2)'));
+registerEntity(E('instrument:nuclei', 'Nuclei', '#/atomic/nuclei', 'Binding energies, the chart of nuclides, decay series and fusion in the Sun (Gate 14.3)'));
+registerRelationship({ from: 'instrument:particles', to: 'instrument:nuclei', type: 'part-of', context: 'up and down quarks make up the protons and neutrons in the nucleus (DOE)', source: 'doe-explains' });
+registerRelationship({ from: 'instrument:quantum', to: 'instrument:nuclei', type: 'explains', context: 'alpha decay as tunnelling through the nuclear barrier (Gurney & Condon 1928)', source: 'gurney-condon-1928' });
+registerRelationship({ from: 'instrument:nuclei', to: 'instrument:senses', type: 'explains', context: 'the pp chain releases 26.73 MeV per helium nucleus: the Sun’s light (NASA; NUBASE2020 masses)', source: 'nasa-msfc-solar-interior' });
+registerRelationship({ from: 'instrument:particles', to: 'wave:em-visible', type: 'explains', context: 'the photon carries the electromagnetic force (DOE)', source: 'doe-explains' });
 
 export const getEntity = (id: string) => REGISTRY.get(id);
 export const allEntities = () => [...REGISTRY.values()];

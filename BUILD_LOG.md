@@ -901,3 +901,12 @@ Committed together (one view with six tabs, one dataset).
 6. **Tests:** science 915/915 (+18, `tests/science/imaging.test.ts`); browser test 108.
 
 **Phase 13 summary:** a Waves & life ▾ menu with two views (senses and signals; imaging the body) covering vision, colour, hearing, the ECG, radio waves in tissue, microscopes, X-rays, ultrasound and MRI. 23 new sources, all formulas read on page images or in official text; findings where a printed number disagrees with its own data (Listing's radius, the handbook's 67.52, de Broglie's “small” term, Rayleigh's ·3402), and Helmholtz's blur reproduced exactly.
+
+## Gates 14.1–14.3: particles, quantum lab, nuclei (`#/atomic/particles`, `/quantum`, `/nuclei`), 2026-11-28
+
+1. **Menus:** Atomic gains Subatomic ▾ (Particles, Quantum lab, Nuclei); to keep the 1440 px bar fitting, Molecules and Reactions move into Chemistry ▾ and Materials and Phases into Matter ▾.
+2. **Views:** Particles (PDG 2025 values, mass ladder, DOE sentences); Quantum lab (bound states for box, oscillator, double and finite wells solved live; tunnelling transmission); Nuclei (binding energy per nucleon with the fit and published coefficients, chart of nuclides, U-238 series, pp chain).
+3. **Read on page images:** Schrödinger 1928 pp. 27, 31; Mott 1930 pp. 59, 61; Condon & Morse 1929 pp. 225–226; Gurney & Condon 1928; Wing 1964 p. 11 Table 1.
+4. **Findings:** Condon & Morse eq. (68.5) sign misprint; Mott's 1-cm example (3·2 vs 5.5 × 10⁻⁷ V); Green's 1954 coefficients still fit modern masses to 3.4 MeV rms.
+5. **Sources (+9, 251 entries):** pdg-2025, doe-explains, schrodinger-1928, mott-1930, condon-morse-1929, gurney-condon-1928, wing-anl-6814, usgs-ofr-2004-1050, nasa-msfc-solar-interior. The Bardeen–Press–Teukolsky Kerr ISCO formula could not be read in an open copy (ADS bot challenge; IOP off-limits): its code was removed rather than shipped unverified.
+6. **Tests:** science 944/944 (quantum, nuclear, plus the plasma and GR/RAR cores for 14.4–14.6); browser tests 109–111. End-of-Phase-13 full suite: 102/102.

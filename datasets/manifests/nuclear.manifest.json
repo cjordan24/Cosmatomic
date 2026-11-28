@@ -1,0 +1,31 @@
+{
+  "dataset": "nuclear",
+  "version": "1.0.0",
+  "records": 18,
+  "sources": [
+    {
+      "institution": "Wing, ANL-6814 (1964), Argonne National Laboratory",
+      "url": "https://doi.org/10.2172/4064372",
+      "notes": "Bethe–Weizsäcker formula and Table 1 coefficients (page image)"
+    },
+    {
+      "institution": "USGS Open-File Report 2004-1050",
+      "url": "https://pubs.usgs.gov/of/2004/1050/uranium.htm",
+      "license": "USGS public domain",
+      "notes": "U-238 series membership and order"
+    },
+    {
+      "institution": "PDG neutrino review (CC BY 4.0); NASA Marshall",
+      "url": "https://solarscience.msfc.nasa.gov/interior.shtml",
+      "notes": "the pp chain"
+    }
+  ],
+  "adapter": "scripts/ingestion/curated-subatomic.ts",
+  "warnings": [
+    "Step energies are computed from NUBASE2020 masses, not quoted."
+  ],
+  "output": "datasets/atomic/nuclear.json",
+  "retrievedAt": "2026-11-28T09:37:45.184Z",
+  "bytes": 2677,
+  "sha256": "c6c4fc24f89c62bc1e390a7e885a480de8388169a7222bfb89e3551755087b6e"
+}

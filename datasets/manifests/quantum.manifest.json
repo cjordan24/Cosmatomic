@@ -1,0 +1,22 @@
+{
+  "dataset": "quantum",
+  "version": "1.0.0",
+  "records": 6,
+  "sources": [
+    {
+      "institution": "Schrödinger (1928); Mott (1930); Condon & Morse (1929); Gurney & Condon (1928)",
+      "url": "https://archive.org/details/in.ernet.dli.2015.220691",
+      "license": "public domain in the United States",
+      "notes": "equations read on page images"
+    }
+  ],
+  "adapter": "scripts/ingestion/curated-subatomic.ts",
+  "warnings": [
+    "Condon & Morse eq. (68.5) carries a sign misprint; the app uses (68.4) continued to W < V.",
+    "Mott’s 1-cm example prints 3·2 × 10⁻⁷ V; his formula gives 5.5 × 10⁻⁷ V."
+  ],
+  "output": "datasets/atomic/quantum.json",
+  "retrievedAt": "2026-11-28T09:37:45.184Z",
+  "bytes": 2516,
+  "sha256": "dd892aa4bd8d9d3a58157eb0e22f6c6893aa1fbb4e8d9223f7796da2e4aa6f3f"
+}

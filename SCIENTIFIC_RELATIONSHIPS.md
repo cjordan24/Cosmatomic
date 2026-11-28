@@ -168,6 +168,10 @@ Every encyclopedia entry describes a registry entity, so E.2 registered the 11 s
 
 `instrument:imaging` (`#/biologic/imaging`): *part of* the same resolution physics as Senses and Telescopes (Abbe 1873); *absorbs* X-rays (NIST SRD 126) and radio waves (SAR, MRI); *part of* the acoustic lab (Rayleigh's reflection); *observed with* the protein structures (electron wavelengths, de Broglie).
 
+## Advanced foundations (Phase 14)
+
+`instrument:particles` (`#/atomic/particles`): quarks are *part of* the nuclei (DOE); the photon *explains* visible light. `instrument:quantum` *explains* alpha decay (Gurney & Condon 1928). `instrument:nuclei` *explains* the Sun's light via the pp chain (NASA; NUBASE2020).
+
 ## Rules
 
 1. No edge without a source.

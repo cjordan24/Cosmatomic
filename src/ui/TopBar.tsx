@@ -252,12 +252,21 @@ export function TopBar() {
         </div>
         {mode === 'atomic' && (
           <nav className="chip-row hide-mobile" aria-label="Atomic sections">
-            <button className={`chip ${!['molecules', 'lab', 'reactions', 'materials', 'phases'].includes(path[1]) ? 'active' : ''}`} onClick={() => navigate('/atomic')}>Elements</button>
-            <button className={`chip ${path[1] === 'molecules' ? 'active' : ''}`} onClick={() => navigate('/atomic/molecules')}>Molecules</button>
-            <button className={`chip ${path[1] === 'reactions' ? 'active' : ''}`} onClick={() => navigate('/atomic/reactions')}>Reactions</button>
-            <button className={`chip ${path[1] === 'materials' ? 'active' : ''}`} onClick={() => navigate('/atomic/materials')}>Materials</button>
-            <button className={`chip ${path[1] === 'phases' ? 'active' : ''}`} onClick={() => navigate('/atomic/phases')}>Phases</button>
+            <button className={`chip ${!['molecules', 'lab', 'reactions', 'materials', 'phases', 'particles', 'quantum', 'nuclei'].includes(path[1]) ? 'active' : ''}`} onClick={() => navigate('/atomic')}>Elements</button>
+            <ChipMenu label="Chemistry" items={[
+              { label: 'Molecules', to: '/atomic/molecules', active: path[1] === 'molecules' },
+              { label: 'Reactions', to: '/atomic/reactions', active: path[1] === 'reactions' },
+            ]} />
+            <ChipMenu label="Matter" items={[
+              { label: 'Materials', to: '/atomic/materials', active: path[1] === 'materials' },
+              { label: 'Phases', to: '/atomic/phases', active: path[1] === 'phases' },
+            ]} />
             <button className={`chip ${path[1] === 'lab' ? 'active' : ''}`} onClick={() => navigate('/atomic/lab')}>Laboratory</button>
+            <ChipMenu label="Subatomic" items={[
+              { label: 'Particles', to: '/atomic/particles', active: path[1] === 'particles' },
+              { label: 'Quantum lab', to: '/atomic/quantum', active: path[1] === 'quantum' },
+              { label: 'Nuclei', to: '/atomic/nuclei', active: path[1] === 'nuclei' },
+            ]} />
           </nav>
         )}
         {mode === 'cosmic' && (

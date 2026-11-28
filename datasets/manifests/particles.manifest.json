@@ -1,0 +1,27 @@
+{
+  "dataset": "particles",
+  "version": "1.0.0",
+  "records": 17,
+  "sources": [
+    {
+      "institution": "Particle Data Group, Review of Particle Physics 2025 (summary tables)",
+      "url": "https://pdg.lbl.gov/2025/tables/contents_tables.html",
+      "license": "CC BY 4.0",
+      "notes": "masses, widths, charges, spins"
+    },
+    {
+      "institution": "U.S. DOE Office of Science, DOE Explains",
+      "url": "https://www.energy.gov/science/doe-explainsthe-standard-model-particle-physics",
+      "license": "public domain (DOE web policy); images not used",
+      "notes": "plain-language sentences"
+    }
+  ],
+  "adapter": "scripts/ingestion/curated-subatomic.ts",
+  "warnings": [
+    "Quark masses are scheme-dependent (MS‾ at 2 GeV or at their own mass; top from kinematics) — not directly comparable to lepton pole masses."
+  ],
+  "output": "datasets/atomic/particles.json",
+  "retrievedAt": "2026-11-28T09:37:45.181Z",
+  "bytes": 6272,
+  "sha256": "f60d08f8df182d263c9985236b8ed24167e67db4571e67756f42e00ca8e54d68"
+}
