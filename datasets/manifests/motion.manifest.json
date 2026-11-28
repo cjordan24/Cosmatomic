@@ -1,0 +1,32 @@
+{
+  "dataset": "motion",
+  "version": "1.0.0",
+  "records": 50,
+  "sources": [
+    {
+      "institution": "Humphreys 1920; Rayleigh 1916; Koschmieder 1988 (NASA CR-182504); Howard (1865 ed.)",
+      "url": "https://ntrs.nasa.gov/citations/19880009355",
+      "license": "public domain / U.S. government work",
+      "notes": "read on page images"
+    },
+    {
+      "institution": "NOAA NWS (glossary, Houston/Galveston training pages), NOAA Ocean Service, USGS, NASA Earth Observatory",
+      "url": "https://www.weather.gov/source/zhu/ZHU_Training_Page/clouds/cloud_development/clouds.htm",
+      "license": "U.S. government works",
+      "notes": "definitions, cloud bases, drop sizes, water reservoirs and fluxes, circulation"
+    }
+  ],
+  "adapter": "scripts/ingestion/curated-motion.ts",
+  "warnings": [
+    "Ω = 7.292 × 10⁻⁵ s⁻¹ is computed from Humphreys’ 2π/86,164 s, not printed.",
+    "Rayleigh’s 657.5 is 27π⁴/4 computed from his eq. (44).",
+    "NWS cloud-level boundaries disagree between pages.",
+    "NWS Houston/Galveston calls 0.02 mm both a radius and a diameter.",
+    "Lull drizzle 0.96 mm vs NWS drizzle < 0.5 mm.",
+    "Water cover 71 % (USGS) vs approximately 75 % (NASA EO)."
+  ],
+  "output": "datasets/meteorology/motion.json",
+  "retrievedAt": "2026-11-28T13:48:00.963Z",
+  "bytes": 13829,
+  "sha256": "649ec44dfff7ccee7a7d2d42f7a0df6c3218c672662e5de90be15f5a7487db0c"
+}

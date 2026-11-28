@@ -5,5 +5,10 @@
   "128b-stability.png": "Stability: a parcel lifted at the NWS dry rate of 9.8 °C/km to its cloud base, then at a moist rate in the FAA’s range — with the environment cooling 10.5 °C/km it is absolutely unstable by the NWS definition.",
   "129a-budget.png": "Earth’s energy budget (NASA, after Loeb 2009 and Trenberth 2009): 340.4 W/m² in, 99.9 reflected, 239.9 out as infrared; the effective temperature computes to 255.1 K against the fact sheet’s 254.0 K.",
   "129b-bands.png": "Which gases trap heat: NASA TN D-1850’s bands of water vapour, ozone and CO₂ under a 288 K Planck curve, with the window near 10 µm.",
-  "129c-forcing.png": "Greenhouse forcing: NOAA’s 2025 AGGI by gas (3.59 W/m² in total); at 425.62 ppm the AR6 expression gives 2.37 W/m² for CO₂ and the simple 5.35 ln(C/280) gives 2.24."
+  "129c-forcing.png": "Greenhouse forcing: NOAA’s 2025 AGGI by gas (3.59 W/m² in total); at 425.62 ppm the AR6 expression gives 2.37 W/m² for CO₂ and the simple 5.35 ln(C/280) gives 2.24.",
+  "130a-coriolis.png": "The Coriolis effect (Gate 20.4): a puck sliding straight across a spinning table curves to the right for an observer riding it; at 45° a 10 m/s wind feels 2ωv sin φ = 1.03 × 10⁻³ m/s² (Humphreys 1920; ω from his sidereal day).",
+  "130b-convection.png": "Convection: Rayleigh’s 1916 threshold for a 1 cm layer of air, 0.0329 (his “one-thirtieth part … about 9° C.”) — a 12 °C difference overturns into rolls.",
+  "130c-clouds.png": "Clouds: the ten genera at their NWS base heights; cirrus selected, with the NWS definition and Luke Howard’s original (1803, 3rd ed. 1865).",
+  "130d-water.png": "Where Earth’s water is (USGS after Shiklomanov) and how fast it moves: 12,900 km³ in the air, 495,000 km³ a year through it (NASA) — about 9.5 days each, against the USGS’s “about 10 days”.",
+  "130e-circulation.png": "The global circulation: Hadley, Ferrel and polar cells with the trade winds, westerlies and jets (NWS); in the Southern Hemisphere lows turn clockwise."
 }

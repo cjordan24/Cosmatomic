@@ -466,6 +466,10 @@ registerRelationship({ from: 'instrument:atmosphere-structure', to: 'instrument:
 registerRelationship({ from: 'instrument:radiation-budget', to: 'instrument:thermal-radiation', type: 'explains', context: 'the Stefan–Boltzmann law: radiation “proportional to the radiating surface area and the fourth power of its absolute temperature” (NASA glossary)', source: 'nasa-glossary' });
 registerRelationship({ from: 'instrument:radiation-budget', to: 'instrument:atmosphere', type: 'part-of', context: 'about 29 percent of incoming sunlight is reflected by clouds, particles and bright surfaces (NASA Earth Observatory)', source: 'nasa-earth-energy-budget' });
 registerRelationship({ from: 'molecule:pubchem-962', to: 'instrument:moist-air', type: 'part-of', context: 'saturation vapour pressure: vapour “in equilibrium with a plane surface of that substance\'s pure liquid or solid phase” (NWS)', source: 'nws-glossary' });
+registerEntity(E('instrument:air-motion', 'Wind, clouds and water', '#/meteorology/motion', 'Coriolis, convection, clouds, rain, the water cycle and the global circulation (Gate 20.4)'));
+registerRelationship({ from: 'instrument:air-motion', to: 'instrument:moist-air', type: 'part-of', context: 'an updraft: “If the air is sufficiently moist, then the moisture condenses to become a cumulus cloud” (NWS)', source: 'nws-glossary' });
+registerRelationship({ from: 'molecule:pubchem-962', to: 'instrument:air-motion', type: 'part-of', context: 'some 495,000 cubic kilometres of water are cycled through the atmosphere every year (NASA Earth Observatory)', source: 'nasa-eo-water-cycle' });
+registerRelationship({ from: 'instrument:radiation-budget', to: 'instrument:air-motion', type: 'explains', context: 'Hadley cell: air that “with heating, rises vertically, with poleward movement in the upper atmosphere” (NWS)', source: 'nws-zhu-winds' });
 
 export const getEntity = (id: string) => REGISTRY.get(id);
 export const allEntities = () => [...REGISTRY.values()];

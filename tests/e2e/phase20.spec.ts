@@ -77,3 +77,35 @@ test('129 radiation: NASA’s energy budget, NASA TN D-1850 absorption bands, CO
   await nav.getByRole('button', { name: 'Aerosols' }).click();
   await expect(page.locator('.center-stage')).toContainText('cloud condensation nuclei');
 });
+
+test('130 wind, clouds and water: a turntable Coriolis demo, Rayleigh’s convection threshold, ten cloud genera, drop sizes, the water cycle and the three-cell circulation', async ({ page }) => {
+  await page.goto('/#/meteorology');
+  await page.getByRole('navigation', { name: 'Meteorology sections' }).getByRole('button', { name: 'Wind, clouds & water' }).click();
+  await expect(page).toHaveURL(/#\/meteorology\/motion$/);
+  await fits(page);
+  const c = page.getByLabel('Coriolis values');
+  await expect(c).toContainText('1.03 × 10⁻⁴'); await expect(c).toContainText('right');
+  await shot(page, '130a-coriolis', 'The Coriolis effect (Gate 20.4): a puck sliding straight across a spinning table curves to the right for an observer riding it; at 45° a 10 m/s wind feels 2ωv sin φ = 1.03 × 10⁻³ m/s² (Humphreys 1920; ω from his sidereal day).');
+  await page.getByLabel('Latitude').fill('-30');
+  await expect(c).toContainText('left');
+  const nav = page.getByRole('navigation', { name: 'Motion sections' });
+  await nav.getByRole('button', { name: 'Convection' }).click();
+  const v = page.getByLabel('Convection values');
+  await expect(v).toContainText('0.0329'); await expect(v).toContainText('yes');
+  await shot(page, '130b-convection', 'Convection: Rayleigh’s 1916 threshold for a 1 cm layer of air, 0.0329 (his “one-thirtieth part … about 9° C.”) — a 12 °C difference overturns into rolls.');
+  await page.getByLabel('Temperature difference').fill('5');
+  await expect(v).toContainText('no');
+  await nav.getByRole('button', { name: 'Clouds' }).click();
+  await page.getByRole('option', { name: /^Cirrus high/ }).click();
+  await expect(page.locator('.center-stage')).toContainText('Parallel, flexuous');
+  await shot(page, '130c-clouds', 'Clouds: the ten genera at their NWS base heights; cirrus selected, with the NWS definition and Luke Howard’s original (1803, 3rd ed. 1865).');
+  await nav.getByRole('button', { name: 'Rain' }).click();
+  await expect(page.getByLabel('Fall times')).toContainText('32.1');
+  await nav.getByRole('button', { name: 'Water cycle' }).click();
+  await expect(page.getByLabel('Water cycle values')).toContainText('9.52');
+  await shot(page, '130d-water', 'Where Earth’s water is (USGS after Shiklomanov) and how fast it moves: 12,900 km³ in the air, 495,000 km³ a year through it (NASA) — about 9.5 days each, against the USGS’s “about 10 days”.');
+  await nav.getByRole('button', { name: 'Circulation' }).click();
+  await page.getByRole('radiogroup', { name: 'Hemisphere' }).getByRole('radio', { name: 'Southern' }).click();
+  await expect(page.getByRole('img', { name: 'Winds around a low and a high' })).toContainText('low clockwise');
+  await shot(page, '130e-circulation', 'The global circulation: Hadley, Ferrel and polar cells with the trade winds, westerlies and jets (NWS); in the Southern Hemisphere lows turn clockwise.');
+});

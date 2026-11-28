@@ -314,8 +314,8 @@ export function TopBar() {
         )}
         {mode === 'meteorology' && (
           <nav className="chip-row hide-mobile" aria-label="Meteorology sections">
-            {([['', 'Structure'], ['air', 'Moist air'], ['radiation', 'Radiation']] as [string, string][]).map(([p, l]) => (
-              <button key={l} className={`chip ${(path[1] ?? '') === p || (p === '' && !['air', 'radiation'].includes(path[1] ?? '')) ? 'active' : ''}`} onClick={() => navigate(p ? `/meteorology/${p}` : '/meteorology')}>{l}</button>
+            {([['', 'Structure'], ['air', 'Moist air'], ['radiation', 'Radiation'], ['motion', 'Wind, clouds & water']] as [string, string][]).map(([p, l]) => (
+              <button key={l} className={`chip ${(path[1] ?? '') === p || (p === '' && !['air', 'radiation', 'motion'].includes(path[1] ?? '')) ? 'active' : ''}`} onClick={() => navigate(p ? `/meteorology/${p}` : '/meteorology')}>{l}</button>
             ))}
           </nav>
         )}

@@ -85,6 +85,7 @@ const SpaceView = lazy(() => import('@/modes/engineering/space/SpaceView'));
 const AtmosphereStructureView = lazy(() => import('@/modes/meteorology/structure/StructureView'));
 const MoistAirView = lazy(() => import('@/modes/meteorology/air/MoistAirView'));
 const RadiationView = lazy(() => import('@/modes/meteorology/radiation/RadiationView'));
+const MotionView = lazy(() => import('@/modes/meteorology/motion/MotionView'));
 const EngSystemsView = lazy(() => import('@/modes/engineering/systems/SystemsView'));
 
 export default function App() {
@@ -123,7 +124,7 @@ export default function App() {
   else if (mode === 'spectral') view = path[1] === 'lab' ? <WaveLab /> : path[1] === 'fields' ? <FieldsView /> : path[1] === 'compare' ? <CompareView /> : path[1] === 'antennas' ? <AntennaView /> : path[1] === 'rf' ? <RfView /> : path[1] === 'room' ? <RoomView /> : path[1] === 'modulation' ? <ModulationView /> : path[1] === 'acoustics' ? <AcousticsView /> : path[1] === 'audio' ? <AudioView /> : path[1] === 'roomacoustics' ? <RoomAcousticsView /> : path[1] === 'optics' ? <OpticsView /> : path[1] === 'waveoptics' ? <WaveOpticsView /> : path[1] === 'polarisation' ? <PolarisationView /> : path[1] === 'spectroscopy' ? <SpectroscopyView /> : path[1] === 'thermal' ? <ThermalView /> : path[1] === 'telescopes' ? <TelescopesView /> : path[1] === 'atmosphere' ? <AtmosphereView /> : <SpectralAtlas />;
   else if (mode === 'biologic') view = path[1] === 'molecules' ? <BiomoleculesView /> : path[1] === 'proteins' ? <ProteinsView /> : path[1] === 'cells' ? <CellsView /> : path[1] === 'membranes' ? <MembranesView /> : path[1] === 'transport' ? <TransportView /> : path[1] === 'plants' ? <PlantsView /> : path[1] === 'body' ? <BodyView /> : path[1] === 'movement' ? <MovementView /> : path[1] === 'circulation' ? <CirculationView /> : path[1] === 'nerves' ? <NervesView /> : path[1] === 'systems' ? <SystemsView /> : path[1] === 'zoom' ? <ZoomView /> : path[1] === 'senses' ? <SensesView /> : path[1] === 'imaging' ? <ImagingView /> : <LifeAtlasView />;
   else if (mode === 'engineering') view = path[1] === 'semiconductors' ? <SemiconductorsView /> : path[1] === 'chips' ? <ChipsView /> : path[1] === 'architecture' ? <ArchitectureView /> : path[1] === 'information' ? <InformationView /> : path[1] === 'network' ? <NetworkView /> : path[1] === 'datacentres' ? <DataCentresView /> : path[1] === 'ai' ? <AiView /> : path[1] === 'machines' ? <MachinesView /> : path[1] === 'space' ? <SpaceView /> : path[1] === 'systems' ? <EngSystemsView /> : <LogicView />;
-  else if (mode === 'meteorology') view = path[1] === 'air' ? <MoistAirView /> : path[1] === 'radiation' ? <RadiationView /> : <AtmosphereStructureView />;
+  else if (mode === 'meteorology') view = path[1] === 'air' ? <MoistAirView /> : path[1] === 'radiation' ? <RadiationView /> : path[1] === 'motion' ? <MotionView /> : <AtmosphereStructureView />;
   else if (mode === 'notebook') view = <NotebookView />;
   else if (mode === 'scale') view = <ScaleView />;
   else if (mode === 'relations') view = <RelationsView />;
