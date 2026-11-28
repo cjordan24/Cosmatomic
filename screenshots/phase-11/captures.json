@@ -3,5 +3,8 @@
   "94b-egg-vs-red-cell.png": "A red blood cell (~7–8 µm, DOE chart) compared with the human egg (150 µm, Inside the Cell p. 20): the egg is about 20 times wider (the range counts as its geometric mean).",
   "94c-landing-biologic.png": "The landing page with the live BIOLOGIC portal: the 486 atoms of the B-DNA dodecamer 1BNA (Drew et al. 1981, PDB CC0) coloured by element.",
   "95a-amino-acids.png": "The 20 amino acids (Gate 11.2): IUPAC-IUB one- and three-letter symbols, the bundled PubChem3D conformers, ChEBI descriptions and, for leucine, its six codons in NCBI’s standard code.",
-  "95b-genetic-code.png": "NCBI’s Standard Code as a codon table (stops red, possible starts outlined) translating ATGGCCATTGTAATGGGCCGCTGA to MAIVMGR* in frame 1; amber marks the four codons read differently in vertebrate mitochondria."
+  "95b-genetic-code.png": "NCBI’s Standard Code as a codon table (stops red, possible starts outlined) translating ATGGCCATTGTAATGGGCCGCTGA to MAIVMGR* in frame 1; amber marks the four codons read differently in vertebrate mitochondria.",
+  "96a-haemoglobin.png": "Human deoxyhaemoglobin (PDB 4HHB, Fermi et al. 1984): backbone tubes through the C-alpha atoms coloured by the file’s helix records, the four haem groups as atoms; 6.6 × 5.7 × 5.4 nm along its principal axes, against NIGMS’s “roughly 5.5 nanometers wide”.",
+  "96b-gfp.png": "Green fluorescent protein (PDB 1EMA, Ormö et al. 1996): the strands of its barrel (gold) from the file’s SHEET records around the chromophore CRO.",
+  "96c-bdna-atoms.png": "The B-DNA dodecamer 1BNA (Drew et al. 1981), all 486 atoms in element colours; both strands read CGCGAATTCGCG."
 }

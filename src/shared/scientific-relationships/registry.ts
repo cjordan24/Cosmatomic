@@ -324,6 +324,13 @@ for (const [mol, one] of [['pubchem-5950', 'A'], ['pubchem-5862', 'C'], ['pubche
 for (const mol of ['pubchem-190', 'pubchem-135398634', 'pubchem-597', 'pubchem-1135', 'pubchem-9828112'])
   registerRelationship({ from: `molecule:${mol}`, to: 'instrument:biomolecules', type: 'part-of', context: 'a building block of DNA (base or sugar of a nucleotide)', source: 'nhgri-glossary' });
 registerRelationship({ from: 'molecule:pubchem-1174', to: 'instrument:biomolecules', type: 'part-of', context: 'uracil takes the place of thymine in RNA', source: 'nhgri-glossary' });
+registerEntity(E('instrument:proteins', 'Protein and DNA structures', '#/biologic/proteins', 'Seven PDB crystal structures from their coordinates (Gate 11.3)'));
+for (const [id, label, cite] of [['1bna', 'B-DNA dodecamer (PDB 1BNA)', 'drew-1981'], ['1mbn', 'Myoglobin (PDB 1MBN)', 'watson-1969'], ['1a6m', 'Oxy-myoglobin (PDB 1A6M)', 'vojtechovsky-1999'], ['4hhb', 'Haemoglobin (PDB 4HHB)', 'fermi-1984'], ['4ins', 'Insulin (PDB 4INS)', 'baker-1988'], ['1ema', 'Green fluorescent protein (PDB 1EMA)', 'ormo-1996'], ['1lyz', 'Lysozyme (PDB 1LYZ)', 'diamond-1974']] as const) {
+  registerEntity(E(`structure:pdb-${id}`, label, `#/biologic/proteins?id=${id.toUpperCase()}`));
+  registerRelationship({ from: `structure:pdb-${id}`, to: 'instrument:proteins', type: 'part-of', context: 'crystal structure drawn from its deposited coordinates', source: cite });
+}
+registerRelationship({ from: 'structure:pdb-4hhb', to: 'instrument:life-atlas', type: 'has-property', context: 'haemoglobin is “roughly 5.5 nanometers wide” (NIGMS); 4HHB measures 6.6 × 5.7 × 5.4 nm along its principal axes', source: 'nigms-biobeat-nanoparticles-2023' });
+registerRelationship({ from: 'molecule:pubchem-9828112', to: 'structure:pdb-1bna', type: 'part-of', context: 'each DNA strand has a backbone of alternating deoxyribose and phosphate groups', source: 'nhgri-glossary' });
 
 export const getEntity = (id: string) => REGISTRY.get(id);
 export const allEntities = () => [...REGISTRY.values()];

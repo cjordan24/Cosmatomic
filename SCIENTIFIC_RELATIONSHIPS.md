@@ -140,6 +140,8 @@ Every encyclopedia entry describes a registry entity, so E.2 registered the 11 s
 
 `instrument:biomolecules` (`#/biologic/molecules`): each of the 20 amino acids *has-property* its codons in the standard code (NCBI); adenine, guanine, cytosine, thymine and deoxyribose are *part of* DNA's building blocks and uracil takes thymine's place in RNA (NHGRI).
 
+`instrument:proteins` (`#/biologic/proteins`): seven `structure:pdb-*` entities are *part of* it, each cited to its primary paper; `structure:pdb-4hhb` *has-property* its size on the scale of life (NIGMS); deoxyribose is *part of* the 1BNA backbone (NHGRI).
+
 ## Rules
 
 1. No edge without a source.

@@ -775,3 +775,12 @@ Requested by the user, taking UI notes from the Lodestar Digital Studio site (ld
 4. **Screenshots showed two layout bugs, fixed:** the embedded 3D canvas filled the whole panel (its container was not positioned), and a `view-switch` group inside a panel was drawn over the panel title (that class is positioned globally; chips are used instead).
 5. **Sources:** `ncbi-genetic-codes`, `iupac-iub-1984` (DOI checked on Crossref), `nhgri-glossary` (192 entries). Registry: `instrument:biomolecules`; 26 sourced edges from the amino acids, bases and sugars.
 6. **Tests:** science 817/817 (+12, `tests/science/genetic-code.test.ts`); browser test 95 (screenshots 95a–b).
+
+## Gate 11.3: protein and DNA structures (`#/biologic/proteins`), 2026-11-28
+
+1. **View:** a Structures chip; seven PDB entries in a list; the 3D view draws backbone tubes (C-alpha, or phosphorus for DNA) coloured by the file's HELIX/SHEET records or by chain, or all atoms in element colours, with ligands (haem, zinc, GFP's chromophore, O₂) always as atoms. The panel lists the entry's molecule, organism, method, resolution, deposition date and file keywords, the primary citation, every chain's deposited sequence, derived geometry, and the hetero groups. Haemoglobin links to its place on the scale of life and quotes NIGMS's width.
+2. **Data:** the PDB adapter now also keeps COMPND molecules, KEYWDS, HETNAM and SEQRES (re-run from the cache). The seven primary citations' DOIs were checked on Crossref; 1MBN's (Watson 1969, *Progress in Stereochemistry*) has none.
+3. **Screenshots:** organism names had lost their capitals and the chromophore's (1R,2R) descriptors had been lower-cased; both are shown as printed now, sizes to one decimal.
+4. **Sources:** `watson-1969`, `vojtechovsky-1999`, `fermi-1984`, `baker-1988`, `ormo-1996`, `diamond-1974` (198 entries). Registry: `instrument:proteins` and seven `structure:pdb-*` entities with sourced edges.
+5. **Also recorded (user, 2026-11-28):** the Meteorology & Climate brief is saved verbatim (`METEOROLOGY_EXPANSION_BRIEF.md`); order after Phase 14: a Computing & Engineering section (own section, built without a confirmation step; the user corrects it afterwards), then Meteorology.
+6. **Tests:** science 825/825 (+8, `tests/science/pdb.test.ts`); browser test 96 (screenshots 96a–c).

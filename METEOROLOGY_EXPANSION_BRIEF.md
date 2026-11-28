@@ -1,6 +1,6 @@
 # Meteorology & Climate expansion — the user's brief (queued)
 
-Received 2026-11-28, during Phase 11. The user's instruction with it: **“Begin this prompt once the computing and engineering section is complete.”** No computing and engineering section exists in `DEVELOPMENT_ROADMAP.md` yet; the user has been asked which section is meant. Until it is complete, this brief is not started. Phase numbers are assigned when it starts (after the current Phases 11–14 and the computing and engineering section), as the brief asks.
+Received 2026-11-28, during Phase 11. The user's instruction with it: **“Begin this prompt once the computing and engineering section is complete.”** The user then clarified: “Computing and engineering should be its own section outside of phase 14 and completed after.” Order: Phases 11–14 → Computing & Engineering (own section; built without a confirmation step, the user corrects it afterwards) → this Meteorology expansion. Phase numbers are assigned when it starts (after the current Phases 11–14 and the computing and engineering section), as the brief asks.
 
 The brief is kept verbatim below so it survives context resets.
 

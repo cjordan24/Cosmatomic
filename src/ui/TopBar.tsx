@@ -31,7 +31,7 @@ interface Hit { kind: 'element' | 'molecule' | 'body' | 'reaction' | 'material' 
 /** Spectral sub-routes other than the atlas; Phase 9 views sit in chip menus so the bar does not grow. */
 const SPECTRAL_SECTIONS = ['lab', 'fields', 'compare', 'antennas', 'rf', 'room', 'modulation', 'acoustics', 'audio', 'roomacoustics', 'optics', 'waveoptics', 'polarisation', 'spectroscopy', 'thermal', 'telescopes', 'atmosphere'];
 /** Biologic sub-routes other than the scale-of-life atlas (Phase 11+). */
-export const BIOLOGIC_SECTIONS: string[] = ['molecules'];
+export const BIOLOGIC_SECTIONS: string[] = ['molecules', 'proteins'];
 const COSMIC_SECTIONS = ['map', 'stars', 'sandbox', 'relativity', 'compact', 'lensing', 'galaxies', 'nebulae', 'universe', 'ladder', 'cmb', 'darkmatter', 'gw'];
 
 /** A chip that opens a small menu of related sections; it is highlighted when one of them is open. */
@@ -292,6 +292,7 @@ export function TopBar() {
           <nav className="chip-row hide-mobile" aria-label="Biologic sections">
             <button className={`chip ${!BIOLOGIC_SECTIONS.includes(path[1]) ? 'active' : ''}`} onClick={() => navigate('/biologic')}>Scale of life</button>
             <button className={`chip ${path[1] === 'molecules' ? 'active' : ''}`} onClick={() => navigate('/biologic/molecules')}>Biomolecules</button>
+            <button className={`chip ${path[1] === 'proteins' ? 'active' : ''}`} onClick={() => navigate('/biologic/proteins')}>Structures</button>
           </nav>
         )}
         <div className="spacer" />

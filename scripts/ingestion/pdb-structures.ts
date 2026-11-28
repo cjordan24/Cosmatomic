@@ -40,6 +40,19 @@ function parse(id: string, text: string) {
   const ref = jrnl('REF');
   const citation = { authors: jrnl('AUTH').replace(/,/g, ', '), title: jrnl('TITL'), ref, doi };
 
+  // COMPND: molecule names per MOL_ID with their chains; KEYWDS; HETNAM (hetero-group names); SEQRES (deposited sequence)
+  const compnd = cont('COMPND').split(/;\s*/).map((x) => x.trim()).filter(Boolean);
+  const molecules: { name: string; chains: string[] }[] = [];
+  for (const f of compnd) {
+    const [k, ...v] = f.split(':'); const val = v.join(':').trim();
+    if (k.trim() === 'MOLECULE') molecules.push({ name: val, chains: [] });
+    else if (k.trim() === 'CHAIN' && molecules.length) molecules[molecules.length - 1].chains = val.split(',').map((c) => c.trim());
+  }
+  const keywords = cont('KEYWDS').split(',').map((x) => x.trim()).filter(Boolean);
+  const hetnam: Record<string, string> = {};
+  for (const l of rec('HETNAM')) { const code = l.slice(11, 14).trim(); hetnam[code] = ((hetnam[code] ?? '') + l.slice(15).trim()).trim(); }
+  const seqres: Record<string, string[]> = {};
+  for (const l of rec('SEQRES')) { const ch = l[11]; (seqres[ch] ??= []).push(...l.slice(19).trim().split(/\s+/).filter(Boolean)); }
   const helices = rec('HELIX').map((l) => ({ chain: l[19], from: Number(l.slice(21, 25)), to: Number(l.slice(33, 37)) }));
   const sheets = rec('SHEET').map((l) => ({ chain: l[21], from: Number(l.slice(22, 26)), to: Number(l.slice(33, 37)) }));
 
@@ -57,7 +70,7 @@ function parse(id: string, text: string) {
     atoms.push({ name, res, chain: l[21], seq: Number(l.slice(22, 26)), el: el[0] + el.slice(1).toLowerCase(), het: l.startsWith('HETATM'),
       x: Number(l.slice(30, 38)), y: Number(l.slice(38, 46)), z: Number(l.slice(46, 54)) });
   }
-  return { id, classification, deposited, title, organisms, synthetic, method, resolutionA: resolution, citation, helices, sheets, atoms };
+  return { id, classification, deposited, title, organisms, synthetic, method, resolutionA: resolution, citation, molecules, keywords, hetnam, seqres, helices, sheets, atoms };
 }
 
 const index = [];
@@ -77,7 +90,7 @@ for (const id of ENTRIES) {
   };
   const json = JSON.stringify(out);
   writeFileSync(join(ROOT, `datasets/biology/pdb/${id}.json`), json);
-  index.push({ id, title: s.title, classification: s.classification, organisms: s.organisms, synthetic: s.synthetic, method: s.method, resolutionA: s.resolutionA, deposited: s.deposited, citation: s.citation, atomCount: s.atoms.length, helices: s.helices.length, strands: s.sheets.length, file: `datasets/biology/pdb/${id}.json`, bytes: json.length, sha256: sha256(json) });
+  index.push({ id, title: s.title, molecules: s.molecules, keywords: s.keywords, classification: s.classification, organisms: s.organisms, synthetic: s.synthetic, method: s.method, resolutionA: s.resolutionA, deposited: s.deposited, citation: s.citation, atomCount: s.atoms.length, helices: s.helices.length, strands: s.sheets.length, file: `datasets/biology/pdb/${id}.json`, bytes: json.length, sha256: sha256(json) });
   console.log(`${id}: ${s.atoms.length} atoms, ${s.helices.length} helices, ${s.sheets.length} strands — ${s.title}`);
 }
 

@@ -16,7 +16,7 @@
     "Secondary structure is the HELIX/SHEET assignment stored in each file, not recomputed."
   ],
   "output": "datasets/biology/pdb-index.json",
-  "retrievedAt": "2026-11-28T06:37:55.052Z",
-  "bytes": 4385,
-  "sha256": "b6218e9844bd7f67d9a997f06a028659da1eee033166b61472770e3bbbf0cd25"
+  "retrievedAt": "2026-11-28T07:01:16.182Z",
+  "bytes": 5371,
+  "sha256": "93c355aa341d0b3301eca32c23a5f669baf2adcbc8f874f1fae6da57fd3c1a8d"
 }

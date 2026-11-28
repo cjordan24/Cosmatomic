@@ -95,3 +95,32 @@ test('95 biomolecules: amino acids with IUPAC symbols and codons, nucleic-acid p
   await expect(page.getByLabel('Codons per amino acid')).toContainText('Met');
   await expect(page.locator('.right-panel')).toContainText('Codons in this code');
 });
+
+// ---------------- Gate 11.3 ----------------
+test('96 structures: haemoglobin 4HHB from its PDB file (chains, haem, size against NIGMS), GFP all atoms, B-DNA', async ({ page }) => {
+  await page.goto('/#/biologic');
+  await page.getByRole('navigation', { name: 'Biologic sections' }).getByRole('button', { name: 'Structures' }).click();
+  await expect(page).toHaveURL(/#\/biologic\/proteins$/);
+  await expect(page.locator('[data-loaded="4HHB"]')).toBeVisible({ timeout: 15000 });
+  await expect(page.locator('.stage-head h1')).toContainText('Haemoglobin');
+  await expect(page.getByLabel('Entry')).toContainText('1.74');
+  await expect(page.getByLabel('Sequences')).toContainText('chain A · 141 residues');
+  await expect(page.getByLabel('Sequences')).toContainText('chain B · 146 residues');
+  await expect(page.getByLabel('Geometry')).toContainText('6.6 × 5.7 × 5.4');
+  await expect(page.getByLabel('Hetero groups')).toContainText('HEM × 4');
+  await page.waitForTimeout(2500);
+  await shot(page, '96a-haemoglobin', 'Human deoxyhaemoglobin (PDB 4HHB, Fermi et al. 1984): backbone tubes through the C-alpha atoms coloured by the file’s helix records, the four haem groups as atoms; 6.6 × 5.7 × 5.4 nm along its principal axes, against NIGMS’s “roughly 5.5 nanometers wide”.');
+  await page.getByRole('button', { name: 'Colour: chain' }).click();
+  await page.getByRole('list', { name: 'PDB entries' }).getByRole('button', { name: 'Green fluorescent protein' }).click();
+  await expect(page.locator('[data-loaded="1EMA"]')).toBeVisible({ timeout: 15000 });
+  await expect(page.getByLabel('Hetero groups')).toContainText('CRO × 1');
+  await page.getByRole('button', { name: 'Colour: helix/strand' }).click();
+  await page.waitForTimeout(2500);
+  await shot(page, '96b-gfp', 'Green fluorescent protein (PDB 1EMA, Ormö et al. 1996): the strands of its barrel (gold) from the file’s SHEET records around the chromophore CRO.');
+  await page.getByRole('button', { name: 'All atoms' }).click();
+  await page.getByRole('list', { name: 'PDB entries' }).getByRole('button', { name: 'B-DNA dodecamer' }).click();
+  await expect(page.locator('[data-loaded="1BNA"]')).toBeVisible({ timeout: 15000 });
+  await expect(page.getByLabel('Sequences')).toContainText('CGCGAATTCGCG');
+  await page.waitForTimeout(2500);
+  await shot(page, '96c-bdna-atoms', 'The B-DNA dodecamer 1BNA (Drew et al. 1981), all 486 atoms in element colours; both strands read CGCGAATTCGCG.');
+});
