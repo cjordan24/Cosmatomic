@@ -1071,3 +1071,7 @@ Five tabs (kinds of statement, warming levels, sea level, ocean & ice, known & u
 ## Gate 25.1: environmental sandbox (`#/meteorology/sandbox`), 2026-11-28
 
 Planet builder from fact-sheet presets with enforced dependencies (validated against NSSDCA for five worlds), regional lab, save/compare. Sources +1; `env-sandbox.test.ts` (37); browser 141. An accidental overwrite of the Phase 3 `sandbox.test.ts` was caught and restored before commit.
+
+## Gate 25.2: sandbox models, 2026-11-28 — Phase 25 complete
+
+Grey layers, insolation by latitude (Rose, CC BY), rotation regimes (Showman et al. 2013), ground-cover albedo, GFDL/NPS quotes, real Titan rotation and Bond albedo, guided experiments. Sources +15 (one merged with an existing entry); `env-sandbox.test.ts` 43; browser 142.

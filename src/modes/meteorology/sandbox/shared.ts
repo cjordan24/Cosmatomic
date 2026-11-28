@@ -24,7 +24,8 @@ export const ASSUMPTIONS: { planet: [string, string[]][]; region: [string, strin
     ['Tropical cyclone formation conditions (sea temperature, latitude, wind shear) as listed by Penn State and NASA.', ['psu-meteo3', 'nasa-eo-hurricanes']],
   ],
   limits: [
-    'One global number per quantity: no day and night, no latitudes, no weather.',
+    'The energy balance is one global number; the seasonal chart is sunlight at the top of the atmosphere only (no weather, no heat transport).',
+    'Grey layers are perfectly opaque and isothermal; the N-layer rule extends a printed 1- and 2-layer pattern.',
     'Albedo is whatever you set; clouds, ice and plants do not respond to temperature.',
     'Greenhouse warming is shown only where a measured temperature exists; changing the planet removes it.',
     'The CO₂ response uses Earth’s sensitivity and applies only to an Earth-like world.',

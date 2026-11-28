@@ -57,3 +57,20 @@ test('141 environmental sandbox: presets from the fact sheets, dependent variabl
   await expect(page.getByRole('table', { name: 'Comparison' })).toBeVisible();
   await shot(page, '141d-compare', 'Saved experiments (stored in this browser) compared side by side.');
 });
+
+test('142 sandbox models: grey greenhouse layers, seasonal sunlight by tilt, spin regimes, ground cover and guided experiments', async ({ page }) => {
+  await page.goto('/#/meteorology/sandbox');
+  await expect(page.getByLabel('Layer model')).toContainText(/30[0-9](\.\d)? K/);
+  await expect(page.getByLabel('Rotation regime')).toContainText('Earth-like');
+  await expect(page.getByRole('img', { name: 'Insolation by latitude' })).toBeVisible();
+  await shot(page, '142a-layers-seasons', 'Earth with one grey layer (Rose: 255 K → 303 K, “overpredicts … by about 15ºC”), daily sunlight by latitude at the solstices and equinox (Rose eq. 7), and Earth-like rotation.');
+  await page.getByRole('radiogroup', { name: 'Preset' }).getByRole('radio', { name: 'Titan' }).click();
+  await expect(page.getByLabel('Rotation regime')).toContainText('slow rotator');
+  await page.getByRole('navigation', { name: 'Sandbox sections' }).getByRole('button', { name: 'Experiments' }).click();
+  await page.getByRole('list', { name: 'Guided experiments' }).getByRole('button', { name: /Cover the land in ice/ }).click();
+  await expect(page.getByLabel('Surface albedo', { exact: true })).toContainText('0.75');
+  await shot(page, '142b-ice-cover', 'Guided experiment: half sea ice, half fresh snow — surface albedo 0.75 (NSIDC, NASA Earthdata), so a quarter of the average sunlight is absorbed.');
+  await page.goto('/#/meteorology/sandbox?tilt=60');
+  await expect(page.getByRole('img', { name: 'Insolation by latitude' })).toContainText('δ = 60');
+  await shot(page, '142c-tilt60', 'Earth tipped to 60°: at the northern summer solstice the pole receives more daily sunlight than the equator, and polar night reaches 30° S.');
+});

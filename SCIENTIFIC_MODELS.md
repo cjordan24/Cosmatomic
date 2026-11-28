@@ -870,3 +870,13 @@ A sixth mode (periwinkle #82b1ff) with a shared **depth switch** (`src/ui/Depth.
 * Region: rain shadow (dry 9.8 °C/km to the FAA cloud base, constant moist rate 3.6–9.2 °C/km to the crest, dry descent; lee warming = (9.8 − moist) × (crest − cloud base), tested); NWS heat index and wind chill within their ranges; tropical-cyclone formation checklist from Penn State/NASA conditions.
 * Save/compare: experiments stored as URL queries in localStorage; any two compared side by side (recomputed).
 * **Tests:** `env-sandbox.test.ts` (37); browser test 141.
+
+### 82.2 Sandbox models (Gate 25.2)
+* Grey layers: Rose (CC BY) one layer T_s = 2^¼ T_e (255 → 303 K, “overpredicts … by about 15ºC”); UW ATMS 211: two layers → surface 3E; N layers (N + 1)^¼ — our extension of the printed pattern (tested at N = 0, 1, 2).
+* Daily-mean insolation, Rose eq. 7 with cos h₀ = −tan φ tan δ, clamped for polar day/night (tested: equator equinox S₀/π; zero-tilt global mean S₀/4; summer pole S₀ sin δ; polar night 0). Tilt > 90° acts as 180° − tilt.
+* Rotation regimes after Showman et al. (2013): > ~10 days “all tropics”; ≥ 4× Earth's rate three jets per hemisphere; between, multiple jets depend on size (Jupiter, NASA). Tested for Venus, Titan, Earth, Mars, Jupiter.
+* Ground cover: area-weighted albedo from NSIDC (ocean 0.06, sea ice 0.5–0.7 midpoint), UCAR (forest ≈ 0.15), Penn State (grass 0.18–0.25 midpoint, sand 0.35; CC BY-NC-SA), NASA Earthdata (fresh snow 0.9).
+* Cyclones: NASA/NPS 26.5 °C; GFDL “about 4% per degree Celsius” (tropical SST, one model) kept separate from “1 to 10%” per 2 °C of global warming. Rain shadows: NPS Joshua Tree and Olympic (100–170 vs 25–30 inches).
+* Titan preset now real: synchronous 15.945421-day rotation (NSSDCA); Bond albedo 0.265 ± 0.003 (2017; Creecy et al. 2021) — NSSDCA's 0.22 is geometric.
+* Guided experiments: the brief's nine examples as one-click set-ups.
+* **Tests:** `env-sandbox.test.ts` (now 43); browser test 142.

@@ -1,0 +1,37 @@
+{
+  "dataset": "sandbox",
+  "version": "1.0.0",
+  "records": 29,
+  "sources": [
+    {
+      "institution": "University at Albany — B. E. J. Rose, The Climate Laboratory",
+      "url": "https://brian-rose.github.io/ClimateLaboratoryBook/",
+      "license": "CC BY 4.0",
+      "notes": "elementary greenhouse model, daily insolation"
+    },
+    {
+      "institution": "Penn State EARTH 103; NASA Earthdata; UCAR; NSIDC",
+      "url": "https://www.e-education.psu.edu/earth103/node/1002",
+      "license": "CC BY-NC-SA 4.0 (Penn State); U.S. government works; UCAR quoted briefly",
+      "notes": "surface albedos"
+    },
+    {
+      "institution": "NOAA GFDL, NASA, NPS, NSSDCA; Showman et al. (2013); Creecy et al. (2021)",
+      "url": "https://www.gfdl.noaa.gov/global-warming-and-hurricanes/",
+      "license": "U.S. government works; journal values cited with attribution",
+      "notes": "cyclones and SST, rain shadows, rotation regimes, Titan"
+    }
+  ],
+  "adapter": "scripts/ingestion/curated-sandbox.ts",
+  "warnings": [
+    "General (N+1)^¼ layer formula not printed; extension of the quoted 2E/3E pattern.",
+    "Penn State albedo table is NC-SA.",
+    "GFDL 4%/°C SST vs 1–10% per 2 °C global warming: different bases.",
+    "Showman et al. read as arXiv preprint.",
+    "NSSDCA Titan 0.22 is geometric albedo."
+  ],
+  "output": "datasets/meteorology/sandbox.json",
+  "retrievedAt": "2026-11-28T16:34:11.265Z",
+  "bytes": 8463,
+  "sha256": "5fff89e82bde194e9dc2a918e17d53ccc16221fbde1712820b6bbbf5593ef1a0"
+}

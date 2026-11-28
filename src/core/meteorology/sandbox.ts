@@ -90,3 +90,34 @@ export function derive(p: Planet) {
     f45: coriolisAt(p.rotationH, 45),
   };
 }
+
+/**
+ * Grey, perfectly absorbing layers (Rose, The Climate Laboratory: one layer gives T_s = 2^¼ T_e; UW ATMS 211: two
+ * layers make the surface emit 3E). N layers → surface emits (N + 1)E: our extension of that printed pattern.
+ */
+export const layeredSurfaceTemp = (Te: number, layers: number) => Te * (layers + 1) ** 0.25;
+
+/**
+ * Daily-mean top-of-atmosphere insolation (W/m²), Rose “Insolation” eq. 7:
+ * Q = (S₀/π)(d̄/d)² (h₀ sin φ sin δ + cos φ cos δ sin h₀), cos h₀ = −tan φ tan δ, clamped for polar day (h₀ = π)
+ * and polar night (h₀ = 0).
+ */
+export function dailyInsolation(latDeg: number, declDeg: number, S0: number, meanOverActualDist = 1) {
+  const r = Math.PI / 180, phi = latDeg * r, del = declDeg * r;
+  const c = -Math.tan(phi) * Math.tan(del);
+  const h0 = c <= -1 ? Math.PI : c >= 1 ? 0 : Math.acos(c);
+  return Math.max(0, (S0 / Math.PI) * meanOverActualDist ** 2 * (h0 * Math.sin(phi) * Math.sin(del) + Math.cos(phi) * Math.cos(del) * Math.sin(h0)));
+}
+
+/** Seasonal amplitude of the subsolar latitude: a tilt beyond 90° (retrograde spin) acts like 180° − tilt. */
+export const solsticeDeclination = (tiltDeg: number) => (tiltDeg > 90 ? 180 - tiltDeg : tiltDeg);
+
+/** Circulation regime from Showman et al. (2013): slower than ~10 Earth days → “all tropics”; 4× Earth's rate → 3 jets per hemisphere;
+ *  between, ‘faster’ (multiple jets also depend on planet size). */
+export function rotationRegime(rotationH: number, earthH = 23.9345) {
+  const days = Math.abs(rotationH) / 24, rate = earthH / Math.abs(rotationH);
+  if (days > 10) return { id: 'slow' as const, days, rate };
+  if (rate >= 4) return { id: 'fast' as const, days, rate };
+  if (rate > 1.5) return { id: 'faster' as const, days, rate };
+  return { id: 'earthlike' as const, days, rate };
+}

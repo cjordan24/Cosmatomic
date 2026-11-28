@@ -18,7 +18,8 @@ import { RelatedLinks } from '@/ui/RelatedLinks';
 import { LinePlot } from '@/ui/plots';
 import { AtDepth, DepthSwitch } from '@/ui/Depth';
 import { formatSig } from '@/core/units/units';
-import { co2Warming, derive, type Planet } from '@/core/meteorology/sandbox';
+import { co2Warming, dailyInsolation, derive, layeredSurfaceTemp, rotationRegime, solsticeDeclination, type Planet } from '@/core/meteorology/sandbox';
+import sandboxData from '@datasets/meteorology/sandbox.json';
 import { pressureAt } from '@/core/meteorology/planets';
 import { PRESETS, presetById } from './presets';
 import { RegionLab } from './RegionLab';
@@ -26,6 +27,7 @@ import { ASSUMPTIONS, SAVED_KEY, loadSaved, type Saved } from './shared';
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 const EARTH_MASS = presetById('earth').planet.massKg;
+const SB = sandboxData as any;
 const clamp = (x: number, a: number, b: number) => Math.min(b, Math.max(a, x));
 const num = (q: URLSearchParams, k: string, d: number, a: number, b: number) => { const v = Number(q.get(k)); return q.has(k) && Number.isFinite(v) ? clamp(v, a, b) : d; };
 
@@ -67,6 +69,11 @@ function PlanetTab() {
   const d = derive(p), d0 = derive(preset.planet);
   const ecs: [number, number] = [2.5, 4.0];
   const cw = co2Warming(co2, 280, ecs);
+  const layers = Math.round(num(query, 'n', 1, 0, 6)), Ts = layeredSurfaceTemp(d.Te, layers);
+  const dec = solsticeDeclination(p.tiltDeg), lats = Array.from({ length: 91 }, (_, i) => -90 + 2 * i);
+  const ins = (dd: number) => lats.map((l) => [l, dailyInsolation(l, dd, d.S)] as [number, number]);
+  const regime = rotationRegime(p.rotationH), RT = SB.rotation, GH = SB.greenhouse, IN = SB.insolation;
+  const regimeText = regime.id === 'slow' ? <>“{RT.slow}” “{RT.venusTitan}”</> : regime.id === 'fast' ? <>“{RT.fast}”</> : regime.id === 'faster' ? <>“{RT.large}” Jupiter: “{RT.jupiter.q}” <SourceLinks ids={[RT.jupiter.s]} /></> : <>Earth-like: “{RT.trend}”</>;
   const profile = d.H ? Array.from({ length: 41 }, (_, i) => { const z = (i / 40) * 5 * d.H!; return [pressureAt(p.pBar, z, d.H!), z] as [number, number]; }) : [];
   const delta = (a: number, b: number) => (Math.abs(a / b - 1) < 1e-6 ? '' : ` (${a > b ? '+' : '−'}${formatSig(Math.abs(a / b - 1) * 100, 2)} %)`);
   return (
@@ -119,6 +126,26 @@ function PlanetTab() {
             <KV k="Whole atmosphere" v={`${formatSig(d.atmMass, 3)} kg`} title="4πR² p/g (thin shell)" />
           </dl>
         </div>
+        <div className="section-title">A greenhouse made of grey layers</div>
+        <label className="slider-row"><span style={{ minWidth: 92 }}>layers</span><input type="range" aria-label="Greenhouse layers" min={0} max={6} step={1} value={layers} onChange={(e) => setQuery({ n: e.target.value })} /><span style={{ minWidth: 70, textAlign: 'right' }}>{layers}</span></label>
+        <dl className="kv" aria-label="Layer model" style={{ maxWidth: 560 }}>
+          <KV k={`Surface temperature with ${layers} opaque layer${layers === 1 ? '' : 's'}`} v={`${formatSig(Ts, 4)} K`} title="(N + 1)^¼ T_e" />
+          <KV k="Measured" v={p.tObsK !== null ? `${p.tObsK} K (${Ts > p.tObsK ? 'model warmer by' : 'model cooler by'} ${formatSig(Math.abs(Ts - p.tObsK), 3)} K)` : '—'} />
+        </dl>
+        <p className="note">Rose: “{GH.result}”; “{GH.example}” “{GH.over}” <SourceLinks ids={[GH.s]} /> {GH.extension} <SourceLinks ids={[GH.s2]} /></p>
+        <div className="section-title">Seasons: daily sunlight by latitude</div>
+        <LinePlot ariaLabel="Insolation by latitude" width={560} height={210} xLabel="latitude (°)" yLabel="daily-mean sunlight (W/m²)" legend="tr" series={[
+          { points: ins(dec), color: '#ff7a90', label: `northern summer solstice (δ = ${formatSig(dec, 3)}°)` },
+          { points: ins(0), color: '#f5c76b', label: 'equinox (δ = 0)' },
+          { points: ins(-dec), color: '#82b1ff', label: 'northern winter solstice' },
+        ]} />
+        <p className="note">Rose eq. 7: {IN.eq}; “{IN.h0}” {IN.clamp} At mean distance; a tilt beyond 90° (retrograde) acts like 180° minus it. <SourceLinks ids={[IN.s]} /></p>
+        <div className="section-title">Spin and circulation</div>
+        <dl className="kv" aria-label="Rotation regime" style={{ maxWidth: 560 }}>
+          <KV k="Day length (sidereal)" v={`${formatSig(regime.days, 3)} Earth days (${formatSig(regime.rate, 3)} × Earth’s spin rate)`} />
+          <KV k="Regime (Showman et al. 2013)" v={regime.id === 'slow' ? 'slow rotator — near-global Hadley cells' : regime.id === 'fast' ? 'fast rotator — several jets per hemisphere' : regime.id === 'faster' ? 'faster than Earth — narrower Hadley cells' : 'Earth-like'} />
+        </dl>
+        <p className="note">{regimeText} <SourceLinks ids={[RT.s]} /> “{RT.rossby}” <SourceLinks ids={[RT.s]} /></p>
         {profile.length ? <LinePlot ariaLabel="Pressure with height" width={560} height={200} xLabel="pressure (bar)" yLabel="height (km)" series={[{ points: profile, color: '#82b1ff', label: 'isothermal p₀ e^(−z/H)' }]} /> : null}
         <div className="section-title">Change the CO₂ (Earth-calibrated)</div>
         <Slider label="CO₂" aria="CO2 concentration" k="co2" v={co2} min={100} max={5000} log fmt={(v) => `${Math.round(v)} ppm`} />
@@ -177,7 +204,32 @@ function SavedTab() {
   );
 }
 
-const TABS: [string, string][] = [['planet', 'Planet'], ['region', 'Region'], ['saved', 'Saved & compare']];
+const GUIDE: { title: string; q: string; look: string }[] = [
+  { title: 'Slow Earth’s spin tenfold', q: 'rot=239.3', look: 'The regime changes to a slow rotator: near-global Hadley cells (Showman et al.). The Coriolis parameter falls tenfold.' },
+  { title: 'Double the CO₂', q: 'co2=560', look: 'Forcing 3.7 W/m²; eventual warming 2.5–4.0 °C — exactly Earth’s assessed sensitivity range.' },
+  { title: 'Remove the oceans (all desert)', q: 'tab=region&c_forest=0&c_grass=0&c_desert=100', look: 'Surface albedo rises from a forest–grass mix to sand’s 0.35, so less sunlight is absorbed. Compare with an all-ocean surface (0.06).' },
+  { title: 'Thick vs thin air', q: 'p=90&mmw=43.45', look: 'Earth with Venus-like pressure and CO₂-weight air: about 90 times more air per square metre and a shorter scale height. Then try p = 0.006 (Mars).' },
+  { title: 'Tip the axis to 60°', q: 'tilt=60', look: 'The solstice curve: the summer pole receives far more daily sunlight than the equator, and polar night reaches down to 30°.' },
+  { title: 'Raise the mountain', q: 'tab=region&hill=6', look: 'The parcel saturates sooner and descends warmer and drier on the lee side.' },
+  { title: 'Warm the sea', q: 'tab=region&sst=25', look: 'Below 26.5 °C the cyclone checklist fails; raise it again and read GFDL’s ~4 % per °C.' },
+  { title: 'Cover the land in ice', q: 'tab=region&c_forest=0&c_grass=0&c_desert=0&c_ice=50&c_snow=50', look: 'Surface albedo 0.75: most sunlight is reflected — the ice–albedo effect.' },
+  { title: 'Plant forests on grassland', q: 'tab=region&c_forest=80&c_grass=20&c_desert=0', look: 'A small drop in albedo (0.15 vs 0.215) — more sunlight absorbed; real forests also change evaporation, which this lab ignores.' },
+];
+function GuideTab() {
+  return (
+    <>
+      <Panel id="sb-g" className="left-panel" title="Guided experiments"><p className="note">Each opens the sandbox with one change from Earth. Save it, change something else, and compare.</p></Panel>
+      <div className="center-stage hr-stage">
+        <div className="stage-head"><h1>Experiments to try <ProvenanceBadge cls="illustrative" title="Suggested set-ups of the sandbox models" /><DepthSwitch /></h1></div>
+        <ol aria-label="Guided experiments" style={{ paddingLeft: 18, maxWidth: 640 }}>
+          {GUIDE.map((g) => <li key={g.title} style={{ marginBottom: 8 }}><button className="chip" onClick={() => navigate(`/meteorology/sandbox?${g.q}`)}>{g.title} →</button><p className="note">{g.look}</p></li>)}
+        </ol>
+      </div>
+    </>
+  );
+}
+
+const TABS: [string, string][] = [['planet', 'Planet'], ['region', 'Region'], ['guide', 'Experiments'], ['saved', 'Saved & compare']];
 export default function SandboxView() {
   const { query } = useRoute();
   const tab = TABS.find(([t]) => t === query.get('tab'))?.[0] ?? 'planet';
@@ -191,9 +243,9 @@ export default function SandboxView() {
     <>
       <nav className="view-switch" aria-label="Sandbox sections">
         {TABS.map(([t, l]) => <button key={t} className={tab === t ? 'active' : ''} onClick={() => setQuery({ tab: t === 'planet' ? null : t })}>{l}</button>)}
-        {tab !== 'saved' ? <button onClick={save}>💾 Save this experiment</button> : null}
+        {tab !== 'saved' && tab !== 'guide' ? <button onClick={save}>💾 Save this experiment</button> : null}
       </nav>
-      {tab === 'region' ? <RegionLab /> : tab === 'saved' ? <SavedTab /> : <PlanetTab />}
+      {tab === 'region' ? <RegionLab /> : tab === 'saved' ? <SavedTab /> : tab === 'guide' ? <GuideTab /> : <PlanetTab />}
     </>
   );
 }

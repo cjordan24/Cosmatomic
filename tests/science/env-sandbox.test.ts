@@ -79,7 +79,7 @@ describe('surface and CO₂', () => {
   it('every preset has the variables the builder needs, and any placeholder is declared', () => {
     for (const p of PRESETS) {
       for (const k of ['massKg', 'radiusKm', 'distanceAu', 'bondAlbedo', 'pBar', 'mmw'] as const) expect(Number.isFinite(p.planet[k]), `${p.id}.${k}`).toBe(true);
-      if (p.id === 'titan') expect(p.missing.length).toBeGreaterThan(0);
+      expect(p.missing, p.id).toEqual([]);
     }
   });
 });
@@ -108,5 +108,35 @@ describe('rain shadow (regional lab)', () => {
 describe('sandbox citations', () => {
   it('every relation listed in the sandbox cites indexed sources', () => {
     for (const [, ids] of [...ASSUMPTIONS.planet, ...ASSUMPTIONS.region]) for (const id of ids) expect(getSource(id), id).toBeDefined();
+  });
+});
+
+import { dailyInsolation, layeredSurfaceTemp, rotationRegime, solsticeDeclination } from '@/core/meteorology/sandbox';
+import sandboxData from '@datasets/meteorology/sandbox.json';
+
+describe('Gate 25.2 models', () => {
+  const SB = sandboxData as any;
+  it('one grey layer: T_e = 255 K → 303 K (Rose eq. 7); two layers → 3E at the surface', () => {
+    expect(layeredSurfaceTemp(255, 1)).toBeCloseTo(303.2, 1); expect(layeredSurfaceTemp(255, 2) ** 4 / 255 ** 4).toBeCloseTo(3, 9); expect(layeredSurfaceTemp(255, 0)).toBe(255);
+  });
+  it('insolation: at the equator on an equinox the daily mean is S₀/π; the annual-mean check S₀/4 holds on a zero-tilt planet averaged over the sphere', () => {
+    expect(dailyInsolation(0, 0, 1361)).toBeCloseTo(1361 / Math.PI, 6);
+    let s = 0, w = 0; for (let lat = -89.5; lat < 90; lat += 1) { const c = Math.cos((lat * Math.PI) / 180); s += dailyInsolation(lat, 0, 1361) * c; w += c; }
+    expect(s / w).toBeCloseTo(1361 / 4, 0);
+  });
+  it('insolation: polar night is 0, and the summer pole beats the equator at Earth’s solstice (polar day)', () => {
+    expect(dailyInsolation(-80, 23.45, 1361)).toBe(0);
+    expect(dailyInsolation(90, 23.45, 1361)).toBeGreaterThan(dailyInsolation(0, 23.45, 1361));
+    expect(dailyInsolation(90, 23.45, 1361)).toBeCloseTo(1361 * Math.sin((23.45 * Math.PI) / 180), 6);
+  });
+  it('Venus’s 177° tilt behaves like 3°; Uranus-like 98° like 82°', () => { expect(solsticeDeclination(177.4)).toBeCloseTo(2.6, 6); expect(solsticeDeclination(98)).toBe(82); });
+  it('rotation regimes: Venus and Titan slow (“all tropics”), Earth and Mars Earth-like, Jupiter fast', () => {
+    expect(rotationRegime(-5832.5).id).toBe('slow'); expect(rotationRegime(SB.titan.periodDays * 24).id).toBe('slow');
+    expect(rotationRegime(23.9).id).toBe('earthlike'); expect(rotationRegime(24.6).id).toBe('earthlike'); expect(rotationRegime(9.9).id).toBe('faster');
+    expect(rotationRegime(5.9).id).toBe('fast');
+  });
+  it('Titan’s Bond albedo (Creecy et al. 2021) differs from NSSDCA’s 0.22 geometric albedo; every albedo cover cites a source', () => {
+    expect(SB.titan.bond.map((b: number[]) => b[1])).toEqual([0.264, 0.252, 0.265]);
+    for (const c of SB.albedo.covers) { expect(getSource(c.s), c.id).toBeDefined(); expect(c.a).toBeGreaterThan(0); expect(c.a).toBeLessThan(1); }
   });
 });

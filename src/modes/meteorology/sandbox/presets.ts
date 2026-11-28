@@ -11,6 +11,7 @@ import radiation from '@datasets/astronomical/planet-radiation.json';
 import moons from '@datasets/astronomical/moon-physical.json';
 import worlds from '@datasets/meteorology/planets.json';
 import { CONSTANTS } from '@/core/constants/constants';
+import sandbox from '@datasets/meteorology/sandbox.json';
 import type { Planet } from '@/core/meteorology/sandbox';
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
@@ -47,12 +48,12 @@ function titan(): Preset {
     id: 'titan',
     planet: {
       name: 'Titan', massKg: (t.gmKm3s2.value * 1e9) / CONSTANTS.G.value, radiusKm: t.meanRadiusKm.value, gOverride: null,
-      distanceAu: sat.meanDistanceKm / AU_KM, eccentricity: sat.eccentricity, tiltDeg: sat.obliquityDeg, rotationH: 382.7,
-      bondAlbedo: 0.3, internalWm2: 0, pBar: w.pBar, mmw, tObsK: w.tK,
+      distanceAu: sat.meanDistanceKm / AU_KM, eccentricity: sat.eccentricity, tiltDeg: sat.obliquityDeg, rotationH: (sandbox as any).titan.periodDays * 24,
+      bondAlbedo: (sandbox as any).titan.bond[2][1], internalWm2: 0, pBar: w.pBar, mmw, tObsK: w.tK,
     },
-    missing: ['Bond albedo (0.3 here is a placeholder — set it yourself)', 'rotation period (placeholder)'],
-    notes: ['Mass from JPL’s GM ÷ G; distance, eccentricity and tilt taken from Saturn, which Titan orbits (an assumption).', 'Mean molecular weight from 95 % N₂ / 5 % CH₄ — our arithmetic.'],
-    sources: ['jpl-satellites', 'nasa-voyager-factsheet', 'nasa-huygens-2007', 'nssdc-factsheet'],
+    missing: [],
+    notes: ['Mass from JPL’s GM ÷ G; distance, eccentricity and tilt taken from Saturn, which Titan orbits (an assumption).', 'Mean molecular weight from 95 % N₂ / 5 % CH₄ — our arithmetic.', 'Rotation synchronous with its 15.945421-day orbit (NSSDCA); Bond albedo 0.265 ± 0.003 measured by Cassini in 2017 (it was 0.252 in 2010; Creecy et al. 2021) — not NSSDCA’s 0.22, which is a geometric albedo.'],
+    sources: ['jpl-satellites', 'nasa-voyager-factsheet', 'nasa-huygens-2007', 'nssdc-saturn-satellites', 'creecy-2021'],
   };
 }
 

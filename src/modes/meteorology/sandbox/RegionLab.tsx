@@ -16,10 +16,13 @@ import { heatIndexF, windChillF } from '@/core/meteorology/storms';
 import { coriolisParam } from '@/core/meteorology/motion';
 import { rainShadow } from '@/core/meteorology/region';
 import storms from '@datasets/meteorology/storms.json';
+import sandboxData from '@datasets/meteorology/sandbox.json';
+import { mixAlbedo } from '@/core/meteorology/sandbox';
 import { ASSUMPTIONS } from './shared';
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 const COND = (storms as any).storms[0].conditions as { s: string; q: string }[];
+const SB = sandboxData as any;
 const clamp = (x: number, a: number, b: number) => Math.min(b, Math.max(a, x));
 const num = (q: URLSearchParams, k: string, d: number, a: number, b: number) => { const v = Number(q.get(k)); return q.has(k) && Number.isFinite(v) ? clamp(v, a, b) : d; };
 const cToF = (c: number) => c * 1.8 + 32;
@@ -35,6 +38,10 @@ export function RegionLab() {
   const hill = num(query, 'hill', 3, 0, 8), malr = num(query, 'malr', 6, 3.6, 9.2);
   const sst = num(query, 'sst', 28, 15, 33), lat = num(query, 'lat', 15, 0, 40), shear = num(query, 'shear', 6, 0, 30);
   const Td = dewPoint(T, rh / 100);
+  const covers = SB.albedo.covers as { id: string; name: string; a: number; printed: string; s: string }[];
+  const frac = covers.map((c) => num(query, `c_${c.id}`, c.id === 'forest' ? 40 : c.id === 'grass' ? 40 : c.id === 'desert' ? 20 : 0, 0, 100));
+  const A = mixAlbedo(covers.map((c, i) => ({ frac: frac[i], albedo: c.a }))), Q = 1361 / 4;
+  const C = SB.cyclone, RS = SB.rainShadow;
   const r = rainShadow({ T0: T, Td0: Td, hillKm: hill, malr });
   const hi = heatIndexF(cToF(T), rh).hi, wc = windChillF(cToF(T), wind / 1.609344);
   const checks = [
@@ -52,6 +59,8 @@ export function RegionLab() {
         <div className="section-title">Terrain</div>
         <S label="mountain" aria="Mountain height" k="hill" v={hill} min={0} max={8} step={0.1} unit="km" />
         <S label="moist rate" aria="Moist lapse rate" k="malr" v={malr} min={3.6} max={9.2} step={0.1} unit="°C/km" />
+        <div className="section-title">Ground cover (%)</div>
+        {covers.map((c, i) => <S key={c.id} label={c.name.toLowerCase()} aria={`Cover ${c.name}`} k={`c_${c.id}`} v={frac[i]} min={0} max={100} step={5} unit="%" />)}
         <div className="section-title">Ocean</div>
         <S label="sea surface" aria="Sea surface temperature" k="sst" v={sst} min={15} max={33} step={0.5} unit="°C" />
         <S label="latitude" aria="Latitude" k="lat" v={lat} min={0} max={40} step={1} unit="°" />
@@ -73,6 +82,14 @@ export function RegionLab() {
           <KV k="Relative humidity on the lee side" v={`${formatSig(r.leeRH * 100, 3)} %`} title="dew point kept at the crest temperature (pressure effect ignored) — illustrative" />
         </dl>
         <p className="note">Illustrative: all condensed water is assumed to fall on the windward slope. The parcel cools at 9.8 °C/km to its cloud base, at your moist rate above it, and warms at 9.8 °C/km on the way down. <SourceLinks ids={['nws-glossary', 'faa-weather-theory', 'nws-btv-lcl']} /></p>
+        <p className="note">Real rain shadows — NPS: “{RS.jotr.q}” <SourceLinks ids={[RS.jotr.s]} /> Olympic Mountains: {RS.olympic.windward[0]}–{RS.olympic.windward[1]} inches a year on the west side; “{RS.olympic.q}” <SourceLinks ids={[RS.olympic.s]} /></p>
+        <div className="section-title">Ground cover and sunlight</div>
+        <dl className="kv" aria-label="Surface albedo" style={{ maxWidth: 600 }}>
+          <KV k="Surface albedo of this mix" v={formatSig(A, 3)} title="area-weighted mean of the cover albedos" />
+          <KV k="Sunlight absorbed (of a 340 W/m² average)" v={`${formatSig((1 - A) * Q, 3)} W/m²`} title="1361/4 × (1 − albedo); no atmosphere or clouds" />
+        </dl>
+        <table className="table-mini" aria-label="Cover albedos" style={{ fontSize: 12 }}><tbody>{covers.map((c) => <tr key={c.id}><td>{c.name}</td><td>{c.a}</td><td>“{c.printed}” <SourceLinks ids={[c.s]} /></td></tr>)}</tbody></table>
+        <p className="note">{SB.albedo.clouds} {SB.albedo.licence} Illustrative: plants also change evaporation and roughness, which this mix ignores.</p>
         <div className="section-title">How it feels</div>
         <dl className="kv" aria-label="Comfort values" style={{ maxWidth: 600 }}>
           <KV k="Heat index" v={cToF(T) >= 80 ? `${formatSig(hi, 3)} °F (${formatSig(fToC(hi), 3)} °C)` : '— (defined for 80 °F / 27 °C and above)'} />
@@ -85,6 +102,7 @@ export function RegionLab() {
           {checks.map((c) => <li key={c.label}><b style={{ color: c.ok ? '#5cf2a6' : '#ff7a90' }}>{c.ok ? '✓' : '✗'} {c.label}</b> — “{c.q.q}” <SourceLinks ids={[c.q.s]} /></li>)}
         </ul>
         <p className="note">Spin from the Coriolis parameter at {lat}°: {formatSig(coriolisParam(lat), 3)} s⁻¹. “{COND[3].q}” <SourceLinks ids={[COND[3].s]} /> A checklist of necessary conditions, not a forecast: meeting them does not make a storm.</p>
+        <p className="note">Warmer sea, stronger storms? GFDL: “{C.gfdl.q}” <SourceLinks ids={[C.gfdl.s]} /> {C.bases} “{C.gfdl2.q}” <SourceLinks ids={[C.gfdl2.s]} /></p>
         <AtDepth level="understand">
           <ul aria-label="Region model relations" style={{ fontSize: 12, paddingLeft: 18 }}>{ASSUMPTIONS.region.map(([a, s]) => <li key={a}>{a} <SourceLinks ids={s} /></li>)}</ul>
         </AtDepth>

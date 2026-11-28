@@ -1,6 +1,6 @@
 # Voyager Ventures — status report and index
 
-*Kept up to date by Claude during the autonomous run. Last updated: **2026-11-28, Phase 25 Gate 25.1**.*
+*Kept up to date by Claude during the autonomous run. Last updated: **2026-11-28, end of Phase 25**.*
 
 Live site: https://voyager-ventures.vercel.app — **production still serves the build from 2026-11-27** (Phase 10 + universe map + interface pass). Nothing from Phases 11–14 is deployed: you asked for no deploys until Phase 14 is finished. The deploy command is at the bottom.
 
@@ -37,7 +37,7 @@ You said: if a permission prompt gets no answer within 5 minutes, treat it as de
 | 12 Human Anatomy & Physiology | reference model, skeleton/muscle, heart/lungs, nervous system (Hodgkin–Huxley), other organ systems, organ-to-cell zoom | **Complete** (not deployed) |
 | 13 Waves, Life & Imaging | vision, hearing, bioelectricity, EM–tissue, microscopy, medical imaging | **Complete** (not deployed) |
 | 14 Advanced Foundations | Standard Model, quantum lab, nuclear physics, plasma, relativity, cosmology models | **Complete** (not deployed) |
-| 15–19 Computing & Engineering | your brief (`COMPUTING_ENGINEERING_BRIEF.md`, saved verbatim); gate plan in `DEVELOPMENT_ROADMAP.md` | **Phases 15–19 complete**; **Phase 23 complete** (ice ages, deep time, oceans/ice/biomes); **Phase 24 complete** (human activities, future climate); **Phase 25 Gate 25.1 done** (environmental sandbox); 25.2 next |
+| 15–19 Computing & Engineering | your brief (`COMPUTING_ENGINEERING_BRIEF.md`, saved verbatim); gate plan in `DEVELOPMENT_ROADMAP.md` | **Phases 15–19 complete**; **Phase 23 complete** (ice ages, deep time, oceans/ice/biomes); **Phase 24 complete** (human activities, future climate); **Phase 25 complete** (environmental sandbox); Phase 26 (validation and optimisation) next |
 | 20+ Meteorology & Climate | your brief (`METEOROLOGY_EXPANSION_BRIEF.md`, saved verbatim) | Queued — after Phase 19 |
 
 **Counts (end of Phase 11):** 854 science tests (60 files), 94 browser tests (11 spec files; numbered up to 100), 49 dataset manifests, 208 Source-index entries, 84 commits in this repository.
@@ -129,6 +129,7 @@ Four portals: ATOMIC, COSMIC, SPECTRAL, **BIOLOGIC** (new in Phase 11; shows the
 
 - **Held at the user's request (end of Phase 23).** Resume from `HANDOFF_PHASE23.md`. Phase 24 not started; run the full browser suite first.
 
+- **Phase 25 complete (Gate 25.2)** — the sandbox gains a greenhouse built from grey layers, daily sunlight by latitude for any tilt, circulation regimes by spin rate, ground cover and albedo, and nine guided experiments; Titan now uses its measured albedo and true rotation.
 - **Phase 25 Gate 25.1** — an environmental sandbox: start from a real world, change it, and watch gravity, sunlight, temperature and the air respond — with the model's limits always on screen; plus a regional lab and saved, comparable experiments.
 - **Phase 24 complete (Gate 24.2)** — future climate: the difference between a forecast, a projection and a scenario; what the Fifth National Climate Assessment ties to 1.5, 2, 3 and 4 °C of warming; five sea-level scenarios to 2150 with their chances; ocean acidity, ice and permafrost; and what is well established versus still being investigated. Every projection is labelled as conditional.
 - **Phase 24 Gate 24.1** — human activities: where the carbon goes, which sectors emit, why methane is rising, electricity compared cradle to grave, the chemistry of cement, why waste heat is small next to the greenhouse effect, water withdrawn vs consumed, the ozone layer's recovery and what is and isn't known about climate interventions.
