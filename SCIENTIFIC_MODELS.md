@@ -825,3 +825,9 @@ A sixth mode (periwinkle #82b1ff) with a shared **depth switch** (`src/ui/Depth.
 * **Comparison engine:** up to three worlds; a warning whenever a giant (1-bar level) is set beside a surface; isothermal pressure profiles (our approximation).
 * **Findings shown:** Venus 92 bar/464 °C (NSSDCA) vs 93×/467 °C (NASA); cloud-top winds 360 vs >400 km/h; Mars −59 vs −65 °C (two NSSDCA tables); Saturn winds 400 vs 500 m/s; Uranus 250 m/s vs 900 km/h and Pout/Pin 1.06/1.13/1.15; Neptune 580 m/s vs 2,000 km/h; Pluto 13/11 µbar/1/100,000 Earth; Titan 1.5 atm vs “60 percent greater”; Huygens 2 h 28 vs 27 min. NASA page errors not used (Uranus “Great Dark Spot 1986”, Enceladus 800 mph = 400 m/s, Juno 200 mi = 300 km).
 * **Tests:** `planets.test.ts` (9); browser test 135.
+
+## 80. Climate history (Phase 23): `src/core/meteorology/paleo.ts`
+
+### 80.1 Ice ages and the orbit (Gate 23.1): `#/meteorology/iceages`
+* NOAA NCEI paleo archive (/pub, robots-allowed): Bereiter et al. (2015) Antarctic CO₂ composite (1,901 values, AICC2012 gas ages), Jouzel et al. (2007) EPICA Dome C temperature from δD (5,785 values, EDC3), Berger & Loutre (1991) orbit91 eccentricity, obliquity, precession and 65°N July insolation (0–800 kyr, model). Stacked on one time axis with a cursor; CO₂–temperature scatter, Pearson r = 0.886 on a 1-kyr grid (our calculation; tested > 0.8). Checks (tested): CO₂ extremes 173.71 / 298.6 ppm; LGM CO₂ < 200 ppm and ΔT < −8 °C; obliquity 22.079–24.480° (NASA “22.1 and 24.5”). NASA Milankovitch pages; LGM sea level USGS 125 m vs NOAA 120 m; Holocene 11,700 yr b2k (Walker et al. 2018).
+* **Tests:** `paleo.test.ts` (4); browser test 136.

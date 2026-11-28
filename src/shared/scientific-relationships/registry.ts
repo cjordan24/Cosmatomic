@@ -486,6 +486,10 @@ registerRelationship({ from: 'instrument:radiation-budget', to: 'instrument:reco
 registerEntity(E('instrument:planet-weather', 'Weather on other worlds', '#/meteorology/planets', 'Atmospheres of eleven worlds compared; greenhouse warming, internal heat and escape (Phase 22)'));
 registerRelationship({ from: 'instrument:planet-weather', to: 'instrument:radiation-budget', type: 'explains', context: 'Venus: a runaway greenhouse effect makes it “the hottest planet in our solar system” (NASA)', source: 'nasa-venus-facts' });
 registerRelationship({ from: 'instrument:atmosphere-structure', to: 'instrument:planet-weather', type: 'part-of', context: 'scale height R*T/(gM) from the 1976 standard applies to every atmosphere (NSSDCA scale heights reproduced)', source: 'ussa-1976' });
+// ---------------- Phase 23: climate history ----------------
+registerEntity(E('instrument:iceages', 'Ice ages and the orbit', '#/meteorology/iceages', '800,000 years of CO₂, Antarctic temperature and orbital forcing (Gate 23.1)'));
+registerRelationship({ from: 'instrument:iceages', to: 'instrument:records', type: 'part-of', context: 'glacial CO₂ “fluctuated from about 180 parts per million (ppm) to 280 ppm” (NASA)', source: 'nasa-milankovitch-warming' });
+registerRelationship({ from: 'instrument:iceages', to: 'instrument:radiation-budget', type: 'explains', context: 'orbital cycles “cause variations of up to 25 percent in the amount of incoming insolation at Earth\'s mid-latitudes” (NASA)', source: 'nasa-milankovitch' });
 
 export const getEntity = (id: string) => REGISTRY.get(id);
 export const allEntities = () => [...REGISTRY.values()];

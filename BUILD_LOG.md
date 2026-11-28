@@ -1047,3 +1047,7 @@ NOAAGlobalTemp 1850–2025 with running mean, ranks, decade means and a referenc
 ## Phase 22: weather on other worlds (`#/meteorology/planets`), 2026-11-28
 
 Library, comparison engine and energy tab; two research agents (notes 22A/22B); 39 sources. End-of-Phase-21 suite 128/128. Science `planets.test.ts` (9); browser 135.
+
+## Gate 23.1: ice ages and the orbit (`#/meteorology/iceages`), 2026-11-28
+
+Three NOAA paleo files, NASA explanations; a new “Climate ▾” menu in the Meteorology top bar. Sources +9; `paleo.test.ts` (4); browser 136.

@@ -1,0 +1,31 @@
+{
+  "dataset": "iceages",
+  "version": "1.0.0",
+  "records": 8487,
+  "sources": [
+    {
+      "institution": "NOAA NCEI World Data Service for Paleoclimatology",
+      "url": "https://www.ncei.noaa.gov/pub/data/paleo/",
+      "license": "NOAA data (citation requested)",
+      "notes": "Bereiter 2015 CO₂; Jouzel 2007 EDC temperature; Berger & Loutre 1991 orbits"
+    },
+    {
+      "institution": "NASA Science; USGS; NOAA",
+      "url": "https://science.nasa.gov/science-research/earth-science/milankovitch-orbital-cycles-and-their-role-in-earths-climate/",
+      "license": "U.S. government works",
+      "notes": "Milankovitch explanations; sea level"
+    }
+  ],
+  "adapter": "scripts/ingestion/curated-iceages.ts",
+  "warnings": [
+    "LGM sea level: USGS ~125 m vs NOAA ~120 m (regional page).",
+    "NASA “about 180 to 280 ppm” vs data extremes 173.71 and 298.6 ppm.",
+    "Jouzel 2007 pages 793–797 (file) vs 793–796 (Crossref).",
+    "La2004 not used (IMCCE refused access); Berger & Loutre 1991.",
+    "Holocene b2k (2000 CE) vs other ages before 1950."
+  ],
+  "output": "datasets/meteorology/iceages.json",
+  "retrievedAt": "2026-11-28T15:05:41.196Z",
+  "bytes": 143318,
+  "sha256": "9112e03f64463ca818aee29c503ba65511a08419fa56b087dcbee72f5237170f"
+}

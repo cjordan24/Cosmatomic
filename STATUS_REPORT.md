@@ -1,6 +1,6 @@
 # Voyager Ventures — status report and index
 
-*Kept up to date by Claude during the autonomous run. Last updated: **2026-11-28, end of Phase 22**.*
+*Kept up to date by Claude during the autonomous run. Last updated: **2026-11-28, Phase 23 Gate 23.1**.*
 
 Live site: https://voyager-ventures.vercel.app — **production still serves the build from 2026-11-27** (Phase 10 + universe map + interface pass). Nothing from Phases 11–14 is deployed: you asked for no deploys until Phase 14 is finished. The deploy command is at the bottom.
 
@@ -37,7 +37,7 @@ You said: if a permission prompt gets no answer within 5 minutes, treat it as de
 | 12 Human Anatomy & Physiology | reference model, skeleton/muscle, heart/lungs, nervous system (Hodgkin–Huxley), other organ systems, organ-to-cell zoom | **Complete** (not deployed) |
 | 13 Waves, Life & Imaging | vision, hearing, bioelectricity, EM–tissue, microscopy, medical imaging | **Complete** (not deployed) |
 | 14 Advanced Foundations | Standard Model, quantum lab, nuclear physics, plasma, relativity, cosmology models | **Complete** (not deployed) |
-| 15–19 Computing & Engineering | your brief (`COMPUTING_ENGINEERING_BRIEF.md`, saved verbatim); gate plan in `DEVELOPMENT_ROADMAP.md` | **Phases 15–19 complete**; **Phase 22 complete** (other worlds); Phase 23 (climate history & environmental systems) next |
+| 15–19 Computing & Engineering | your brief (`COMPUTING_ENGINEERING_BRIEF.md`, saved verbatim); gate plan in `DEVELOPMENT_ROADMAP.md` | **Phases 15–19 complete**; **Phase 23 Gate 23.1 done** (ice ages); 23.2 geological timeline next |
 | 20+ Meteorology & Climate | your brief (`METEOROLOGY_EXPANSION_BRIEF.md`, saved verbatim) | Queued — after Phase 19 |
 
 **Counts (end of Phase 11):** 854 science tests (60 files), 94 browser tests (11 spec files; numbered up to 100), 49 dataset manifests, 208 Source-index entries, 84 commits in this repository.
@@ -101,6 +101,7 @@ Four portals: ATOMIC, COSMIC, SPECTRAL, **BIOLOGIC** (new in Phase 11; shows the
 | `#/meteorology/climates` | **Regional climates** — NOAA 1991–2020 climographs for 16 stations, Köppen–Geiger classes step by step, causes compared in pairs, a what-if reclassifier | NOAA NCEI, Peel et al. 2007, NWS, USGS, NASA, EPA, NPS |
 | `#/meteorology/records` | **Temperature record** — NOAAGlobalTemp 1850–2025, running mean, warmest years, reference-period switch | NOAA NCEI |
 | `#/meteorology/planets` | **Other worlds** — atmospheres of Mercury to Pluto, Titan and Triton; comparison engine; greenhouse warming, internal heat, escape | NSSDCA, NASA, ESA, Wang et al. 2025 |
+| `#/meteorology/iceages` | **Ice ages and the orbit** — 800,000 years of orbital sunshine, CO₂ and Antarctic temperature on one time axis | NOAA NCEI paleo (Bereiter 2015, Jouzel 2007, Berger & Loutre 1991), NASA |
 | `#/engineering/systems` | **Build a system** (Phase 19) — a spacecraft from power to bits, a chatbot service from power plant to chip, an electric car from battery to wheels, and a map of eight systems | chains of sources used earlier (Yuen 1982, NASA, LBNL, EIA, DOE) |
 | `#/engineering/space` | **Spacecraft & space systems** (Phase 18) — Voyager to Landsat, the rocket equation, orbits and transfers, RTG and solar power, Voyager’s radio link, pointing and heat, from detector to archive | NASA (Science, Glenn, Goddard, Earthdata, DSN), USGS, GPS.gov, DOE; Moulton 1914; Yuen 1982 |
 | `#/engineering/machines` | **Machines & electricity** (Phase 17) — circuits, gears and levers, heat engines, generators and the U.S. grid, batteries and EVs, Maxwell’s governor | Ohm, Kirchhoff, Faraday, Carnot, Rankine, Maxwell; EIA, DOE, EPA, NASA |
@@ -121,13 +122,15 @@ Four portals: ATOMIC, COSMIC, SPECTRAL, **BIOLOGIC** (new in Phase 11; shows the
 
 ## 4. What was done in this run (newest first)
 
+- **Gate 23.1** — ice ages and Earth's orbit: 800,000 years of ice-core CO₂ and Antarctic temperature beside the orbital cycles that pace them.
+
 - **Phase 22 complete** — weather on other worlds: eleven atmospheres from NASA fact sheets and missions, a comparison engine that warns when giant-planet (1-bar) values sit beside surfaces, greenhouse warming and internal heat.
 
 - **Phase 21 complete (Gate 21.4)** — the global temperature record 1850–2025 (NOAAGlobalTemp), with running mean, warmest years and a switchable reference period.
 
 - **Gate 21.3** — why places have different climates: NOAA 1991–2020 normals for 16 stations, Köppen–Geiger classification step by step, rain shadows, oceans, deserts, monsoons, height and cities compared in pairs.
 
-- **end of Phase 22** — a storm laboratory (seven storm types with official scales and observed cases) and a global weather atlas (19 real data layers on a map or 3D globe with a month timeline). NASA NEO, the brief's suggested data source, shut down in September 2026, so NOAA PSL and NASA GIBS data are used.
+- **Phase 23 Gate 23.1** — a storm laboratory (seven storm types with official scales and observed cases) and a global weather atlas (19 real data layers on a map or 3D globe with a month timeline). NASA NEO, the brief's suggested data source, shut down in September 2026, so NOAA PSL and NASA GIBS data are used.
 
 - **Phase 20 complete (Gate 20.4)** — wind, clouds and water: a turntable Coriolis demonstration, Rayleigh's 1916 convection threshold, ten cloud genera with Howard's originals, raindrop sizes and fall speeds, the water cycle and the global circulation.
 

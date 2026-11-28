@@ -315,7 +315,7 @@ export function TopBar() {
         {mode === 'meteorology' && (
           <nav className="chip-row hide-mobile" aria-label="Meteorology sections">
             <ChipMenu label="Atmosphere" items={[
-              { label: 'Structure of the atmosphere', to: '/meteorology', active: !['air', 'radiation', 'motion', 'storms', 'atlas', 'climates', 'records', 'planets'].includes(path[1] ?? '') },
+              { label: 'Structure of the atmosphere', to: '/meteorology', active: !['air', 'radiation', 'motion', 'storms', 'atlas', 'climates', 'records', 'planets', 'iceages'].includes(path[1] ?? '') },
               { label: 'Moist air & stability', to: '/meteorology/air', active: path[1] === 'air' },
               { label: 'Sunlight, heat & greenhouse', to: '/meteorology/radiation', active: path[1] === 'radiation' },
               { label: 'Wind, clouds & water', to: '/meteorology/motion', active: path[1] === 'motion' },
@@ -325,6 +325,9 @@ export function TopBar() {
               { label: 'Storm laboratory', to: '/meteorology/storms', active: path[1] === 'storms' },
               { label: 'Regional climates', to: '/meteorology/climates', active: path[1] === 'climates' },
               { label: 'Temperature record', to: '/meteorology/records', active: path[1] === 'records' },
+            ]} />
+            <ChipMenu label="Climate" items={[
+              { label: 'Ice ages and the orbit', to: '/meteorology/iceages', active: path[1] === 'iceages' },
             ]} />
             <button className={`chip ${path[1] === 'planets' ? 'active' : ''}`} onClick={() => navigate('/meteorology/planets')}>Other worlds</button>
           </nav>
