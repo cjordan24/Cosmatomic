@@ -8,13 +8,14 @@
 import { allEntities, allRelationships, getEntity, type Entity, type Relationship, type RelationshipType } from './registry';
 import { getSource } from '@/shared/sources/sources';
 
-export type EntityMode = 'atomic' | 'cosmic' | 'spectral' | 'planned';
+export type EntityMode = 'atomic' | 'cosmic' | 'spectral' | 'biologic' | 'planned';
 
 /** The environment that opens an entity, read from its route; entities without a route are planned. */
 export function entityMode(e: Entity): EntityMode {
   if (!e.route) return 'planned';
   if (e.route.startsWith('#/atomic')) return 'atomic';
   if (e.route.startsWith('#/cosmic')) return 'cosmic';
+  if (e.route.startsWith('#/biologic')) return 'biologic';
   return 'spectral';
 }
 

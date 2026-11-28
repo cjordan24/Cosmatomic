@@ -821,3 +821,7 @@ Requested by the user, taking UI notes from the Lodestar Digital Studio site (ld
 6. **Tests:** science 854/854 (+5, `tests/science/plants.test.ts`); browser test 100 (screenshots 100a–b).
 
 **Phase 11 summary:** Biologic Mode with seven views (scale of life, biomolecules and the genetic code, PDB structures, cells, membranes, transport, plants and microbes); 8 new datasets (49 manifests), 27 new Source-index entries (208), science tests 793 → 854, browser tests 94–100. Findings worth keeping: PubChem now refuses ClaudeBot; Hodgkin & Katz's Table 7 is reproduced within 1 mV for 14.6–21.5 °C; Einstein's 1905 example reproduced; van 't Hoff's printed R differs from his own numbers (845.05 vs 845.24); 4HHB's size agrees with NIGMS's 5.5 nm.
+
+### Fix after Gate 11.7 (2026-11-28)
+
+The Gate 11.7 commit went in with three failing science tests (the commit command did not stop on a failing test run; from now on the test result is checked before committing). Causes: (1) **a real bug** — the relationship explorer's `entityMode` knew only Atomic, Cosmic and Spectral, so every Biologic entity since Gate 11.1 was coloured and labelled “Spectral”; a Biologic mode (emerald) is added. (2) Two tests still expected `process:photosynthesis` to be planned; they now expect it to open the Biologic view and check that glycolysis stays planned. (3) The inline-citation scanner read a quoted word inside a ternary in `SourceLinks ids` as a source id; the ids are now named constants. Science 854/854.

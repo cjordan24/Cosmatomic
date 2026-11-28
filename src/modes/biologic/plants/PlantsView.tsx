@@ -25,6 +25,7 @@ const P = plants as unknown as { chlorophyll: Chl[]; photosynthesis: { quote: st
 const C = cells as unknown as { nigms: { term: string; text: string }[]; nhgri: { term: string; text: string }[] };
 const nigms = (t: string) => C.nigms.find((d) => d.term === t)!.text;
 const nhgri = (t: string) => C.nhgri.find((d) => d.term === t)!.text;
+const NIGMS_IDS = ['nigms-glossary'], NHGRI_IDS = ['nhgri-glossary'];
 const COLORS: Record<string, string> = { 'chl-a': '#5cf2a6', 'chl-b': '#f5c76b' };
 /** Photon energy at wavelength λ (m): E = hc/λ, in eV and kJ/mol. */
 export const photonEnergyEV = (lam: number) => (CONSTANTS.h.value * CONSTANTS.c.value) / lam / CONSTANTS.e.value;
@@ -120,7 +121,10 @@ function MicrobesTab() {
       </div>
       <Panel id="mic-detail" className="right-panel" title={sel.label}>
         <p style={{ margin: '0 0 6px' }}><strong>{formatReport(lifeSize(sel.id)!.reports[0])}</strong> — “{lifeSize(sel.id)!.reports[0].quote}” <SourceLinks ids={[lifeSize(sel.id)!.reports[0].source]} /></p>
-        {sel.def.map(([t, src]) => <blockquote key={`${src}-${t}`} className="quote">“{src === 'nigms' ? nigms(t) : nhgri(t)}” <span className="note" style={{ fontStyle: 'normal' }}>— {src === 'nigms' ? 'NIGMS' : 'NHGRI'}, <em>{t}</em> <SourceLinks ids={[src === 'nigms' ? 'nigms-glossary' : 'nhgri-glossary']} /></span></blockquote>)}
+        {sel.def.map(([t, src]) => {
+          const ids = src === 'nigms' ? NIGMS_IDS : NHGRI_IDS;
+          return <blockquote key={`${src}-${t}`} className="quote">“{src === 'nigms' ? nigms(t) : nhgri(t)}” <span className="note" style={{ fontStyle: 'normal' }}>— {src === 'nigms' ? 'NIGMS' : 'NHGRI'}, <em>{t}</em> <SourceLinks ids={ids} /></span></blockquote>;
+        })}
         <button className="chip" onClick={() => navigate(`/biologic?sel=${sel.id}`)}>On the scale of life →</button>
         {sel.id === 'feline-distemper' && <button className="chip" onClick={() => navigate('/biologic/proteins')}>Protein structures →</button>}
         <RelatedLinks id="instrument:plants" limit={4} />

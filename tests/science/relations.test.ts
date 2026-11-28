@@ -14,7 +14,8 @@ describe('entity environments', () => {
     expect(entityMode(getEntity('element:1')!)).toBe('atomic');
     expect(entityMode(getEntity('context:cmb')!)).toBe('cosmic');
     expect(entityMode(getEntity('spectrum:H-I')!)).toBe('spectral');
-    expect(entityMode(getEntity('process:photosynthesis')!)).toBe('planned');
+    expect(entityMode(getEntity('process:photosynthesis')!)).toBe('biologic'); // Gate 11.7
+    expect(entityMode(getEntity('process:glycolysis')!)).toBe('planned');
     for (const e of allEntities()) expect(entityMode(e) === 'planned', e.id).toBe(e.status === 'planned');
   });
 });

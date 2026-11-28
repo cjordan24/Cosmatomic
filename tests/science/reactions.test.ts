@@ -63,7 +63,8 @@ describe('curated reaction library', () => {
     const rel = allRelationships();
     expect(rel.some((r) => r.from === 'reaction:photosynthesis-net' && r.to === 'process:photosynthesis')).toBe(true);
     expect(rel.some((r) => r.from === 'reaction:chapman-o3-photolysis' && r.to === 'context:ozone-layer')).toBe(true);
-    expect(getEntity('process:photosynthesis')!.status).toBe('planned'); // Biologic not built: no route
+    expect(getEntity('process:photosynthesis')!.status).toBe('available'); // Gate 11.7: #/biologic/plants
+    expect(getEntity('process:glycolysis')!.status).toBe('planned'); // still no view (no open source for the pathway)
   });
 });
 
