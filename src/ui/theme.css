@@ -408,3 +408,6 @@ blockquote.quote { margin: 4px 0; padding: 4px 10px; border-left: 2px solid var(
 .codon-table .codon.hl { background: color-mix(in srgb, var(--accent) 28%, transparent); color: var(--text); }
 .mono { font-family: var(--mono); }
 .table-mini tr.active td { color: var(--accent); }
+svg g[role="button"]:focus { outline: none; }
+svg g[role="button"]:focus-visible { outline: 1px dashed var(--accent); }
+.cell-compare td, .cell-compare th { font-family: var(--font); text-align: left !important; vertical-align: top; font-size: 12px; }

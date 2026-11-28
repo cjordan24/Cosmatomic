@@ -42,6 +42,10 @@ function derivedMolecule(id: string, label: string): LifeSize {
 
 const LINKS: Record<string, { label: string; to: string }[]> = {
   dna: [{ label: 'A B-DNA crystal structure (PDB 1BNA)', to: '/biologic/proteins?id=1BNA' }, { label: 'DNA’s building blocks', to: '/biologic/molecules?tab=nucleic' }],
+  mitochondrion: [{ label: 'Inside a cell', to: '/biologic/cells?part=mitochondrion' }],
+  nucleus: [{ label: 'Inside a cell', to: '/biologic/cells?part=nucleus' }],
+  'animal-cell': [{ label: 'Eukaryote and prokaryote compared', to: '/biologic/cells' }],
+  prokaryote: [{ label: 'Eukaryote and prokaryote compared', to: '/biologic/cells?part=prokaryote' }],
   haemoglobin: [{ label: 'Its crystal structure (PDB 4HHB)', to: '/biologic/proteins?id=4HHB' }, { label: 'Amino acids, its building blocks', to: '/biologic/molecules' }],
 };
 

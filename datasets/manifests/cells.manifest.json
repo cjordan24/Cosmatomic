@@ -1,0 +1,33 @@
+{
+  "dataset": "cells",
+  "version": "1.0.0",
+  "records": 29,
+  "sources": [
+    {
+      "institution": "National Institute of General Medical Sciences, Glossary",
+      "url": "https://nigms.nih.gov/education/glossary",
+      "license": "NIGMS: “Most of the information on this website is not copyrighted so you are free to use it with proper attribution.”",
+      "notes": "13 definitions"
+    },
+    {
+      "institution": "National Human Genome Research Institute, Talking Glossary",
+      "url": "https://www.genome.gov/genetics-glossary",
+      "license": "Public domain (NHGRI)",
+      "notes": "7 definitions"
+    },
+    {
+      "institution": "NIGMS, Inside the Cell (2005)",
+      "url": "https://archive.org/details/ost-biology-inside_the_cell",
+      "notes": "eukaryote/prokaryote table (p. 7), volume shares (pp. 7, 8, 33), membrane composition (p. 8)"
+    }
+  ],
+  "adapter": "scripts/ingestion/cells.ts",
+  "warnings": [
+    "NIGMS definitions omit pronunciation guides, plural forms and blog pointers; link spacing closed.",
+    "Volume shares are the booklet’s approximate statements (“about”, “up to”, “more than”, “around”), not measurements of one cell."
+  ],
+  "output": "datasets/biology/cells.json",
+  "retrievedAt": "2026-11-28T07:09:09.645Z",
+  "bytes": 7954,
+  "sha256": "9a5208b5d0e89f7c505b8c5b269a5336365d99d5631a03eea8b15e70f9bbae7f"
+}

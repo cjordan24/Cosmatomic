@@ -784,3 +784,11 @@ Requested by the user, taking UI notes from the Lodestar Digital Studio site (ld
 4. **Sources:** `watson-1969`, `vojtechovsky-1999`, `fermi-1984`, `baker-1988`, `ormo-1996`, `diamond-1974` (198 entries). Registry: `instrument:proteins` and seven `structure:pdb-*` entities with sourced edges.
 5. **Also recorded (user, 2026-11-28):** the Meteorology & Climate brief is saved verbatim (`METEOROLOGY_EXPANSION_BRIEF.md`); order after Phase 14: a Computing & Engineering section (own section, built without a confirmation step; the user corrects it afterwards), then Meteorology.
 6. **Tests:** science 825/825 (+8, `tests/science/pdb.test.ts`); browser test 96 (screenshots 96a–c).
+
+## Gate 11.4: cells (`#/biologic/cells`), 2026-11-28
+
+1. **View:** a Cells chip; tab “Eukaryote and prokaryote”: the two cells at one scale with sliders limited to the quoted ranges, clickable parts (membrane, cytoplasm, nucleus, mitochondria, ER, Golgi, lysosomes, ribosomes) with NIGMS and NHGRI definitions, sizes and volume shares, the booklet's comparison table and a volume ratio. Tab “Size and surface”: A, V and A/V of a sphere with the quoted cell sizes marked.
+2. **Data:** `datasets/biology/cells.json` (adapter `cells.ts`, 46 manifests): the NIGMS Glossary page (one request; parsed, with link-spacing artefacts closed and stray alphabet headings removed — both seen in the first parse) and seven NHGRI pages, plus *Inside the Cell* quotes checked on the page images (pp. 7, 8, 33; p. 33 confirms “several thousand mitochondria — around 25 percent of the cell’s volume”).
+3. **Screenshots showed three bugs, fixed:** the prokaryote's label overlapped the large cell (the drawing now reserves a label column), the scale bar's label collided with the eukaryote caption, and a panel title “Compared with a 1 µm sphere” rendered as “1 MM SPHERE” (the uppercase transform turns µ into M; the title is spelled out). Clicked SVG parts no longer show the browser's square focus ring (keyboard focus keeps a dashed outline).
+4. **Sources:** `nigms-glossary` (199 entries); `nhgri-glossary` and `nigms-inside-the-cell` now also feed `cells`. Registry: `instrument:cells` and six new `structure:*` entities; the mitochondrion routes to the Cells view.
+5. **Tests:** science 831/831 (+6, `tests/science/cells.test.ts`); browser test 97 (screenshots 97a–b).

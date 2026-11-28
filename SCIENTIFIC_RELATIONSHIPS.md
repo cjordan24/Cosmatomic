@@ -142,6 +142,8 @@ Every encyclopedia entry describes a registry entity, so E.2 registered the 11 s
 
 `instrument:proteins` (`#/biologic/proteins`): seven `structure:pdb-*` entities are *part of* it, each cited to its primary paper; `structure:pdb-4hhb` *has-property* its size on the scale of life (NIGMS); deoxyribose is *part of* the 1BNA backbone (NHGRI).
 
+`instrument:cells` (`#/biologic/cells`): the nucleus, ribosome, cell membrane, ER, Golgi and lysosome (new `structure:*` entities) and the mitochondrion (now routed here) are *part of* it; the ribosome *explains* the genetic code's use (NHGRI) and *has-property* its 20–30 nm size on the scale of life.
+
 ## Rules
 
 1. No edge without a source.

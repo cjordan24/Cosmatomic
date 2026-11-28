@@ -51,7 +51,7 @@ const BASE_ENTITIES: Entity[] = [
   E('process:muscle-contraction', 'Muscle contraction', null, 'Biologic Mode (Phase 12)'),
   E('process:blood-co2-transport', 'CO₂ transport in blood', null, 'Biologic Mode (Phase 12)'),
   E('process:nitrogen-cycle', 'Nitrogen cycle', null),
-  E('structure:mitochondrion', 'Mitochondrion', '#/biologic?sel=mitochondrion', 'Scale of life (Gate 11.1): typically 1–2 µm long'),
+  E('structure:mitochondrion', 'Mitochondrion', '#/biologic/cells?part=mitochondrion', 'Cells (Gate 11.4): typically 1–2 µm long'),
   E('context:ozone-layer', 'Stratospheric ozone layer', null),
   E('context:urban-smog', 'Photochemical smog', null),
   E('context:greenhouse-effect', 'Greenhouse effect', null, 'Thermal-radiation laboratory (Phase 10)'),
@@ -331,6 +331,14 @@ for (const [id, label, cite] of [['1bna', 'B-DNA dodecamer (PDB 1BNA)', 'drew-19
 }
 registerRelationship({ from: 'structure:pdb-4hhb', to: 'instrument:life-atlas', type: 'has-property', context: 'haemoglobin is “roughly 5.5 nanometers wide” (NIGMS); 4HHB measures 6.6 × 5.7 × 5.4 nm along its principal axes', source: 'nigms-biobeat-nanoparticles-2023' });
 registerRelationship({ from: 'molecule:pubchem-9828112', to: 'structure:pdb-1bna', type: 'part-of', context: 'each DNA strand has a backbone of alternating deoxyribose and phosphate groups', source: 'nhgri-glossary' });
+registerEntity(E('instrument:cells', 'Cells', '#/biologic/cells', 'Eukaryotic and prokaryotic cells at one scale; size and surface (Gate 11.4)'));
+for (const [id, label] of [['nucleus', 'Cell nucleus'], ['ribosome', 'Ribosome'], ['cell-membrane', 'Cell membrane'], ['endoplasmic-reticulum', 'Endoplasmic reticulum'], ['golgi', 'Golgi'], ['lysosome', 'Lysosome']] as const) {
+  registerEntity(E(`structure:${id}`, label, `#/biologic/cells?part=${id === 'cell-membrane' ? 'membrane' : id === 'endoplasmic-reticulum' ? 'er' : id}`));
+  registerRelationship({ from: `structure:${id}`, to: 'instrument:cells', type: 'part-of', context: 'a part of the eukaryotic cell drawn in the Cells view', source: 'nigms-glossary' });
+}
+registerRelationship({ from: 'structure:mitochondrion', to: 'instrument:cells', type: 'part-of', context: 'several thousand in a human heart cell, around 25 % of its volume (Inside the Cell p. 33)', source: 'nigms-inside-the-cell' });
+registerRelationship({ from: 'structure:ribosome', to: 'instrument:biomolecules', type: 'explains', context: 'the ribosome reads the mRNA sequence and translates the genetic code into a string of amino acids', source: 'nhgri-glossary' });
+registerRelationship({ from: 'structure:ribosome', to: 'instrument:life-atlas', type: 'has-property', context: 'ribosome diameter 20–30 nm', source: 'nigms-inside-the-cell' });
 
 export const getEntity = (id: string) => REGISTRY.get(id);
 export const allEntities = () => [...REGISTRY.values()];

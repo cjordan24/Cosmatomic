@@ -124,3 +124,23 @@ test('96 structures: haemoglobin 4HHB from its PDB file (chains, haem, size agai
   await page.waitForTimeout(2500);
   await shot(page, '96c-bdna-atoms', 'The B-DNA dodecamer 1BNA (Drew et al. 1981), all 486 atoms in element colours; both strands read CGCGAATTCGCG.');
 });
+
+// ---------------- Gate 11.4 ----------------
+test('97 cells: eukaryote and prokaryote at one scale, parts with NIGMS/NHGRI definitions, volume shares, surface-to-volume', async ({ page }) => {
+  await page.goto('/#/biologic');
+  await page.getByRole('navigation', { name: 'Biologic sections' }).getByRole('button', { name: 'Cells' }).click();
+  await expect(page).toHaveURL(/#\/biologic\/cells$/);
+  await expect(page.getByRole('img', { name: 'A eukaryotic and a prokaryotic cell at one scale' })).toBeVisible();
+  await expect(page.getByRole('table', { name: 'Eukaryotic and prokaryotic cells' })).toContainText('Lack a nucleus and other membrane-encased organelles');
+  await expect(page.getByLabel('Cell comparison')).toContainText('856');   // (30 / 3.16)³ = 855.66
+  await expect(page.getByRole('table', { name: 'Volume shares' })).toContainText('around 25 %');
+  await page.getByRole('img', { name: 'A eukaryotic and a prokaryotic cell at one scale' }).getByRole('button', { name: 'Nucleus' }).click();
+  await expect(page.locator('blockquote[data-source="nigms"]')).toContainText('contains most of the cell\'s genetic material');
+  await expect(page.locator('.right-panel')).toContainText('5 µm diameter (p. 11)');
+  await page.waitForTimeout(600);
+  await shot(page, '97a-cells', 'Cells (Gate 11.4): a 30 µm animal cell and a 3.16 µm prokaryote at one scale (sizes of cells, nucleus, mitochondria and lysosomes from Inside the Cell; layout schematic), the booklet’s eukaryote/prokaryote table, and the nucleus with its NIGMS and NHGRI definitions.');
+  await page.getByRole('navigation', { name: 'Cell sections' }).getByRole('button', { name: 'Size and surface' }).click();
+  await page.getByRole('button', { name: 'human egg 150 µm' }).click();
+  await expect(page.getByLabel('Sphere values')).toContainText('0.04');   // 6/150 µm⁻¹
+  await shot(page, '97b-size-surface', 'Size and surface: a sphere’s area grows as d², its volume as d³, so A/V = 6/d; quoted cell sizes (prokaryotes, a 30 µm animal cell, the 150 µm human egg) placed on the curves.');
+});
