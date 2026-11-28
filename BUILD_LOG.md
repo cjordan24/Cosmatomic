@@ -829,3 +829,16 @@ The Gate 11.7 commit went in with three failing science tests (the commit comman
 ### Full browser suite at the end of Phase 11 (2026-11-28)
 
 `npm run test:e2e`: **91 passed, 3 failed** (18.2 min). Two failures were stale expectations (tests 41 and 73 still expected photosynthesis to be a *planned* process; it opens the Biologic plants view since Gate 11.7 — they now check that glycolysis is still planned). One was **a real bug**: with a fourth mode the phone top bar was 442 px wide on a 390 px screen (test 67). On screens up to 900 px the four-button mode switch is now replaced by one menu chip showing the current mode (ATOMIC/COSMIC/SPECTRAL/BIOLOGIC ▾). Tests 18, 41, 53, 67 and 73 re-run: all pass. **94/94** browser tests now pass.
+
+# Phase 12 — Human Anatomy & Physiology
+
+## Gate 12.1: the human body (`#/biologic/body`), 2026-11-28
+
+1. **Research:** two agents (12.1–12.3 and 12.4–12.6); notes in `research/SOURCE_NOTES_PHASE12.md`. **BodyParts3D changed its licence to CC BY 4.0 on 2025-02-27**, which makes a real anatomical model usable. NCI SEER text is free of copyright; NHLBI text is public domain (its images are not); NIDDK text is copyright free.
+2. **Model:** `scripts/blender/build_body.py` (Blender 4, headless, 39 s) joins and decimates eleven organs from the 1,258-file “partof” set into `public/models/body-organs.glb` (3.2 MB, lazy-loaded). Two problems found in the data and handled: the FMA “skeletal system” list held eye structures and no leg bones (the skeleton is now chosen by bone names: 202 files, 1.71 m); the lung lists are bronchial trees and vessels only (labelled as such).
+3. **View:** a **Body ▾** menu (Human body). Organs coloured by system, click to select, checkboxes to hide, “Isolate selected” frames the organ with the camera (the first screenshot showed a tiny kidney mid-screen). The panel gives quoted facts and the model's own size and volume from the full-resolution headers.
+4. **Top bar:** adding the Body menu overflowed the bar at 1440 px (the settings button was cut off on the screenshot); Plants & microbes moved into the Cell biology menu, and test 101 now checks the bar fits.
+5. **Data:** `datasets/biology/body.json` (adapter `curated-body.ts`, part lists in `scripts/ingestion/data/`; 50 manifests). Finding: the model's kidney is 10.4 × 5.7 × 4.7 cm, SEER says about 12 × 6 × 3 cm; both shown.
+6. **Also:** `src/core/biology/hodgkinHuxley.ts` and its tests landed early (for Gate 12.4); the science test for the body reads the GLB itself (a Node type reference was needed for `tsc -b`, which first broke the build).
+7. **Sources:** `bodyparts3d` (Mitsuhashi et al. 2009, DOI checked), `seer-training`, `nhlbi`, `niddk` (212 entries). Registry: `instrument:body` and eleven `structure:organ-*` entities.
+8. **Tests:** science 867/867 (+6 body, +7 Hodgkin–Huxley); browser test 101 (screenshots 101a–b); test 100 updated for the moved menu item.

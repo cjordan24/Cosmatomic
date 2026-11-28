@@ -1,0 +1,41 @@
+{
+  "dataset": "body",
+  "version": "1.0.0",
+  "records": 12,
+  "sources": [
+    {
+      "institution": "BodyParts3D 4.0, Database Center for Life Science (DBCLS), Japan",
+      "url": "https://dbarchive.biosciencedbc.jp/en/bodyparts3d/lic.html",
+      "license": "CC BY 4.0 — “BodyParts3D, © The Database Center for Life Science licensed under CC Attribution 4.0 International”",
+      "notes": "organ meshes (decimated) and their full-resolution bounds and volumes"
+    },
+    {
+      "institution": "NCI SEER Training Modules",
+      "url": "https://training.seer.cancer.gov/",
+      "license": "NCI: “all text within National Cancer Institute (NCI) products is free of copyright and may be reused without our permission”",
+      "notes": "organ systems, bones, heart, kidney, digestive tract, breathing"
+    },
+    {
+      "institution": "National Heart, Lung, and Blood Institute",
+      "url": "https://www.nhlbi.nih.gov/health/heart",
+      "license": "NHLBI: information on the website is in the public domain unless noted otherwise",
+      "notes": "heart chambers, heart rate, alveoli"
+    },
+    {
+      "institution": "National Institute of Diabetes and Digestive and Kidney Diseases",
+      "url": "https://www.niddk.nih.gov/health-information/kidney-disease/kidneys-how-they-work",
+      "license": "NIDDK: “The majority of information on this site is copyright free”",
+      "notes": "nephrons, filtration, urine"
+    }
+  ],
+  "adapter": "scripts/ingestion/curated-body.ts",
+  "warnings": [
+    "Lungs: airways and vessels only.",
+    "Skeleton chosen by bone names (202 files).",
+    "Volumes are sums of the model’s part volumes as stated in the OBJ headers."
+  ],
+  "output": "datasets/biology/body.json",
+  "retrievedAt": "2026-11-28T08:05:06.216Z",
+  "bytes": 6886,
+  "sha256": "66487f07adeaccfb7237da99123eb47edfd57767c74eca7d5da4c7451873152f"
+}

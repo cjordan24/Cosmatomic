@@ -354,6 +354,15 @@ registerRelationship({ from: 'instrument:plants', to: 'process:photosynthesis', 
 registerRelationship({ from: 'process:photosynthesis', to: 'wave:em-visible', type: 'absorbs', context: 'chlorophyll a absorbs most at 427.8 and 660 nm, chlorophyll b at 453 and 643 nm (in ether)', source: 'omlc-photochemcad' });
 registerRelationship({ from: 'process:photosynthesis', to: 'molecule:pubchem-5793', type: 'produces', context: 'plants make fuel — glucose and other sugars — from carbon dioxide and sunlight', source: 'nasa-carbon-cycle-2011' });
 registerRelationship({ from: 'instrument:plants', to: 'instrument:life-atlas', type: 'part-of', context: 'viruses, bacteria and plant cells placed on the scale of life', source: 'pdb101-virus-structures' });
+// ---------------- Phase 12: human anatomy & physiology ----------------
+registerEntity(E('instrument:body', 'The human body (BodyParts3D)', '#/biologic/body', 'Organs and skeleton in 3D with quoted facts (Gate 12.1)'));
+for (const [id, label] of [['skeleton', 'Skeleton'], ['heart', 'Heart'], ['right-lung', 'Right lung'], ['left-lung', 'Left lung'], ['brain', 'Brain'], ['liver', 'Liver'], ['stomach', 'Stomach'], ['small-intestine', 'Small intestine'], ['large-intestine', 'Large intestine'], ['right-kidney', 'Right kidney'], ['left-kidney', 'Left kidney']] as const) {
+  registerEntity(E(`structure:organ-${id}`, label, `#/biologic/body?sel=${id}`));
+  registerRelationship({ from: `structure:organ-${id}`, to: 'instrument:body', type: 'part-of', context: 'BodyParts3D organ model', source: 'bodyparts3d' });
+}
+registerRelationship({ from: 'structure:organ-heart', to: 'structure:pdb-4hhb', type: 'drives', context: 'the heart pumps about 5 litres of blood a minute; haemoglobin in its red cells carries oxygen', source: 'seer-training' });
+registerRelationship({ from: 'structure:organ-right-kidney', to: 'instrument:transport', type: 'explains', context: 'about a million nephrons filter about 150 quarts of blood a day', source: 'niddk' });
+registerRelationship({ from: 'structure:organ-left-kidney', to: 'instrument:transport', type: 'explains', context: 'only 1 to 2 quarts of the filtered blood become urine', source: 'niddk' });
 
 export const getEntity = (id: string) => REGISTRY.get(id);
 export const allEntities = () => [...REGISTRY.values()];

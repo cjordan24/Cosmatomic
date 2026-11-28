@@ -1,6 +1,6 @@
 # Voyager Ventures — status report and index
 
-*Kept up to date by Claude during the autonomous run. Last updated: **2026-11-28, end of Phase 11** (commit `0e3f379`).*
+*Kept up to date by Claude during the autonomous run. Last updated: **2026-11-28, Phase 12 Gate 12.1**.*
 
 Live site: https://voyager-ventures.vercel.app — **production still serves the build from 2026-11-27** (Phase 10 + universe map + interface pass). Nothing from Phases 11–14 is deployed: you asked for no deploys until Phase 14 is finished. The deploy command is at the bottom.
 
@@ -33,7 +33,7 @@ You said: if a permission prompt gets no answer within 5 minutes, treat it as de
 |---|---|---|
 | 1–10 | Foundations → Optics, Radiation & Energy (+ universe map, interface pass) | Complete, deployed |
 | **11 Biologic Foundations** | Biologic mode with seven views | **Complete** (not deployed) |
-| 12 Human Anatomy & Physiology | reference model, skeleton/muscle, heart/lungs, nervous system (Hodgkin–Huxley), other organ systems, organ-to-cell zoom | **Researching** (two research agents running) |
+| 12 Human Anatomy & Physiology | reference model, skeleton/muscle, heart/lungs, nervous system (Hodgkin–Huxley), other organ systems, organ-to-cell zoom | **In progress** — 12.1 done (3D human body) |
 | 13 Waves, Life & Imaging | vision, hearing, bioelectricity, EM–tissue, microscopy, medical imaging | Planned |
 | 14 Advanced Foundations | Standard Model, quantum lab, nuclear physics, plasma, relativity, cosmology models | Planned |
 | 15–19 Computing & Engineering | your brief (`COMPUTING_ENGINEERING_BRIEF.md`, saved verbatim) | Queued — begins when Phase 14 is complete |
@@ -76,6 +76,7 @@ Four portals: ATOMIC, COSMIC, SPECTRAL, **BIOLOGIC** (new in Phase 11; shows the
 | `#/biologic/cells` | **Cells** — eukaryote vs prokaryote at one scale, clickable parts; size and surface | *Inside the Cell*, NIGMS & NHGRI glossaries |
 | `#/biologic/membranes` | **Membranes** — the squid-axon membrane potential (Hodgkin & Katz 1949), reproducing their table within 1 mV; the lipid bilayer | Hodgkin & Katz 1949 (page images), NIGMS |
 | `#/biologic/transport` | **Transport** — diffusion (Fick, Einstein, ICT data), osmosis (van ’t Hoff), enzyme kinetics (Michaelis–Menten) | the original papers on page images |
+| `#/biologic/body` | **Human body** (Phase 12) — skeleton and ten organs in 3D from BodyParts3D (CC BY 4.0); select, hide, isolate; quoted facts and the model's sizes | BodyParts3D, NCI SEER, NHLBI, NIDDK |
 | `#/biologic/plants` | **Plants & microbes** — photosynthesis, chlorophyll absorption maxima over sunlight; viruses to plant cells | NASA, OMLC/PhotochemCAD, NIGMS, NHGRI |
 
 ### Shared tools (all modes)
@@ -85,6 +86,8 @@ Four portals: ATOMIC, COSMIC, SPECTRAL, **BIOLOGIC** (new in Phase 11; shows the
 ---
 
 ## 4. What was done in this run (newest first)
+
+- **Gate 12.1 (human body)** — a real 3D anatomical model (BodyParts3D, newly CC BY 4.0) decimated in Blender; full browser suite at the end of Phase 11: 91/94 at first → fixed (a phone top-bar overflow with four modes; two stale tests) → 94/94.
 
 - **Phase 11 complete** — 7 gates, one commit each, all pushed: 11.1 `0487514` · 11.2 `4e52562` · 11.3 `b9ef5e5` · 11.4 `d9f0b3b` · 11.5 `081aecf` · 11.6 `f4f7b6c` · 11.7 `d4050c5` · fix `0e3f379`.
 - **One mistake, fixed:** the 11.7 commit went in with three failing tests; one exposed a real bug (Biologic items shown as “Spectral” in the relationship explorer). Fixed in `0e3f379`; tests are now checked before every commit.

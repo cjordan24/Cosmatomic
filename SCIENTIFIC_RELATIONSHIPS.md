@@ -150,6 +150,10 @@ Every encyclopedia entry describes a registry entity, so E.2 registered the 11 s
 
 `instrument:plants` (`#/biologic/plants`) *explains* `process:photosynthesis`, which now opens this view (NASA); photosynthesis *absorbs* visible light at the chlorophyll maxima (OMLC) and *produces* glucose (NASA); the microbes tab is *part of* the scale of life.
 
+## Body (Phase 12)
+
+`instrument:body` (`#/biologic/body`): eleven `structure:organ-*` entities are *part of* it (BodyParts3D). The heart *drives* haemoglobin's oxygen transport (SEER); the kidneys *explain* filtration and link to osmosis (NIDDK).
+
 ## Rules
 
 1. No edge without a source.

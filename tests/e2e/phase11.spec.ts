@@ -192,7 +192,8 @@ test('99 transport: diffusion times from ICT coefficients, Fick solver and rando
 // ---------------- Gate 11.7 ----------------
 test('100 plants and microbes: NASA photosynthesis, chlorophyll maxima over sunlight, viruses to plant cells', async ({ page }) => {
   await page.goto('/#/biologic');
-  await page.getByRole('navigation', { name: 'Biologic sections' }).getByRole('button', { name: 'Plants & microbes' }).click();
+  await page.getByRole('navigation', { name: 'Biologic sections' }).getByRole('button', { name: 'Cell biology ▾' }).click();
+  await page.getByRole('menuitem', { name: 'Plants & microbes' }).click();   // moved into the menu in Gate 12.1 (top-bar width)
   await expect(page).toHaveURL(/#\/biologic\/plants$/);
   await expect(page.locator('.left-panel')).toContainText('CO2 + H2O + energy = CH2O + O2');
   const t = page.getByRole('table', { name: 'Chlorophyll maxima' });
