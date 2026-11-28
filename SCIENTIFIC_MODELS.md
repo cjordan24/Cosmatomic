@@ -817,3 +817,11 @@ A sixth mode (periwinkle #82b1ff) with a shared **depth switch** (`src/ui/Depth.
 ### 78.4 Temperature record (Gate 21.4): `#/meteorology/records`
 
 * NOAAGlobalTemp v6.1.0 annual global land-and-ocean departures 1850–2025 (NCEI Climate at a Glance; base 1901–2000 in the file). Derived: 10-year running mean, decade means, ranks (2024 warmest, +1.26 °C), re-basing to 1991–2020 by subtracting that period's mean. **Finding:** the file's base period (1901–2000) differs from the product page's stated reference (1991–2020). GISTEMP not used (robots). Browser test 134.
+
+## 79. Weather on other worlds (Phase 22): `src/core/meteorology/planets.ts`, `#/meteorology/planets`
+
+* **Library:** Mercury–Neptune and Pluto from the NSSDCA fact sheets' atmosphere sections (2024–2025 updates, verbatim), Titan and Triton from NASA pages; findings from NASA Science, NASA releases, ESA (Venus Express, Huygens), each tagged observation / inference / model / summary. Io, Europa, Enceladus and WASP-39 b (JWST CO₂ and SO₂) as quote cards. Jupiter's Great Red Spot widths 1880s → 2017 (Hubble 2014, Juno 2017).
+* **Checks:** each fact sheet's printed scale height is reproduced from its own temperature, molecular weight and gravity within 6 % (tested for seven planets). Greenhouse warming = average surface temperature − black-body temperature (Venus +510 K, Earth +34 K; our subtraction). Giant planets: internal ÷ absorbed (Wang et al. 2025: 113 %, 139 %, 162 %; Uranus 12.52 %) → emitted ÷ absorbed derived (Neptune 2.62, within Voyager's 2.61 ± 0.28).
+* **Comparison engine:** up to three worlds; a warning whenever a giant (1-bar level) is set beside a surface; isothermal pressure profiles (our approximation).
+* **Findings shown:** Venus 92 bar/464 °C (NSSDCA) vs 93×/467 °C (NASA); cloud-top winds 360 vs >400 km/h; Mars −59 vs −65 °C (two NSSDCA tables); Saturn winds 400 vs 500 m/s; Uranus 250 m/s vs 900 km/h and Pout/Pin 1.06/1.13/1.15; Neptune 580 m/s vs 2,000 km/h; Pluto 13/11 µbar/1/100,000 Earth; Titan 1.5 atm vs “60 percent greater”; Huygens 2 h 28 vs 27 min. NASA page errors not used (Uranus “Great Dark Spot 1986”, Enceladus 800 mph = 400 m/s, Juno 200 mi = 300 km).
+* **Tests:** `planets.test.ts` (9); browser test 135.

@@ -1043,3 +1043,7 @@ Sixteen NOAA stations, Köppen–Geiger by Peel et al. (2007), eight causes with
 ## Gate 21.4: temperature record (`#/meteorology/records`), 2026-11-28 — Phase 21 complete
 
 NOAAGlobalTemp 1850–2025 with running mean, ranks, decade means and a reference-period switch; links to the storm lab's observed extremes. Sources +2; browser 134.
+
+## Phase 22: weather on other worlds (`#/meteorology/planets`), 2026-11-28
+
+Library, comparison engine and energy tab; two research agents (notes 22A/22B); 39 sources. End-of-Phase-21 suite 128/128. Science `planets.test.ts` (9); browser 135.

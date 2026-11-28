@@ -1,0 +1,33 @@
+{
+  "dataset": "planets-atmosphere",
+  "version": "1.0.0",
+  "records": 110,
+  "sources": [
+    {
+      "institution": "NASA NSSDCA Planetary Fact Sheets",
+      "url": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/",
+      "license": "U.S. government work",
+      "notes": "atmosphere sections, 2024–2025 updates"
+    },
+    {
+      "institution": "NASA Science, NASA, ESA; Wang et al. 2025 (GRL, CC BY-NC-ND)",
+      "url": "https://science.nasa.gov/solar-system/",
+      "license": "U.S. government works; ESA content ©ESA (quoted); CC BY-NC-ND (quoted)",
+      "notes": "phenomena, missions, internal heat"
+    }
+  ],
+  "adapter": "scripts/ingestion/curated-planets-atm.ts",
+  "warnings": [
+    "Venus 92 bar/464 °C (NSSDCA) vs 93×/467 °C (NASA page).",
+    "Mars average −59 °C (Mars sheet) vs −65 °C (comparison table).",
+    "Pluto 13 vs 11 µbar vs 1/100,000 Earth.",
+    "Titan 1.5 atm vs “60 percent greater”.",
+    "Uranus Pout/Pin 1.06 vs 1.13 vs 1.15.",
+    "Giant-planet Pout/Pin for Jupiter, Saturn derived from Wang et al.’s internal/absorbed percentages.",
+    "NASA page errors not used: Uranus “Great Dark Spot 1986”, Enceladus 800 mph = 400 m/s, Juno 200 mi = 300 km."
+  ],
+  "output": "datasets/meteorology/planets.json",
+  "retrievedAt": "2026-11-28T14:57:45.017Z",
+  "bytes": 19350,
+  "sha256": "e91e7dfbcd0c0d739806c71d273ad455fae234a054d737954209c1c6e8985020"
+}

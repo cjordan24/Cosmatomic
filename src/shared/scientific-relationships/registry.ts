@@ -482,6 +482,10 @@ registerRelationship({ from: 'instrument:moist-air', to: 'instrument:climates', 
 registerRelationship({ from: 'instrument:radiation-budget', to: 'instrument:climates', type: 'explains', context: 'the tropics receive about 90 % of the equator’s energy, mid-latitudes 70 %, the polar circles 40 % (NASA Earth Observatory)', source: 'nasa-earth-energy-budget' });
 registerEntity(E('instrument:records', 'The global temperature record', '#/meteorology/records', 'NOAAGlobalTemp annual departures 1850–2025, running means, ranks and reference periods (Gate 21.4)'));
 registerRelationship({ from: 'instrument:radiation-budget', to: 'instrument:records', type: 'explains', context: 'an additional 3.59 W m-2 retained in 2025 relative to preindustrial times (NOAA AGGI)', source: 'noaa-aggi' });
+// ---------------- Phase 22: planetary meteorology ----------------
+registerEntity(E('instrument:planet-weather', 'Weather on other worlds', '#/meteorology/planets', 'Atmospheres of eleven worlds compared; greenhouse warming, internal heat and escape (Phase 22)'));
+registerRelationship({ from: 'instrument:planet-weather', to: 'instrument:radiation-budget', type: 'explains', context: 'Venus: a runaway greenhouse effect makes it “the hottest planet in our solar system” (NASA)', source: 'nasa-venus-facts' });
+registerRelationship({ from: 'instrument:atmosphere-structure', to: 'instrument:planet-weather', type: 'part-of', context: 'scale height R*T/(gM) from the 1976 standard applies to every atmosphere (NSSDCA scale heights reproduced)', source: 'ussa-1976' });
 
 export const getEntity = (id: string) => REGISTRY.get(id);
 export const allEntities = () => [...REGISTRY.values()];
