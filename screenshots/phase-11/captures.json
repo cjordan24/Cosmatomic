@@ -12,5 +12,7 @@
   "98a-membrane-rest.png": "Resting squid axon in sea water (Hodgkin & Katz 1949, eq. 4, P_K : P_Na : P_Cl = 1 : 0.04 : 0.45, 18 °C): E = +59 mV in the paper’s sign, V_m = −59 mV, near the potassium potential; Table 7 recomputed beside the printed values.",
   "98b-membrane-active.png": "Peak of the spike: P_Na/P_K = 20 moves V_m to +38 mV, towards the sodium potential; the curve shows V_m against P_Na/P_K between the potassium and sodium limits.",
   "99a-diffusion.png": "Diffusion (Gate 11.6): glucose (ICT 1929, 0.52·10⁻⁵ cm²/s at 15 °C) — Fick’s equation solved step by step from a thin layer against its exact Gaussian, 300 random walkers, and times t = x²/2D (Einstein eq. 11) from a ribosome to a centimetre.",
-  "99b-enzymes.png": "Michaelis & Menten (1913): V = [S]/([S] + k) on a log [S] axis as in their figures, with k from their Fig. 4a (log k = −1.78, invertase on sucrose); half the maximum rate at [S] = k."
+  "99b-enzymes.png": "Michaelis & Menten (1913): V = [S]/([S] + k) on a log [S] axis as in their figures, with k from their Fig. 4a (log k = −1.78, invertase on sucrose); half the maximum rate at [S] = k.",
+  "100a-photosynthesis.png": "Photosynthesis (Gate 11.7): NASA’s CO2 + H2O + energy = CH2O + O2 (six times it is the balanced net reaction), chlorophyll a and b absorption maxima from OMLC/PhotochemCAD over a 5772 K black-body model of sunlight, and photon energies hc/λ.",
+  "100b-microbes.png": "Viruses (PDB-101: 28.4 nm feline distemper virus to the 520 nm mimivirus), bacteria (1–10 µm), a red blood cell and plant cells (10–100 µm) on one log axis, with NIGMS and NHGRI definitions."
 }

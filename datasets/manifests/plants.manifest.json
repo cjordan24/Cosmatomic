@@ -1,0 +1,26 @@
+{
+  "dataset": "plants",
+  "version": "1.0.0",
+  "records": 5,
+  "sources": [
+    {
+      "institution": "Oregon Medical Laser Center (S. Prahl), PhotochemCAD 2.1a data; Du et al. (1998); Dixon et al. (2005)",
+      "url": "https://omlc.org/spectra/PhotochemCAD/",
+      "notes": "chlorophyll a and b absorption maxima and quantum yields (points only; no licence stated, spectra not bundled)"
+    },
+    {
+      "institution": "NASA Earth Observatory (H. Riebeek, 2011)",
+      "url": "https://science.nasa.gov/earth/earth-observatory/the-carbon-cycle/",
+      "notes": "photosynthesis and respiration equations"
+    }
+  ],
+  "adapter": "scripts/ingestion/curated-plants.ts",
+  "warnings": [
+    "Red-band maxima read from the data files (not stated on the pages).",
+    "Measured in diethyl ether solution; the environment inside a leaf is not represented."
+  ],
+  "output": "datasets/biology/plants.json",
+  "retrievedAt": "2026-11-28T07:34:46.462Z",
+  "bytes": 1629,
+  "sha256": "aebe9e36187586c23132247e520d4e63cd518eac87d642927c319b69a879e8bd"
+}

@@ -1,7 +1,7 @@
 {
   "dataset": "cells",
   "version": "1.0.0",
-  "records": 29,
+  "records": 38,
   "sources": [
     {
       "institution": "National Institute of General Medical Sciences, Glossary",
@@ -27,7 +27,7 @@
     "Volume shares are the booklet’s approximate statements (“about”, “up to”, “more than”, “around”), not measurements of one cell."
   ],
   "output": "datasets/biology/cells.json",
-  "retrievedAt": "2026-11-28T07:09:09.645Z",
-  "bytes": 7954,
-  "sha256": "9a5208b5d0e89f7c505b8c5b269a5336365d99d5631a03eea8b15e70f9bbae7f"
+  "retrievedAt": "2026-11-28T07:34:23.748Z",
+  "bytes": 10566,
+  "sha256": "9c97847524e5d84624a2105fa3afc7d670c5045dea662ab6d0eddcb0870ff8db"
 }

@@ -188,3 +188,27 @@ test('99 transport: diffusion times from ICT coefficients, Fick solver and rando
   await expect(page.getByLabel('Enzyme rate')).toContainText('0.0166');
   await shot(page, '99b-enzymes', 'Michaelis & Menten (1913): V = [S]/([S] + k) on a log [S] axis as in their figures, with k from their Fig. 4a (log k = −1.78, invertase on sucrose); half the maximum rate at [S] = k.');
 });
+
+// ---------------- Gate 11.7 ----------------
+test('100 plants and microbes: NASA photosynthesis, chlorophyll maxima over sunlight, viruses to plant cells', async ({ page }) => {
+  await page.goto('/#/biologic');
+  await page.getByRole('navigation', { name: 'Biologic sections' }).getByRole('button', { name: 'Plants & microbes' }).click();
+  await expect(page).toHaveURL(/#\/biologic\/plants$/);
+  await expect(page.locator('.left-panel')).toContainText('CO2 + H2O + energy = CH2O + O2');
+  const t = page.getByRole('table', { name: 'Chlorophyll maxima' });
+  await expect(t).toContainText('427.8');
+  await expect(t).toContainText('111,700');
+  await expect(t).toContainText('2.9 eV');
+  await expect(t).toContainText('read from the data file');
+  await page.waitForTimeout(1200);
+  await shot(page, '100a-photosynthesis', 'Photosynthesis (Gate 11.7): NASA’s CO2 + H2O + energy = CH2O + O2 (six times it is the balanced net reaction), chlorophyll a and b absorption maxima from OMLC/PhotochemCAD over a 5772 K black-body model of sunlight, and photon energies hc/λ.');
+  await page.getByRole('navigation', { name: 'Plants and microbes sections' }).getByRole('button', { name: 'Microorganisms' }).click();
+  await page.getByRole('img', { name: 'Microbe sizes on a log axis' }).getByRole('button', { name: 'A small virus' }).click();
+  await expect(page.locator('.right-panel')).toContainText('28.4 nm');
+  await expect(page.locator('.right-panel')).toContainText('neither a cell nor a living organism');
+  await page.waitForTimeout(600);
+  await shot(page, '100b-microbes', 'Viruses (PDB-101: 28.4 nm feline distemper virus to the 520 nm mimivirus), bacteria (1–10 µm), a red blood cell and plant cells (10–100 µm) on one log axis, with NIGMS and NHGRI definitions.');
+  // the process registered since Phase 4 now opens a view
+  await page.goto('/#/atomic/reactions/photosynthesis-net');
+  await expect(page.locator('a[href="#/biologic/plants"], button:has-text("Photosynthesis")').first()).toBeVisible();
+});

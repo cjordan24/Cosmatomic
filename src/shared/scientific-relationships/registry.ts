@@ -45,7 +45,7 @@ const E = (id: string, label: string, route: string | null, note?: string): Enti
 
 /** Processes, contexts and structures referenced by Phase 4 records. Planned ones have no route yet. */
 const BASE_ENTITIES: Entity[] = [
-  E('process:photosynthesis', 'Photosynthesis', null, 'Biologic Mode (Phase 11)'),
+  E('process:photosynthesis', 'Photosynthesis', '#/biologic/plants', 'Plants & microbes (Gate 11.7)'),
   E('process:cellular-respiration', 'Cellular respiration', null, 'Biologic Mode (Phase 11)'),
   E('process:glycolysis', 'Glycolysis', null, 'Biologic Mode (Phase 11)'),
   E('process:muscle-contraction', 'Muscle contraction', null, 'Biologic Mode (Phase 12)'),
@@ -349,6 +349,11 @@ for (const [mol, what] of [['pubchem-5793', 'glucose'], ['pubchem-5988', 'sucros
   registerRelationship({ from: `molecule:${mol}`, to: 'instrument:transport', type: 'has-property', context: `diffusion coefficient of ${what} in water at 15 °C`, source: 'ict-1929' });
 registerRelationship({ from: 'molecule:pubchem-5988', to: 'instrument:transport', type: 'participates-in', context: 'invertase splits sucrose into glucose and fructose; Michaelis and Menten measured the rate (1913)', source: 'michaelis-menten-1913' });
 registerRelationship({ from: 'instrument:transport', to: 'instrument:cells', type: 'explains', context: 'diffusion time grows as the square of distance: microseconds across a ribosome, seconds across a cell', source: 'einstein-brownian-1926' });
+registerEntity(E('instrument:plants', 'Plants and microorganisms', '#/biologic/plants', 'Photosynthesis and chlorophyll; viruses, bacteria and cells (Gate 11.7)'));
+registerRelationship({ from: 'instrument:plants', to: 'process:photosynthesis', type: 'explains', context: 'CO2 + H2O + energy = CH2O + O2 (NASA Earth Observatory)', source: 'nasa-carbon-cycle-2011' });
+registerRelationship({ from: 'process:photosynthesis', to: 'wave:em-visible', type: 'absorbs', context: 'chlorophyll a absorbs most at 427.8 and 660 nm, chlorophyll b at 453 and 643 nm (in ether)', source: 'omlc-photochemcad' });
+registerRelationship({ from: 'process:photosynthesis', to: 'molecule:pubchem-5793', type: 'produces', context: 'plants make fuel — glucose and other sugars — from carbon dioxide and sunlight', source: 'nasa-carbon-cycle-2011' });
+registerRelationship({ from: 'instrument:plants', to: 'instrument:life-atlas', type: 'part-of', context: 'viruses, bacteria and plant cells placed on the scale of life', source: 'pdb101-virus-structures' });
 
 export const getEntity = (id: string) => REGISTRY.get(id);
 export const allEntities = () => [...REGISTRY.values()];

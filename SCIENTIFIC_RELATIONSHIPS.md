@@ -148,6 +148,8 @@ Every encyclopedia entry describes a registry entity, so E.2 registered the 11 s
 
 `instrument:transport` (`#/biologic/transport`): glucose, sucrose, lactose and maltose *have* diffusion coefficients (ICT 1929); sucrose *participates in* invertase kinetics (Michaelis & Menten 1913); diffusion *explains* why cells are small in time (Einstein, t = x²/2D) and links to the Cells view.
 
+`instrument:plants` (`#/biologic/plants`) *explains* `process:photosynthesis`, which now opens this view (NASA); photosynthesis *absorbs* visible light at the chlorophyll maxima (OMLC) and *produces* glucose (NASA); the microbes tab is *part of* the scale of life.
+
 ## Rules
 
 1. No edge without a source.

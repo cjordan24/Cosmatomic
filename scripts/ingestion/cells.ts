@@ -7,7 +7,8 @@
  *    is not copyrighted so you are free to use it with proper attribution”): definitions parsed from the page, verbatim
  *    except that pronunciation guides, “(plural: …)” and the “For more, check out …” blog pointers are omitted, and
  *    spaces left by links (“one- celled”, “ribosomes )”) are closed.
- *  - NHGRI Talking Glossary (public domain): definition paragraphs, verbatim.
+ *  - NHGRI Talking Glossary (public domain): the definition paragraph, verbatim (the narration transcript that
+ *    follows on some pages is not used).
  *  - NIGMS Inside the Cell (2005), read on the archive.org page images: p. 7 (n8) the eukaryote/prokaryote table and
  *    the nucleus share; p. 8 (n9) membrane lipids, cytosol and ER; p. 33 (n34) mitochondria in heart and skin cells.
  */
@@ -21,7 +22,9 @@ const nigmsText = clean(nigmsHtml.replace(/<(script|style)[\s\S]*?<\/\1>/g, '').
   .replace(/&#039;|&rsquo;/g, '’').replace(/&quot;/g, '"').replace(/&amp;/g, '&').replace(/&nbsp;/g, ' '));
 const chunks = nigmsText.split('text_to_speech Share definition share');
 const termOf = (tail: string) => tail.trim().match(/(\S.*?) \1$/)?.[1] ?? null;
-const NIGMS_TERMS = ['Cell', 'Eukaryotic cell', 'Prokaryotic cell', 'Membrane', 'Nucleus', 'Mitochondrion', 'Ribosome', 'Organelle', 'Endoplasmic reticulum (ER)', 'Golgi', 'Lysosome', 'Cytoplasm', 'Bacterium'];
+const NIGMS_TERMS = ['Cell', 'Eukaryotic cell', 'Prokaryotic cell', 'Membrane', 'Nucleus', 'Mitochondrion', 'Ribosome', 'Organelle', 'Endoplasmic reticulum (ER)', 'Golgi', 'Lysosome', 'Cytoplasm', 'Bacterium',
+  // Gate 11.7
+  'Photosynthesis', 'Virus', 'Microbe', 'Microorganism', 'Fungus', 'Yeast', 'Pathogen'];
 const nigms: { term: string; text: string }[] = [];
 for (let k = 1; k < chunks.length; k++) {
   const term = termOf(chunks[k - 1].slice(-160));
@@ -36,18 +39,19 @@ for (let k = 1; k < chunks.length; k++) {
 for (const t of NIGMS_TERMS) if (!nigms.some((n) => n.term === t)) throw new Error(`NIGMS term not found: ${t}`);
 
 // ---------- NHGRI glossary ----------
-const NHGRI = [['Cell', 'Cell'], ['Nucleus', 'Nucleus'], ['Mitochondria', 'Mitochondria'], ['Ribosome', 'Ribosome'], ['Cell-Membrane', 'Cell-Membrane-Plasma-Membrane'], ['Organelle', 'Organelle'], ['Cytoplasm', 'Cytoplasm']];
+const NHGRI = [['Cell', 'Cell'], ['Nucleus', 'Nucleus'], ['Mitochondria', 'Mitochondria'], ['Ribosome', 'Ribosome'], ['Cell-Membrane', 'Cell-Membrane-Plasma-Membrane'], ['Organelle', 'Organelle'], ['Cytoplasm', 'Cytoplasm'], ['Virus', 'Virus'], ['Bacteria', 'Bacteria']];
 const nhgri: { term: string; url: string; text: string }[] = [];
 for (const [cache, slug] of NHGRI) {
   const url = `https://www.genome.gov/genetics-glossary/${slug}`;
   const page = await fetchText(url, { minIntervalMs: 2000, cacheKey: `nhgri/${cache}.html` });
   const lines = page.replace(/<(script|style)[\s\S]*?<\/\1>/g, '').replace(/<[^>]+>/g, '\n').replace(/&#039;|&rsquo;/g, '’').replace(/&quot;/g, '"').replace(/&amp;/g, '&').replace(/&nbsp;/g, ' ')
     .split('\n').map((l) => l.trim()).filter(Boolean);
-  const i = lines.findIndex((l) => l.startsWith('​'));
-  if (i < 0) throw new Error(`no NHGRI definition: ${slug}`);
-  const para: string[] = [];
-  for (const l of lines.slice(i + 1, i + 12)) { if (l.length > 80) para.push(l); else if (para.length) break; }
-  nhgri.push({ term: lines[i].replace('​', ''), url, text: para.join(' ') });
+  // the definition is the paragraph after the “Definition” heading (a “Narration” transcript may follow; not used)
+  const d = lines.indexOf('Definition');
+  const term = lines[lines.lastIndexOf('updated:', d) >= 0 ? d - 2 : d - 2]?.replace('\u200b', '');
+  const text = d >= 0 ? lines.slice(d + 1).find((l) => l.length > 80) : undefined;
+  if (!text || !term) throw new Error(`no NHGRI definition: ${slug}`);
+  nhgri.push({ term, url, text });
 }
 
 // ---------- Inside the Cell (hand-transcribed from the page images) ----------
