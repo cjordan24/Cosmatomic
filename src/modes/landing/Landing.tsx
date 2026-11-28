@@ -1,5 +1,5 @@
 /**
- * Landing page: four portals (three live, one coming soon).
+ * Landing page: five portals.
  *  ATOMIC   — a real hydrogen 3d(z²) probability cloud sampled from ψ_nlm.
  *  COSMIC   — the planets at their actual heliocentric longitudes today (JPL elements),
  *             with radial distances log-compressed for the thumbnail (labelled).
@@ -24,6 +24,7 @@ import { planeB, planeE, POLARISATIONS } from '@/core/physics/em/em';
 import { CONSTANTS } from '@/core/constants/constants';
 import dna from '@datasets/biology/pdb/1BNA.json';
 import { principalExtents } from '@/core/biology/structure';
+import { rippleAdd } from '@/core/computing/logic';
 
 function Spin({ children, speed = 0.08 }: { children: React.ReactNode; speed?: number }) {
   const ref = useRef<THREE.Group>(null);
@@ -140,7 +141,33 @@ function BiologicPortalScene() {
   );
 }
 
-type Live = 'atomic' | 'cosmic' | 'spectral' | 'biologic';
+/** ENGINEERING — a 5-bit ripple-carry adder evaluated gate by gate (rippleAdd), adding today's day of the month
+ *  and month number: every 1 bit lit is a real output of the logic. Drawn in SVG, no 3D. */
+function EngineeringPortalScene() {
+  const now = new Date(), x = now.getDate(), y = now.getMonth() + 1, n = 5;
+  const r = rippleAdd(x, y, n);
+  const col = (on: number) => (on ? '#ff8a65' : 'rgba(255,138,101,0.18)');
+  const W = 600, H = 300, cx = (i: number) => W - 70 - i * 95;
+  return (
+    <svg className="portal-canvas" viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="xMaxYMin meet" aria-hidden="true">
+      {r.stages.map((s, i) => (
+        <g key={i}>
+          <circle cx={cx(i) - 14} cy={34} r={8} fill={col(s.a)} /><circle cx={cx(i) + 14} cy={34} r={8} fill={col(s.b)} />
+          <line x1={cx(i) - 14} x2={cx(i) - 14} y1={42} y2={64} stroke={col(s.a)} strokeWidth={2} />
+          <line x1={cx(i) + 14} x2={cx(i) + 14} y1={42} y2={64} stroke={col(s.b)} strokeWidth={2} />
+          <rect x={cx(i) - 30} y={64} width={60} height={52} rx={8} fill="none" stroke={col(1)} strokeOpacity={0.55} />
+          <text x={cx(i)} y={95} textAnchor="middle" fontSize={13} fill="#ff8a65" opacity={0.7}>FA</text>
+          <line x1={cx(i)} x2={cx(i)} y1={116} y2={136} stroke={col(s.sum)} strokeWidth={2} /><circle cx={cx(i)} cy={146} r={10} fill={col(s.sum)} />
+          {i < n - 1 && <line x1={cx(i) - 30} x2={cx(i + 1) + 30} y1={90} y2={90} stroke={col(s.cout)} strokeWidth={2} />}
+        </g>
+      ))}
+      <text x={W - 34} y={38} fontSize={11} fill="#ff8a65" opacity={0.6} textAnchor="end" transform={`translate(0 -16)`}>{x} + {y}</text>
+      <text x={W - 34} y={176} fontSize={11} fill="#ff8a65" opacity={0.6} textAnchor="end">= {r.total}</text>
+    </svg>
+  );
+}
+
+type Live = 'atomic' | 'cosmic' | 'spectral' | 'biologic' | 'engineering';
 
 export default function Landing() {
   const [leaving, setLeaving] = useState<Live | null>(null);
@@ -154,7 +181,7 @@ export default function Landing() {
     <div className="landing">
       <div className="landing-title">
         <h1 style={{ display: 'inline-flex', alignItems: 'center', gap: 14 }}><span style={{ width: 28, height: 28, display: 'inline-block' }}><Logo /></span>VOYAGER VENTURES</h1>
-        <p>A SCIENTIFIC SANDBOX FROM ATOMIC NUCLEI TO LIVING CELLS AND THE SOLAR SYSTEM</p>
+        <p>A SCIENTIFIC SANDBOX FROM ATOMS TO GALAXIES, LIVING CELLS AND THE MACHINES WE BUILD</p>
       </div>
       <button className={`portal atomic ${leaving === 'atomic' ? 'zoom' : leaving ? 'fade' : ''}`} onClick={() => enter('atomic')} aria-label="Enter Atomic mode">
         <Viewport className="portal-canvas" camera={{ position: [0, 0, 5.2], fov: 45 }}><AtomPortalScene /></Viewport>
@@ -188,7 +215,15 @@ export default function Landing() {
           <span className="cta">ENTER →</span>
         </div>
       </button>
-      <div className="landing-foot">Atomic: hydrogen 3d<sub>z²</sub> probability density (analytic ψ). Cosmic: planets at today's heliocentric longitudes (JPL elements), distances log-compressed. Spectral: analytic vacuum plane wave, E ⊥ B ⊥ k, |B| = |E|/c. Biologic: atoms of the B-DNA dodecamer 1BNA (Drew et al. 1981, Protein Data Bank).</div>
+      <button className={`portal engineering ${leaving === 'engineering' ? 'zoom' : leaving ? 'fade' : ''}`} onClick={() => enter('engineering')} aria-label="Enter Engineering mode">
+        <EngineeringPortalScene />
+        <div className="portal-text">
+          <h2>ENGINEERING</h2>
+          <p>Logic, computers and the machines built on science.</p>
+          <span className="cta">ENTER →</span>
+        </div>
+      </button>
+      <div className="landing-foot">Atomic: hydrogen 3d<sub>z²</sub> probability density (analytic ψ). Cosmic: planets at today's heliocentric longitudes (JPL elements), distances log-compressed. Spectral: analytic vacuum plane wave, E ⊥ B ⊥ k, |B| = |E|/c. Biologic: atoms of the B-DNA dodecamer 1BNA (Drew et al. 1981, Protein Data Bank). Engineering: a 5-bit ripple-carry adder evaluated gate by gate, adding today’s day and month.</div>
     </div>
   );
 }

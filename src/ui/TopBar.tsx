@@ -32,6 +32,7 @@ interface Hit { kind: 'element' | 'molecule' | 'body' | 'reaction' | 'material' 
 const SPECTRAL_SECTIONS = ['lab', 'fields', 'compare', 'antennas', 'rf', 'room', 'modulation', 'acoustics', 'audio', 'roomacoustics', 'optics', 'waveoptics', 'polarisation', 'spectroscopy', 'thermal', 'telescopes', 'atmosphere'];
 /** Biologic sub-routes other than the scale-of-life atlas (Phase 11+). */
 export const BIOLOGIC_SECTIONS: string[] = ['molecules', 'proteins', 'cells', 'membranes', 'transport', 'plants', 'body', 'movement', 'circulation', 'nerves', 'systems', 'zoom', 'senses', 'imaging'];
+const ENGINEERING_SECTIONS: string[] = [];
 const COSMIC_SECTIONS = ['map', 'stars', 'sandbox', 'relativity', 'compact', 'lensing', 'galaxies', 'nebulae', 'universe', 'ladder', 'cmb', 'darkmatter', 'gw', 'plasma', 'grtests', 'models'];
 
 /** A chip that opens a small menu of related sections; it is highlighted when one of them is open. */
@@ -235,19 +236,20 @@ export function TopBar() {
   const [moreOpen, setMoreOpen] = useState(false);
   return (
     <>
-      <header className={`topbar ${mode === 'cosmic' || mode === 'atomic' || mode === 'spectral' || mode === 'biologic' ? 'many-chips' : ''}`}>
+      <header className={`topbar ${mode === 'cosmic' || mode === 'atomic' || mode === 'spectral' || mode === 'biologic' || mode === 'engineering' ? 'many-chips' : ''}`}>
         <button className="brand" onClick={() => navigate('/')} aria-label="Voyager Ventures home"><Logo /><span className="wordmark">VOYAGER VENTURES</span></button>
         <nav className="mode-switch" aria-label="Mode">
           <button className={mode === 'atomic' ? 'active' : ''} onClick={() => navigate('/atomic')}>ATOMIC</button>
           <button className={`cosmic ${mode === 'cosmic' ? 'active' : ''}`} onClick={() => navigate('/cosmic')}>COSMIC</button>
           <button className={`spectral ${mode === 'spectral' ? 'active' : ''}`} onClick={() => navigate('/spectral')}>SPECTRAL</button>
           <button className={`biologic ${mode === 'biologic' ? 'active' : ''}`} onClick={() => navigate('/biologic')}>BIOLOGIC</button>
+          <button className={`engineering ${mode === 'engineering' ? 'active' : ''}`} onClick={() => navigate('/engineering')}>ENGINEERING</button>
         </nav>
         {/* Phones: four mode names do not fit in 390 px, so the switch becomes one menu (Gate 11.x fix) */}
         <div className="mobile-only mode-menu">
-          <ChipMenu label={({ atomic: 'ATOMIC', cosmic: 'COSMIC', spectral: 'SPECTRAL', biologic: 'BIOLOGIC' } as Record<string, string>)[mode] ?? 'MODE'} items={[
+          <ChipMenu label={({ atomic: 'ATOMIC', cosmic: 'COSMIC', spectral: 'SPECTRAL', biologic: 'BIOLOGIC', engineering: 'ENGINEERING' } as Record<string, string>)[mode] ?? 'MODE'} items={[
             { label: 'Atomic', to: '/atomic', active: mode === 'atomic' }, { label: 'Cosmic', to: '/cosmic', active: mode === 'cosmic' },
-            { label: 'Spectral', to: '/spectral', active: mode === 'spectral' }, { label: 'Biologic', to: '/biologic', active: mode === 'biologic' },
+            { label: 'Spectral', to: '/spectral', active: mode === 'spectral' }, { label: 'Biologic', to: '/biologic', active: mode === 'biologic' }, { label: 'Engineering', to: '/engineering', active: mode === 'engineering' },
           ]} />
         </div>
         {mode === 'atomic' && (
@@ -307,6 +309,11 @@ export function TopBar() {
             <ChipMenu label="Radio" items={RADIO_ITEMS.map(([label, to]) => ({ label, to, active: `/${path.join('/')}` === to }))} />
             <ChipMenu label="Light" items={LIGHT_ITEMS.map(([label, to]) => ({ label, to, active: `/${path.join('/')}` === to }))} />
             <button className={`chip ${path[1] === 'fields' ? 'active' : ''}`} onClick={() => navigate('/spectral/fields')}>Fields</button>
+          </nav>
+        )}
+        {mode === 'engineering' && (
+          <nav className="chip-row hide-mobile" aria-label="Engineering sections">
+            <button className={`chip ${!ENGINEERING_SECTIONS.includes(path[1]) ? 'active' : ''}`} onClick={() => navigate('/engineering')}>Bits & logic</button>
           </nav>
         )}
         {mode === 'biologic' && (

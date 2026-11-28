@@ -929,3 +929,11 @@ Committed together (one view with six tabs, one dataset).
 **Phase 14 summary:** Subatomic ▾ (particles, quantum lab, nuclei) in Atomic; plasma, tests of relativity and a dark-matter/modified-gravity comparison in Cosmic; five pathways. 18 new sources. Findings: Condon & Morse's (68.5) sign misprint; Mott's 1-cm example; Einstein's 43″ and 1.7″ reproduced (42.98″, 1.751″); the 2016 radial-acceleration sample and g† reproduced from the bundled SPARC tables (2,696 vs 2,693 points; 1.16 vs 1.20 × 10⁻¹⁰). Left out: the Kerr ISCO formula (paper not openly readable), the full CNO cycle and per-step solar-neutrino energies (no open source), a “three generations” statement (no public-domain source).
 
 **End-of-Phase-14 full browser suite (2026-11-28):** 107/109 on the first run; the two failures were stale tests, not app faults: test 59 (“Relativity” now also matches “Tests of relativity” — made exact) and test 73 (the “lensing” link search now finds 3 relationships, including Gate 14.5's). Both pass after the update: **109/109**.
+
+## Gate 15.1: Engineering mode, bits and logic (`#/engineering`), 2026-11-28
+
+1. **Fifth mode:** ENGINEERING in the mode switch (coral accent), mobile mode menu, relationship-explorer colour; the landing page becomes a 3 + 2 grid with an Engineering portal (a live 5-bit adder in SVG). On phones the landing now scrolls and its source caption sits below the portals (it used to overlap the last one).
+2. **View:** Bits (byte converter, binary prefixes), Logic gates (live inputs, truth tables, NAND universality), Adding (4-bit ripple-carry adder showing every carry).
+3. **Read on page images:** Boole 1854 p. 31; Shannon 1938 p. 714; Shannon 1948 p. 380. Research for all of Phase 15 saved (`research/SOURCE_NOTES_PHASE15.md`). Licence notes: Intel's terms forbid bots (Moore 1965 not used); LBNL 2024 report blocked (eScholarship 403) — its 2025 update (CC BY 4.0) is available; Unicode Core Spec not redistributable (facts only).
+4. **Sources (+4, 264 entries):** boole-1854, shannon-1938, shannon-1948, nist-binary-prefixes.
+5. **Tests:** science `logic.test.ts` (9); browser test 116; landing tests 01 and 18 updated for five portals.

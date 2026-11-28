@@ -72,6 +72,7 @@ const NucleiView = lazy(() => import('@/modes/atomic/nuclei/NucleiView'));
 const PlasmaView = lazy(() => import('@/modes/cosmic/plasma/PlasmaView'));
 const GrTestsView = lazy(() => import('@/modes/cosmic/relativity/GrTestsView'));
 const ModelsView = lazy(() => import('@/modes/cosmic/universe/ModelsView'));
+const LogicView = lazy(() => import('@/modes/engineering/logic/LogicView'));
 
 export default function App() {
   const { path } = useRoute();
@@ -90,7 +91,7 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-    document.title = mode === 'atomic' ? 'Atomic · Voyager Ventures' : mode === 'cosmic' ? 'Cosmic · Voyager Ventures' : mode === 'spectral' ? 'Spectral · Voyager Ventures' : mode === 'biologic' ? 'Biologic · Voyager Ventures' : mode === 'scale' ? 'Scale · Voyager Ventures' : mode === 'relations' ? 'Relationships · Voyager Ventures' : 'Voyager Ventures';
+    document.title = mode === 'atomic' ? 'Atomic · Voyager Ventures' : mode === 'cosmic' ? 'Cosmic · Voyager Ventures' : mode === 'spectral' ? 'Spectral · Voyager Ventures' : mode === 'biologic' ? 'Biologic · Voyager Ventures' : mode === 'engineering' ? 'Engineering · Voyager Ventures' : mode === 'scale' ? 'Scale · Voyager Ventures' : mode === 'relations' ? 'Relationships · Voyager Ventures' : 'Voyager Ventures';
   }, [mode]);
 
   let view;
@@ -108,6 +109,7 @@ export default function App() {
   } else if (mode === 'cosmic') view = path[1] === 'map' ? <UniverseMapView /> : path[1] === 'plasma' ? <PlasmaView /> : path[1] === 'grtests' ? <GrTestsView /> : path[1] === 'models' ? <ModelsView /> : path[1] === 'sandbox' ? <SandboxView /> : path[1] === 'relativity' ? <RelativityView /> : path[1] === 'compact' ? <CompactView /> : path[1] === 'lensing' ? <LensingView /> : path[1] === 'galaxies' ? <GalaxiesView /> : path[1] === 'nebulae' ? <NebulaeView /> : path[1] === 'universe' ? <UniverseView /> : path[1] === 'ladder' ? <LadderView /> : path[1] === 'cmb' ? <CmbView /> : path[1] === 'darkmatter' ? <DarkMatterView /> : path[1] === 'gw' ? <GwView /> : path[1] === 'stars' ? (path[2] === 'hr' ? <HrView /> : path[2] === 'planets' ? <PlanetsView /> : <StarsView />) : <CosmicView focusId={path[1] ?? 'sun'} />;
   else if (mode === 'spectral') view = path[1] === 'lab' ? <WaveLab /> : path[1] === 'fields' ? <FieldsView /> : path[1] === 'compare' ? <CompareView /> : path[1] === 'antennas' ? <AntennaView /> : path[1] === 'rf' ? <RfView /> : path[1] === 'room' ? <RoomView /> : path[1] === 'modulation' ? <ModulationView /> : path[1] === 'acoustics' ? <AcousticsView /> : path[1] === 'audio' ? <AudioView /> : path[1] === 'roomacoustics' ? <RoomAcousticsView /> : path[1] === 'optics' ? <OpticsView /> : path[1] === 'waveoptics' ? <WaveOpticsView /> : path[1] === 'polarisation' ? <PolarisationView /> : path[1] === 'spectroscopy' ? <SpectroscopyView /> : path[1] === 'thermal' ? <ThermalView /> : path[1] === 'telescopes' ? <TelescopesView /> : path[1] === 'atmosphere' ? <AtmosphereView /> : <SpectralAtlas />;
   else if (mode === 'biologic') view = path[1] === 'molecules' ? <BiomoleculesView /> : path[1] === 'proteins' ? <ProteinsView /> : path[1] === 'cells' ? <CellsView /> : path[1] === 'membranes' ? <MembranesView /> : path[1] === 'transport' ? <TransportView /> : path[1] === 'plants' ? <PlantsView /> : path[1] === 'body' ? <BodyView /> : path[1] === 'movement' ? <MovementView /> : path[1] === 'circulation' ? <CirculationView /> : path[1] === 'nerves' ? <NervesView /> : path[1] === 'systems' ? <SystemsView /> : path[1] === 'zoom' ? <ZoomView /> : path[1] === 'senses' ? <SensesView /> : path[1] === 'imaging' ? <ImagingView /> : <LifeAtlasView />;
+  else if (mode === 'engineering') view = <LogicView />;
   else if (mode === 'notebook') view = <NotebookView />;
   else if (mode === 'scale') view = <ScaleView />;
   else if (mode === 'relations') view = <RelationsView />;

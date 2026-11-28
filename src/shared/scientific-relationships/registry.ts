@@ -410,6 +410,8 @@ registerEntity(E('instrument:models', 'Dark matter or modified gravity?', '#/cos
 registerRelationship({ from: 'body:sun', to: 'instrument:plasma', type: 'emits', context: '“The solar wind continuously flows outward from the Sun and consists mainly of protons and electrons in a state known as a plasma” (NOAA)', source: 'noaa-swpc-solar-wind' });
 registerRelationship({ from: 'instrument:grtests', to: 'context:gravitational-lensing', type: 'explains', context: 'Einstein’s eq. (74): light passing the Sun is bent by 1.75″ (printed 1.7″)', source: 'einstein-1916' });
 registerRelationship({ from: 'instrument:models', to: 'context:dark-matter', type: 'part-of', context: 'the same SPARC rotation curves read through eq. (4) of the radial acceleration relation', source: 'mcgaugh-2016-rar' });
+// ---------------- Phase 15: computing & computer engineering ----------------
+registerEntity(E('instrument:logic', 'Bits and logic', '#/engineering', 'Binary, logic gates and adders evaluated gate by gate (Gate 15.1)'));
 
 export const getEntity = (id: string) => REGISTRY.get(id);
 export const allEntities = () => [...REGISTRY.values()];

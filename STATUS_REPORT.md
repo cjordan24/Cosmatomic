@@ -1,6 +1,6 @@
 # Voyager Ventures — status report and index
 
-*Kept up to date by Claude during the autonomous run. Last updated: **2026-11-28, end of Phase 14**.*
+*Kept up to date by Claude during the autonomous run. Last updated: **2026-11-28, Gate 15.1**.*
 
 Live site: https://voyager-ventures.vercel.app — **production still serves the build from 2026-11-27** (Phase 10 + universe map + interface pass). Nothing from Phases 11–14 is deployed: you asked for no deploys until Phase 14 is finished. The deploy command is at the bottom.
 
@@ -36,7 +36,7 @@ You said: if a permission prompt gets no answer within 5 minutes, treat it as de
 | 12 Human Anatomy & Physiology | reference model, skeleton/muscle, heart/lungs, nervous system (Hodgkin–Huxley), other organ systems, organ-to-cell zoom | **Complete** (not deployed) |
 | 13 Waves, Life & Imaging | vision, hearing, bioelectricity, EM–tissue, microscopy, medical imaging | **Complete** (not deployed) |
 | 14 Advanced Foundations | Standard Model, quantum lab, nuclear physics, plasma, relativity, cosmology models | **Complete** (not deployed) |
-| 15–19 Computing & Engineering | your brief (`COMPUTING_ENGINEERING_BRIEF.md`, saved verbatim) | Queued — begins when Phase 14 is complete |
+| 15–19 Computing & Engineering | your brief (`COMPUTING_ENGINEERING_BRIEF.md`, saved verbatim); gate plan in `DEVELOPMENT_ROADMAP.md` | **In progress** — Phase 15 begun: Engineering mode and Gate 15.1 done |
 | 20+ Meteorology & Climate | your brief (`METEOROLOGY_EXPANSION_BRIEF.md`, saved verbatim) | Queued — after Phase 19 |
 
 **Counts (end of Phase 11):** 854 science tests (60 files), 94 browser tests (11 spec files; numbered up to 100), 49 dataset manifests, 208 Source-index entries, 84 commits in this repository.
@@ -88,6 +88,11 @@ Four portals: ATOMIC, COSMIC, SPECTRAL, **BIOLOGIC** (new in Phase 11; shows the
 | `#/biologic/imaging` | **Imaging the body** (Phase 13) — radio waves in tissue (SAR), microscopes (light and electrons), X-rays, ultrasound, MRI, and all their wavelengths on one axis | NIST SRD 126, IFAC-CNR (Gabriel), USAF handbook, FCC, FDA, Abbe 1873, de Broglie 1930, Rayleigh 1896, NBS SP 525, CODATA |
 | `#/biologic/plants` | **Plants & microbes** — photosynthesis, chlorophyll absorption maxima over sunlight; viruses to plant cells | NASA, OMLC/PhotochemCAD, NIGMS, NHGRI |
 
+### ENGINEERING (coral) — **new in Phase 15**
+| Address | What it is | Main sources |
+|---|---|---|
+| `#/engineering` | **Bits & logic** — a byte in binary/hex/two's complement, logic gates with truth tables, NAND universality, a 4-bit adder built from gates | Boole 1854, Shannon 1938 and 1948, NIST |
+
 ### Shared tools (all modes)
 - `#/scale` universal scale navigator · `#/relations` relationship explorer (now with Biologic) · `#/notebook` scientific notebook · `#/sources` Source index (208 entries)
 - Top bar: 📖 Encyclopedia · 🔗 Relationships · 📚 Sources · 📓 Notebook · ⟷ Scale · ⚙ Settings
@@ -95,6 +100,8 @@ Four portals: ATOMIC, COSMIC, SPECTRAL, **BIOLOGIC** (new in Phase 11; shows the
 ---
 
 ## 4. What was done in this run (newest first)
+
+- **Phase 15 begun (your Computing & Engineering brief)** — a fifth mode, ENGINEERING, with its own landing portal (a working adder that adds today's day and month), and Gate 15.1: bits, logic gates and adders. Roadmap for Phases 15–19 written into `DEVELOPMENT_ROADMAP.md`.
 
 - **End-of-Phase-14 browser suite: 109/109** (after updating two stale test expectations).
 - **Phase 14 complete** — Gate 14.7: five new pathways linking the new views across modes (Relationships 🔗 → Pathways). Phases 11–14 are all built; **ready for you to deploy** (command in §6).

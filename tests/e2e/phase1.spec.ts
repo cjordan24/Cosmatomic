@@ -34,10 +34,11 @@ test('01 landing page and zoom transition into Atomic mode', async ({ page }) =>
   await expect(page.getByRole('button', { name: 'Enter Cosmic mode' })).toBeVisible();
   await expect(page.getByRole('button', { name: 'Enter Spectral mode' })).toBeVisible();
   await expect(page.getByRole('button', { name: 'Enter Biologic mode' })).toContainText('BIOLOGIC');
-  // all four portals fit the 1440×900 viewport without scrolling
+  await expect(page.getByRole('button', { name: 'Enter Engineering mode' })).toContainText('ENGINEERING');
+  // all five portals fit the 1440×900 viewport without scrolling
   expect(await page.evaluate('document.documentElement.scrollHeight <= window.innerHeight')).toBe(true);
   await page.waitForTimeout(2500);
-  await shot(page, '01-landing', 'Landing page, four portals: ATOMIC (sampled hydrogen 3d_z² density), COSMIC (planets at today’s JPL heliocentric longitudes), SPECTRAL (analytic vacuum plane wave, E ⊥ B ⊥ k) and BIOLOGIC (live since Gate 11.1; a greyed-out CELLULAR placeholder until then).');
+  await shot(page, '01-landing', 'Landing page, five portals: ATOMIC (sampled hydrogen 3d_z² density), COSMIC (planets at today’s JPL heliocentric longitudes), SPECTRAL (analytic vacuum plane wave, E ⊥ B ⊥ k), BIOLOGIC (the 1BNA DNA crystal structure) and ENGINEERING (a 5-bit adder evaluated gate by gate; since Gate 15.1).');
   await page.getByRole('button', { name: 'Enter Atomic mode' }).click();
   await expect(page).toHaveURL(/#\/atomic$/);
   await expect(page.locator('.tile')).toHaveCount(118);
@@ -237,8 +238,8 @@ test.describe('mobile', () => {
   test('18 mobile layouts', async ({ page }) => {
     await page.goto('/#/');
     await page.waitForTimeout(2000);
-    await expect(page.getByRole('button', { name: 'Enter Biologic mode' })).toBeVisible();
-    await shot(page, '18-mobile-landing', 'Mobile layout (390×844): ATOMIC, COSMIC, SPECTRAL and BIOLOGIC portals stacked, BIOLOGIC last.');
+    await expect(page.getByRole('button', { name: 'Enter Engineering mode' })).toBeVisible();
+    await shot(page, '18-mobile-landing', 'Mobile layout (390×844): five portals stacked in a scrolling page (ATOMIC, COSMIC, SPECTRAL shown; BIOLOGIC, ENGINEERING and the source caption below).');
     await page.goto('/#/atomic/element/6?view=orbital&orb=2,1,0');
     await page.waitForTimeout(3000);
     await shot(page, '18b-mobile-element', 'Mobile layout: carbon 2p_z orbital with bottom sheet information panel.');

@@ -107,7 +107,11 @@ select, input[type='date'], input[type='datetime-local'], input[type='number'] {
 input[type='range'] { accent-color: var(--accent); }
 
 /* ---------- landing ---------- */
-.landing { position: absolute; inset: 0; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; }
+.landing { position: absolute; inset: 0; display: grid; grid-template-columns: repeat(6, 1fr); grid-template-rows: 1fr 1fr; }
+.portal.atomic, .portal.cosmic, .portal.spectral { grid-column: span 2; }
+.portal.biologic, .portal.engineering { grid-column: span 3; }
+.portal.engineering { color: #ff8a65; background: radial-gradient(circle at 50% 45%, #2a1006 0%, #03050c 70%); border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
+.portal.engineering svg.portal-canvas { width: 100%; height: 100%; }
 .portal { position: relative; overflow: hidden; cursor: pointer; border: 0; padding: 0; background: none; text-align: left; transition: transform 900ms cubic-bezier(.2,.7,.1,1), opacity 700ms ease, filter 700ms ease; }
 .portal .portal-canvas { position: absolute; inset: 0; }
 .portal .portal-text { position: absolute; left: 8%; bottom: 12%; z-index: 2; pointer-events: none; }
@@ -116,7 +120,7 @@ input[type='range'] { accent-color: var(--accent); }
 .portal .cta { display: inline-block; margin-top: 18px; padding: 10px 18px; border: 1px solid currentColor; border-radius: 999px; font-size: 11px; letter-spacing: 0.22em; }
 .portal.atomic { color: #7df9ff; background: radial-gradient(circle at 50% 45%, #06202b 0%, #03050c 70%); }
 .portal.cosmic { color: #c9b4ff; background: radial-gradient(circle at 50% 45%, #170d2e 0%, #03050c 70%); border-left: 1px solid var(--line); }
-.portal.spectral { color: #f5c76b; background: radial-gradient(circle at 50% 45%, #241805 0%, #03050c 70%); border-top: 1px solid var(--line); }
+.portal.spectral { color: #f5c76b; background: radial-gradient(circle at 50% 45%, #241805 0%, #03050c 70%); border-left: 1px solid var(--line); }
 .portal.biologic { color: #5cf2a6; background: radial-gradient(circle at 50% 45%, #052016 0%, #03050c 70%); border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
 .portal.disabled { cursor: default; filter: grayscale(1); opacity: 0.55; }
 .portal.disabled h2 { font-weight: 200; }
@@ -241,16 +245,16 @@ input[type='range'] { accent-color: var(--accent); }
   .search { width: auto; flex: 1; }
   .mode-switch button { padding: 6px 9px; letter-spacing: 0.08em; }
   .topbar .hide-mobile { display: none; }
-  .landing { grid-template-columns: 1fr; grid-template-rows: repeat(4, 1fr); }
-  .portal.cosmic, .portal.biologic { border-left: 0; border-top: 1px solid var(--line); }
+  .landing { grid-template-columns: 1fr; grid-template-rows: repeat(5, minmax(30vh, 1fr)) auto; overflow-y: auto; }
+  .portal.atomic, .portal.cosmic, .portal.spectral, .portal.biologic, .portal.engineering { grid-column: auto; }
+  .portal.cosmic, .portal.spectral, .portal.biologic, .portal.engineering { border-left: 0; border-top: 1px solid var(--line); }
   .portal h2 { font-size: 30px; letter-spacing: 0.26em; }
   .portal p { margin-top: 4px; font-size: 12px; }
   .portal .cta { margin-top: 8px; padding: 6px 12px; font-size: 10px; }
   .portal .portal-text { bottom: 10%; }
   .landing-title { top: 14px; }
   .landing-title p { display: none; }
-  .landing-foot { bottom: 6px; padding: 0 12px; font-size: 9.5px; letter-spacing: 0.04em; }
-  .portal.biologic .portal-text { bottom: 36%; }   /* clear of the source caption (landing-foot) */
+  .landing-foot { position: static; padding: 10px 12px 14px; font-size: 9.5px; letter-spacing: 0.04em; }   /* in flow below the five portals */
   .left-panel { top: auto; bottom: 8px; left: 8px; right: 8px; width: auto; height: 40%; }
   .right-panel { display: none; }
   .right-panel.mobile-open { display: flex; top: auto; bottom: 8px; left: 8px; right: 8px; width: auto; height: 46%; }
@@ -311,6 +315,8 @@ input[type='range'] { accent-color: var(--accent); }
 .mode-spectral { --accent: #f5c76b; --accent-2: #ffb347; --accent-3: #ffe2a8; --accent-glow: rgba(245, 199, 107, 0.35); --bg-2: #160f05; }
 .mode-switch button.spectral.active { background: #f5c76b; color: #1a1205; }
 /* Biologic (Phase 11): emerald */
+.mode-engineering { --accent: #ff8a65; --accent-2: #ff6e40; --accent-3: #ffd0bf; --accent-glow: rgba(255, 138, 101, 0.35); --bg-2: #170a06; }
+.mode-switch button.engineering.active { background: #ff8a65; color: #1a0802; }
 .mode-biologic { --accent: #5cf2a6; --accent-2: #2fd08a; --accent-3: #b6f7d6; --accent-glow: rgba(92, 242, 166, 0.35); --bg-2: #04140d; }
 .mode-switch button.biologic.active { background: #5cf2a6; color: #03140b; }
 .wave-canvas { display: block; width: 100%; max-width: 760px; height: auto; border-radius: 12px; border: 1px solid var(--line); background: #03050c; }

@@ -696,3 +696,11 @@ All equations were read on page images.
 ## 65. Unified pathways (Phase 14, Gate 14.7): `src/shared/pathways/pathways.ts`, `#/relations?tab=pathways`
 
 Five new pathways through the Phase 11–14 records — From quarks to leaves; From a water molecule to a heartbeat; Seeing: the eye, telescopes, microscopes and X-rays; Gravity beyond Newton; From tunnelling to the solar wind — each a chain of existing registry relationships with an indexed source (checked by `tests/science/pathways.test.ts`). Two Phase 14 edges were re-pointed to the Sun so the chains read correctly (nuclei *explains* the Sun; the Sun *emits* the solar-wind plasma). Registry: 500 entities, 317 relationships, largest connected group 225.
+
+## 66. Bits and logic (Phase 15, Gate 15.1): `src/core/computing/logic.ts`, `src/modes/engineering/logic/`, `#/engineering`
+
+* **Engineering mode** (fifth mode, coral accent) with a landing portal that evaluates a 5-bit ripple-carry adder gate by gate, adding today's day and month.
+* **Bits:** a byte in binary, hexadecimal and two's complement (bit flipping). Shannon (1948) p. 380, page image: “binary digits, or more briefly bits, a word suggested by J. W. Tukey”. NIST binary prefixes kibi–exbi (“not part of the International System of Units”).
+* **Gates:** seven gates with truth tables; NAND-only NOT/AND/OR/XOR verified for all inputs; De Morgan. Boole (1854) p. 31 eq. (2) x² = x (page image). Shannon (1938) p. 714 (page image): “a perfect analogy exists between the calculus for switching circuits and this branch of symbolic logic” — with his hindrance convention (series “+”, parallel “·”) and his footnoted dual, stated rather than replaced by the modern series = AND reading.
+* **Adders:** half adder (XOR, AND), full adder (two half adders + OR), 4-bit ripple carry; equals arithmetic for all 256 input pairs.
+* **Tests:** `tests/science/logic.test.ts` (9).

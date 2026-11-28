@@ -1,0 +1,5 @@
+{
+  "116a-bits.png": "Engineering mode (Gate 15.1): one byte in binary, hexadecimal and two’s complement — click a bit to flip it; Shannon’s 1948 naming of the bit; NIST’s binary prefixes.",
+  "116b-gates.png": "Logic gates: XOR with live inputs and its truth table; NAND alone rebuilding NOT, AND, OR and XOR; Boole’s x² = x (1854) and Shannon’s switching-circuit analogy (1938, with his hindrance convention).",
+  "116c-adder.png": "Adding with gates: 9 + 12 through a 4-bit ripple-carry adder — every carry and sum bit computed by the gates; the answer needs a fifth bit."
+}
