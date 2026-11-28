@@ -422,6 +422,8 @@ registerEntity(E('instrument:architecture', 'The stored-program computer', '#/en
 registerRelationship({ from: 'instrument:logic', to: 'instrument:architecture', type: 'part-of', context: '“a central arithmetical part of the device will probably have to exist … CA” (EDVAC report p. 3)', source: 'vonneumann-edvac-1945' });
 registerRelationship({ from: 'instrument:architecture', to: 'instrument:nerves', type: 'explains', context: '“The three specific parts CA, CC (together C) and M correspond to the associative neurons in the human nervous system” (von Neumann 1945, p. 6)', source: 'vonneumann-edvac-1945' });
 registerRelationship({ from: 'instrument:chips', to: 'instrument:architecture', type: 'part-of', context: '“to facilitate the inclusion of numerous semiconductor devices within a single body of material” (Noyce)', source: 'noyce-us2981877' });
+registerEntity(E('instrument:information', 'Information and encoding', '#/engineering/information', 'UTF-8 and Shannon entropy of any text (Gate 15.5)'));
+registerRelationship({ from: 'instrument:logic', to: 'instrument:information', type: 'part-of', context: 'the bit, “binary digits, or more briefly bits” (Shannon 1948, p. 380), is the unit of entropy with base-2 logarithms', source: 'shannon-1948' });
 
 export const getEntity = (id: string) => REGISTRY.get(id);
 export const allEntities = () => [...REGISTRY.values()];

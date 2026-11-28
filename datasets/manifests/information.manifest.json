@@ -1,0 +1,26 @@
+{
+  "dataset": "information",
+  "version": "1.0.0",
+  "records": 7,
+  "sources": [
+    {
+      "institution": "Shannon (1948), Bell System Technical Journal 27",
+      "url": "https://archive.org/details/bstj27-3-379",
+      "notes": "entropy, Theorem 2 (page image)"
+    },
+    {
+      "institution": "The Unicode Consortium, The Unicode Standard (versions 16.0–18.0)",
+      "url": "https://www.unicode.org/versions/latest/",
+      "license": "Core Specification not openly licensed: facts and short definitions only",
+      "notes": "codespace, UTF-8 definition and example, character counts"
+    }
+  ],
+  "adapter": "scripts/ingestion/curated-information.ts",
+  "warnings": [
+    "Unicode 18.0’s version page still carried a “preliminary draft” banner when read (2026-11-28)."
+  ],
+  "output": "datasets/engineering/information.json",
+  "retrievedAt": "2026-11-28T11:07:02.803Z",
+  "bytes": 1027,
+  "sha256": "99cbfa0b74e590d62a8f154fc6eccaba1b9b88e607421393b4637e04a76e0676"
+}

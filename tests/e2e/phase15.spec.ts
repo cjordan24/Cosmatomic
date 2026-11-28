@@ -100,3 +100,19 @@ test('119 stored-program computer: von Neumann’s five parts, one memory for or
   await expect(st).toContainText('HALT');
   await shot(page, '119a-computer', 'The stored-program computer (Gate 15.4): a teaching machine laid out as von Neumann’s 1945 EDVAC report divides it — CA, CC, M, I, O — with orders and numbers in one marked memory; 6 × 7 = 42 by repeated addition, stepped cycle by cycle.');
 });
+
+// ---------------- Gate 15.5 ----------------
+test('120 information and encoding: UTF-8 bytes and Shannon entropy of any text', async ({ page }) => {
+  await page.goto('/#/engineering');
+  await page.getByRole('navigation', { name: 'Engineering sections' }).getByRole('button', { name: 'Information' }).click();
+  await expect(page).toHaveURL(/#\/engineering\/information$/);
+  const bar = await page.locator('header.topbar').boundingBox(), acts = await page.locator('.topbar-actions').boundingBox();
+  expect(acts!.x + acts!.width).toBeLessThanOrEqual(bar!.x + bar!.width + 1);
+  await page.getByRole('button', { name: 'abracadabra' }).click();
+  const v = page.getByLabel('Encoding values');
+  await expect(v).toContainText('11'); await expect(v).toContainText('2.04');
+  await page.getByLabel('Text to encode').fill('Voyager → Ψ 銀河 🚀');
+  await expect(page.getByRole('list', { name: 'Characters and their bytes' })).toContainText('F0 9F 9A 80');   // 🚀 U+1F680
+  await expect(page.getByLabel('Unicode values')).toContainText('172,808');
+  await shot(page, '120a-information', 'Information and encoding (Gate 15.5): each character’s code point and UTF-8 bytes (1 to 4, colour-coded), built from the bit patterns and checked against Unicode’s own example; Shannon’s entropy of the text’s letter mix; Unicode 16.0–18.0 character totals.');
+});

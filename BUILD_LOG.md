@@ -957,3 +957,9 @@ Committed together (one view with six tabs, one dataset).
 2. **Read on page images:** EDVAC report pp. 3, 6, 7, 85.
 3. **Sources (+1, 269 entries):** vonneumann-edvac-1945.
 4. **Tests:** science `cpu.test.ts` (6); browser test 119.
+
+## Gate 15.5: information and encoding (`#/engineering/information`), 2026-11-28
+
+1. **View:** Engineering → Information: type text, see code points, UTF-8 bytes (colour by length), entropy vs UTF-8 bits per character, Unicode version totals. (Planned as “memory and storage”; no open source with measured memory or storage figures was found, so the gate covers how information is measured and encoded instead.)
+2. **Sources (+1, 270 entries):** unicode-standard; shannon-1948 extended (Theorem 2, page image).
+3. **Tests:** science `information.test.ts` (6); browser test 120.

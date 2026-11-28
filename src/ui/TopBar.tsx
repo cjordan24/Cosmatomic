@@ -32,7 +32,7 @@ interface Hit { kind: 'element' | 'molecule' | 'body' | 'reaction' | 'material' 
 const SPECTRAL_SECTIONS = ['lab', 'fields', 'compare', 'antennas', 'rf', 'room', 'modulation', 'acoustics', 'audio', 'roomacoustics', 'optics', 'waveoptics', 'polarisation', 'spectroscopy', 'thermal', 'telescopes', 'atmosphere'];
 /** Biologic sub-routes other than the scale-of-life atlas (Phase 11+). */
 export const BIOLOGIC_SECTIONS: string[] = ['molecules', 'proteins', 'cells', 'membranes', 'transport', 'plants', 'body', 'movement', 'circulation', 'nerves', 'systems', 'zoom', 'senses', 'imaging'];
-const ENGINEERING_SECTIONS: string[] = ['semiconductors', 'chips', 'architecture'];
+const ENGINEERING_SECTIONS: string[] = ['semiconductors', 'chips', 'architecture', 'information'];
 const COSMIC_SECTIONS = ['map', 'stars', 'sandbox', 'relativity', 'compact', 'lensing', 'galaxies', 'nebulae', 'universe', 'ladder', 'cmb', 'darkmatter', 'gw', 'plasma', 'grtests', 'models'];
 
 /** A chip that opens a small menu of related sections; it is highlighted when one of them is open. */
@@ -314,6 +314,7 @@ export function TopBar() {
         {mode === 'engineering' && (
           <nav className="chip-row hide-mobile" aria-label="Engineering sections">
             <button className={`chip ${!ENGINEERING_SECTIONS.includes(path[1]) ? 'active' : ''}`} onClick={() => navigate('/engineering')}>Bits & logic</button>
+            <button className={`chip ${path[1] === 'information' ? 'active' : ''}`} onClick={() => navigate('/engineering/information')}>Information</button>
             <ChipMenu label="Hardware" items={[
               { label: 'Semiconductors', to: '/engineering/semiconductors', active: path[1] === 'semiconductors' },
               { label: 'Chips', to: '/engineering/chips', active: path[1] === 'chips' },

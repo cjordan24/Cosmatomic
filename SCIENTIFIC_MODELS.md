@@ -722,3 +722,9 @@ Five new pathways through the Phase 11–14 records — From quarks to leaves; F
 * A teaching machine (labelled illustrative) organised as von Neumann's *First Draft of a Report on the EDVAC* (1945) divides a computer, read on the page images: CA (p. 3), CC (p. 3), M (p. 6), I and O (p. 7); orders fetched “from the same place where the numerical material is stored”, each word marked number or order (p. 85); orders in his four classes (a)–(d) (p. 85). JZ is our addition. **Noted difference:** his preference that output go “from M (by O) into R, and never directly from C” (p. 7) — our OUT sends the accumulator directly; said so in the view.
 * Programs: 7 + 35; count down from 5; 6 × 7 by repeated addition (61 cycles). Executing a number word stops the machine.
 * **Tests:** `tests/science/cpu.test.ts` (6).
+
+## 70. Information and encoding (Phase 15, Gate 15.5): `src/core/computing/information.ts`, `src/modes/engineering/information/`
+
+* UTF-8 implemented from its bit patterns; reproduces Unicode D92's example <4D D0 B0 E4 BA 8C F0 90 8C 82> and the platform TextEncoder (tested). Codespace 0–10FFFF₁₆ (D9) = 1,114,112 code points; assigned totals 154,998 (16.0), 159,801 (17.0), 172,808 (18.0, 15.5 % of the codespace). The UTF-8 table is drawn by the app (the Core Spec is not openly licensed).
+* Shannon (1948) Theorem 2, p. 393 (page image): entropy of a text's letter frequencies in bits per character, shown beside UTF-8's bits per character; his Fig. 6 decomposition and “a decimal digit is about 3⅓ bits” reproduced in the tests.
+* **Tests:** `tests/science/information.test.ts` (6).
