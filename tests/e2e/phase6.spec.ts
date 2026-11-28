@@ -25,7 +25,7 @@ test.afterEach(() => { expect(errors, errors.join(' | ')).toEqual([]); });
 test('59 relativity: Schwarzschild radii and clocks, orbits, light paths, weak-field tests', async ({ page }) => {
   await page.goto('/#/cosmic');
   await page.getByRole('navigation', { name: 'Cosmic sections' }).getByRole('button', { name: /^Gravity/ }).click();
-  await page.getByRole('menu', { name: 'Gravity' }).getByRole('menuitem', { name: 'Relativity' }).click();
+  await page.getByRole('menu', { name: 'Gravity' }).getByRole('menuitem', { name: 'Relativity', exact: true }).click();
   await expect(page).toHaveURL(/#\/cosmic\/relativity$/);
   const info = page.locator('.right-panel');
   await expect(info.getByLabel('Characteristic radii')).toContainText('2.953 km');

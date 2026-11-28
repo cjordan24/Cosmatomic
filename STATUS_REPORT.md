@@ -96,6 +96,7 @@ Four portals: ATOMIC, COSMIC, SPECTRAL, **BIOLOGIC** (new in Phase 11; shows the
 
 ## 4. What was done in this run (newest first)
 
+- **End-of-Phase-14 browser suite: 109/109** (after updating two stale test expectations).
 - **Phase 14 complete** — Gate 14.7: five new pathways linking the new views across modes (Relationships 🔗 → Pathways). Phases 11–14 are all built; **ready for you to deploy** (command in §6).
 
 - **Gates 14.4–14.6** — plasma (NRL formulary, solar wind), tests of relativity (Einstein's 43″ for Mercury reproduced: 42.98″; Gravity Probe B), and a dark-matter vs modified-gravity comparison that reproduces a 2016 paper's sample and fit from the bundled galaxy data.

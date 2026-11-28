@@ -99,7 +99,7 @@ test('73 relationship explorer: neighbourhood map, sourced path between two enti
   for (const t of ['participates-in', 'emits', 'absorbs', 'has-property', 'observed-with', 'located-in', 'part-of', 'explains']) await page.getByRole('checkbox', { name: new RegExp(`^${t} `) }).uncheck();
   await expect(page.getByRole('status')).toContainText('No chain of sourced relationships connects them');
   await page.goto('/#/relations?tab=links&q=lensing');
-  await expect(page.getByRole('status')).toHaveText(/^2 of \d+ relationships\.$/);
+  await expect(page.getByRole('status')).toHaveText(/^3 of \d+ relationships\.$/);   // + tests of relativity → lensing (Gate 14.5)
   await expect(page.getByRole('table', { name: 'Relationships' })).toContainText('Clowe (2006)');
 
   await page.getByRole('navigation', { name: 'Relationship sections' }).getByRole('button', { name: 'Planned' }).click();

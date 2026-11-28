@@ -927,3 +927,5 @@ Committed together (one view with six tabs, one dataset).
 3. **Tests:** pathways and relations science tests; browser test 115.
 
 **Phase 14 summary:** Subatomic ▾ (particles, quantum lab, nuclei) in Atomic; plasma, tests of relativity and a dark-matter/modified-gravity comparison in Cosmic; five pathways. 18 new sources. Findings: Condon & Morse's (68.5) sign misprint; Mott's 1-cm example; Einstein's 43″ and 1.7″ reproduced (42.98″, 1.751″); the 2016 radial-acceleration sample and g† reproduced from the bundled SPARC tables (2,696 vs 2,693 points; 1.16 vs 1.20 × 10⁻¹⁰). Left out: the Kerr ISCO formula (paper not openly readable), the full CNO cycle and per-step solar-neutrino energies (no open source), a “three generations” statement (no public-domain source).
+
+**End-of-Phase-14 full browser suite (2026-11-28):** 107/109 on the first run; the two failures were stale tests, not app faults: test 59 (“Relativity” now also matches “Tests of relativity” — made exact) and test 73 (the “lensing” link search now finds 3 relationships, including Gate 14.5's). Both pass after the update: **109/109**.
