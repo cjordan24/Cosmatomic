@@ -495,6 +495,10 @@ registerRelationship({ from: 'instrument:iceages', to: 'instrument:deeptime', ty
 registerEntity(E('instrument:oceans', 'Oceans, ice and biomes', '#/meteorology/oceans', 'Conveyor belt, ENSO indices, ocean heat and pH, sea ice, permafrost and biomes (Gate 23.3)'));
 registerRelationship({ from: 'instrument:oceans', to: 'instrument:radiation-budget', type: 'part-of', context: '“About 90% of the excess heat from planetary warming over the past century has been absorbed by the ocean” (NASA)', source: 'nasa-ocean-warming' });
 registerRelationship({ from: 'instrument:oceans', to: 'instrument:climates', type: 'explains', context: 'Mission: Biomes — temperature, precipitation and vegetation of seven biomes (NASA)', source: 'nasa-mission-biomes' });
+registerEntity(E('instrument:human', 'Human activities and environmental change', '#/meteorology/human', 'Carbon budget, sectors and methane, life-cycle electricity and cement, waste heat and water, ozone recovery and interventions (Gate 24.1)'));
+registerRelationship({ from: 'instrument:human', to: 'instrument:radiation-budget', type: 'explains', context: '“the observed radiative forcing change at the top of the atmosphere of 2.7 W m−2 that can clearly be attributed to the increase in greenhouse gases” (Kleidon et al. 2023)', source: 'kleidon-2023' });
+registerRelationship({ from: 'instrument:human', to: 'instrument:oceans', type: 'explains', context: '“The ocean CO2 sink was 3.2 ± 0.4 GtC yr−1 during the decade 2015–2024” (GCB 2025)', source: 'gcb-2025' });
+registerRelationship({ from: 'instrument:datacentres', to: 'instrument:human', type: 'part-of', context: 'Electricity demand is one of the human activities whose life-cycle emissions are compared (NREL 2021)', source: 'nrel-lca-2021' });
 
 export const getEntity = (id: string) => REGISTRY.get(id);
 export const allEntities = () => [...REGISTRY.values()];

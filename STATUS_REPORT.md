@@ -1,6 +1,6 @@
 # Voyager Ventures — status report and index
 
-*Kept up to date by Claude during the autonomous run. Last updated: **2026-11-28, end of Phase 23**.*
+*Kept up to date by Claude during the autonomous run. Last updated: **2026-11-28, Phase 24 Gate 24.1**.*
 
 Live site: https://voyager-ventures.vercel.app — **production still serves the build from 2026-11-27** (Phase 10 + universe map + interface pass). Nothing from Phases 11–14 is deployed: you asked for no deploys until Phase 14 is finished. The deploy command is at the bottom.
 
@@ -37,7 +37,7 @@ You said: if a permission prompt gets no answer within 5 minutes, treat it as de
 | 12 Human Anatomy & Physiology | reference model, skeleton/muscle, heart/lungs, nervous system (Hodgkin–Huxley), other organ systems, organ-to-cell zoom | **Complete** (not deployed) |
 | 13 Waves, Life & Imaging | vision, hearing, bioelectricity, EM–tissue, microscopy, medical imaging | **Complete** (not deployed) |
 | 14 Advanced Foundations | Standard Model, quantum lab, nuclear physics, plasma, relativity, cosmology models | **Complete** (not deployed) |
-| 15–19 Computing & Engineering | your brief (`COMPUTING_ENGINEERING_BRIEF.md`, saved verbatim); gate plan in `DEVELOPMENT_ROADMAP.md` | **Phases 15–19 complete**; **Phase 23 complete** (ice ages, deep time, oceans/ice/biomes); Phase 24 (human impact & future climate) next |
+| 15–19 Computing & Engineering | your brief (`COMPUTING_ENGINEERING_BRIEF.md`, saved verbatim); gate plan in `DEVELOPMENT_ROADMAP.md` | **Phases 15–19 complete**; **Phase 23 complete** (ice ages, deep time, oceans/ice/biomes); **Phase 24 Gate 24.1 done** (human activities); 24.2 future climate next |
 | 20+ Meteorology & Climate | your brief (`METEOROLOGY_EXPANSION_BRIEF.md`, saved verbatim) | Queued — after Phase 19 |
 
 **Counts (end of Phase 11):** 854 science tests (60 files), 94 browser tests (11 spec files; numbered up to 100), 49 dataset manifests, 208 Source-index entries, 84 commits in this repository.
@@ -104,6 +104,7 @@ Four portals: ATOMIC, COSMIC, SPECTRAL, **BIOLOGIC** (new in Phase 11; shows the
 | `#/meteorology/iceages` | **Ice ages and the orbit** — 800,000 years of orbital sunshine, CO₂ and Antarctic temperature on one time axis | NOAA NCEI paleo (Bereiter 2015, Jouzel 2007, Berger & Loutre 1991), NASA |
 | `#/meteorology/deeptime` | **Climate through geological time** — 4.6 billion years on a log timeline, twenty events labelled by evidence, how proxies work | USGS, ICS (numbers), NASA, NOAA, NPS, Climate of the Past |
 | `#/meteorology/oceans` | **Oceans, ice and biomes** — the conveyor belt, El Niño/La Niña (NOAA RONI/ONI), ocean heat and pH, Arctic sea ice, biomes with a what-if | NOAA (NOS, CPC, PMEL), NASA, NSIDC, HOT, USGS |
+| `#/meteorology/human` | **Human activities** — the carbon budget, emissions by sector and methane, life-cycle electricity and cement chemistry, waste heat vs greenhouse forcing, water, ozone recovery, carbon removal and solar radiation modification | GCP (GCB 2025, methane budget), EDGAR (JRC), NOAA GML/CSL, NREL, USGS, EPA, DOE, WMO, OSTP |
 | `#/engineering/systems` | **Build a system** (Phase 19) — a spacecraft from power to bits, a chatbot service from power plant to chip, an electric car from battery to wheels, and a map of eight systems | chains of sources used earlier (Yuen 1982, NASA, LBNL, EIA, DOE) |
 | `#/engineering/space` | **Spacecraft & space systems** (Phase 18) — Voyager to Landsat, the rocket equation, orbits and transfers, RTG and solar power, Voyager’s radio link, pointing and heat, from detector to archive | NASA (Science, Glenn, Goddard, Earthdata, DSN), USGS, GPS.gov, DOE; Moulton 1914; Yuen 1982 |
 | `#/engineering/machines` | **Machines & electricity** (Phase 17) — circuits, gears and levers, heat engines, generators and the U.S. grid, batteries and EVs, Maxwell’s governor | Ohm, Kirchhoff, Faraday, Carnot, Rankine, Maxwell; EIA, DOE, EPA, NASA |
@@ -126,6 +127,7 @@ Four portals: ATOMIC, COSMIC, SPECTRAL, **BIOLOGIC** (new in Phase 11; shows the
 
 - **Held at the user's request (end of Phase 23).** Resume from `HANDOFF_PHASE23.md`. Phase 24 not started; run the full browser suite first.
 
+- **Phase 24 Gate 24.1** — human activities: where the carbon goes, which sectors emit, why methane is rising, electricity compared cradle to grave, the chemistry of cement, why waste heat is small next to the greenhouse effect, water withdrawn vs consumed, the ozone layer's recovery and what is and isn't known about climate interventions.
 - **Phase 23 complete (Gate 23.3)** — oceans, ice and biomes: the conveyor belt, El Niño and La Niña on NOAA's new Relative ONI, a souring ocean from 36 years of Hawaiian measurements, Arctic sea ice since 1979, and seven biomes.
 
 - **Gate 23.2** — Earth's climate through geological time: a 4.6-billion-year timeline with twenty events, each labelled consensus, proxy or model, and where reliable numbers don't exist the app says so.

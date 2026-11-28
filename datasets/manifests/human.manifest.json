@@ -1,0 +1,39 @@
+{
+  "dataset": "human",
+  "version": "1.0.0",
+  "records": 65,
+  "sources": [
+    {
+      "institution": "Global Carbon Project (Friedlingstein et al. 2026, ESSD); Global Methane Budget (Saunois et al. 2025); Andrew (2019); Kleidon et al. (2023)",
+      "url": "https://essd.copernicus.org/articles/18/3211/2026/",
+      "license": "CC BY 4.0",
+      "notes": "carbon budget, land use, methane budget, cement, waste heat"
+    },
+    {
+      "institution": "European Commission JRC — EDGAR 2026 report",
+      "url": "https://edgar.jrc.ec.europa.eu/report_2026",
+      "license": "CC BY 4.0 (report); IEA fossil-CO2 data CC BY-NC-ND 4.0",
+      "notes": "sector totals for 2025 summed from the report spreadsheet; shares derived"
+    },
+    {
+      "institution": "NOAA (GML, CSL), U.S. EPA, USGS, U.S. DOE, NREL/NLR, OSTP (archived), WMO assessment hosted by NOAA CSL",
+      "url": "https://gml.noaa.gov/ccgg/trends_ch4/",
+      "license": "U.S. government works; WMO excerpts unmodified with credit",
+      "notes": "methane trend, aviation forcing, heat islands, water use, life-cycle emissions, carbon removal, SRM, ozone recovery, mine drainage"
+    }
+  ],
+  "adapter": "scripts/ingestion/curated-human.ts",
+  "warnings": [
+    "GCB 2025 2024 land sink ±1.1 (abstract) vs ±0.8 (key messages).",
+    "EDGAR prints only the power share (“nearly 30%”); other shares derived.",
+    "Ozone ES citation box says 2022 for the 2026 assessment.",
+    "NREL life-cycle ranges only on a chart; medians only.",
+    "Andrew: cement 4 % of fossil (2018) vs older 5 % (Boden 2017).",
+    "Lee et al. 2021 read only as the abstract reproduced by NOAA CSL.",
+    "No citable DAC energy per tonne."
+  ],
+  "output": "datasets/meteorology/human.json",
+  "retrievedAt": "2026-11-28T15:53:34.550Z",
+  "bytes": 31505,
+  "sha256": "d3f3d66c2a48fe71e591891e4328aed67f4fe60bcfc572f61d0fee23f85655b9"
+}

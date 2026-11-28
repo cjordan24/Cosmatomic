@@ -842,3 +842,12 @@ A sixth mode (periwinkle #82b1ff) with a shared **depth switch** (`src/ui/Depth.
 * Ice: Arctic minimum 1979–2026 (NASA/NSIDC); our OLS reproduces ~12 % per decade relative to 1981–2010 (tested; NASA 12.2, NSIDC 11.8); albedo mix ocean 0.06 / ice 0.6 (illustrative); permafrost, ice sheets.
 * Biomes: NASA Mission: Biomes ranges and example climates; Köppen what-if (illustrative). Finding: NASA's tundra example (Aklavik) classes Dsc.
 * **Tests:** `ocean.test.ts` (5); browser test 138.
+
+### 81.1 Human activities (Gate 24.1): `src/core/meteorology/human.ts`, `#/meteorology/human`
+* Carbon budget: GCB 2025 (ESSD, CC BY) 2015–2024 means and 2024; imbalance B_IM = E_FOS + E_LUC − (G_ATM + S_OCEAN + S_LAND) from the printed parts (decade closes to 0; 2024 gives −1.6 vs −1.7 printed — rounding; tested). Land use in five parts with three-model ranges.
+* Sectors: EDGAR 2026 totals for 2025 summed from the report spreadsheet (sum 54.1 Gt CO₂eq, tested); shares derived (only power's "nearly 30%" printed). Methane: NOAA GML annual increase (selected years, points only) and Global Methane Budget 2010–2019 sources with ranges. Aviation ERF 2018 (Lee et al. 2021, abstract via NOAA CSL).
+* Electricity: NREL (2021) harmonised life-cycle medians by phase; grid-mix intensity = weighted mean of medians (illustrative; tested). Cement: Andrew (2019) eq. 1 with Mr from standard atomic weights; CaO 0.646 of clinker gives 0.507 t CO₂/t clinker vs IPCC default 0.52 (tested).
+* Heat and water: waste heat flux = energy use ÷ (year × area), reproduces 18.9 TW, 0.04 and 0.13 W/m² (Kleidon et al. 2023 editorial; tested); EPA heat islands (°C our conversion); USGS 2015 withdrawn vs consumed (thermoelectric 3 %, irrigation 62 %; tested); USGS mine drainage.
+* Interventions: WMO 2026 ozone return dates vs 2022; CDR in 2024 (GCB); DOE direct air capture; OSTP 2023 SRM limits; WMO modelled SAI ozone delay.
+* Every effect is tagged as greenhouse / local pollution / waste heat / ecosystem / resource, and different kinds are never summed.
+* **Tests:** `human.test.ts` (13); browser test 139.

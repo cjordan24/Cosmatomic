@@ -1059,3 +1059,7 @@ Twenty events, the time scale, proxies. Sources +20; browser 137.
 ## Gate 23.3: oceans, ice and biomes (`#/meteorology/oceans`), 2026-11-28 — Phase 23 complete
 
 Five tabs; NOAA's 2026 switch to the Relative ONI reflected; HOT pH from every cruise. Sources +26; `ocean.test.ts` (5); browser 138.
+
+## Gate 24.1: human activities (`#/meteorology/human`), 2026-11-28
+
+Five tabs (carbon, sectors, electricity, heat & water, interventions); every effect tagged by kind of impact. Full browser suite before the gate: 132/132. Sources +16; `human.test.ts` (13); browser 139.
