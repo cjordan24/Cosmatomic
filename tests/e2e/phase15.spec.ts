@@ -62,3 +62,21 @@ test('117 semiconductors: silicon’s band gap and Shockley’s junction equatio
   await page.getByLabel('Bias voltage').fill('-0.5');
   await expect(v).toContainText('−1 pA');
 });
+
+// ---------------- Gate 15.3 ----------------
+test('118 integrated circuits: Kilby’s and Noyce’s 1959 patents and the planar process', async ({ page }) => {
+  await page.goto('/#/engineering/semiconductors');
+  await page.getByRole('navigation', { name: 'Engineering sections' }).getByRole('button', { name: 'Chips' }).click();
+  await expect(page).toHaveURL(/#\/engineering\/chips$/);
+  const bar = await page.locator('header.topbar').boundingBox(), acts = await page.locator('.topbar-actions').boundingBox();
+  expect(acts!.x + acts!.width).toBeLessThanOrEqual(bar!.x + bar!.width + 1);
+  await expect(page.getByLabel('Patent values')).toContainText('US 2,981,877');
+  await expect(page.locator('.stage-head')).toContainText('without shorting the junctions');
+  await page.getByRole('button', { name: '4. Leads over the oxide' }).click();
+  await expect(page.getByRole('region', { name: 'Planar process' })).toContainText('a metal strip 7 extending over and adherent to oxide layer 5');
+  await expect(page.getByRole('img', { name: /US patent 2,981,877/ })).toBeVisible();
+  await shot(page, '118a-noyce', 'Integrated circuits (Gate 15.3): Noyce’s US 2,981,877 (filed 1959) — the planar process step by step in his own words (oxide, photoengraved windows, metal leads over the oxide), a schematic section after his Fig. 2, and his original drawing sheet.');
+  await page.getByRole('button', { name: /^Kilby — / }).click();
+  await expect(page.locator('.stage-head')).toContainText('all components of the electronic circuit are completely integrated');
+  await shot(page, '118b-kilby', 'Kilby’s US 3,138,743 (filed February 1959): the integrated circuit in one body of semiconductor, with drawing sheet 4.');
+});

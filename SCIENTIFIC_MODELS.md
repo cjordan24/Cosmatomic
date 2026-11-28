@@ -710,3 +710,9 @@ Five new pathways through the Phase 11–14 records — From quarks to leaves; F
 * Shockley (1949) BSTJ 28, read on page images: n- and p-type silicon and germanium (p. 435); eq. (4.13) p. 460, written compactly as I = I_s(e^{qV/kT} − 1) (I_s collects his prefactor; labelled a restatement). Live I–V curve with I_s and temperature; kT/q = 25.85 mV at 300 K; 12.0 mA at +0.6 V for I_s = 1 pA.
 * Silicon: 1.12 eV band gap, 1107 nm (TU Delft OCW §12.1, CC BY-NC-SA course); hc/E_g from CODATA reproduces 1107 nm. Electron configuration from the bundled element data.
 * **Tests:** `tests/science/semiconductor.test.ts` (5).
+
+## 68. Integrated circuits (Phase 15, Gate 15.3): `src/modes/engineering/chips/`, `#/engineering/chips`
+
+* Kilby US 3,138,743 and Noyce US 2,981,877 read on the USPTO page images (robots.txt absent; U.S. patents public domain). Quotes from cols. 1–2; drawing sheets reproduced unaltered (downscaled) in `public/images/patents/`.
+* Noyce's planar process as four steps in his words (oxide formed during diffusion; “a good electrical insulator”; photoengraved windows; metal strips over the oxide), drawn as a schematic section after his Fig. 2, labelled not to scale.
+* Moore (1965) left out: the only copy is on intel.com, whose terms forbid bots.

@@ -1,0 +1,21 @@
+{
+  "dataset": "chips",
+  "version": "1.0.0",
+  "records": 11,
+  "sources": [
+    {
+      "institution": "United States Patent and Trademark Office: US 3,138,743 (Kilby) and US 2,981,877 (Noyce)",
+      "url": "https://image-ppubs.uspto.gov/dirsearch-public/print/downloadPdf/3138743",
+      "license": "U.S. patents: public domain",
+      "notes": "text and drawings read on the page images"
+    }
+  ],
+  "adapter": "scripts/ingestion/curated-chips.ts",
+  "warnings": [
+    "Moore (1965) is not used: Intel’s terms of use forbid automated access and no other open copy was found."
+  ],
+  "output": "datasets/engineering/chips.json",
+  "retrievedAt": "2026-11-28T10:56:40.072Z",
+  "bytes": 3080,
+  "sha256": "3c5caee001416828a0596b66ebe76f855709de55e1b3a6c64133b696dca3995f"
+}

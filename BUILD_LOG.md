@@ -943,3 +943,10 @@ Committed together (one view with six tabs, one dataset).
 1. **View:** Engineering → Semiconductors: a live p-n junction (bias, saturation current, temperature) from Shockley's eq. (4.13); silicon's element data, band gap and 1107 nm edge; links to element 14 and the infrared in Spectral.
 2. **Sources (+2, 266 entries):** shockley-1949 (page images pp. 435, 460), tudelft-ocw-solar. Searched for a US-government silicon band-gap source: the DOE page survives only in the UNT web archive, whose robots.txt disallows ClaudeBot — not used.
 3. **Tests:** science `semiconductor.test.ts` (5, including hc/1.12 eV = 1107 nm); browser test 117.
+
+## Gate 15.3: integrated circuits (`#/engineering/chips`), 2026-11-28
+
+1. **View:** Engineering → Chips: Kilby's and Noyce's 1959 patents with their original drawing sheets; the planar process stepped through in Noyce's words with a schematic cross-section.
+2. **Read:** both patents on the USPTO page images (rendered with PDFKit); the research agent's Google Patents OCR text was replaced by image readings.
+3. **Sources (+2, 268 entries):** kilby-us3138743, noyce-us2981877.
+4. **Tests:** browser test 118.

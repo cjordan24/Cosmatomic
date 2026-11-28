@@ -415,6 +415,9 @@ registerEntity(E('instrument:logic', 'Bits and logic', '#/engineering', 'Binary,
 registerEntity(E('instrument:semiconductors', 'Semiconductors and the junction', '#/engineering/semiconductors', 'Silicon’s band gap and Shockley’s p-n junction equation (Gate 15.2)'));
 registerRelationship({ from: 'element:14', to: 'instrument:semiconductors', type: 'part-of', context: '“silicon and germanium may be either n-type or p-type semiconductors” (Shockley 1949)', source: 'shockley-1949' });
 registerRelationship({ from: 'instrument:semiconductors', to: 'wave:em-infrared', type: 'absorbs', context: 'silicon’s 1.12 eV band gap corresponds to 1107 nm, “in the infrared part of the spectrum of light” (TU Delft)', source: 'tudelft-ocw-solar' });
+registerEntity(E('instrument:chips', 'Integrated circuits', '#/engineering/chips', 'Kilby’s and Noyce’s 1959 patents; the planar process (Gate 15.3)'));
+registerRelationship({ from: 'instrument:semiconductors', to: 'instrument:chips', type: 'part-of', context: '“a body of semiconductor material containing a diffused p-n junction wherein all components of the electronic circuit are completely integrated” (Kilby)', source: 'kilby-us3138743' });
+registerRelationship({ from: 'element:14', to: 'instrument:chips', type: 'part-of', context: '“the surface of the silicon oxidizes and forms an oxide layer” — a good electrical insulator (Noyce)', source: 'noyce-us2981877' });
 
 export const getEntity = (id: string) => REGISTRY.get(id);
 export const allEntities = () => [...REGISTRY.values()];
