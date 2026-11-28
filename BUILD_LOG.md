@@ -825,3 +825,7 @@ Requested by the user, taking UI notes from the Lodestar Digital Studio site (ld
 ### Fix after Gate 11.7 (2026-11-28)
 
 The Gate 11.7 commit went in with three failing science tests (the commit command did not stop on a failing test run; from now on the test result is checked before committing). Causes: (1) **a real bug** — the relationship explorer's `entityMode` knew only Atomic, Cosmic and Spectral, so every Biologic entity since Gate 11.1 was coloured and labelled “Spectral”; a Biologic mode (emerald) is added. (2) Two tests still expected `process:photosynthesis` to be planned; they now expect it to open the Biologic view and check that glycolysis stays planned. (3) The inline-citation scanner read a quoted word inside a ternary in `SourceLinks ids` as a source id; the ids are now named constants. Science 854/854.
+
+### Full browser suite at the end of Phase 11 (2026-11-28)
+
+`npm run test:e2e`: **91 passed, 3 failed** (18.2 min). Two failures were stale expectations (tests 41 and 73 still expected photosynthesis to be a *planned* process; it opens the Biologic plants view since Gate 11.7 — they now check that glycolysis is still planned). One was **a real bug**: with a fourth mode the phone top bar was 442 px wide on a 390 px screen (test 67). On screens up to 900 px the four-button mode switch is now replaced by one menu chip showing the current mode (ATOMIC/COSMIC/SPECTRAL/BIOLOGIC ▾). Tests 18, 41, 53, 67 and 73 re-run: all pass. **94/94** browser tests now pass.

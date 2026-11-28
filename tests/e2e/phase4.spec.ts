@@ -26,8 +26,8 @@ test('41 reaction library: curated equation with conservation table and molecule
   await page.goto('/#/atomic/reactions/photosynthesis-net');
   await expect(page.locator('.center-stage h1')).toHaveText('Oxygenic photosynthesis (net equation)');
   await expect(page.getByLabel('Atom balance').first()).toContainText('✓');
-  await expect(page.locator('.right-panel')).toContainText('planned');
-  await shot(page, '41-reaction-library', 'Reaction library: net photosynthesis equation with species cards linked to the 3D molecule viewer, machine-checked atom/charge balance, net-equation caveats and registry connections (Biologic processes shown as planned, not as working links).');
+  await expect(page.locator('.right-panel')).toContainText('Photosynthesis');   // since Gate 11.7 a working link to #/biologic/plants
+  await shot(page, '41-reaction-library', 'Reaction library: net photosynthesis equation with species cards linked to the 3D molecule viewer, machine-checked atom/charge balance, net-equation caveats and registry connections (photosynthesis now opens the Biologic view, Gate 11.7).');
   await page.locator('.species-card', { hasText: 'glucose' }).getByRole('button', { name: /3D structure/ }).click();
   await expect(page).toHaveURL(/molecules\/pubchem-5793/);
   await expect(page.locator('.right-panel')).toContainText('Reactions · curated library');

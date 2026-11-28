@@ -243,6 +243,13 @@ export function TopBar() {
           <button className={`spectral ${mode === 'spectral' ? 'active' : ''}`} onClick={() => navigate('/spectral')}>SPECTRAL</button>
           <button className={`biologic ${mode === 'biologic' ? 'active' : ''}`} onClick={() => navigate('/biologic')}>BIOLOGIC</button>
         </nav>
+        {/* Phones: four mode names do not fit in 390 px, so the switch becomes one menu (Gate 11.x fix) */}
+        <div className="mobile-only mode-menu">
+          <ChipMenu label={({ atomic: 'ATOMIC', cosmic: 'COSMIC', spectral: 'SPECTRAL', biologic: 'BIOLOGIC' } as Record<string, string>)[mode] ?? 'MODE'} items={[
+            { label: 'Atomic', to: '/atomic', active: mode === 'atomic' }, { label: 'Cosmic', to: '/cosmic', active: mode === 'cosmic' },
+            { label: 'Spectral', to: '/spectral', active: mode === 'spectral' }, { label: 'Biologic', to: '/biologic', active: mode === 'biologic' },
+          ]} />
+        </div>
         {mode === 'atomic' && (
           <nav className="chip-row hide-mobile" aria-label="Atomic sections">
             <button className={`chip ${!['molecules', 'lab', 'reactions', 'materials', 'phases'].includes(path[1]) ? 'active' : ''}`} onClick={() => navigate('/atomic')}>Elements</button>

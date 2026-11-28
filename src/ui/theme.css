@@ -411,3 +411,4 @@ blockquote.quote { margin: 4px 0; padding: 4px 10px; border-left: 2px solid var(
 svg g[role="button"]:focus { outline: none; }
 svg g[role="button"]:focus-visible { outline: 1px dashed var(--accent); }
 .cell-compare td, .cell-compare th { font-family: var(--font); text-align: left !important; vertical-align: top; font-size: 12px; }
+@media (max-width: 900px) { .topbar .mode-switch { display: none; } .mode-menu .chip { letter-spacing: 0.12em; font-size: 11px; } }

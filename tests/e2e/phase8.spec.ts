@@ -103,7 +103,7 @@ test('73 relationship explorer: neighbourhood map, sourced path between two enti
   await expect(page.getByRole('table', { name: 'Relationships' })).toContainText('Clowe (2006)');
 
   await page.getByRole('navigation', { name: 'Relationship sections' }).getByRole('button', { name: 'Planned' }).click();
-  await expect(page.getByRole('table', { name: 'Planned entities' })).toContainText('Photosynthesis');
+  await expect(page.getByRole('table', { name: 'Planned entities' })).toContainText('Glycolysis');   // photosynthesis has a view since Gate 11.7
   await expect(page.getByRole('table', { name: 'Planned entities' })).toContainText('Biologic Mode (Phase 11)');
 
   // every “Related across modes” list links into the map
