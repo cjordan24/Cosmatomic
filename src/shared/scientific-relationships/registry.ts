@@ -344,6 +344,11 @@ registerRelationship({ from: 'structure:cell-membrane', to: 'instrument:membrane
 registerRelationship({ from: 'molecule:pubchem-5997', to: 'structure:cell-membrane', type: 'part-of', context: 'cholesterol, a membrane lipid that helps regulate stiffness', source: 'nigms-biobeat-membranes-2021' });
 registerRelationship({ from: 'instrument:membranes', to: 'element:11', type: 'explains', context: 'raising the sodium permeability (P_Na/P_K = 20 at the peak of the spike) drives the potential towards the sodium potential', source: 'hodgkin-katz-1949' });
 registerRelationship({ from: 'instrument:membranes', to: 'element:19', type: 'explains', context: 'at rest the potential lies near the potassium potential (P_K : P_Na : P_Cl = 1 : 0.04 : 0.45)', source: 'hodgkin-katz-1949' });
+registerEntity(E('instrument:transport', 'Diffusion, osmosis and enzyme kinetics', '#/biologic/transport', 'Fick, Einstein, van ’t Hoff and Michaelis–Menten with ICT diffusion coefficients (Gate 11.6)'));
+for (const [mol, what] of [['pubchem-5793', 'glucose'], ['pubchem-5988', 'sucrose'], ['pubchem-6134', 'lactose'], ['pubchem-439186', 'maltose']] as const)
+  registerRelationship({ from: `molecule:${mol}`, to: 'instrument:transport', type: 'has-property', context: `diffusion coefficient of ${what} in water at 15 °C`, source: 'ict-1929' });
+registerRelationship({ from: 'molecule:pubchem-5988', to: 'instrument:transport', type: 'participates-in', context: 'invertase splits sucrose into glucose and fructose; Michaelis and Menten measured the rate (1913)', source: 'michaelis-menten-1913' });
+registerRelationship({ from: 'instrument:transport', to: 'instrument:cells', type: 'explains', context: 'diffusion time grows as the square of distance: microseconds across a ribosome, seconds across a cell', source: 'einstein-brownian-1926' });
 
 export const getEntity = (id: string) => REGISTRY.get(id);
 export const allEntities = () => [...REGISTRY.values()];

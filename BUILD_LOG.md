@@ -801,3 +801,12 @@ Requested by the user, taking UI notes from the Lodestar Digital Studio site (ld
 4. **Screenshots:** the V_m label sat on the V_Na label near the peak of the spike; it now moves to a free row. A test expectation had been guessed (+59.2) instead of computed (+59.3) — fixed, and noted as the lesson the handoff already gives.
 5. **Sources:** `hodgkin-katz-1949`, `nigms-biobeat-membranes-2021` (201 entries). Registry: `instrument:membranes`, edges to the cell membrane, cholesterol, sodium and potassium.
 6. **Tests:** science 838/838 (+7, `tests/science/membrane.test.ts`); browser test 98 (screenshots 98a–b).
+
+## Gate 11.6: transport and biochemistry (`#/biologic/transport`), 2026-11-28
+
+1. **View:** a Transport item in a new **Cell biology ▾** menu. Tabs: Diffusion (six ICT sugars; times from a ribosome to a centimetre; Fick's equation solved from a thin layer against its exact Gaussian with 300 random walkers, played on demand, not perpetually; cross-checks), Osmosis (π = cRT with van 't Hoff's quote and his R), Enzyme kinetics (Michaelis–Menten with their Fig. 4a k).
+2. **Top bar:** with six Biologic chips the bar overflowed at 1440 px (seen on the screenshot: the search box squeezed, the settings button cut off). The chips are now Scale of life · **Molecules ▾** (Biomolecules, Structures) · **Cell biology ▾** (Cells, Membranes, Transport); tests 95–99 open the menus.
+3. **Data:** `datasets/biology/transport.json` (adapter `curated-transport.ts`, 48 manifests), all from page images: Fick (Phil. Mag. pp. 30–31), Einstein (tr. 1926 pp. 17, 18, 62), van 't Hoff (p. 491), Michaelis & Menten (p. 344, Fig. 4a), ICT V (pp. 63, 71).
+4. **Findings:** Fick prints his equation with a minus sign (the ICT form has none; both shown). Einstein's 1905 example is reproduced (0.795 µm in 1 s). Sucrose's ICT coefficient agrees with Thovert's value quoted by Einstein. van 't Hoff's numbers give PV/T = 845.24, not his printed 845.05. The first solver kept mirrored ghost nodes, which did not conserve the plain sum (+0.9 %); it now moves flux only between cells.
+5. **Sources:** `fick-1855`, `einstein-brownian-1926`, `van-t-hoff-1887`, `michaelis-menten-1913`, `ict-1929` (206 entries; four DOIs checked on Crossref, Michaelis–Menten has none). Registry: `instrument:transport`.
+6. **Tests:** science 849/849 (+11, `tests/science/transport.test.ts`); browser test 99 (screenshots 99a–b); tests 94–99 pass together.

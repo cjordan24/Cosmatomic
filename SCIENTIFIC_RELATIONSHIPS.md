@@ -146,6 +146,8 @@ Every encyclopedia entry describes a registry entity, so E.2 registered the 11 s
 
 `instrument:membranes` (`#/biologic/membranes`): the cell membrane *has-property* a voltage set by ion gradients (Hodgkin & Katz 1949); the view *explains* sodium (the spike moves V_m towards the sodium potential) and potassium (rest lies near the potassium potential); cholesterol is *part of* the cell membrane (NIGMS).
 
+`instrument:transport` (`#/biologic/transport`): glucose, sucrose, lactose and maltose *have* diffusion coefficients (ICT 1929); sucrose *participates in* invertase kinetics (Michaelis & Menten 1913); diffusion *explains* why cells are small in time (Einstein, t = x²/2D) and links to the Cells view.
+
 ## Rules
 
 1. No edge without a source.

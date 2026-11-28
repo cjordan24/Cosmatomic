@@ -64,7 +64,8 @@ test('94 biologic: landing portal with 1BNA, scale of life from water to an ant,
 // ---------------- Gate 11.2 ----------------
 test('95 biomolecules: amino acids with IUPAC symbols and codons, nucleic-acid parts, the NCBI genetic codes and a translation', async ({ page }) => {
   await page.goto('/#/biologic');
-  await page.getByRole('navigation', { name: 'Biologic sections' }).getByRole('button', { name: 'Biomolecules' }).click();
+  await page.getByRole('navigation', { name: 'Biologic sections' }).getByRole('button', { name: 'Molecules ▾' }).click();
+  await page.getByRole('menuitem', { name: 'Biomolecules' }).click();
   await expect(page).toHaveURL(/#\/biologic\/molecules$/);
   await expect(page.locator('.center-stage h1')).toContainText('Amino acids');
   await expect(page.getByRole('list', { name: 'Amino acids cards' }).getByRole('listitem')).toHaveCount(20);
@@ -99,7 +100,8 @@ test('95 biomolecules: amino acids with IUPAC symbols and codons, nucleic-acid p
 // ---------------- Gate 11.3 ----------------
 test('96 structures: haemoglobin 4HHB from its PDB file (chains, haem, size against NIGMS), GFP all atoms, B-DNA', async ({ page }) => {
   await page.goto('/#/biologic');
-  await page.getByRole('navigation', { name: 'Biologic sections' }).getByRole('button', { name: 'Structures' }).click();
+  await page.getByRole('navigation', { name: 'Biologic sections' }).getByRole('button', { name: 'Molecules ▾' }).click();
+  await page.getByRole('menuitem', { name: 'Structures' }).click();
   await expect(page).toHaveURL(/#\/biologic\/proteins$/);
   await expect(page.locator('[data-loaded="4HHB"]')).toBeVisible({ timeout: 15000 });
   await expect(page.locator('.stage-head h1')).toContainText('Haemoglobin');
@@ -128,7 +130,8 @@ test('96 structures: haemoglobin 4HHB from its PDB file (chains, haem, size agai
 // ---------------- Gate 11.4 ----------------
 test('97 cells: eukaryote and prokaryote at one scale, parts with NIGMS/NHGRI definitions, volume shares, surface-to-volume', async ({ page }) => {
   await page.goto('/#/biologic');
-  await page.getByRole('navigation', { name: 'Biologic sections' }).getByRole('button', { name: 'Cells' }).click();
+  await page.getByRole('navigation', { name: 'Biologic sections' }).getByRole('button', { name: 'Cell biology ▾' }).click();
+  await page.getByRole('menuitem', { name: 'Cells' }).click();
   await expect(page).toHaveURL(/#\/biologic\/cells$/);
   await expect(page.getByRole('img', { name: 'A eukaryotic and a prokaryotic cell at one scale' })).toBeVisible();
   await expect(page.getByRole('table', { name: 'Eukaryotic and prokaryotic cells' })).toContainText('Lack a nucleus and other membrane-encased organelles');
@@ -148,7 +151,8 @@ test('97 cells: eukaryote and prokaryote at one scale, parts with NIGMS/NHGRI de
 // ---------------- Gate 11.5 ----------------
 test('98 membranes: Hodgkin–Katz equation (4) reproduces Table 7; resting, active and refractory axon; the bilayer', async ({ page }) => {
   await page.goto('/#/biologic');
-  await page.getByRole('navigation', { name: 'Biologic sections' }).getByRole('button', { name: 'Membranes' }).click();
+  await page.getByRole('navigation', { name: 'Biologic sections' }).getByRole('button', { name: 'Cell biology ▾' }).click();
+  await page.getByRole('menuitem', { name: 'Membranes' }).click();
   await expect(page).toHaveURL(/#\/biologic\/membranes$/);
   const pot = page.getByLabel('Potential values');
   await expect(pot).toContainText('+59.3');                // E at rest in sea water, 18 °C (printed +59)
@@ -162,4 +166,25 @@ test('98 membranes: Hodgkin–Katz equation (4) reproduces Table 7; resting, act
   await page.getByRole('navigation', { name: 'Membrane sections' }).getByRole('button', { name: 'Lipid bilayer' }).click();
   await expect(page.getByRole('img', { name: 'Schematic lipid bilayer' })).toBeVisible();
   await expect(page.locator('blockquote').first()).toContainText('two lipid molecules deep');
+});
+
+// ---------------- Gate 11.6 ----------------
+test('99 transport: diffusion times from ICT coefficients, Fick solver and random walkers, van ’t Hoff osmosis, Michaelis–Menten', async ({ page }) => {
+  await page.goto('/#/biologic');
+  await page.getByRole('navigation', { name: 'Biologic sections' }).getByRole('button', { name: 'Cell biology ▾' }).click();
+  await page.getByRole('menuitem', { name: 'Transport' }).click();
+  await expect(page).toHaveURL(/#\/biologic\/transport$/);
+  const times = page.getByRole('table', { name: 'Diffusion times' });
+  await expect(times).toContainText('865 ms');        // glucose across 30 µm: (30 µm)² / (2 × 0.52·10⁻⁹ m²/s)
+  await expect(times).toContainText('26.7 h');        // across 1 cm
+  await expect(page.getByLabel('Einstein example')).toContainText('0.795');
+  await expect(page.getByRole('img', { name: 'Diffusion from a thin layer' })).toBeVisible();
+  await page.waitForTimeout(1500);
+  await shot(page, '99a-diffusion', 'Diffusion (Gate 11.6): glucose (ICT 1929, 0.52·10⁻⁵ cm²/s at 15 °C) — Fick’s equation solved step by step from a thin layer against its exact Gaussian, 300 random walkers, and times t = x²/2D (Einstein eq. 11) from a ribosome to a centimetre.');
+  await page.getByRole('navigation', { name: 'Transport sections' }).getByRole('button', { name: 'Osmosis' }).click();
+  await expect(page.getByLabel('Osmotic pressure values')).toContainText('743.7');   // 300 mmol/L at 25 °C, kPa (743.69)
+  await expect(page.locator('.right-panel')).toContainText('845.05');
+  await page.getByRole('navigation', { name: 'Transport sections' }).getByRole('button', { name: 'Enzyme kinetics' }).click();
+  await expect(page.getByLabel('Enzyme rate')).toContainText('0.0166');
+  await shot(page, '99b-enzymes', 'Michaelis & Menten (1913): V = [S]/([S] + k) on a log [S] axis as in their figures, with k from their Fig. 4a (log k = −1.78, invertase on sucrose); half the maximum rate at [S] = k.');
 });

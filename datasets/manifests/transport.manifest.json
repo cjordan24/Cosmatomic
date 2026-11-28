@@ -1,0 +1,42 @@
+{
+  "dataset": "transport",
+  "version": "1.0.0",
+  "records": 10,
+  "sources": [
+    {
+      "institution": "Fick, A. (1855) Phil. Mag. 10, 30; Ann. Phys. 94, 59",
+      "url": "https://doi.org/10.1080/14786445508641925",
+      "notes": "law of diffusion and eq. (2) (page images)"
+    },
+    {
+      "institution": "Einstein, A., Investigations on the Theory of the Brownian Movement, tr. A. D. Cowper (Methuen, 1926)",
+      "url": "https://archive.org/details/investigationson0000albe",
+      "notes": "eqs (11), (12), D = RT/(6πkPN), worked example, 1906 supplement"
+    },
+    {
+      "institution": "van 't Hoff, J. H. (1887) Z. physik. Chem. 1, 481",
+      "url": "https://doi.org/10.1515/zpch-1887-0151",
+      "notes": "PV = RT for osmotic pressure (p. 491)"
+    },
+    {
+      "institution": "Michaelis, L. and Menten, M. L. (1913) Biochem. Z. 49, 333",
+      "url": "https://archive.org/details/sim_biochemische-zeitschrift-beitraege-zur-chemischen_1913_49",
+      "notes": "eqs (2)–(4), Fig. 4a"
+    },
+    {
+      "institution": "International Critical Tables V (1929), H. R. Bruins, Coefficients of Diffusion in Liquids",
+      "url": "https://archive.org/details/internationalcri0005vari",
+      "notes": "diffusion coefficients of sugars at 15 °C (p. 71)"
+    }
+  ],
+  "adapter": "scripts/ingestion/curated-transport.ts",
+  "warnings": [
+    "Hand-transcribed from page images.",
+    "Diffusion coefficients at 15 °C in very dilute solution only; letter grades give the probable error.",
+    "ATP yield per glucose left out: no allowed open source was found."
+  ],
+  "output": "datasets/biology/transport.json",
+  "retrievedAt": "2026-11-28T07:25:56.680Z",
+  "bytes": 4853,
+  "sha256": "1d97021fcff620495a80d7988faea07f3d7eeb6801b0d7f48a6b8a0c133353b2"
+}
