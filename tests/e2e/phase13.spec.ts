@@ -52,3 +52,42 @@ test('107 senses and signals: Helmholtz’s reduced eye and diffraction circle, 
   await expect(page.locator('.stage-head')).toContainText('Each beat of the heart is seen to be accompanied by an electrical variation.');
   await shot(page, '107d-ecg', 'Heart signals (Gate 13.3): Waller (1887) and Einthoven (1912); a heart vector at Einthoven’s α = 76° projected onto leads I, II and III of his equilateral triangle, with lead II − lead I = lead III.');
 });
+
+// ---------------- Gates 13.4–13.7 ----------------
+test('108 imaging the body: tissue dielectrics and SAR, Abbe and de Broglie, NIST X-ray attenuation, Rayleigh echoes, MRI, one wavelength axis', async ({ page }) => {
+  await page.goto('/#/biologic/senses');
+  await page.getByRole('navigation', { name: 'Biologic sections' }).getByRole('button', { name: 'Waves & life ▾' }).click();
+  await page.getByRole('menuitem', { name: 'Imaging the body' }).click();
+  await expect(page).toHaveURL(/#\/biologic\/imaging$/);
+  const list = page.getByRole('list', { name: 'Imaging wavelengths' });
+  await expect(list).toContainText('1.97 pm');    // 300 kV electrons, eq. (24)
+  await expect(list).toContainText('20.7 pm');    // 60 keV photons
+  await expect(list).toContainText('4.69 m');     // 63.865 MHz
+  await shot(page, '108a-compare', 'Waves that see inside the body (Gate 13.7): the wavelength of each imaging method on one axis — MRI radio waves at 1.5 T (4.69 m), 5 MHz ultrasound in muscle (0.317 mm), visible light (555 nm), 60 keV X-rays (20.7 pm) and 300 kV electrons (1.97 pm), each computed from its own source.');
+  const nav = page.getByRole('navigation', { name: 'Imaging sections' });
+  await nav.getByRole('button', { name: 'Radio & tissue' }).click();
+  const t = page.getByLabel('Tissue values');
+  await expect(t).toContainText('55');         // Gabriel muscle at 900 MHz
+  await expect(t).toContainText('0.943');
+  await expect(t).toContainText('4.24');       // skin depth, cm
+  await expect(t).toContainText('2.25');       // SAR at 50 V/m, ρ = 1050 kg/m³
+  await expect(page.locator('.right-panel')).toContainText('0.08 W/kg, as averaged over the whole body');
+  await shot(page, '108b-tissue', 'Radio waves in tissue (Gate 13.4): Gabriel’s four-Cole–Cole model (IFAC-CNR) for muscle, fat and blood; at 900 MHz muscle has ε′ = 55.0 and σ = 0.943 S/m, skin depth 4.24 cm, and SAR = σ|E|²/ρ = 2.25 W/kg at 50 V/m (USAF handbook); FCC limits from 47 CFR §1.1310.');
+  await nav.getByRole('button', { name: 'Microscopes' }).click();
+  await expect(page.getByLabel('Electron values')).toContainText('1.969');
+  await expect(page.getByLabel('Electron values')).toContainText('0.294');
+  await expect(page.locator('.stage-head')).toContainText('durch Division der Wellenlänge mit dem Sinus des halben Oeffnungswinkels');
+  await shot(page, '108c-microscope', 'Microscopes (Gate 13.5): Abbe’s 1873 limit in his own words; de Broglie’s electron wavelength, eq. (24), for NCI’s 300 kV Titan Krios (1.969 pm). Finding: the term eP/2mc² he calls “always small” is 0.29 at 300 kV.');
+  await nav.getByRole('button', { name: 'X-rays' }).click();
+  const x = page.getByLabel('X-ray values');
+  await expect(x).toContainText('64.8 %');     // soft tissue, 2 cm, 60 keV
+  await expect(x).toContainText('29.9 %');     // cortical bone
+  await shot(page, '108d-xray', 'X-rays (Gate 13.6): NIST SRD 126 mass attenuation coefficients at 20–150 keV; at 60 keV, 2 cm of soft tissue passes 64.8 % and 2 cm of cortical bone 29.9 %; lead’s K edge between 80 and 100 keV.');
+  await nav.getByRole('button', { name: 'Ultrasound' }).click();
+  await expect(page.getByLabel('Ultrasound values')).toContainText('0.0963');   // fat → muscle
+  await expect(page.getByRole('table', { name: 'Speed of sound in tissues' })).toContainText('1568 – 1603');
+  await shot(page, '108e-ultrasound', 'Ultrasound (Gate 13.6): NBS SP 525 tissue speeds; Rayleigh’s §270 reflection formula gives a 0.0963 amplitude echo from fat into muscle; echo time, wavelength and FDA’s 0.3 dB/cm/MHz derating.');
+  await nav.getByRole('button', { name: 'MRI' }).click();
+  await expect(page.getByLabel('MRI values')).toContainText('63.865');
+  await shot(page, '108f-mri', 'MRI (Gate 13.6): the shielded proton gyromagnetic ratio (CODATA 2022, 42.576 385 43 MHz/T) gives 63.865 MHz at 1.5 T; FDA’s significant-risk field and SAR criteria.');
+});

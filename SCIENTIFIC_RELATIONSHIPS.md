@@ -166,6 +166,8 @@ Every encyclopedia entry describes a registry entity, so E.2 registered the 11 s
 
 `instrument:senses` (`#/biologic/senses`): *absorbs* visible light (cone and luminosity peaks, CVRL); the pupil's diffraction circle is *part of* the same physics as Telescopes (Helmholtz p. 196); it *explains* the heartbeat's electrical variation as recorded through Einthoven's leads (linked to Nerves); the heart is *observed with* the ECG (NHLBI).
 
+`instrument:imaging` (`#/biologic/imaging`): *part of* the same resolution physics as Senses and Telescopes (Abbe 1873); *absorbs* X-rays (NIST SRD 126) and radio waves (SAR, MRI); *part of* the acoustic lab (Rayleigh's reflection); *observed with* the protein structures (electron wavelengths, de Broglie).
+
 ## Rules
 
 1. No edge without a source.

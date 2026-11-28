@@ -1,0 +1,45 @@
+{
+  "dataset": "imaging",
+  "version": "1.0.0",
+  "records": 42,
+  "sources": [
+    {
+      "institution": "NIST Standard Reference Database 126 (Hubbell & Seltzer, v1.4, 2004)",
+      "url": "https://doi.org/10.18434/T4D01F",
+      "license": "copyrighted compilation (15 U.S.C. §290e): a selection of 42 values only, with the required notice",
+      "notes": "X-ray mass attenuation coefficients and densities"
+    },
+    {
+      "institution": "IFAC-CNR, dielectric properties of body tissues (Andreuccetti, Fossi & Petrucci 1997; Gabriel 1996)",
+      "url": "https://webnir.eu/04-Dosimetry/04-Gabriel.php?lang=gb",
+      "license": "“may be used freely for scientific purposes”; site CC BY 4.0",
+      "notes": "four-Cole–Cole parameters for seven tissues"
+    },
+    {
+      "institution": "NBS Special Publication 525 (1979), Table 1",
+      "url": "https://doi.org/10.6028/NBS.SP.525",
+      "notes": "ultrasonic velocity and attenuation in tissues (page image)"
+    },
+    {
+      "institution": "USAF Radiofrequency Radiation Dosimetry Handbook, 4th ed. (1986)",
+      "url": "https://niremf.ifac.cnr.it/docs/HANDBOOK/tbl-34.htm",
+      "notes": "skin depth and SAR (Table 3.4)"
+    },
+    {
+      "institution": "U.S. FDA; 47 CFR §1.1310; CODATA 2022 (NIST)",
+      "url": "https://www.govinfo.gov/app/details/CFR-2024-title47-vol1/CFR-2024-title47-vol1-sec1-1310",
+      "license": "U.S. government works",
+      "notes": "exposure limits and constants"
+    }
+  ],
+  "adapter": "scripts/ingestion/curated-imaging.ts",
+  "warnings": [
+    "NIST SRD 126 is not public domain: only selected values.",
+    "Gabriel equation (3) read in the IFAC page text, not on the 1996 report page image.",
+    "Ultrasound speeds are printed ranges; the view uses the midpoint (derived) and shows the range."
+  ],
+  "output": "datasets/biology/imaging.json",
+  "retrievedAt": "2026-11-28T09:15:43.815Z",
+  "bytes": 6647,
+  "sha256": "1b98403210b14de1fa0f25ffd1656b16642856754dbc5301f5ca86ca0771b034"
+}

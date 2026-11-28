@@ -389,6 +389,13 @@ registerRelationship({ from: 'instrument:senses', to: 'wave:em-visible', type: '
 registerRelationship({ from: 'instrument:senses', to: 'instrument:telescopes', type: 'part-of', context: 'the pupil’s diffraction circle δ = 2.440 lr/d is Airy’s disc (Helmholtz p. 196)', source: 'helmholtz-1924' });
 registerRelationship({ from: 'instrument:senses', to: 'instrument:nerves', type: 'explains', context: 'each heartbeat is accompanied by an electrical variation, recorded through Einthoven’s three leads', source: 'einthoven-1912' });
 registerRelationship({ from: 'instrument:senses', to: 'structure:organ-heart', type: 'observed-with', context: 'the ECG records the heart’s electrical activity (NHLBI)', source: 'nhlbi' });
+registerEntity(E('instrument:imaging', 'Imaging the body', '#/biologic/imaging', 'Waves in tissue, microscopes, X-rays, ultrasound and MRI (Gates 13.4–13.7)'));
+registerRelationship({ from: 'instrument:imaging', to: 'instrument:senses', type: 'part-of', context: 'microscopes extend the eye: Abbe’s limit is the wavelength over the sine of half the aperture angle', source: 'abbe-1873' });
+registerRelationship({ from: 'instrument:imaging', to: 'instrument:telescopes', type: 'part-of', context: 'resolution set by wavelength and aperture, for microscopes (Abbe 1873) as for telescopes', source: 'abbe-1873' });
+registerRelationship({ from: 'instrument:imaging', to: 'wave:em-xray', type: 'absorbs', context: 'X-rays pass soft tissue and are stopped by bone: I/I₀ = exp[−(μ/ρ)x] (NIST SRD 126)', source: 'nist-srd126' });
+registerRelationship({ from: 'instrument:imaging', to: 'wave:em-radio', type: 'absorbs', context: 'tissue heating by radio waves, SAR = σ|E|²/ρ; MRI’s protons precess at 42.58 MHz per tesla', source: 'usaf-rf-dosimetry-1986' });
+registerRelationship({ from: 'instrument:imaging', to: 'instrument:acoustic-lab', type: 'part-of', context: 'ultrasound echoes come from changes of ρV at tissue boundaries (Rayleigh §270)', source: 'rayleigh-1896' });
+registerRelationship({ from: 'instrument:imaging', to: 'instrument:proteins', type: 'observed-with', context: 'electron microscopes at 120–300 kV have wavelengths of 2–3 pm (de Broglie eq. 24)', source: 'debroglie-1930' });
 
 export const getEntity = (id: string) => REGISTRY.get(id);
 export const allEntities = () => [...REGISTRY.values()];

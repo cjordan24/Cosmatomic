@@ -1,6 +1,6 @@
 # Voyager Ventures — status report and index
 
-*Kept up to date by Claude during the autonomous run. Last updated: **2026-11-28, Gates 13.1–13.3**.*
+*Kept up to date by Claude during the autonomous run. Last updated: **2026-11-28, end of Phase 13**.*
 
 Live site: https://voyager-ventures.vercel.app — **production still serves the build from 2026-11-27** (Phase 10 + universe map + interface pass). Nothing from Phases 11–14 is deployed: you asked for no deploys until Phase 14 is finished. The deploy command is at the bottom.
 
@@ -34,7 +34,7 @@ You said: if a permission prompt gets no answer within 5 minutes, treat it as de
 | 1–10 | Foundations → Optics, Radiation & Energy (+ universe map, interface pass) | Complete, deployed |
 | **11 Biologic Foundations** | Biologic mode with seven views | **Complete** (not deployed) |
 | 12 Human Anatomy & Physiology | reference model, skeleton/muscle, heart/lungs, nervous system (Hodgkin–Huxley), other organ systems, organ-to-cell zoom | **Complete** (not deployed) |
-| 13 Waves, Life & Imaging | vision, hearing, bioelectricity, EM–tissue, microscopy, medical imaging | **In progress** — senses done |
+| 13 Waves, Life & Imaging | vision, hearing, bioelectricity, EM–tissue, microscopy, medical imaging | **Complete** (not deployed) |
 | 14 Advanced Foundations | Standard Model, quantum lab, nuclear physics, plasma, relativity, cosmology models | Planned |
 | 15–19 Computing & Engineering | your brief (`COMPUTING_ENGINEERING_BRIEF.md`, saved verbatim) | Queued — begins when Phase 14 is complete |
 | 20+ Meteorology & Climate | your brief (`METEOROLOGY_EXPANSION_BRIEF.md`, saved verbatim) | Queued — after Phase 19 |
@@ -83,6 +83,7 @@ Four portals: ATOMIC, COSMIC, SPECTRAL, **BIOLOGIC** (new in Phase 11; shows the
 | `#/biologic/systems` | **Organ systems** — kidneys, digestion, hormones, blood & lymph, skin, reproduction | NIDDK, NCI SEER, NIST SP 811 |
 | `#/biologic/zoom` | **From body to molecule** — one zoom through ten powers of ten, sizes to scale | BodyParts3D, SEER, Inside the Cell |
 | `#/biologic/senses` | **Senses & signals** (Phase 13) — the eye as an optical instrument, colour-sensitivity peaks, hearing and decibels, Einthoven's ECG leads | Helmholtz 1924, CVRL, Fletcher & Munson 1933, Einthoven 1912, NEI, NIDCD |
+| `#/biologic/imaging` | **Imaging the body** (Phase 13) — radio waves in tissue (SAR), microscopes (light and electrons), X-rays, ultrasound, MRI, and all their wavelengths on one axis | NIST SRD 126, IFAC-CNR (Gabriel), USAF handbook, FCC, FDA, Abbe 1873, de Broglie 1930, Rayleigh 1896, NBS SP 525, CODATA |
 | `#/biologic/plants` | **Plants & microbes** — photosynthesis, chlorophyll absorption maxima over sunlight; viruses to plant cells | NASA, OMLC/PhotochemCAD, NIGMS, NHGRI |
 
 ### Shared tools (all modes)
@@ -92,6 +93,8 @@ Four portals: ATOMIC, COSMIC, SPECTRAL, **BIOLOGIC** (new in Phase 11; shows the
 ---
 
 ## 4. What was done in this run (newest first)
+
+- **Phase 13 complete** — Gates 13.4–13.7: imaging the body (radio waves and tissue, microscopes, X-rays, ultrasound, MRI, one wavelength chart). Findings: a 1986 US Air Force handbook's constant assumes c = 3 × 10⁸ m/s; de Broglie's “always small” relativistic term is 0.29 for a modern 300 kV microscope.
 
 - **Gates 13.1–13.3 (senses)** — the eye, colour, hearing and the ECG in one view, from Helmholtz, Einthoven and Fletcher & Munson read on the page images. Finding: Helmholtz prints a reduced-eye radius (5.1248 mm) that his own focal lengths don't give (5.0674 mm); both shown. End-of-Phase-12 browser suite: **100/100 passed**.
 - **For you to look at (licensing, no action needed now):** NIST's X-ray attenuation tables (SRD 126) are a copyrighted compilation, not public domain — Gate 13.6 will use only a small selection of values with NIST's required notice, not the full tables. If you would prefer none at all, say so and I'll remove them.
