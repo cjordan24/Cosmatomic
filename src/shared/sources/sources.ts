@@ -1821,6 +1821,9 @@ export const SOURCES: Source[] = [
   { id: 'nsidc-ice-sheet-facts', kind: 'report', citation: 'NSIDC Learn. Ice Sheet Quick Facts (read 2026-11-28).', title: 'Ice Sheet Quick Facts', authors: 'NSIDC', year: 'read 2026-11-28',
     institution: 'NSIDC (CIRES, University of Colorado Boulder)', url: 'https://nsidc.org/learn/parts-cryosphere/ice-sheets/ice-sheet-quick-facts', license: '© NSIDC (quoted briefly)', authorBio: null,
     usedFor: ['sea-level equivalent of the Greenland (7.4 m) and Antarctic (58 m) ice sheets'], datasets: ['future'] },
+  { id: 'nssdc-planetfact-notes', kind: 'database', citation: 'Williams, D. R. Planetary Fact Sheet Notes. NASA Goddard Space Flight Center, NSSDCA (last updated 20 December 2021).', title: 'Planetary Fact Sheet Notes', authors: 'D. R. Williams (NSSDCA)', year: 2021,
+    institution: 'NASA Goddard Space Flight Center (NSSDCA)', url: 'https://nssdc.gsfc.nasa.gov/planetary/factsheet/planetfact_notes.html', license: 'U.S. government work (public domain)', authorBio: null,
+    usedFor: ['definitions: gravity “at the equator … including the effects of rotation”, escape velocity, rotation period'], datasets: ['sandbox'] },
 ];
 
 const BY_ID = new Map(SOURCES.map((s) => [s.id, s]));

@@ -860,3 +860,13 @@ A sixth mode (periwinkle #82b1ff) with a shared **depth switch** (`src/ui/Depth.
 * Known vs unknown: two NCA5 likely ECS ranges (2.5–4.0 Ch. 3; 2.6–3.9 Ch. 2 TA) and very likely 2.3–4.7; ten possible tipping elements in words (Fig. 2.15 not reproduced: adapted with permission).
 * Every projection panel carries a “Projections, not predictions” notice quoting NCA5.
 * **Tests:** `future.test.ts` (13); browser test 140.
+
+### 82.1 Environmental sandbox (Gate 25.1): `src/core/meteorology/sandbox.ts`, `region.ts`, `#/meteorology/sandbox`
+* Presets Earth, Venus, Mars, Jupiter, Pluto assembled from NSSDCA (planet-physical, planet-radiation, planets atmosphere); Titan from JPL GM/radius and NASA pressure/temperature, with Saturn's orbit (assumption) and declared placeholders for albedo and rotation.
+* Dependencies enforced: g = GM/R² unless the theoretical override is switched on; NSSDCA gravity is equatorial with rotation (planetfact notes), reproduced as GM/R² − ω²R within 3 % for five worlds (tested). S = 1361 (1 au/d)² within 2 % of NSSDCA irradiances (tested); σT⁴ = S(1 − A)/4 + F_int within 1 % of NSSDCA black-body temperatures (tested). Findings: NSSDCA Pluto black-body 37.5 K vs 32.2 K from its own S and A; Jupiter's rotation lowers equatorial gravity by ≈2.2 m/s².
+* Scale height R*T/(Mg) within 6 % of NSSDCA H (tested); column mass p/g and whole-atmosphere mass (Earth within 5 % of NSSDCA 5.1 × 10¹⁸ kg, tested); Coriolis f at 45°.
+* Changing mass, radius, distance, albedo, internal heat, pressure or molecular weight removes the measured temperature (no invented surface temperature).
+* CO₂: 5.35 ln(C/280) scaled by NCA5's likely 2.5–4.0 °C per doubling (illustrative, Earth only; tested exact at doubling).
+* Region: rain shadow (dry 9.8 °C/km to the FAA cloud base, constant moist rate 3.6–9.2 °C/km to the crest, dry descent; lee warming = (9.8 − moist) × (crest − cloud base), tested); NWS heat index and wind chill within their ranges; tropical-cyclone formation checklist from Penn State/NASA conditions.
+* Save/compare: experiments stored as URL queries in localStorage; any two compared side by side (recomputed).
+* **Tests:** `env-sandbox.test.ts` (37); browser test 141.

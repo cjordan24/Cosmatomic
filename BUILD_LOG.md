@@ -1067,3 +1067,7 @@ Five tabs (carbon, sectors, electricity, heat & water, interventions); every eff
 ## Gate 24.2: future climate (`#/meteorology/future`), 2026-11-28 — Phase 24 complete
 
 Five tabs (kinds of statement, warming levels, sea level, ocean & ice, known & unknown); a projection notice on every projection panel. NCA5 read from NOAA's mirror PDFs (site offline). Sources +13; `future.test.ts` (13); browser 140.
+
+## Gate 25.1: environmental sandbox (`#/meteorology/sandbox`), 2026-11-28
+
+Planet builder from fact-sheet presets with enforced dependencies (validated against NSSDCA for five worlds), regional lab, save/compare. Sources +1; `env-sandbox.test.ts` (37); browser 141. An accidental overwrite of the Phase 3 `sandbox.test.ts` was caught and restored before commit.

@@ -503,6 +503,9 @@ registerEntity(E('instrument:future', 'Future climate', '#/meteorology/future', 
 registerRelationship({ from: 'instrument:human', to: 'instrument:future', type: 'explains', context: '“the largest source of uncertainty is the trajectory of our greenhouse gas emissions” (NCA5 Ch. 2)', source: 'nca5-ch2' });
 registerRelationship({ from: 'instrument:future', to: 'instrument:oceans', type: 'explains', context: '“Even after the world reaches net-zero emissions, oceans will continue to acidify” (NCA5 Ch. 2)', source: 'nca5-ch2' });
 registerRelationship({ from: 'instrument:iceages', to: 'instrument:future', type: 'explains', context: '“estimated temperature and radiative forcing changes for multiple warm and cold periods in paleoclimate records” constrain climate sensitivity (NCA5 Ch. 3)', source: 'nca5-ch3' });
+registerEntity(E('instrument:sandbox', 'Environmental sandbox', '#/meteorology/sandbox', 'Build a planet from presets (Earth, Venus, Mars, Titan, Jupiter, Pluto) or set up a region; save and compare experiments (Phase 25)'));
+registerRelationship({ from: 'instrument:planet-weather', to: 'instrument:sandbox', type: 'part-of', context: 'Presets use the NSSDCA fact-sheet values shown in Other worlds', source: 'nssdc-factsheet' });
+registerRelationship({ from: 'instrument:radiation-budget', to: 'instrument:sandbox', type: 'part-of', context: 'σT⁴ = S(1 − A)/4: the energy balance behind every world in the sandbox', source: 'nasa-earth-energy-budget' });
 
 export const getEntity = (id: string) => REGISTRY.get(id);
 export const allEntities = () => [...REGISTRY.values()];
