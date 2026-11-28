@@ -2,7 +2,7 @@
 
 ## ▶ RESUME HERE
 
-**State:** Phases 11–26 are complete, committed and pushed to `main`. The Meteorology & Climate brief (METEOROLOGY_EXPANSION_BRIEF.md, phases A–G → our Phases 20–26) is finished. **Nothing deployed since Phase 10 / the universe-map pass** — the user runs the deploy:
+**State:** Phases 11–26 are complete, committed and pushed to `main`. The Meteorology & Climate brief (METEOROLOGY_EXPANSION_BRIEF.md, phases A–G → our Phases 20–26) is finished. **Deployed 2026-11-28** (Phases 11–26 live; live suite 137/138, the one failure a timing flake that passed on re-run). Deploy command:
 
 ```
 ! export PATH=~/.local/node/bin:$PATH && cd "/Users/chrisjordan/Desktop/Voyager Ventures" && npx vercel deploy --prod --yes --project voyager-ventures

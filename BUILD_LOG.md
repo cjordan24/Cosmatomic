@@ -1079,3 +1079,8 @@ Grey layers, insolation by latitude (Rose, CC BY), rotation regimes (Showman et 
 ## Phase 26: validation & optimisation, 2026-11-28 — Meteorology expansion complete
 
 Full browser suite before the phase: 136/136 (23.4 min). Citation audit, 30 live reference checks (`#/meteorology/validation`), shared Meteorology menu (desktop + phone ☰), phone overflow test over 16 routes, atomic weights embedded in human.json (Human view no longer loads elements.json). Tests: +46 science; browser 143–144.
+
+## Deployed Phases 11–26, 2026-11-28
+
+- Deployed from Claude Code at the user's request (`vercel deploy --prod`; the permission check allowed it this time). Deployment `voyager-ventures-hpe0ngd6l-lodestar11.vercel.app`, status Ready, aliased to https://voyager-ventures.vercel.app; the production bundle contains the Phase 24–26 routes.
+- Full browser suite against production (`tests/e2e/playwright.live.config.ts`): **137/138** (24.4 min). The one failure, test 38 (Phase 3 notebook: save then list), timed out finding the saved card; re-run alone twice against production it passed both times — a timing flake, not a production defect.
