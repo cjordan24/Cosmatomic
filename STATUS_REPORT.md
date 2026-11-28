@@ -1,6 +1,6 @@
 # Voyager Ventures — status report and index
 
-*Kept up to date by Claude during the autonomous run. Last updated: **2026-11-28, Gate 15.5**.*
+*Kept up to date by Claude during the autonomous run. Last updated: **2026-11-28, Gate 15.6**.*
 
 Live site: https://voyager-ventures.vercel.app — **production still serves the build from 2026-11-27** (Phase 10 + universe map + interface pass). Nothing from Phases 11–14 is deployed: you asked for no deploys until Phase 14 is finished. The deploy command is at the bottom.
 
@@ -91,6 +91,7 @@ Four portals: ATOMIC, COSMIC, SPECTRAL, **BIOLOGIC** (new in Phase 11; shows the
 ### ENGINEERING (coral) — **new in Phase 15**
 | Address | What it is | Main sources |
 |---|---|---|
+| `#/engineering/network` | **Networks** — a real IPv4 packet and its checksum hopping through routers, TCP’s handshake, Shannon’s channel capacity | RFC 791, RFC 9293, Shannon 1948 |
 | `#/engineering/information` | **Information** — type text to see its Unicode code points, UTF-8 bytes and Shannon entropy | Shannon 1948, The Unicode Standard |
 | `#/engineering/architecture` | **Stored-program computer** — step a tiny computer through 6 × 7 = 42, laid out as von Neumann’s 1945 EDVAC report describes | von Neumann 1945 |
 | `#/engineering/chips` | **Chips** — Kilby’s and Noyce’s 1959 integrated-circuit patents with their drawings; the planar process step by step | US patents 3,138,743 and 2,981,877 |
@@ -104,6 +105,8 @@ Four portals: ATOMIC, COSMIC, SPECTRAL, **BIOLOGIC** (new in Phase 11; shows the
 ---
 
 ## 4. What was done in this run (newest first)
+
+- **Gate 15.6** — networks: a real IPv4 packet, TCP's handshake, and Shannon's limit on how fast a channel can carry bits.
 
 - **Gate 15.5** — information and encoding: UTF-8 bytes and Shannon entropy of any text.
 

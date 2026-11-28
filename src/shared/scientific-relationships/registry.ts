@@ -424,6 +424,9 @@ registerRelationship({ from: 'instrument:architecture', to: 'instrument:nerves',
 registerRelationship({ from: 'instrument:chips', to: 'instrument:architecture', type: 'part-of', context: '“to facilitate the inclusion of numerous semiconductor devices within a single body of material” (Noyce)', source: 'noyce-us2981877' });
 registerEntity(E('instrument:information', 'Information and encoding', '#/engineering/information', 'UTF-8 and Shannon entropy of any text (Gate 15.5)'));
 registerRelationship({ from: 'instrument:logic', to: 'instrument:information', type: 'part-of', context: 'the bit, “binary digits, or more briefly bits” (Shannon 1948, p. 380), is the unit of entropy with base-2 logarithms', source: 'shannon-1948' });
+registerEntity(E('instrument:network', 'Networks', '#/engineering/network', 'An IPv4 packet, TCP’s handshake and Shannon’s channel capacity (Gate 15.6)'));
+registerRelationship({ from: 'instrument:information', to: 'instrument:network', type: 'part-of', context: '“we can transmit binary digits at the rate W log₂ (P + N)/N bits per second” (Shannon 1948, Theorem 17)', source: 'shannon-1948' });
+registerRelationship({ from: 'instrument:network', to: 'wave:em-radio', type: 'explains', context: 'Theorem 17: the capacity of “a channel of band W perturbed by white thermal noise” (Shannon 1948)', source: 'shannon-1948' });
 
 export const getEntity = (id: string) => REGISTRY.get(id);
 export const allEntities = () => [...REGISTRY.values()];

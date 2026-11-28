@@ -1,0 +1,42 @@
+/**
+ * Networking (Phase 15, Gate 15.6) → datasets/engineering/network.json
+ *
+ *   node --experimental-strip-types scripts/ingestion/curated-network.ts
+ *
+ * Read 2026-11-28 in the RFC text files from rfc-editor.org (robots allow): RFC 791 §3.1, RFC 9293 §3.5 (Figure 6
+ * and the paragraphs after it). Excerpts are unmodified, as the IETF Trust Legal Provisions (TLP 5.0 §3.c) allow.
+ * Shannon (1948) Theorem 17, pp. 639–640 (page images).
+ */
+import { writeDataset } from './lib/ingest.ts';
+
+const data = {
+  version: '1.0.0',
+  rfc791: { source: 'rfc-791', fields: [
+      { name: 'Version', bits: 4 }, { name: 'IHL', bits: 4 }, { name: 'Type of Service', bits: 8 }, { name: 'Total Length', bits: 16 }, { name: 'Identification', bits: 16 }, { name: 'Flags', bits: 3 }, { name: 'Fragment Offset', bits: 13 },
+      { name: 'Time to Live', bits: 8 }, { name: 'Protocol', bits: 8 }, { name: 'Header Checksum', bits: 16 }, { name: 'Source Address', bits: 32 }, { name: 'Destination Address', bits: 32 }],
+    ihl: 'Note that the minimum value for a correct header is 5.',
+    length: 'This field allows the length of a datagram to be up to 65,535 octets.',
+    ttl: 'If this field contains the value zero, then the datagram must be destroyed. This field is modified in internet header processing.',
+    checksum: 'The checksum field is the 16 bit one\'s complement of the one\'s complement sum of all 16 bit words in the header. For purposes of computing the checksum, the value of the checksum field is zero.',
+    recompute: 'Since some header fields change (e.g., time to live), this is recomputed and verified at each point that the internet header is processed.' },
+  rfc9293: { source: 'rfc-9293', intro: 'The "three-way handshake" is the procedure used to establish a connection. This procedure normally is initiated by one TCP peer and responded to by another TCP peer. The procedure also works if two TCP peers simultaneously initiate the procedure.',
+    lines: [
+      '    TCP Peer A                                           TCP Peer B',
+      '1.  CLOSED                                               LISTEN',
+      '2.  SYN-SENT    --> <SEQ=100><CTL=SYN>               --> SYN-RECEIVED',
+      '3.  ESTABLISHED <-- <SEQ=300><ACK=101><CTL=SYN,ACK>  <-- SYN-RECEIVED',
+      '4.  ESTABLISHED --> <SEQ=101><ACK=301><CTL=ACK>       --> ESTABLISHED',
+      '5.  ESTABLISHED --> <SEQ=101><ACK=301><CTL=ACK><DATA> --> ESTABLISHED'],
+    caption: 'Figure 6: Basic Three-Way Handshake for Connection Synchronization',
+    explain: [
+      'In line 2 of Figure 6, TCP Peer A begins by sending a SYN segment indicating that it will use sequence numbers starting with sequence number 100.',
+      'In line 3, TCP Peer B sends a SYN and acknowledges the SYN it received from TCP Peer A. Note that the acknowledgment field indicates TCP Peer B is now expecting to hear sequence 101, acknowledging the SYN that occupied sequence 100.',
+      'At line 4, TCP Peer A responds with an empty segment containing an ACK for TCP Peer B\'s SYN; and in line 5, TCP Peer A sends some data.',
+      'Note that the sequence number of the segment in line 5 is the same as in line 4 because the ACK does not occupy sequence number space (if it did, we would wind up ACKing ACKs!).'],
+    why: 'The principal reason for the three-way handshake is to prevent old duplicate connection initiations from causing confusion.' },
+  shannon: { source: 'shannon-1948', where: 'pp. 639–640, Theorem 17', theorem: 'The capacity of a channel of band W perturbed by white thermal noise of power N when the average transmitter power is P is given by C = W log (P + N)/N.', meaning: 'This means of course that by sufficiently involved encoding systems we can transmit binary digits at the rate W log₂ (P + N)/N bits per second, with arbitrarily small frequency of errors. It is not possible to transmit at a higher rate by any encoding system without a definite positive frequency of errors.' },
+};
+writeDataset('datasets/engineering/network.json', data, { dataset: 'network', version: '1.0.0', records: 14,
+  sources: [{ institution: 'IETF: RFC 791 (Internet Protocol, 1981) and RFC 9293 (TCP, 2022)', url: 'https://www.rfc-editor.org/rfc/rfc9293.txt', license: 'IETF Trust Legal Provisions: unmodified excerpts with attribution', notes: 'header fields, checksum, three-way handshake' },
+    { institution: 'Shannon (1948) Theorem 17', url: 'https://archive.org/details/bstj27-4-623', notes: 'channel capacity (page images)' }],
+  adapter: 'scripts/ingestion/curated-network.ts', warnings: ['(P + N)/N is written 1 + P/N in the calculator — the same quantity.'] });

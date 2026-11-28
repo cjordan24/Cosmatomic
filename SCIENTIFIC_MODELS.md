@@ -728,3 +728,10 @@ Five new pathways through the Phase 11–14 records — From quarks to leaves; F
 * UTF-8 implemented from its bit patterns; reproduces Unicode D92's example <4D D0 B0 E4 BA 8C F0 90 8C 82> and the platform TextEncoder (tested). Codespace 0–10FFFF₁₆ (D9) = 1,114,112 code points; assigned totals 154,998 (16.0), 159,801 (17.0), 172,808 (18.0, 15.5 % of the codespace). The UTF-8 table is drawn by the app (the Core Spec is not openly licensed).
 * Shannon (1948) Theorem 2, p. 393 (page image): entropy of a text's letter frequencies in bits per character, shown beside UTF-8's bits per character; his Fig. 6 decomposition and “a decimal digit is about 3⅓ bits” reproduced in the tests.
 * **Tests:** `tests/science/information.test.ts` (6).
+
+## 71. Networks (Phase 15, Gate 15.6): `src/core/computing/network.ts`, `src/modes/engineering/network/`
+
+* RFC 791 §3.1 (read in the RFC text): the 20-octet IPv4 header (IHL 5) built field by field at the RFC's bit widths; the header checksum as the RFC defines it (one's complement of the one's-complement sum of the 16-bit words, checksum field zero) — verified by the sum-to-FFFF property and by catching a flipped bit; forwarding lowers TTL and recomputes the checksum at each router until TTL 0, when the datagram is destroyed.
+* RFC 9293 §3.5 Figure 6 (TCP three-way handshake) shown unmodified and stepped with the RFC's own explanation (IETF Trust: unmodified excerpts).
+* Shannon (1948) Theorem 17, pp. 639–640 (page images): C = W log₂ (P + N)/N, written as log₂(1 + P/N); 20 MHz at 25 dB → 166.2 Mbit/s.
+* **Tests:** `tests/science/network.test.ts` (6).

@@ -1,0 +1,26 @@
+{
+  "dataset": "network",
+  "version": "1.0.0",
+  "records": 14,
+  "sources": [
+    {
+      "institution": "IETF: RFC 791 (Internet Protocol, 1981) and RFC 9293 (TCP, 2022)",
+      "url": "https://www.rfc-editor.org/rfc/rfc9293.txt",
+      "license": "IETF Trust Legal Provisions: unmodified excerpts with attribution",
+      "notes": "header fields, checksum, three-way handshake"
+    },
+    {
+      "institution": "Shannon (1948) Theorem 17",
+      "url": "https://archive.org/details/bstj27-4-623",
+      "notes": "channel capacity (page images)"
+    }
+  ],
+  "adapter": "scripts/ingestion/curated-network.ts",
+  "warnings": [
+    "(P + N)/N is written 1 + P/N in the calculator — the same quantity."
+  ],
+  "output": "datasets/engineering/network.json",
+  "retrievedAt": "2026-11-28T11:13:56.774Z",
+  "bytes": 3308,
+  "sha256": "abaf7b150a6d47cf78a73720bfd22c4a4c863beb97bce76fa48f6ed8bb8d72d8"
+}

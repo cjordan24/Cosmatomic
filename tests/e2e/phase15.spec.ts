@@ -104,7 +104,8 @@ test('119 stored-program computer: von Neumann’s five parts, one memory for or
 // ---------------- Gate 15.5 ----------------
 test('120 information and encoding: UTF-8 bytes and Shannon entropy of any text', async ({ page }) => {
   await page.goto('/#/engineering');
-  await page.getByRole('navigation', { name: 'Engineering sections' }).getByRole('button', { name: 'Information' }).click();
+  await page.getByRole('navigation', { name: 'Engineering sections' }).getByRole('button', { name: 'Information ▾' }).click();
+  await page.getByRole('menuitem', { name: 'Information & encoding' }).click();
   await expect(page).toHaveURL(/#\/engineering\/information$/);
   const bar = await page.locator('header.topbar').boundingBox(), acts = await page.locator('.topbar-actions').boundingBox();
   expect(acts!.x + acts!.width).toBeLessThanOrEqual(bar!.x + bar!.width + 1);
@@ -115,4 +116,26 @@ test('120 information and encoding: UTF-8 bytes and Shannon entropy of any text'
   await expect(page.getByRole('list', { name: 'Characters and their bytes' })).toContainText('F0 9F 9A 80');   // 🚀 U+1F680
   await expect(page.getByLabel('Unicode values')).toContainText('172,808');
   await shot(page, '120a-information', 'Information and encoding (Gate 15.5): each character’s code point and UTF-8 bytes (1 to 4, colour-coded), built from the bit patterns and checked against Unicode’s own example; Shannon’s entropy of the text’s letter mix; Unicode 16.0–18.0 character totals.');
+});
+
+// ---------------- Gate 15.6 ----------------
+test('121 networks: an IPv4 packet and its checksum, TCP’s handshake, Shannon capacity', async ({ page }) => {
+  await page.goto('/#/engineering/information');
+  await page.getByRole('navigation', { name: 'Engineering sections' }).getByRole('button', { name: 'Information ▾' }).click();
+  await page.getByRole('menuitem', { name: 'Networks' }).click();
+  await expect(page).toHaveURL(/#\/engineering\/network$/);
+  const bar = await page.locator('header.topbar').boundingBox(), acts = await page.locator('.topbar-actions').boundingBox();
+  expect(acts!.x + acts!.width).toBeLessThanOrEqual(bar!.x + bar!.width + 1);
+  const v = page.getByLabel('Packet values');
+  await expect(v).toContainText('20 octets'); await expect(v).toContainText('yes'); await expect(v).toContainText('destroyed at router 4');
+  await expect(page.getByRole('list', { name: 'Hops' }).getByRole('listitem')).toHaveCount(4);
+  await shot(page, '121a-packet', 'Networks (Gate 15.6): a real 20-octet IPv4 header (RFC 791) with its one’s-complement checksum; each router lowers the Time to Live and recomputes the checksum until, at zero, the datagram is destroyed.');
+  const nav = page.getByRole('navigation', { name: 'Network sections' });
+  await nav.getByRole('button', { name: 'Handshake' }).click();
+  await page.getByRole('button', { name: 'Line 3' }).click();
+  await expect(page.getByLabel('What happens on this line')).toContainText('expecting to hear sequence 101');
+  await shot(page, '121b-handshake', 'TCP’s three-way handshake, RFC 9293 Figure 6 (unmodified), stepped line by line with the RFC’s own explanation.');
+  await nav.getByRole('button', { name: 'Capacity' }).click();
+  await expect(page.getByLabel('Capacity values')).toContainText('166 Mbit/s');
+  await shot(page, '121c-capacity', 'Shannon’s Theorem 17 (1948): 20 MHz at 25 dB signal-to-noise carries at most 166 Mbit/s; capacity per hertz grows only logarithmically with power.');
 });

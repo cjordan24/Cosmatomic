@@ -963,3 +963,9 @@ Committed together (one view with six tabs, one dataset).
 1. **View:** Engineering → Information: type text, see code points, UTF-8 bytes (colour by length), entropy vs UTF-8 bits per character, Unicode version totals. (Planned as “memory and storage”; no open source with measured memory or storage figures was found, so the gate covers how information is measured and encoded instead.)
 2. **Sources (+1, 270 entries):** unicode-standard; shannon-1948 extended (Theorem 2, page image).
 3. **Tests:** science `information.test.ts` (6); browser test 120.
+
+## Gate 15.6: networks (`#/engineering/network`), 2026-11-28
+
+1. **View:** Engineering → Information ▾ → Networks: a packet (header octets coloured by field, hop-by-hop TTL and checksum), TCP's handshake (RFC 9293 Figure 6), Shannon capacity calculator. The Engineering bar now reads Information ▾ (Bits & logic, Information & encoding, Networks) · Hardware ▾ (it overflowed 1440 px by 6 px).
+2. **Sources (+2, 272 entries):** rfc-791, rfc-9293; shannon-1948 extended (Theorem 17). “Protocol 6 is TCP” was removed — neither RFC states it.
+3. **Tests:** science `network.test.ts` (6); browser test 121.

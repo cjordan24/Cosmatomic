@@ -6,5 +6,8 @@
   "118a-noyce.png": "Integrated circuits (Gate 15.3): Noyce’s US 2,981,877 (filed 1959) — the planar process step by step in his own words (oxide, photoengraved windows, metal leads over the oxide), a schematic section after his Fig. 2, and his original drawing sheet.",
   "118b-kilby.png": "Kilby’s US 3,138,743 (filed February 1959): the integrated circuit in one body of semiconductor, with drawing sheet 4.",
   "119a-computer.png": "The stored-program computer (Gate 15.4): a teaching machine laid out as von Neumann’s 1945 EDVAC report divides it — CA, CC, M, I, O — with orders and numbers in one marked memory; 6 × 7 = 42 by repeated addition, stepped cycle by cycle.",
-  "120a-information.png": "Information and encoding (Gate 15.5): each character’s code point and UTF-8 bytes (1 to 4, colour-coded), built from the bit patterns and checked against Unicode’s own example; Shannon’s entropy of the text’s letter mix; Unicode 16.0–18.0 character totals."
+  "120a-information.png": "Information and encoding (Gate 15.5): each character’s code point and UTF-8 bytes (1 to 4, colour-coded), built from the bit patterns and checked against Unicode’s own example; Shannon’s entropy of the text’s letter mix; Unicode 16.0–18.0 character totals.",
+  "121a-packet.png": "Networks (Gate 15.6): a real 20-octet IPv4 header (RFC 791) with its one’s-complement checksum; each router lowers the Time to Live and recomputes the checksum until, at zero, the datagram is destroyed.",
+  "121b-handshake.png": "TCP’s three-way handshake, RFC 9293 Figure 6 (unmodified), stepped line by line with the RFC’s own explanation.",
+  "121c-capacity.png": "Shannon’s Theorem 17 (1948): 20 MHz at 25 dB signal-to-noise carries at most 166 Mbit/s; capacity per hertz grows only logarithmically with power."
 }
