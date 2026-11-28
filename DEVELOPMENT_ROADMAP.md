@@ -165,7 +165,7 @@ If a gate turns out much larger than planned, it is split into documented sub-ga
 | 20 Atmospheric physics (A) | 20.1 structure (USSA 1976) · 20.2 moist air & stability · 20.3 radiation, greenhouse, ozone, aerosols · 20.4 Coriolis, convection, clouds, precipitation, water cycle, circulation | **Complete** (2026-11-28; four views) |
 | 21 Earth weather & storms (B) | 21.1 storm laboratory · 21.2 global atlas (3D Earth + 2D map, layers, timeline) · 21.3 regional climates · 21.4 historical observations | **Complete** (2026-11-28; storms, atlas, climates, records) |
 | 22 Planetary meteorology (C) | atmospheres of the planets, comparison engine | **Complete** (2026-11-28; `#/meteorology/planets`) |
-| 23 Climate history & environment (D) | 23.1 ice ages and orbits · 23.2 geological timeline and proxies · 23.3 oceans, ice and biomes | 23.1 complete (2026-11-28) |
+| 23 Climate history & environment (D) | 23.1 ice ages and orbits · 23.2 geological timeline and proxies · 23.3 oceans, ice and biomes | 23.1–23.2 complete (2026-11-28) |
 | 24 Human impact & future climate (E) | records, projections, scenarios, uncertainty | Planned |
 | 25 Environmental sandbox (F) | adjustable planetary and regional variables, presets, save/compare | Planned |
 | 26 Validation & optimisation (G) | source and equation audit, performance, mobile | Planned |

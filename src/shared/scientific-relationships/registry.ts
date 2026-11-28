@@ -490,6 +490,8 @@ registerRelationship({ from: 'instrument:atmosphere-structure', to: 'instrument:
 registerEntity(E('instrument:iceages', 'Ice ages and the orbit', '#/meteorology/iceages', '800,000 years of CO₂, Antarctic temperature and orbital forcing (Gate 23.1)'));
 registerRelationship({ from: 'instrument:iceages', to: 'instrument:records', type: 'part-of', context: 'glacial CO₂ “fluctuated from about 180 parts per million (ppm) to 280 ppm” (NASA)', source: 'nasa-milankovitch-warming' });
 registerRelationship({ from: 'instrument:iceages', to: 'instrument:radiation-budget', type: 'explains', context: 'orbital cycles “cause variations of up to 25 percent in the amount of incoming insolation at Earth\'s mid-latitudes” (NASA)', source: 'nasa-milankovitch' });
+registerEntity(E('instrument:deeptime', 'Climate through geological time', '#/meteorology/deeptime', 'From Earth’s formation to today: twenty events, the time scale, and how proxies record climate (Gate 23.2)'));
+registerRelationship({ from: 'instrument:iceages', to: 'instrument:deeptime', type: 'part-of', context: '“we are technically still in an ice age. We\'re just living out our lives during an interglacial” (NOAA Climate.gov)', source: 'climate-gov-coldest' });
 
 export const getEntity = (id: string) => REGISTRY.get(id);
 export const allEntities = () => [...REGISTRY.values()];

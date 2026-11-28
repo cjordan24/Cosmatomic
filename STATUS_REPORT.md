@@ -37,7 +37,7 @@ You said: if a permission prompt gets no answer within 5 minutes, treat it as de
 | 12 Human Anatomy & Physiology | reference model, skeleton/muscle, heart/lungs, nervous system (Hodgkin–Huxley), other organ systems, organ-to-cell zoom | **Complete** (not deployed) |
 | 13 Waves, Life & Imaging | vision, hearing, bioelectricity, EM–tissue, microscopy, medical imaging | **Complete** (not deployed) |
 | 14 Advanced Foundations | Standard Model, quantum lab, nuclear physics, plasma, relativity, cosmology models | **Complete** (not deployed) |
-| 15–19 Computing & Engineering | your brief (`COMPUTING_ENGINEERING_BRIEF.md`, saved verbatim); gate plan in `DEVELOPMENT_ROADMAP.md` | **Phases 15–19 complete**; **Phase 23 Gate 23.1 done** (ice ages); 23.2 geological timeline next |
+| 15–19 Computing & Engineering | your brief (`COMPUTING_ENGINEERING_BRIEF.md`, saved verbatim); gate plan in `DEVELOPMENT_ROADMAP.md` | **Phases 15–19 complete**; **Phase 23 Gates 23.1–23.2 done** (ice ages, deep time); 23.3 oceans, ice and biomes next |
 | 20+ Meteorology & Climate | your brief (`METEOROLOGY_EXPANSION_BRIEF.md`, saved verbatim) | Queued — after Phase 19 |
 
 **Counts (end of Phase 11):** 854 science tests (60 files), 94 browser tests (11 spec files; numbered up to 100), 49 dataset manifests, 208 Source-index entries, 84 commits in this repository.
@@ -102,6 +102,7 @@ Four portals: ATOMIC, COSMIC, SPECTRAL, **BIOLOGIC** (new in Phase 11; shows the
 | `#/meteorology/records` | **Temperature record** — NOAAGlobalTemp 1850–2025, running mean, warmest years, reference-period switch | NOAA NCEI |
 | `#/meteorology/planets` | **Other worlds** — atmospheres of Mercury to Pluto, Titan and Triton; comparison engine; greenhouse warming, internal heat, escape | NSSDCA, NASA, ESA, Wang et al. 2025 |
 | `#/meteorology/iceages` | **Ice ages and the orbit** — 800,000 years of orbital sunshine, CO₂ and Antarctic temperature on one time axis | NOAA NCEI paleo (Bereiter 2015, Jouzel 2007, Berger & Loutre 1991), NASA |
+| `#/meteorology/deeptime` | **Climate through geological time** — 4.6 billion years on a log timeline, twenty events labelled by evidence, how proxies work | USGS, ICS (numbers), NASA, NOAA, NPS, Climate of the Past |
 | `#/engineering/systems` | **Build a system** (Phase 19) — a spacecraft from power to bits, a chatbot service from power plant to chip, an electric car from battery to wheels, and a map of eight systems | chains of sources used earlier (Yuen 1982, NASA, LBNL, EIA, DOE) |
 | `#/engineering/space` | **Spacecraft & space systems** (Phase 18) — Voyager to Landsat, the rocket equation, orbits and transfers, RTG and solar power, Voyager’s radio link, pointing and heat, from detector to archive | NASA (Science, Glenn, Goddard, Earthdata, DSN), USGS, GPS.gov, DOE; Moulton 1914; Yuen 1982 |
 | `#/engineering/machines` | **Machines & electricity** (Phase 17) — circuits, gears and levers, heat engines, generators and the U.S. grid, batteries and EVs, Maxwell’s governor | Ohm, Kirchhoff, Faraday, Carnot, Rankine, Maxwell; EIA, DOE, EPA, NASA |
@@ -121,6 +122,8 @@ Four portals: ATOMIC, COSMIC, SPECTRAL, **BIOLOGIC** (new in Phase 11; shows the
 ---
 
 ## 4. What was done in this run (newest first)
+
+- **Gate 23.2** — Earth's climate through geological time: a 4.6-billion-year timeline with twenty events, each labelled consensus, proxy or model, and where reliable numbers don't exist the app says so.
 
 - **Gate 23.1** — ice ages and Earth's orbit: 800,000 years of ice-core CO₂ and Antarctic temperature beside the orbital cycles that pace them.
 

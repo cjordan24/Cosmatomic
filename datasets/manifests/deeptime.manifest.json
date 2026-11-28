@@ -1,0 +1,33 @@
+{
+  "dataset": "deeptime",
+  "version": "1.0.0",
+  "records": 110,
+  "sources": [
+    {
+      "institution": "USGS, NASA, NOAA (Climate.gov, NCEI), NPS",
+      "url": "https://pubs.usgs.gov/publication/fs20183054",
+      "license": "U.S. government works",
+      "notes": "time scale, events, proxies"
+    },
+    {
+      "institution": "Inglis et al. 2020; Hutchinson et al. 2021 (Climate of the Past)",
+      "url": "https://cp.copernicus.org/",
+      "license": "CC BY 4.0",
+      "notes": "PETM temperature; Eocene–Oligocene transition"
+    }
+  ],
+  "adapter": "scripts/ingestion/curated-deeptime.ts",
+  "warnings": [
+    "USGS 2018 and ICS 2024/12 boundary ages differ (shown).",
+    "LGM sea level 125 (USGS) / 120 (NOAA, regional) / 130 m (NPS).",
+    "PETM “about 6°C” and “5-8°C” in the same article.",
+    "Neoproterozoic freeze window 750–600 vs 600–800 Ma (Climate.gov).",
+    "Chicxulub sizes differ between NPS pages.",
+    "End-Permian 96 % vs 95 % of species (NPS).",
+    "No accredited O₂, Cretaceous CO₂ or Cambrian temperature values found."
+  ],
+  "output": "datasets/meteorology/deeptime.json",
+  "retrievedAt": "2026-11-28T15:10:14.188Z",
+  "bytes": 13616,
+  "sha256": "a38aeea6177f6ed06b74d4b6cb5dbbc601e82115ad8d82e94a37fff4896ed0d0"
+}

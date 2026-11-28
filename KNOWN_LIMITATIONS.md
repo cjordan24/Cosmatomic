@@ -229,6 +229,7 @@
 * **Plants and microbes (Gate 11.7):** chlorophyll maxima only (no spectra: OMLC states no licence and PhotochemCAD's own site refused the robots.txt request); in ether, not in leaves; sunlight is a black-body model (no measured solar spectrum is openly licensed); no photosynthetic efficiency, no chloroplast drawing or size (no open source with a size was read; NHGRI has no chloroplast entry), no plant-cell schematic beyond its quoted size range. **Not built in Phase 11:** glycolysis and cellular respiration as views (`process:glycolysis` and `process:cellular-respiration` stay *planned*): no allowed open source for the ATP yield or the pathway steps was found.
 
 ## Phase 23 (Meteorology — climate history and Earth systems)
+* Deep time: no maps of past continents (no openly licensed reconstructions read); timeline events only where sourced; ICS chart numbers cited without its graphic.
 * Ice ages: Berger & Loutre (1991), not La2004 (IMCCE refused access); Antarctic (not global) temperature; age scales differ between records (AICC2012 vs EDC3) and are modelled.
 
 ## Phase 22 (Meteorology — other worlds)

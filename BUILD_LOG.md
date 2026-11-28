@@ -1051,3 +1051,7 @@ Library, comparison engine and energy tab; two research agents (notes 22A/22B); 
 ## Gate 23.1: ice ages and the orbit (`#/meteorology/iceages`), 2026-11-28
 
 Three NOAA paleo files, NASA explanations; a new “Climate ▾” menu in the Meteorology top bar. Sources +9; `paleo.test.ts` (4); browser 136.
+
+## Gate 23.2: climate through geological time (`#/meteorology/deeptime`), 2026-11-28
+
+Twenty events, the time scale, proxies. Sources +20; browser 137.

@@ -44,3 +44,19 @@ test('136 ice ages: 800,000 years of orbital forcing, CO₂ and Antarctic temper
   await expect(page.getByRole('img', { name: 'Orbital record' })).toBeVisible();
   await shot(page, '136b-interglacial', 'The last interglacial, about 128,000 years ago: Antarctica warmer than the last millennium, CO₂ near its interglacial peak; obliquity shown above.');
 });
+
+test('137 climate through geological time: a log-scale timeline with the time scale, twenty events labelled by evidence, and proxies', async ({ page }) => {
+  await page.goto('/#/meteorology');
+  await page.getByRole('navigation', { name: 'Meteorology sections' }).getByRole('button', { name: 'Climate ▾' }).click();
+  await page.getByRole('menuitem', { name: 'Climate through geological time' }).click();
+  await expect(page).toHaveURL(/#\/meteorology\/deeptime$/);
+  await fits(page);
+  await expect(page.getByLabel('Event title')).toContainText('Paleocene–Eocene');
+  await expect(page.getByLabel('What is known')).toContainText('31.6 °C');
+  await shot(page, '137a-petm', 'Climate through geological time (Gate 23.2): a log timeline from 4.6 Ga with the USGS eons, eras and periods; the PETM, 56 Ma — 5–8 °C warming (Climate.gov) and a global mean of 31.6 °C (27.2–34.5, Inglis et al. 2020); proxies explained by NOAA.');
+  await page.getByLabel('Events').getByRole('button', { name: /End-Permian/ }).click();
+  await expect(page.getByLabel('What is known')).toContainText('96% of species');
+  await page.getByLabel('Events').getByRole('button', { name: /Great Oxidation/ }).click();
+  await expect(page.getByLabel('What is known')).toContainText('not reliably quantified');
+  await shot(page, '137b-goe', 'The Great Oxidation Event, about 2.4 billion years ago (NASA Astrobiology) — where no accredited oxygen level exists, the app says so instead of guessing.');
+});
