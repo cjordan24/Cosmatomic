@@ -1,0 +1,22 @@
+{
+  "dataset": "records",
+  "version": "1.0.0",
+  "records": 176,
+  "sources": [
+    {
+      "institution": "NOAA NCEI (NOAAGlobalTemp v6.1.0 via Climate at a Glance)",
+      "url": "https://www.ncei.noaa.gov/access/monitoring/climate-at-a-glance/global/time-series",
+      "license": "U.S. government work",
+      "notes": "annual global anomalies 1850–2025, base 1901–2000"
+    }
+  ],
+  "adapter": "scripts/ingestion/curated-records.ts",
+  "warnings": [
+    "Base period 1901–2000 in the file vs 1991–2020 on the product page.",
+    "GISTEMP not used (robots)."
+  ],
+  "output": "datasets/meteorology/records.json",
+  "retrievedAt": "2026-11-28T14:29:00.022Z",
+  "bytes": 2433,
+  "sha256": "7994c8a166d32352bd212dfb4fc21c313f8b4db65c119ab9d90ac99a430afaef"
+}

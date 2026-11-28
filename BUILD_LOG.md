@@ -1039,3 +1039,7 @@ Six tabs: Coriolis (turntable), convection (Rayleigh 1916), clouds (ten genera),
 ## Gate 21.3: regional climates (`#/meteorology/climates`), 2026-11-28
 
 Sixteen NOAA stations, Köppen–Geiger by Peel et al. (2007), eight causes with station pairs, a what-if reclassifier. Finding: LAX is BSk by the criteria. Sources +10; science `koppen.test.ts` (6); browser 133.
+
+## Gate 21.4: temperature record (`#/meteorology/records`), 2026-11-28 — Phase 21 complete
+
+NOAAGlobalTemp 1850–2025 with running mean, ranks, decade means and a reference-period switch; links to the storm lab's observed extremes. Sources +2; browser 134.

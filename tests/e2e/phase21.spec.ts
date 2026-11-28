@@ -103,3 +103,16 @@ test('133 regional climates: NOAA 1991–2020 climographs, Köppen–Geiger clas
   await page.getByLabel('Temperature shift').fill('2');
   await expect(page.getByLabel('What-if class')).toContainText(/With these changes\s*D/);
 });
+
+test('134 temperature record: NOAAGlobalTemp 1850–2025 with running mean, ranks and a switchable reference period', async ({ page }) => {
+  await page.goto('/#/meteorology');
+  await page.getByRole('navigation', { name: 'Meteorology sections' }).getByRole('button', { name: 'Weather ▾' }).click();
+  await page.getByRole('menuitem', { name: 'Temperature record' }).click();
+  await expect(page).toHaveURL(/#\/meteorology\/records$/);
+  const v = page.getByLabel('Year values');
+  await expect(v).toContainText('+1.26 °C'); await expect(v).toContainText('1 of 176');
+  await shot(page, '134a-record', 'The global temperature record (Gate 21.4): NOAAGlobalTemp annual departures 1850–2025 from the 1901–2000 mean, with a 10-year running mean; 2024 is the warmest year at +1.26 °C.');
+  await page.getByRole('radiogroup', { name: 'Reference period' }).getByRole('radio', { name: '1991–2020' }).click();
+  await expect(v).toContainText('1991–2020 average');
+  await expect(page.getByLabel('Warmest years')).toContainText('2024');
+});

@@ -813,3 +813,7 @@ A sixth mode (periwinkle #82b1ff) with a shared **depth switch** (`src/ui/Depth.
 
 * NOAA NCEI 1991–2020 monthly normals for 16 U.S. stations (via the Access Data Service; °F/in as recorded; monthly totals reproduce the printed annual totals — tested). Köppen–Geiger after Peel et al. (2007) Table 1, B tested first, summer = warmer half-year; each classification shown step by step. Results (tested): Hilo Af; Phoenix, Las Vegas, Tucson BWh; San Francisco, Seattle Csb; Atlanta Cfa; Chicago, Minneapolis Dfa; Quillayute Cfb; Yakima, Denver BSk; Spokane Dsb; Utqiaġvik and Mt Washington ET. **Finding:** Los Angeles airport classes BSk (310.6 mm < 351.3 mm threshold) where the National Park Service describes coastal southern California as Mediterranean. Eight causes quoted (NASA EO, USGS, NOAA OE, NWS, NPS, EPA) with station pairs; a what-if panel shifts temperature and rainfall and reclassifies (labelled illustrative).
 * **Tests:** `koppen.test.ts` (6); browser test 133.
+
+### 78.4 Temperature record (Gate 21.4): `#/meteorology/records`
+
+* NOAAGlobalTemp v6.1.0 annual global land-and-ocean departures 1850–2025 (NCEI Climate at a Glance; base 1901–2000 in the file). Derived: 10-year running mean, decade means, ranks (2024 warmest, +1.26 °C), re-basing to 1991–2020 by subtracting that period's mean. **Finding:** the file's base period (1901–2000) differs from the product page's stated reference (1991–2020). GISTEMP not used (robots). Browser test 134.

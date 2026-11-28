@@ -1437,6 +1437,13 @@ export const SOURCES: Source[] = [
   { id: 'epa-heat-islands', kind: 'report', citation: 'U.S. Environmental Protection Agency. What Are Heat Islands? (updated 18 August 2026).', title: 'What Are Heat Islands?', authors: 'U.S. EPA', year: 2026,
     institution: 'U.S. Environmental Protection Agency', url: 'https://www.epa.gov/heatislands/what-are-heat-islands', license: 'U.S. government work (public domain)', authorBio: null,
     usedFor: ['urban heat islands: causes and size (1–7 °F by day, 2–5 °F at night)'], datasets: ['climates'] },
+  // ---------------- Phase 21.4: records ----------------
+  { id: 'noaa-globaltemp', kind: 'database', citation: 'Huang, B., Yin, X., Menne, M. J. and Vose, R. NOAA Global Surface Temperature Dataset (NOAAGlobalTemp), Version 6.1.0: annual global land-and-ocean departures via NOAA NCEI Climate at a Glance (retrieved 2026-11-28).', title: 'NOAAGlobalTemp v6.1.0 (Climate at a Glance)', authors: 'B. Huang, X. Yin, M. J. Menne, R. Vose', year: 'v6.1.0',
+    institution: 'NOAA National Centers for Environmental Information', url: 'https://www.ncei.noaa.gov/products/land-based-station/noaa-global-temp', license: 'U.S. government work (public domain)', authorBio: null,
+    usedFor: ['annual global temperature anomalies, 1850–2025'], datasets: ['records'] },
+  { id: 'yin-2024', kind: 'journal-article', citation: 'Yin, X. et al. (2024) NOAAGlobalTemp Version 6: An AI-Based Global Surface Temperature Dataset. Bulletin of the American Meteorological Society 105, E2184–E2193.', title: 'NOAAGlobalTemp Version 6', authors: 'X. Yin et al.', year: 2024,
+    institution: 'Bulletin of the American Meteorological Society', url: 'https://doi.org/10.1175/BAMS-D-24-0012.1', doi: '10.1175/BAMS-D-24-0012.1', license: 'Cited only', authorBio: null,
+    usedFor: ['the method behind NOAAGlobalTemp v6'], datasets: ['records'] },
   { id: 'southall-1910', kind: 'book', citation: 'Southall, J. P. C. (1910) The Principles and Methods of Geometrical Optics, Especially as Applied to the Theory of Optical Instruments. New York: Macmillan.', title: 'The Principles and Methods of Geometrical Optics', authors: 'J. P. C. Southall', year: 1910,
     institution: 'Macmillan; scan of the University of Toronto library at the Internet Archive (principlesmethod00soutuoft)', url: 'https://archive.org/details/principlesmethod00soutuoft', license: 'Public domain (published 1910)',
     authorBio: 'James P. C. Southall, Professor of Physics in the Alabama Polytechnic Institute (title page, read from the scan’s text layer).',
