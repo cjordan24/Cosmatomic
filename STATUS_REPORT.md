@@ -1,6 +1,6 @@
 # Voyager Ventures — status report and index
 
-*Kept up to date by Claude during the autonomous run. Last updated: **2026-11-28, end of Phase 18**.*
+*Kept up to date by Claude during the autonomous run. Last updated: **2026-11-28, end of Phase 19**.*
 
 Live site: https://voyager-ventures.vercel.app — **production still serves the build from 2026-11-27** (Phase 10 + universe map + interface pass). Nothing from Phases 11–14 is deployed: you asked for no deploys until Phase 14 is finished. The deploy command is at the bottom.
 
@@ -36,7 +36,7 @@ You said: if a permission prompt gets no answer within 5 minutes, treat it as de
 | 12 Human Anatomy & Physiology | reference model, skeleton/muscle, heart/lungs, nervous system (Hodgkin–Huxley), other organ systems, organ-to-cell zoom | **Complete** (not deployed) |
 | 13 Waves, Life & Imaging | vision, hearing, bioelectricity, EM–tissue, microscopy, medical imaging | **Complete** (not deployed) |
 | 14 Advanced Foundations | Standard Model, quantum lab, nuclear physics, plasma, relativity, cosmology models | **Complete** (not deployed) |
-| 15–19 Computing & Engineering | your brief (`COMPUTING_ENGINEERING_BRIEF.md`, saved verbatim); gate plan in `DEVELOPMENT_ROADMAP.md` | **Phases 15–18 complete**; Phase 19 (integrated simulator) next |
+| 15–19 Computing & Engineering | your brief (`COMPUTING_ENGINEERING_BRIEF.md`, saved verbatim); gate plan in `DEVELOPMENT_ROADMAP.md` | **Phases 15–19 complete** (Computing & Engineering pillar done); Meteorology (Phase 20+) next |
 | 20+ Meteorology & Climate | your brief (`METEOROLOGY_EXPANSION_BRIEF.md`, saved verbatim) | Queued — after Phase 19 |
 
 **Counts (end of Phase 11):** 854 science tests (60 files), 94 browser tests (11 spec files; numbered up to 100), 49 dataset manifests, 208 Source-index entries, 84 commits in this repository.
@@ -91,6 +91,7 @@ Four portals: ATOMIC, COSMIC, SPECTRAL, **BIOLOGIC** (new in Phase 11; shows the
 ### ENGINEERING (coral) — **new in Phase 15**
 | Address | What it is | Main sources |
 |---|---|---|
+| `#/engineering/systems` | **Build a system** (Phase 19) — a spacecraft from power to bits, a chatbot service from power plant to chip, an electric car from battery to wheels, and a map of eight systems | chains of sources used earlier (Yuen 1982, NASA, LBNL, EIA, DOE) |
 | `#/engineering/space` | **Spacecraft & space systems** (Phase 18) — Voyager to Landsat, the rocket equation, orbits and transfers, RTG and solar power, Voyager’s radio link, pointing and heat, from detector to archive | NASA (Science, Glenn, Goddard, Earthdata, DSN), USGS, GPS.gov, DOE; Moulton 1914; Yuen 1982 |
 | `#/engineering/machines` | **Machines & electricity** (Phase 17) — circuits, gears and levers, heat engines, generators and the U.S. grid, batteries and EVs, Maxwell’s governor | Ohm, Kirchhoff, Faraday, Carnot, Rankine, Maxwell; EIA, DOE, EPA, NASA |
 | `#/engineering/ai` | **AI** (Phase 16) — history, a neural network you can train, attention and scaling laws, what the big AI developers disclose (and don’t), how a coding agent works, energy per prompt | Cauchy 1847, Turing 1950, Widrow & Hoff 1960, Vaswani 2017, Kaplan 2020, developer documents, Google/independent energy papers |
@@ -109,6 +110,8 @@ Four portals: ATOMIC, COSMIC, SPECTRAL, **BIOLOGIC** (new in Phase 11; shows the
 ---
 
 ## 4. What was done in this run (newest first)
+
+- **Phase 19 complete — the Computing & Engineering brief (Phases 15–19) is done.** Build a system: a spacecraft whose RTGs or solar arrays, transmitter and dishes turn into a data rate (Voyager check: 275 bit/s predicted vs 160 real), a chatbot service traced from power plant to chip, and an electric car from battery to wheels.
 
 - **Phase 18 complete** — spacecraft and space systems: twelve spacecraft from NASA/USGS/GPS.gov pages, the rocket equation, orbits and Hohmann transfers, RTG decay against Voyager's real power, Voyager's radio link (Yuen 1982), pointing and heat, and the path from detector to archive. Eight disagreements between or within NASA sources are shown with both values.
 

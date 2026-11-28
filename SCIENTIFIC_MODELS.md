@@ -773,3 +773,13 @@ Five new pathways through the Phase 11–14 records — From quarks to leaves; F
 * **Pointing and heat:** Hubble reaction wheels and gyros (NASA); heat balance (NASA small-spacecraft SOA ch. 7); Stefan–Boltzmann (NASA glossary). The plate temperature αS = εσT⁴ is illustrative and our combination.
 * **Data chain:** eight quoted steps from detector to archive (Basics of Space Flight, Earthdata, USGS, DSN) and a ten-entry instrument encyclopedia linking to the spectral, atomic and cosmic views.
 * **Tests:** `tests/science/spaceflight.test.ts` (10); browser test 125.
+
+## 76. Integrated systems (Phase 19): `src/core/engineering/systems.ts`, `src/modes/engineering/systems/`, `#/engineering/systems`
+
+Sourced parts chained together; the chaining is ours and every chain is labelled "derived".
+
+* **Spacecraft:** supply = array area × Hubble's output per m² (5,500 W ÷ 2 × 2.44 × 7.54 m² = 149.5 W/m²) ÷ d², or RTGs at 158 We each along one exponential through Voyager's 474 W (1977) and 225 W (2023). Link: Yuen (1982) P_R = P_T G_T G_R (λ/4πr)², spacecraft-dish efficiency 0.61 implied by his 6.5 × 10⁴ for 3.7 m, ground 0.42, loss L = 0.7, N₀ = kT at 28.5 K (3.933 × 10⁻²² W/Hz, eq. 1.1-6, page image), and Voyager's requirement P_R L/N₀ = 2.05 × 10⁵ Hz for 115.2 kbit/s (p. 5, page image) to turn received power into bits per second. **Check:** Voyager 1 at 164.7 AU with 20 W → 275 bit/s, against the real 160 bit/s.
+* **Data centre:** prompts × Wh per prompt (Google 0.24, Jegham et al. 0.42) = facility energy; ÷ PUE (LBNL; AI facilities 1.145) = IT; ÷ 0.95 (EIA T&D losses) = generation. Jegham's 0.42/0.37 overhead (1.135) is close to LBNL's 1.145.
+* **Electric car:** cell volume × DOE energy density (55 or 450 Wh/L) × DOE's 65–69 % to the wheels. No range (no sourced energy per km).
+* **Map:** the brief's eight systems, the views holding their parts, and a flow classification (ours).
+* **Tests:** `tests/science/systems.test.ts` (7); browser test 126.

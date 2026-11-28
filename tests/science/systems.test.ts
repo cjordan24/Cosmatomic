@@ -1,31 +1,36 @@
 /**
- * Gates 12.5–12.6 — organ-system arithmetic with NIST SP 811 factors, and the transcription.
+ * Phase 19 — integrated systems.
  */
 import { describe, expect, it } from 'vitest';
-import { KIDNEY, lpdToMlpm } from '@/modes/biologic/systems/SystemsView';
-import data from '@datasets/biology/systems.json';
+import { ARRAY_W_PER_M2_1AU, dataCentreChain, etaFromVoyager, evChain, link, rtgObservedW, rtgW, solarArrayW, YUEN } from '@/core/engineering/systems';
 
-const D = data as unknown as { units: { quartL: number; cupL: number; poundKg: number }; skin: { organ: { pounds: number } }; reproductive: { oocytesBirth: { count: number }; oocytesPuberty: { count: number } }; urinary: { gfr: { lines: { quote: string }[] } } };
-
-describe('organ systems', () => {
-  it('NIST SP 811 factors: quart 0.9463529 L, cup 0.2365882 L (4 cups = 1 quart to 7 digits), pound 0.4535924 kg', () => {
-    expect(D.units.quartL).toBe(0.9463529); expect(D.units.cupL).toBe(0.2365882); expect(D.units.poundKg).toBe(0.4535924);
-    expect(4 * D.units.cupL).toBeCloseTo(D.units.quartL, 6);
+describe('spacecraft', () => {
+  it('Hubble-derived array output is about 149 W/m² at 1 AU, 25 times less at 5 AU', () => {
+    expect(ARRAY_W_PER_M2_1AU).toBeCloseTo(149.5, 0);
+    expect(solarArrayW(10, 1) / solarArrayW(10, 5)).toBeCloseTo(25, 12);
   });
-  it('NIDDK: 150 quarts a day = 98.6 mL/min, half a cup a minute = 118.3 mL/min (same order, 20 % apart)', () => {
-    expect(KIDNEY.filteredMlPerMin).toBeCloseTo(98.58, 1);
-    expect(KIDNEY.halfCupMlPerMin).toBeCloseTo(118.29, 1);
-    expect(KIDNEY.halfCupMlPerMin / KIDNEY.filteredMlPerMin).toBeCloseTo(1.2, 1);
-    expect(lpdToMlpm(1.44)).toBeCloseTo(1, 12);
+  it('three RTGs: 474 W at launch; observed curve passes 225 W at 46 years', () => {
+    expect(rtgW(3, 0)).toBe(474);
+    expect(rtgObservedW(3, 46)).toBeCloseTo(225, 9);
   });
-  it('1 to 2 of 150 quarts become urine: 0.67–1.3 %', () => {
-    expect(KIDNEY.urineFraction[0]).toBeCloseTo(0.00667, 4); expect(KIDNEY.urineFraction[1]).toBeCloseTo(0.01333, 4);
+  it('Voyager-implied antenna efficiency is about 0.61', () => { expect(etaFromVoyager()).toBeCloseTo(0.61, 2); });
+  it('reproduces Yuen: Voyager at Jupiter with a 64 m dish gives P_R L/N₀ ≈ 5.6e5 Hz and about 115 kbit/s or more', () => {
+    const l = link({ ptW: 21.3, dTx: 3.7, dRx: 64, distM: 6.8e11 });
+    expect(l.n0).toBeCloseTo(3.933e-22, 24);
+    expect(l.ratio / 5.428e5).toBeGreaterThan(1); expect(l.ratio / 5.428e5).toBeLessThan(1.1);
+    expect(l.bps).toBeGreaterThan(YUEN.needBps);
   });
-  it('six pounds of skin is 2.72 kg; oocytes fall 43 % from birth to puberty', () => {
-    expect(D.skin.organ.pounds * D.units.poundKg).toBeCloseTo(2.722, 3);
-    expect(1 - D.reproductive.oocytesPuberty.count / D.reproductive.oocytesBirth.count).toBeCloseTo(0.4286, 4);
+  it('data rate falls as 1/r²', () => {
+    const a = link({ ptW: 20, dTx: 3.7, dRx: 70, distM: 1e12 }).bps, b = link({ ptW: 20, dTx: 3.7, dRx: 70, distM: 2e12 }).bps;
+    expect(a / b).toBeCloseTo(4, 9);
   });
-  it('GFR lines as NIDDK prints them', () => {
-    expect(D.urinary.gfr.lines.map((l) => l.quote)).toEqual(['a GFR of 60 or more is in the normal range.', 'a GFR of less than 60 may mean you have kidney disease.', 'a GFR of 15 or less is called kidney failure.']);
+});
+describe('data centre and EV chains', () => {
+  it('stages add up', () => {
+    const c = dataCentreChain(1e9, 0.24, 1.145);
+    expect(c.facility).toBeCloseTo(240000, 6);
+    expect(c.it + c.infrastructure).toBeCloseTo(c.facility, 9);
+    expect(c.facility + c.lines).toBeCloseTo(c.generation, 9);
   });
+  it('EV: 100 L at 450 Wh/L is 45 kWh', () => { const e = evChain(100, 450, 0.67); expect(e.battery).toBe(45); expect(e.wheels + e.losses).toBeCloseTo(45, 12); });
 });

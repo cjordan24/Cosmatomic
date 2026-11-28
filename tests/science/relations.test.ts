@@ -102,3 +102,10 @@ describe('the registry as a whole', () => {
     expect(planned.filter((e) => degree(e.id) > 0).length).toBeGreaterThan(5);
   });
 });
+
+describe('entity ids', () => {
+  it('no id is registered twice for two different routes', async () => {
+    const { ROUTE_CONFLICTS } = await import('@/shared/scientific-relationships/registry');
+    expect(ROUTE_CONFLICTS).toEqual([]);
+  });
+});

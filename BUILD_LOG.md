@@ -1007,3 +1007,12 @@ Test 93 (universe map) failed: the fly-to zoom eased by 8 % per frame, so at the
 2. **Research:** two source agents (notes `research/SOURCE_NOTES_PHASE18A.md`, `…18B.md`); robots.txt logged for every host.
 3. **Findings shown:** NASA Glenn MR 10 vs 9.19; Yuen 3.05 vs 3.20 × 10⁻¹⁶ W; Voyager HGA 47 vs 48.1 dBi; received power 10⁻¹⁶ vs 10⁻²² W; Voyager power vs Pu-238 decay; Hubble 483 vs 560 km and 5,500 vs >5,200 W; Landsat 9 750 vs 740 scenes; Voyager 1 instruments on (4 vs 2).
 4. **Sources (+32).** **Tests:** science `spaceflight.test.ts` (10); browser test 125.
+
+## Phase 19: integrated systems (`#/engineering/systems`), 2026-11-28
+
+1. **View:** Engineering → Hardware ▾ → Build a system, four tabs: Spacecraft, Data centre, Electric car, All systems.
+2. **New sourced values:** Yuen (1982) p. 5 read on the page image: N₀ = kT = 3.933 × 10⁻²² W/Hz at 28.5 K; L = 0.7; 2.05 × 10⁵ Hz needed for 115.2 kbit/s.
+3. **Check shown:** the chain predicts 275 bit/s for Voyager 1 in 2024; NASA's normal rate is 160 bit/s.
+4. **Tests:** science `systems.test.ts` (7); browser test 126.
+
+5. **Fix:** the new `instrument:systems` id collided with the biology "Organ systems" entity and overwrote its route; renamed to `instrument:eng-systems`, and `registerEntity` now records route conflicts, with a test that there are none.

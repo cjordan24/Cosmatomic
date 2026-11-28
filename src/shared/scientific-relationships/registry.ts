@@ -79,7 +79,13 @@ const BASE_ENTITIES: Entity[] = [
 const REGISTRY = new Map<string, Entity>();
 const RELATIONSHIPS: Relationship[] = [];
 
-export function registerEntity(e: Entity) { REGISTRY.set(e.id, { ...REGISTRY.get(e.id), ...e }); }
+/** Ids registered twice with different routes — two different things sharing one id (checked by a test). */
+export const ROUTE_CONFLICTS: string[] = [];
+export function registerEntity(e: Entity) {
+  const old = REGISTRY.get(e.id);
+  if (old && old.route && e.route && old.route !== e.route) ROUTE_CONFLICTS.push(`${e.id}: ${old.route} vs ${e.route}`);
+  REGISTRY.set(e.id, { ...old, ...e });
+}
 export function registerRelationship(r: Relationship) {
   if (!RELATIONSHIPS.some((x) => x.from === r.from && x.to === r.to && x.type === r.type)) RELATIONSHIPS.push(r);
 }
@@ -447,6 +453,11 @@ registerRelationship({ from: 'instrument:space', to: 'instrument:machines', type
 registerRelationship({ from: 'instrument:space', to: 'instrument:thermal-radiation', type: 'explains', context: 'a radiator “has a high IR emissivity and low solar absorptivity” (NASA small-spacecraft thermal control)', source: 'nasa-smallsat-thermal' });
 registerRelationship({ from: 'instrument:semiconductors', to: 'instrument:space', type: 'part-of', context: 'a CCD well “releases a quantity of electrons proportional to the intensity of light” (Basics of Space Flight)', source: 'nasa-bsf' });
 registerRelationship({ from: 'instrument:space', to: 'instrument:network', type: 'part-of', context: 'the received power falls as the space loss (λ/4πr)² (Yuen 1982)', source: 'yuen-1982' });
+// ---------------- Phase 19: integrated systems ----------------
+registerEntity(E('instrument:eng-systems', 'Integrated systems', '#/engineering/systems', 'Build a spacecraft, run a data centre, assemble an electric car; a map of eight systems and their parts (Phase 19)'));
+registerRelationship({ from: 'instrument:space', to: 'instrument:eng-systems', type: 'part-of', context: 'Voyager “requires a received signal-power-to-noise-spectral-density ratio of 2.05 × 10⁵ Hz for a data rate of 115.2 kilobits per second” (Yuen 1982)', source: 'yuen-1982' });
+registerRelationship({ from: 'instrument:datacentres', to: 'instrument:eng-systems', type: 'part-of', context: 'PUE: “the ratio of total facility energy use … to IT equipment energy use” (LBNL 2025)', source: 'lbnl-2025-datacentre' });
+registerRelationship({ from: 'instrument:machines', to: 'instrument:eng-systems', type: 'part-of', context: 'lithium-ion energy density rose from 55 to 450 Wh/L between 2008 and 2020 (DOE)', source: 'doe-fotw-1234' });
 
 export const getEntity = (id: string) => REGISTRY.get(id);
 export const allEntities = () => [...REGISTRY.values()];
