@@ -217,7 +217,7 @@ function PathwaysTab() {
         <ol className="pathway-stops" aria-label="Stops" style={{ display: 'flex', flexWrap: 'wrap', gap: 6, listStyle: 'none', padding: 0, margin: '6px 0 10px' }}>
           {p.entities.map((x, i) => <li key={x}><button className={`chip ${i === at ? 'active' : ''}`} aria-current={i === at ? 'step' : undefined} onClick={() => go(i)}>{i + 1}. {label(x)}</button></li>)}
         </ol>
-        <section aria-label={`Stop ${at + 1} of ${n}`} className="panel" style={{ padding: 12 }}>
+        <section aria-label={`Stop ${at + 1} of ${n}`} className="panel" style={{ padding: 12, position: 'relative' }}>
           <div className="note">Stop {at + 1} of {n}</div>
           <h2 style={{ margin: '2px 0 6px', fontWeight: 400 }}><span style={{ color: MODE_COL[entityMode(e)] }}>●</span> {e.label}</h2>
           {into && (() => { const src = edgeSource(into.edge); return (

@@ -919,3 +919,11 @@ Committed together (one view with six tabs, one dataset).
 4. **Sources (+9, 260 entries):** nrl-formulary-2009, divine-1973, noaa-swpc-solar-wind, einstein-1916, gpb-stanford-2011, cen-song-2025, mcgaugh-2016-rar, famaey-mcgaugh-2012, friedmann-1922.
 5. **Screenshot helper:** Phase 14 captures wait for the heading and disable finite animations (blank frames were an entry animation caught mid-way, not an app fault).
 6. **Tests:** browser tests 112–114.
+
+## Gate 14.7: unified pathways, 2026-11-28 — Phase 14 complete
+
+1. **Five pathways** through the new records (see SCIENTIFIC_MODELS §65); every step an existing, sourced relationship. The sunlight → photosynthesis reaction edge cites a reaction record, not the Source index, so the first pathway goes through the photon instead.
+2. **Fix (pre-existing since Gate 8.6):** the pathway stop card is a `.panel` (absolutely positioned) and covered the “All steps with their sources” line; it now flows in the page.
+3. **Tests:** pathways and relations science tests; browser test 115.
+
+**Phase 14 summary:** Subatomic ▾ (particles, quantum lab, nuclei) in Atomic; plasma, tests of relativity and a dark-matter/modified-gravity comparison in Cosmic; five pathways. 18 new sources. Findings: Condon & Morse's (68.5) sign misprint; Mott's 1-cm example; Einstein's 43″ and 1.7″ reproduced (42.98″, 1.751″); the 2016 radial-acceleration sample and g† reproduced from the bundled SPARC tables (2,696 vs 2,693 points; 1.16 vs 1.20 × 10⁻¹⁰). Left out: the Kerr ISCO formula (paper not openly readable), the full CNO cycle and per-step solar-neutrino energies (no open source), a “three generations” statement (no public-domain source).

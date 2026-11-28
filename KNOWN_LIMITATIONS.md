@@ -236,6 +236,8 @@
 * **Model comparison (14.6):** fixed Υ⋆ (no per-galaxy fits); no MOND interpolating-function choice beyond eq. (4); Milgrom 1983 not openly available. The view does not adjudicate between dark matter and modified gravity.
 * **Nuclei (14.3):** NUBASE2020 masses may include extrapolated values (not flagged in the bundled table); the fit uses only A ≥ 16 and half-life ≥ 1 s to limit this. Liquid-drop model only — no shell effects, no fission barriers. Decay series: U-238 only (main branches). No full CNO cycle (no open source listing all its steps); no Bethe 1939 (not openly licensed).
 
+* **Pathways (14.7):** curated chains only; a pathway cannot pass where the registry has no sourced edge (e.g. no sourced Sun → visible-light edge, so “quarks to leaves” goes through the photon).
+
 ## Phase 13 (Waves, Life & Imaging)
 * **Senses (Gates 13.1–13.3):** the eye is Gullstrand's one-surface reduced eye — no accommodation, aberrations, retinal mosaic or acuity model; the diffraction curve leaves out aberrations, so it overstates sharpness for large pupils. Colour shows peak wavelengths only (CVRL tables are not licensed for redistribution): no sensitivity curves, no colour matching or colour-blindness simulation. Hearing gives Fletcher & Munson's intensity level only: their equal-loudness contours are not reproduced (figure, copyright of the reprint not verified); no 20 Hz–20 kHz range (no allowed open source found); NIDCD's dBA thresholds are a weighted scale. The ECG is a single dipole projected onto Einthoven's three leads — no waveform, no P-QRS-T timing (no open source for intervals found), no chest leads.
 

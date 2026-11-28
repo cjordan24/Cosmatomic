@@ -21,6 +21,17 @@ export const PATHWAYS: Pathway[] = [
     entities: ['context:distance-ladder', 'context:cosmic-expansion', 'context:cmb', 'wave:em-microwave'] },
   { id: 'gravitational-waves', title: 'Gravitational waves and light', blurb: 'The GW150914 remnant → gravitational waves → gamma rays (GW170817 and GRB 170817A).',
     entities: ['compact-object:gw150914-final', 'context:gravitational-waves', 'wave:em-gamma'] },
+  // ---------------- Phase 14, Gate 14.7: pathways through the Phase 11–14 records ----------------
+  { id: 'quarks-to-leaves', title: 'From quarks to leaves', blurb: 'Nuclei → the particles of the Standard Model → visible light (the photon) → photosynthesis → plants.',
+    entities: ['instrument:nuclei', 'instrument:particles', 'wave:em-visible', 'process:photosynthesis', 'instrument:plants'] },
+  { id: 'water-to-nerves', title: 'From a water molecule to a heartbeat', blurb: 'Water → the body-to-molecule zoom → the human body → the heart → the ECG (senses and signals) → nerves.',
+    entities: ['molecule:pubchem-962', 'instrument:zoom', 'instrument:body', 'structure:organ-heart', 'instrument:senses', 'instrument:nerves'] },
+  { id: 'eye-to-xrays', title: 'Seeing: the eye, telescopes, microscopes and X-rays', blurb: 'Visible light → the eye → telescopes → imaging the body → X-rays.',
+    entities: ['wave:em-visible', 'instrument:senses', 'instrument:telescopes', 'instrument:imaging', 'wave:em-xray'] },
+  { id: 'gravity-beyond-newton', title: 'Gravity beyond Newton', blurb: 'Tests of general relativity → gravitational lensing → dark-matter evidence → dark matter or modified gravity?',
+    entities: ['instrument:grtests', 'context:gravitational-lensing', 'context:dark-matter', 'instrument:models'] },
+  { id: 'tunnelling-to-solar-wind', title: 'From tunnelling to the solar wind', blurb: 'The quantum lab → nuclei → the Sun → its plasma and the solar wind.',
+    entities: ['instrument:quantum', 'instrument:nuclei', 'body:sun', 'instrument:plasma'] },
 ];
 
 /** The relationship joining a → b (forward edges preferred), or null when the registry has none. */

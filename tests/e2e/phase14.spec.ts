@@ -131,3 +131,21 @@ test('114 dark matter or modified gravity: the radial acceleration relation on 1
   await expect(page.locator('.stage-head h1')).toContainText('NGC3198');
   await shot(page, '114b-ngc3198', 'One galaxy: NGC 3198’s observed rotation curve, the Newtonian curve of its stars and gas, and eq. (4) with the paper’s fixed g† — nothing fitted to this galaxy.');
 });
+
+// ---------------- Gate 14.7 ----------------
+test('115 unified pathways: five walks through the Phase 11–14 records, every step a sourced relationship', async ({ page }) => {
+  await page.goto('/#/relations?tab=pathways&p=water-to-nerves');
+  await expect(page.getByRole('heading', { name: 'From a water molecule to a heartbeat' })).toBeVisible();
+  await expect(page.getByRole('list', { name: 'Stops' }).getByRole('listitem')).toHaveCount(6);
+  await page.goto('/#/relations?tab=pathways&p=water-to-nerves&s=3');
+  const s4 = page.getByRole('region', { name: 'Stop 4 of 6' });
+  await expect(s4).toContainText('Heart');
+  await shot(page, '115a-pathway-heart', 'Unified pathways (Gate 14.7): “From a water molecule to a heartbeat” — water → the body-to-molecule zoom → the body → the heart → the ECG → nerves, each step an existing relationship with its own source.');
+  await page.goto('/#/relations?tab=pathways&p=gravity-beyond-newton&s=3');
+  const last = page.getByRole('region', { name: 'Stop 4 of 4' });
+  await expect(last).toContainText('Dark matter or modified gravity?');
+  await expect(last).toContainText('McGaugh');
+  await page.goto('/#/relations?tab=pathways&p=quarks-to-leaves&s=2');
+  await expect(page.getByRole('region', { name: 'Stop 3 of 5' })).toContainText('the photon carries the electromagnetic force');
+  await shot(page, '115b-pathway-quarks', '“From quarks to leaves”: nuclei → Standard Model particles → visible light (DOE: the photon carries the electromagnetic force) → photosynthesis → plants.');
+});

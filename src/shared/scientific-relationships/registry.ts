@@ -402,12 +402,12 @@ registerEntity(E('instrument:quantum', 'Quantum lab', '#/atomic/quantum', 'Schr�
 registerEntity(E('instrument:nuclei', 'Nuclei', '#/atomic/nuclei', 'Binding energies, the chart of nuclides, decay series and fusion in the Sun (Gate 14.3)'));
 registerRelationship({ from: 'instrument:particles', to: 'instrument:nuclei', type: 'part-of', context: 'up and down quarks make up the protons and neutrons in the nucleus (DOE)', source: 'doe-explains' });
 registerRelationship({ from: 'instrument:quantum', to: 'instrument:nuclei', type: 'explains', context: 'alpha decay as tunnelling through the nuclear barrier (Gurney & Condon 1928)', source: 'gurney-condon-1928' });
-registerRelationship({ from: 'instrument:nuclei', to: 'instrument:senses', type: 'explains', context: 'the pp chain releases 26.73 MeV per helium nucleus: the Sun’s light (NASA; NUBASE2020 masses)', source: 'nasa-msfc-solar-interior' });
+registerRelationship({ from: 'instrument:nuclei', to: 'body:sun', type: 'explains', context: 'the Sun’s nuclear burning is the proton–proton chain, 26.73 MeV per helium nucleus from the NUBASE2020 masses (NASA)', source: 'nasa-msfc-solar-interior' });
 registerRelationship({ from: 'instrument:particles', to: 'wave:em-visible', type: 'explains', context: 'the photon carries the electromagnetic force (DOE)', source: 'doe-explains' });
 registerEntity(E('instrument:plasma', 'Plasma and the solar wind', '#/cosmic/plasma', 'NRL Plasma Formulary parameters; solar wind near 1 AU; the ionosphere (Gate 14.4)'));
 registerEntity(E('instrument:grtests', 'Tests of general relativity', '#/cosmic/grtests', 'Mercury’s perihelion, bending light, Gravity Probe B (Gate 14.5)'));
 registerEntity(E('instrument:models', 'Dark matter or modified gravity?', '#/cosmic/models', 'The radial acceleration relation on SPARC rotation curves (Gate 14.6)'));
-registerRelationship({ from: 'instrument:plasma', to: 'instrument:nuclei', type: 'explains', context: 'the Sun’s outflow of protons and electrons: “The solar wind … consists mainly of protons and electrons in a state known as a plasma” (NOAA)', source: 'noaa-swpc-solar-wind' });
+registerRelationship({ from: 'body:sun', to: 'instrument:plasma', type: 'emits', context: '“The solar wind continuously flows outward from the Sun and consists mainly of protons and electrons in a state known as a plasma” (NOAA)', source: 'noaa-swpc-solar-wind' });
 registerRelationship({ from: 'instrument:grtests', to: 'context:gravitational-lensing', type: 'explains', context: 'Einstein’s eq. (74): light passing the Sun is bent by 1.75″ (printed 1.7″)', source: 'einstein-1916' });
 registerRelationship({ from: 'instrument:models', to: 'context:dark-matter', type: 'part-of', context: 'the same SPARC rotation curves read through eq. (4) of the radial acceleration relation', source: 'mcgaugh-2016-rar' });
 

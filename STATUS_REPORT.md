@@ -1,6 +1,6 @@
 # Voyager Ventures — status report and index
 
-*Kept up to date by Claude during the autonomous run. Last updated: **2026-11-28, Gates 14.4–14.6**.*
+*Kept up to date by Claude during the autonomous run. Last updated: **2026-11-28, end of Phase 14**.*
 
 Live site: https://voyager-ventures.vercel.app — **production still serves the build from 2026-11-27** (Phase 10 + universe map + interface pass). Nothing from Phases 11–14 is deployed: you asked for no deploys until Phase 14 is finished. The deploy command is at the bottom.
 
@@ -35,7 +35,7 @@ You said: if a permission prompt gets no answer within 5 minutes, treat it as de
 | **11 Biologic Foundations** | Biologic mode with seven views | **Complete** (not deployed) |
 | 12 Human Anatomy & Physiology | reference model, skeleton/muscle, heart/lungs, nervous system (Hodgkin–Huxley), other organ systems, organ-to-cell zoom | **Complete** (not deployed) |
 | 13 Waves, Life & Imaging | vision, hearing, bioelectricity, EM–tissue, microscopy, medical imaging | **Complete** (not deployed) |
-| 14 Advanced Foundations | Standard Model, quantum lab, nuclear physics, plasma, relativity, cosmology models | **In progress** — particles, quantum lab, nuclei, plasma, relativity tests, model comparison done |
+| 14 Advanced Foundations | Standard Model, quantum lab, nuclear physics, plasma, relativity, cosmology models | **Complete** (not deployed) |
 | 15–19 Computing & Engineering | your brief (`COMPUTING_ENGINEERING_BRIEF.md`, saved verbatim) | Queued — begins when Phase 14 is complete |
 | 20+ Meteorology & Climate | your brief (`METEOROLOGY_EXPANSION_BRIEF.md`, saved verbatim) | Queued — after Phase 19 |
 
@@ -95,6 +95,8 @@ Four portals: ATOMIC, COSMIC, SPECTRAL, **BIOLOGIC** (new in Phase 11; shows the
 ---
 
 ## 4. What was done in this run (newest first)
+
+- **Phase 14 complete** — Gate 14.7: five new pathways linking the new views across modes (Relationships 🔗 → Pathways). Phases 11–14 are all built; **ready for you to deploy** (command in §6).
 
 - **Gates 14.4–14.6** — plasma (NRL formulary, solar wind), tests of relativity (Einstein's 43″ for Mercury reproduced: 42.98″; Gravity Probe B), and a dark-matter vs modified-gravity comparison that reproduces a 2016 paper's sample and fit from the bundled galaxy data.
 
