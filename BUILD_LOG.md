@@ -969,3 +969,11 @@ Committed together (one view with six tabs, one dataset).
 1. **View:** Engineering → Information ▾ → Networks: a packet (header octets coloured by field, hop-by-hop TTL and checksum), TCP's handshake (RFC 9293 Figure 6), Shannon capacity calculator. The Engineering bar now reads Information ▾ (Bits & logic, Information & encoding, Networks) · Hardware ▾ (it overflowed 1440 px by 6 px).
 2. **Sources (+2, 272 entries):** rfc-791, rfc-9293; shannon-1948 extended (Theorem 17). “Protocol 6 is TCP” was removed — neither RFC states it.
 3. **Tests:** science `network.test.ts` (6); browser test 121.
+
+## Gate 15.7: data centres (`#/engineering/datacentres`), 2026-11-28 — Phase 15 complete
+
+1. **View:** Engineering → Hardware ▾ → Data centres: LBNL's 2024 estimate and forecasts to 2030 with the uncertainty range, PUE definition and averages, a one-facility calculator.
+2. **Sources (+1, 273 entries):** lbnl-2025-datacentre (the 2024 report itself was behind eScholarship's bot block; the 2025 Update supersedes it).
+3. **Tests:** science `datacentre.test.ts` (4); browser test 122.
+
+**Phase 15 summary:** a fifth mode, ENGINEERING, with its landing portal and seven views: bits and logic, semiconductors, integrated circuits, the stored-program computer, information and encoding, networks, data centres. 17 new sources, read on page images, patent images, RFC text or born-digital PDFs. Findings: von Neumann's own preference that output go from M, not C (our machine differs, said so); LBNL's PUE and infrastructure-share statements agree; Shannon's (1938) hindrance convention stated as he wrote it. Left out: Moore 1965 (terms forbid bots), MOSFET/CMOS (no open primary source yet), memory-hierarchy figures, device 3D models (no open technical documentation).

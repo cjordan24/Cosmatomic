@@ -1,0 +1,21 @@
+{
+  "dataset": "datacentres",
+  "version": "1.0.0",
+  "records": 8,
+  "sources": [
+    {
+      "institution": "Lawrence Berkeley National Laboratory, United States Data Center Energy Usage Report: 2025 Update (LBNL-2001758)",
+      "url": "https://doi.org/10.71468/P1RP4F",
+      "license": "CC BY 4.0",
+      "notes": "U.S. data-centre electricity 2024, forecasts to 2030, PUE"
+    }
+  ],
+  "adapter": "scripts/ingestion/curated-datacentres.ts",
+  "warnings": [
+    "Forecasts are LBNL scenarios with their stated ranges, not measurements."
+  ],
+  "output": "datasets/engineering/datacentres.json",
+  "retrievedAt": "2026-11-28T11:19:56.245Z",
+  "bytes": 1431,
+  "sha256": "566f5fa97124b92ff00193ff53e3c16f4c8249d3ee7ed5b3f830925c28c6b727"
+}

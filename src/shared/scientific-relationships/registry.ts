@@ -427,6 +427,9 @@ registerRelationship({ from: 'instrument:logic', to: 'instrument:information', t
 registerEntity(E('instrument:network', 'Networks', '#/engineering/network', 'An IPv4 packet, TCP’s handshake and Shannon’s channel capacity (Gate 15.6)'));
 registerRelationship({ from: 'instrument:information', to: 'instrument:network', type: 'part-of', context: '“we can transmit binary digits at the rate W log₂ (P + N)/N bits per second” (Shannon 1948, Theorem 17)', source: 'shannon-1948' });
 registerRelationship({ from: 'instrument:network', to: 'wave:em-radio', type: 'explains', context: 'Theorem 17: the capacity of “a channel of band W perturbed by white thermal noise” (Shannon 1948)', source: 'shannon-1948' });
+registerEntity(E('instrument:datacentres', 'Data centres and electricity', '#/engineering/datacentres', 'U.S. data-centre electricity and PUE (LBNL), with a one-facility calculator (Gate 15.7)'));
+registerRelationship({ from: 'instrument:architecture', to: 'instrument:datacentres', type: 'part-of', context: 'servers, storage and network equipment are the “IT equipment” whose energy PUE compares with the whole facility’s (LBNL 2025 Update)', source: 'lbnl-2025-datacentre' });
+registerRelationship({ from: 'instrument:datacentres', to: 'instrument:thermal-radiation', type: 'explains', context: '“Cooling systems, which dominate facility infrastructure energy use” (LBNL 2025 Update, p. 24)', source: 'lbnl-2025-datacentre' });
 
 export const getEntity = (id: string) => REGISTRY.get(id);
 export const allEntities = () => [...REGISTRY.values()];

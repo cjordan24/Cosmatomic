@@ -1,0 +1,22 @@
+/**
+ * Data-centre energy (Phase 15, Gate 15.7) → datasets/engineering/datacentres.json
+ *
+ *   node --experimental-strip-types scripts/ingestion/curated-datacentres.ts
+ *
+ * Read 2026-11-28 in the text layer of the born-digital PDF: Smith et al. (2026), United States Data Center Energy
+ * Usage Report: 2025 Update, LBNL-2001758 (CC BY 4.0), pp. 4, 8, 9, 24.
+ */
+import { writeDataset } from './lib/ingest.ts';
+
+const data = {
+  version: '1.0.0', source: 'lbnl-2025-datacentre',
+  scope: 'Consistent with the 2024 Report, the energy use of cryptocurrency mining is not included in the scope of this report.',
+  y2024: { twh: 192, share: 4.7, where: 'p. 8', quote: 'The updated estimate of data center electricity use in 2024 is 192 terawatt-hours (TWh), accounting for 4.7% of total U.S. electricity consumption.' },
+  y2028: { twh: 464, where: 'p. 8', quote: 'Meanwhile, our current Reference Case forecast for total electricity use in 2028 is 464 TWh, which falls in the middle of the range presented in the 2024 Report.' },
+  y2030: { twh: 649, share: 11.8, low: 521, high: 843, lowShare: 9.5, highShare: 15.3, where: 'pp. 8–9', quote: 'The Reference Case estimate for 2030 data center electricity use is 649 TWh, representing 11.8% of forecasted 2030 U.S. electricity use' },
+  pue: { where: 'p. 24', definition: 'power usage effectiveness (PUE), defined as the ratio of total facility energy use (including cooling and power distribution) to IT equipment energy use (excluding facility infrastructure).',
+    national: 'Infrastructure consumes 36% of total data center electricity in 2018, declining to 31% in 2024 as the national average PUE improves from 1.55 to 1.45.', from: 1.55, to: 1.45, ai: { y2024: 1.145, y2030: 1.136, quote: 'we estimate an average national PUE of 1.145 in 2024 for facilities serving AI equipment, declining modestly to 1.136 in 2030.' } },
+};
+writeDataset('datasets/engineering/datacentres.json', data, { dataset: 'datacentres', version: '1.0.0', records: 8,
+  sources: [{ institution: 'Lawrence Berkeley National Laboratory, United States Data Center Energy Usage Report: 2025 Update (LBNL-2001758)', url: 'https://doi.org/10.71468/P1RP4F', license: 'CC BY 4.0', notes: 'U.S. data-centre electricity 2024, forecasts to 2030, PUE' }],
+  adapter: 'scripts/ingestion/curated-datacentres.ts', warnings: ['Forecasts are LBNL scenarios with their stated ranges, not measurements.'] });

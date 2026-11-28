@@ -735,3 +735,10 @@ Five new pathways through the Phase 11–14 records — From quarks to leaves; F
 * RFC 9293 §3.5 Figure 6 (TCP three-way handshake) shown unmodified and stepped with the RFC's own explanation (IETF Trust: unmodified excerpts).
 * Shannon (1948) Theorem 17, pp. 639–640 (page images): C = W log₂ (P + N)/N, written as log₂(1 + P/N); 20 MHz at 25 dB → 166.2 Mbit/s.
 * **Tests:** `tests/science/network.test.ts` (6).
+
+## 72. Data centres (Phase 15, Gate 15.7): `src/core/computing/datacentre.ts`, `src/modes/engineering/datacentres/`
+
+* LBNL, *United States Data Center Energy Usage Report: 2025 Update* (2026, CC BY 4.0), read in the PDF text: 192 TWh (4.7 % of U.S. use) in 2024 (p. 8); Reference Case 464 TWh in 2028 (p. 8) and 649 TWh, 11.8 %, in 2030 with a Compounded Uncertainty range 521–843 TWh (9.5–15.3 %) (pp. 8–9); PUE defined (p. 24); national PUE 1.55 (2018) → 1.45 (2024); AI facilities 1.145 → 1.136.
+* **Consistency check (tested):** LBNL's infrastructure shares 36 % and 31 % equal 1 − 1/PUE for 1.55 and 1.45 (35.5 %, 31.0 %).
+* One-facility calculator: facility = IT × PUE, annual energy at constant load; 192 TWh = 21.9 GW average (derived).
+* **Tests:** `tests/science/datacentre.test.ts` (4).

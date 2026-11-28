@@ -1,6 +1,6 @@
 # Voyager Ventures — status report and index
 
-*Kept up to date by Claude during the autonomous run. Last updated: **2026-11-28, Gate 15.6**.*
+*Kept up to date by Claude during the autonomous run. Last updated: **2026-11-28, end of Phase 15**.*
 
 Live site: https://voyager-ventures.vercel.app — **production still serves the build from 2026-11-27** (Phase 10 + universe map + interface pass). Nothing from Phases 11–14 is deployed: you asked for no deploys until Phase 14 is finished. The deploy command is at the bottom.
 
@@ -36,7 +36,7 @@ You said: if a permission prompt gets no answer within 5 minutes, treat it as de
 | 12 Human Anatomy & Physiology | reference model, skeleton/muscle, heart/lungs, nervous system (Hodgkin–Huxley), other organ systems, organ-to-cell zoom | **Complete** (not deployed) |
 | 13 Waves, Life & Imaging | vision, hearing, bioelectricity, EM–tissue, microscopy, medical imaging | **Complete** (not deployed) |
 | 14 Advanced Foundations | Standard Model, quantum lab, nuclear physics, plasma, relativity, cosmology models | **Complete** (not deployed) |
-| 15–19 Computing & Engineering | your brief (`COMPUTING_ENGINEERING_BRIEF.md`, saved verbatim); gate plan in `DEVELOPMENT_ROADMAP.md` | **In progress** — Phase 15 begun: Engineering mode and Gate 15.1 done |
+| 15–19 Computing & Engineering | your brief (`COMPUTING_ENGINEERING_BRIEF.md`, saved verbatim); gate plan in `DEVELOPMENT_ROADMAP.md` | **Phase 15 complete**; Phase 16 (machine learning & AI) next |
 | 20+ Meteorology & Climate | your brief (`METEOROLOGY_EXPANSION_BRIEF.md`, saved verbatim) | Queued — after Phase 19 |
 
 **Counts (end of Phase 11):** 854 science tests (60 files), 94 browser tests (11 spec files; numbered up to 100), 49 dataset manifests, 208 Source-index entries, 84 commits in this repository.
@@ -91,6 +91,7 @@ Four portals: ATOMIC, COSMIC, SPECTRAL, **BIOLOGIC** (new in Phase 11; shows the
 ### ENGINEERING (coral) — **new in Phase 15**
 | Address | What it is | Main sources |
 |---|---|---|
+| `#/engineering/datacentres` | **Data centres** — U.S. data-centre electricity 2024–2030 and PUE, with a one-facility calculator | LBNL 2025 Update |
 | `#/engineering/network` | **Networks** — a real IPv4 packet and its checksum hopping through routers, TCP’s handshake, Shannon’s channel capacity | RFC 791, RFC 9293, Shannon 1948 |
 | `#/engineering/information` | **Information** — type text to see its Unicode code points, UTF-8 bytes and Shannon entropy | Shannon 1948, The Unicode Standard |
 | `#/engineering/architecture` | **Stored-program computer** — step a tiny computer through 6 × 7 = 42, laid out as von Neumann’s 1945 EDVAC report describes | von Neumann 1945 |
@@ -105,6 +106,8 @@ Four portals: ATOMIC, COSMIC, SPECTRAL, **BIOLOGIC** (new in Phase 11; shows the
 ---
 
 ## 4. What was done in this run (newest first)
+
+- **Phase 15 complete** — Gate 15.7: data centres (LBNL's U.S. electricity estimates and PUE). Seven Engineering views in all. Not built yet: 3D models of specific devices (no openly licensed technical documentation found — I won't invent internals).
 
 - **Gate 15.6** — networks: a real IPv4 packet, TCP's handshake, and Shannon's limit on how fast a channel can carry bits.
 

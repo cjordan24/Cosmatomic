@@ -139,3 +139,18 @@ test('121 networks: an IPv4 packet and its checksum, TCP’s handshake, Shannon 
   await expect(page.getByLabel('Capacity values')).toContainText('166 Mbit/s');
   await shot(page, '121c-capacity', 'Shannon’s Theorem 17 (1948): 20 MHz at 25 dB signal-to-noise carries at most 166 Mbit/s; capacity per hertz grows only logarithmically with power.');
 });
+
+// ---------------- Gate 15.7 ----------------
+test('122 data centres: LBNL electricity estimates, forecasts and PUE', async ({ page }) => {
+  await page.goto('/#/engineering/network');
+  await page.getByRole('navigation', { name: 'Engineering sections' }).getByRole('button', { name: 'Hardware ▾' }).click();
+  await page.getByRole('menuitem', { name: 'Data centres' }).click();
+  await expect(page).toHaveURL(/#\/engineering\/datacentres$/);
+  const v = page.getByLabel('Facility values');
+  await expect(v).toContainText('14.5'); await expect(v).toContainText('31 %'); await expect(v).toContainText('127');
+  await expect(page.locator('.stage-head')).toContainText('192 terawatt-hours');
+  await expect(page.getByRole('img', { name: /U.S. data-centre electricity/ })).toContainText('521–843');
+  await page.getByRole('button', { name: /U.S. average 2018/ }).click();
+  await expect(v).toContainText('35.5 %');
+  await shot(page, '122a-datacentres', 'Data centres (Gate 15.7): U.S. data-centre electricity from LBNL’s 2025 Update (CC BY 4.0) — 192 TWh (4.7 %) in 2024, Reference Case 464 TWh in 2028 and 649 TWh in 2030 (range 521–843); PUE as LBNL defines it, and a one-facility calculator.');
+});
