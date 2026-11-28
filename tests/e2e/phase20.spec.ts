@@ -46,7 +46,8 @@ test('127 meteorology: a sixth portal, the U.S. Standard Atmosphere 1976 profile
 
 test('128 moist air: saturation vapour pressure, dew point and the FAA cloud-base rule; parcel stability by the NWS definitions', async ({ page }) => {
   await page.goto('/#/meteorology');
-  await page.getByRole('navigation', { name: 'Meteorology sections' }).getByRole('button', { name: 'Moist air' }).click();
+  await page.getByRole('navigation', { name: 'Meteorology sections' }).getByRole('button', { name: 'Atmosphere ▾' }).click();
+  await page.getByRole('menuitem', { name: 'Moist air & stability' }).click();
   await expect(page).toHaveURL(/#\/meteorology\/air$/);
   const m = page.getByLabel('Moisture values');
   await expect(m).toContainText('31.69'); await expect(m).toContainText('16.7'); await expect(m).toContainText('3,400 ft');
@@ -80,7 +81,8 @@ test('129 radiation: NASA’s energy budget, NASA TN D-1850 absorption bands, CO
 
 test('130 wind, clouds and water: a turntable Coriolis demo, Rayleigh’s convection threshold, ten cloud genera, drop sizes, the water cycle and the three-cell circulation', async ({ page }) => {
   await page.goto('/#/meteorology');
-  await page.getByRole('navigation', { name: 'Meteorology sections' }).getByRole('button', { name: 'Wind, clouds & water' }).click();
+  await page.getByRole('navigation', { name: 'Meteorology sections' }).getByRole('button', { name: 'Atmosphere ▾' }).click();
+  await page.getByRole('menuitem', { name: 'Wind, clouds & water' }).click();
   await expect(page).toHaveURL(/#\/meteorology\/motion$/);
   await fits(page);
   const c = page.getByLabel('Coriolis values');

@@ -427,3 +427,4 @@ svg g[role="button"]:focus-visible { outline: 1px dashed var(--accent); }
 @media (max-width: 900px) { .topbar .mode-switch { display: none; } .mode-menu .chip { letter-spacing: 0.12em; font-size: 11px; } }
 .depth-switch { vertical-align: middle; padding: 2px; }
 .depth-switch button { padding: 4px 10px; font-size: 10.5px; }
+.atlas-globe { position: absolute; inset: 0; }

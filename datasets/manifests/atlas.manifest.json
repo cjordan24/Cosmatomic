@@ -1,0 +1,39 @@
+{
+  "dataset": "atlas",
+  "version": "1.0.0",
+  "records": 19,
+  "sources": [
+    {
+      "institution": "NOAA PSL (OISST v2.1, GPCP v2.3, CPC Blended OLR, GHCN_CAMS, NCEP/NCAR Reanalysis 1)",
+      "url": "https://psl.noaa.gov",
+      "license": "NOAA PSL: acknowledgement requested",
+      "notes": "2024 monthly means; 1991–2020 long-term means for pressure and wind"
+    },
+    {
+      "institution": "NASA GIBS (MODIS Terra LST, NDVI, snow; MERRA-2 AOD and albedo)",
+      "url": "https://gibs.earthdata.nasa.gov",
+      "license": "no fees, no access constraints (WMS capabilities)",
+      "notes": "imagery decoded through published colour tables"
+    },
+    {
+      "institution": "Natural Earth",
+      "url": "https://www.naturalearthdata.com",
+      "license": "public domain",
+      "notes": "110 m coastline"
+    }
+  ],
+  "adapter": "scripts/ingestion/atlas-grids.ts",
+  "warnings": [
+    "NASA NEO was decommissioned in September 2026; replacement layers used.",
+    "GHCN_CAMS 51–57 °C artefact over southern Colombia masked.",
+    "OISST sea ice labelled percent but stored as fraction.",
+    "R1 precipitable water negative values clipped.",
+    "GIBS-decoded layers are bin midpoints.",
+    "GPCP 2024 interim.",
+    "Cloud cover, water vapour, net radiation, pressure and wind are reanalysis, not observations."
+  ],
+  "output": "datasets/meteorology/atlas.json",
+  "retrievedAt": "2026-11-28T14:11:45.584Z",
+  "bytes": 6792,
+  "sha256": "e39fd76a56b89ef52eda014770215722896fb88e7f374a5d2310aa9f4d723577"
+}

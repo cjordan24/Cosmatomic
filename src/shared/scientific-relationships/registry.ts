@@ -470,6 +470,13 @@ registerEntity(E('instrument:air-motion', 'Wind, clouds and water', '#/meteorolo
 registerRelationship({ from: 'instrument:air-motion', to: 'instrument:moist-air', type: 'part-of', context: 'an updraft: “If the air is sufficiently moist, then the moisture condenses to become a cumulus cloud” (NWS)', source: 'nws-glossary' });
 registerRelationship({ from: 'molecule:pubchem-962', to: 'instrument:air-motion', type: 'part-of', context: 'some 495,000 cubic kilometres of water are cycled through the atmosphere every year (NASA Earth Observatory)', source: 'nasa-eo-water-cycle' });
 registerRelationship({ from: 'instrument:radiation-budget', to: 'instrument:air-motion', type: 'explains', context: 'Hadley cell: air that “with heating, rises vertically, with poleward movement in the upper atmosphere” (NWS)', source: 'nws-zhu-winds' });
+// ---------------- Phase 21: Earth weather ----------------
+registerEntity(E('instrument:storms', 'Storm laboratory', '#/meteorology/storms', 'Hurricanes, thunderstorms, tornadoes, mid-latitude cyclones, blizzards, heat waves and monsoons, with official scales and observed cases (Gate 21.1)'));
+registerRelationship({ from: 'instrument:moist-air', to: 'instrument:storms', type: 'explains', context: 'thunderstorms need “moisture, rising unstable air … and a lifting mechanism” (NSSL)', source: 'nssl-thunderstorms' });
+registerRelationship({ from: 'instrument:air-motion', to: 'instrument:storms', type: 'explains', context: 'a tropical cyclone needs to be far enough from the equator for the Coriolis deflection to start the spin (NASA Earth Observatory)', source: 'nasa-eo-hurricanes' });
+registerEntity(E('instrument:atlas', 'Earth weather atlas', '#/meteorology/atlas', 'Nineteen global layers for 2024 and 1991–2020 climatologies on a map or globe (Gate 21.2)'));
+registerRelationship({ from: 'instrument:radiation-budget', to: 'instrument:atlas', type: 'part-of', context: 'outgoing longwave radiation measured by satellite (CPC Blended OLR, 2024)', source: 'noaa-cpc-olr' });
+registerRelationship({ from: 'instrument:air-motion', to: 'instrument:atlas', type: 'part-of', context: 'sea-level pressure and wind, 1991–2020 means (NCEP/NCAR Reanalysis 1)', source: 'ncep-r1' });
 
 export const getEntity = (id: string) => REGISTRY.get(id);
 export const allEntities = () => [...REGISTRY.values()];

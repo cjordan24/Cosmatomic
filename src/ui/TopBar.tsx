@@ -314,9 +314,16 @@ export function TopBar() {
         )}
         {mode === 'meteorology' && (
           <nav className="chip-row hide-mobile" aria-label="Meteorology sections">
-            {([['', 'Structure'], ['air', 'Moist air'], ['radiation', 'Radiation'], ['motion', 'Wind, clouds & water']] as [string, string][]).map(([p, l]) => (
-              <button key={l} className={`chip ${(path[1] ?? '') === p || (p === '' && !['air', 'radiation', 'motion'].includes(path[1] ?? '')) ? 'active' : ''}`} onClick={() => navigate(p ? `/meteorology/${p}` : '/meteorology')}>{l}</button>
-            ))}
+            <ChipMenu label="Atmosphere" items={[
+              { label: 'Structure of the atmosphere', to: '/meteorology', active: !['air', 'radiation', 'motion', 'storms', 'atlas', 'climates'].includes(path[1] ?? '') },
+              { label: 'Moist air & stability', to: '/meteorology/air', active: path[1] === 'air' },
+              { label: 'Sunlight, heat & greenhouse', to: '/meteorology/radiation', active: path[1] === 'radiation' },
+              { label: 'Wind, clouds & water', to: '/meteorology/motion', active: path[1] === 'motion' },
+            ]} />
+            <ChipMenu label="Weather" items={[
+              { label: 'Earth weather atlas', to: '/meteorology/atlas', active: path[1] === 'atlas' },
+              { label: 'Storm laboratory', to: '/meteorology/storms', active: path[1] === 'storms' },
+            ]} />
           </nav>
         )}
         {mode === 'engineering' && (

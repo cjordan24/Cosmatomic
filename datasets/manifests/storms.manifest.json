@@ -1,0 +1,28 @@
+{
+  "dataset": "storms",
+  "version": "1.0.0",
+  "records": 56,
+  "sources": [
+    {
+      "institution": "NOAA NHC, NSSL, NWS (glossary, Norman, El Paso, Phoenix, assessments), WPC; NASA Earth Observatory; Penn State METEO 3",
+      "url": "https://www.nhc.noaa.gov/aboutsshws.php",
+      "license": "U.S. government works; Penn State CC BY-NC-SA 4.0",
+      "notes": "definitions, scales, indices, official storm reports"
+    }
+  ],
+  "adapter": "scripts/ingestion/curated-storms.ts",
+  "warnings": [
+    "Formation latitude: Penn State “at least five degrees” vs NASA EO “generally at least 8 degrees”.",
+    "Katrina deaths: 1392 (2023 update) vs “over 1800” (earlier versions).",
+    "Andrew landfall reanalysed from 125 to 145 kt (2005).",
+    "Superstorm 1993 deaths: “some 200” (1994) vs 270 (2018).",
+    "Moore 1999: 318 mph DOW wind may be overstated (NWS).",
+    "NWS glossary supercell hail 3/4 inch vs NSSL severe-hail one inch.",
+    "NASA EO (2006) Saffir-Simpson ranges are pre-2012.",
+    "IBTrACS not downloaded (NCEI robots disallow /data*)."
+  ],
+  "output": "datasets/meteorology/storms.json",
+  "retrievedAt": "2026-11-28T14:06:30.983Z",
+  "bytes": 19178,
+  "sha256": "476652bd721f59a46600008a7b0d73b56a5217f6fc978c425c206bf0a9e396d4"
+}

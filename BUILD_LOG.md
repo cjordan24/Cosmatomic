@@ -1027,3 +1027,11 @@ Test 93 (universe map) failed: the fly-to zoom eased by 8 % per frame, so at the
 ## Gate 20.4: wind, clouds and water (`#/meteorology/motion`), 2026-11-28 — Phase 20 complete
 
 Six tabs: Coriolis (turntable), convection (Rayleigh 1916), clouds (ten genera), rain, water cycle, circulation. A research misreading caught on the page image (Rayleigh's κ = 5ν/2, not 4ν/3), corrected in the notes. Sources +10; science `motion.test.ts` (8); browser 130.
+
+## Phase 21: Gates 21.1 (storm laboratory) and 21.2 (Earth weather atlas), 2026-11-28
+
+1. **Storm lab** `#/meteorology/storms`: seven storm types; official scales and indices; five observed cases from NHC/NWS reports.
+2. **Atlas** `#/meteorology/atlas`: 19 layers on map and globe; data pipeline `scripts/ingestion/atlas-grids.ts` (from `/tmp/vv-research/p21/a/grids`).
+3. **Top bar:** Meteorology sections grouped into Atmosphere ▾ and Weather ▾ menus (six chips overflowed at 1440 px — caught in the screenshots; fit now asserted in tests 131–132).
+4. **End-of-Phase-20 suite:** 124/124.
+5. **Sources +27.** **Tests:** `storms.test.ts` (7), `grid.test.ts` (6); browser 131–132.
