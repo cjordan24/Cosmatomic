@@ -24,6 +24,7 @@ import { planeB, planeE, POLARISATIONS } from '@/core/physics/em/em';
 import { CONSTANTS } from '@/core/constants/constants';
 import dna from '@datasets/biology/pdb/1BNA.json';
 import { principalExtents } from '@/core/biology/structure';
+import { standardAtmosphere } from '@/core/meteorology/atmosphere';
 import { rippleAdd } from '@/core/computing/logic';
 
 function Spin({ children, speed = 0.08 }: { children: React.ReactNode; speed?: number }) {
@@ -167,7 +168,21 @@ function EngineeringPortalScene() {
   );
 }
 
-type Live = 'atomic' | 'cosmic' | 'spectral' | 'biologic' | 'engineering';
+/** METEOROLOGY — the U.S. Standard Atmosphere 1976 temperature profile, 0–86 km, with its layer boundaries: every
+ *  point is computed from the standard's layer table. Drawn in SVG, no 3D. */
+function MeteorologyPortalScene() {
+  const W = 600, H = 300, x = (T: number) => 330 + (T - 186) * 2.2, y = (z: number) => H - 20 - (z / 86000) * (H - 40);
+  const pts = Array.from({ length: 173 }, (_, i) => { const z = i * 500, s = standardAtmosphere(z); return `${x(s.T)},${y(z)}`; }).join(' ');
+  return (
+    <svg className="portal-canvas" viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="xMaxYMin meet" aria-hidden="true">
+      {[11000, 20000, 47000, 51000, 71000].map((h) => <line key={h} x1={300} x2={W - 10} y1={y(h)} y2={y(h)} stroke="#82b1ff" strokeOpacity={0.15} />)}
+      <polyline points={pts} fill="none" stroke="#82b1ff" strokeWidth={2.5} />
+      {[[5000, 'troposphere'], [32000, 'stratosphere'], [62000, 'mesosphere']].map(([h, l]) => <text key={l} x={W - 14} y={y(h as number)} textAnchor="end" fontSize={11} fill="#82b1ff" opacity={0.55}>{l}</text>)}
+    </svg>
+  );
+}
+
+type Live = 'atomic' | 'cosmic' | 'spectral' | 'biologic' | 'engineering' | 'meteorology';
 
 export default function Landing() {
   const [leaving, setLeaving] = useState<Live | null>(null);
@@ -223,7 +238,15 @@ export default function Landing() {
           <span className="cta">ENTER →</span>
         </div>
       </button>
-      <div className="landing-foot">Atomic: hydrogen 3d<sub>z²</sub> probability density (analytic ψ). Cosmic: planets at today's heliocentric longitudes (JPL elements), distances log-compressed. Spectral: analytic vacuum plane wave, E ⊥ B ⊥ k, |B| = |E|/c. Biologic: atoms of the B-DNA dodecamer 1BNA (Drew et al. 1981, Protein Data Bank). Engineering: a 5-bit ripple-carry adder evaluated gate by gate, adding today’s day and month.</div>
+      <button className={`portal meteorology ${leaving === 'meteorology' ? 'zoom' : leaving ? 'fade' : ''}`} onClick={() => enter('meteorology')} aria-label="Enter Meteorology mode">
+        <MeteorologyPortalScene />
+        <div className="portal-text">
+          <h2>METEOROLOGY</h2>
+          <p>Air, weather and the climates of worlds.</p>
+          <span className="cta">ENTER →</span>
+        </div>
+      </button>
+      <div className="landing-foot">Atomic: hydrogen 3d<sub>z²</sub> probability density (analytic ψ). Cosmic: planets at today's heliocentric longitudes (JPL elements), distances log-compressed. Spectral: analytic vacuum plane wave, E ⊥ B ⊥ k, |B| = |E|/c. Biologic: atoms of the B-DNA dodecamer 1BNA (Drew et al. 1981, Protein Data Bank). Engineering: a 5-bit ripple-carry adder evaluated gate by gate, adding today’s day and month. Meteorology: temperature against height in the U.S. Standard Atmosphere, 1976.</div>
     </div>
   );
 }

@@ -20,8 +20,8 @@ import { Panel } from '@/ui/components';
 import { SourceLinks } from '@/ui/SourcesView';
 import { RelatedLinks } from '@/ui/RelatedLinks';
 
-const MODE_COL: Record<EntityMode, string> = { atomic: '#7df9ff', cosmic: '#b18cff', spectral: '#f5c76b', biologic: '#5cf2a6', engineering: '#ff8a65', planned: '#7d8597' };
-const MODE_LABEL: Record<EntityMode, string> = { atomic: 'Atomic', cosmic: 'Cosmic', spectral: 'Spectral', biologic: 'Biologic', engineering: 'Engineering', planned: 'Planned (no view yet)' };
+const MODE_COL: Record<EntityMode, string> = { atomic: '#7df9ff', cosmic: '#b18cff', spectral: '#f5c76b', biologic: '#5cf2a6', engineering: '#ff8a65', meteorology: '#82b1ff', planned: '#7d8597' };
+const MODE_LABEL: Record<EntityMode, string> = { atomic: 'Atomic', cosmic: 'Cosmic', spectral: 'Spectral', biologic: 'Biologic', engineering: 'Engineering', meteorology: 'Meteorology', planned: 'Planned (no view yet)' };
 const TYPE_COL: Record<RelationshipType, string> = {
   'participates-in': '#5cf2a6', produces: '#9be564', consumes: '#e5c364', emits: '#ffb36b', absorbs: '#ff7a90', 'has-spectrum': '#f5c76b',
   'has-property': '#7df9ff', 'observed-with': '#c38cff', 'located-in': '#8fb5ff', 'part-of': '#6fd6ff', drives: '#ff9fd2', explains: '#b18cff',

@@ -1016,3 +1016,10 @@ Test 93 (universe map) failed: the fly-to zoom eased by 8 % per frame, so at the
 4. **Tests:** science `systems.test.ts` (7); browser test 126.
 
 5. **Fix:** the new `instrument:systems` id collided with the biology "Organ systems" entity and overwrote its route; renamed to `instrument:eng-systems`, and `registerEntity` now records route conflicts, with a test that there are none.
+
+## Phase 20 (Meteorology): Gates 20.1–20.3, 2026-11-28
+
+1. **Mode:** METEOROLOGY joins the top bar (fits at 1440 px, tested) and the landing page (six portals in a 3 × 2 grid; the portal draws the USSA 1976 temperature profile). Shared depth switch.
+2. **Views:** `#/meteorology` (structure), `#/meteorology/air` (humidity, stability), `#/meteorology/radiation` (energy budget, absorption, forcing, ozone, aerosols).
+3. **Research:** three agents (notes `research/SOURCE_NOTES_PHASE20A/B/C.md`). Refused hosts logged: www.noaa.gov/jetstream (403), journals.ametsoc.org (403), www.ipcc.ch copyright page (403 → IPCC not used), ozonewatch (TLS), spc (robots), pluto.jhuapl.edu, gpm.nasa.gov (504).
+4. **Sources (+13).** **Tests:** science `atmosphere.test.ts` (13); browser 127–129.

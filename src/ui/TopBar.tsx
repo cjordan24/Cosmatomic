@@ -236,7 +236,7 @@ export function TopBar() {
   const [moreOpen, setMoreOpen] = useState(false);
   return (
     <>
-      <header className={`topbar ${mode === 'cosmic' || mode === 'atomic' || mode === 'spectral' || mode === 'biologic' || mode === 'engineering' ? 'many-chips' : ''}`}>
+      <header className={`topbar ${mode === 'cosmic' || mode === 'atomic' || mode === 'spectral' || mode === 'biologic' || mode === 'engineering' || mode === 'meteorology' ? 'many-chips' : ''}`}>
         <button className="brand" onClick={() => navigate('/')} aria-label="Voyager Ventures home"><Logo /><span className="wordmark">VOYAGER VENTURES</span></button>
         <nav className="mode-switch" aria-label="Mode">
           <button className={mode === 'atomic' ? 'active' : ''} onClick={() => navigate('/atomic')}>ATOMIC</button>
@@ -244,12 +244,13 @@ export function TopBar() {
           <button className={`spectral ${mode === 'spectral' ? 'active' : ''}`} onClick={() => navigate('/spectral')}>SPECTRAL</button>
           <button className={`biologic ${mode === 'biologic' ? 'active' : ''}`} onClick={() => navigate('/biologic')}>BIOLOGIC</button>
           <button className={`engineering ${mode === 'engineering' ? 'active' : ''}`} onClick={() => navigate('/engineering')}>ENGINEERING</button>
+          <button className={`meteorology ${mode === 'meteorology' ? 'active' : ''}`} onClick={() => navigate('/meteorology')}>METEOROLOGY</button>
         </nav>
         {/* Phones: four mode names do not fit in 390 px, so the switch becomes one menu (Gate 11.x fix) */}
         <div className="mobile-only mode-menu">
-          <ChipMenu label={({ atomic: 'ATOMIC', cosmic: 'COSMIC', spectral: 'SPECTRAL', biologic: 'BIOLOGIC', engineering: 'ENGINEERING' } as Record<string, string>)[mode] ?? 'MODE'} items={[
+          <ChipMenu label={({ atomic: 'ATOMIC', cosmic: 'COSMIC', spectral: 'SPECTRAL', biologic: 'BIOLOGIC', engineering: 'ENGINEERING', meteorology: 'METEOROLOGY' } as Record<string, string>)[mode] ?? 'MODE'} items={[
             { label: 'Atomic', to: '/atomic', active: mode === 'atomic' }, { label: 'Cosmic', to: '/cosmic', active: mode === 'cosmic' },
-            { label: 'Spectral', to: '/spectral', active: mode === 'spectral' }, { label: 'Biologic', to: '/biologic', active: mode === 'biologic' }, { label: 'Engineering', to: '/engineering', active: mode === 'engineering' },
+            { label: 'Spectral', to: '/spectral', active: mode === 'spectral' }, { label: 'Biologic', to: '/biologic', active: mode === 'biologic' }, { label: 'Engineering', to: '/engineering', active: mode === 'engineering' }, { label: 'Meteorology', to: '/meteorology', active: mode === 'meteorology' },
           ]} />
         </div>
         {mode === 'atomic' && (
@@ -309,6 +310,13 @@ export function TopBar() {
             <ChipMenu label="Radio" items={RADIO_ITEMS.map(([label, to]) => ({ label, to, active: `/${path.join('/')}` === to }))} />
             <ChipMenu label="Light" items={LIGHT_ITEMS.map(([label, to]) => ({ label, to, active: `/${path.join('/')}` === to }))} />
             <button className={`chip ${path[1] === 'fields' ? 'active' : ''}`} onClick={() => navigate('/spectral/fields')}>Fields</button>
+          </nav>
+        )}
+        {mode === 'meteorology' && (
+          <nav className="chip-row hide-mobile" aria-label="Meteorology sections">
+            {([['', 'Structure'], ['air', 'Moist air'], ['radiation', 'Radiation']] as [string, string][]).map(([p, l]) => (
+              <button key={l} className={`chip ${(path[1] ?? '') === p || (p === '' && !['air', 'radiation'].includes(path[1] ?? '')) ? 'active' : ''}`} onClick={() => navigate(p ? `/meteorology/${p}` : '/meteorology')}>{l}</button>
+            ))}
           </nav>
         )}
         {mode === 'engineering' && (

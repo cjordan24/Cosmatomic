@@ -1,0 +1,9 @@
+{
+  "127a-structure.png": "Meteorology (Phase 20): the U.S. Standard Atmosphere 1976 evaluated from its own layer table — temperature and pressure to 86 km, a box of air thinning with height, NWS and FAA layer definitions and USSA Table 3 composition (with NOAA’s 2025 CO₂ beside the 1970s value).",
+  "127b-research.png": "Research depth at 25 km: the standard’s pressure equations (33a/b), its scale-height warning, the R* misprint in Table 2 and Humphreys’ 1920 homogeneous atmosphere (7991 m) against 7995 m from the 1976 constants.",
+  "128a-humidity.png": "Water in the air: at 25 °C and 60 % the NWS formula gives e_s 31.69 hPa and a dew point of 16.7 °C; the FAA rule puts the cloud base of lifted air near 3,400 ft (1,040 m).",
+  "128b-stability.png": "Stability: a parcel lifted at the NWS dry rate of 9.8 °C/km to its cloud base, then at a moist rate in the FAA’s range — with the environment cooling 10.5 °C/km it is absolutely unstable by the NWS definition.",
+  "129a-budget.png": "Earth’s energy budget (NASA, after Loeb 2009 and Trenberth 2009): 340.4 W/m² in, 99.9 reflected, 239.9 out as infrared; the effective temperature computes to 255.1 K against the fact sheet’s 254.0 K.",
+  "129b-bands.png": "Which gases trap heat: NASA TN D-1850’s bands of water vapour, ozone and CO₂ under a 288 K Planck curve, with the window near 10 µm.",
+  "129c-forcing.png": "Greenhouse forcing: NOAA’s 2025 AGGI by gas (3.59 W/m² in total); at 425.62 ppm the AR6 expression gives 2.37 W/m² for CO₂ and the simple 5.35 ln(C/280) gives 2.24."
+}

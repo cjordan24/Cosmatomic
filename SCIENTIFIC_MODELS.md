@@ -783,3 +783,12 @@ Sourced parts chained together; the chaining is ours and every chain is labelled
 * **Electric car:** cell volume × DOE energy density (55 or 450 Wh/L) × DOE's 65–69 % to the wheels. No range (no sourced energy per km).
 * **Map:** the brief's eight systems, the views holding their parts, and a flow classification (ours).
 * **Tests:** `tests/science/systems.test.ts` (7); browser test 126.
+
+## 77. Meteorology — atmospheric physics (Phase 20): `src/core/meteorology/atmosphere.ts`, `#/meteorology`, `#/meteorology/air`, `#/meteorology/radiation`
+
+A sixth mode (periwinkle #82b1ff) with a shared **depth switch** (`src/ui/Depth.tsx`: Explore / Understand / Research, kept in `?depth=`).
+
+* **Structure (20.1):** U.S. Standard Atmosphere 1976 (NTRS, page images) — Table 4 layers and lapse rates, eqs (1), (4), (5), (33a/b), (44); geometric → geopotential height; layer-base pressures reproduce the standard's table to 5 significant figures (tested). Table 3 composition (CO₂ 314 ppm, 1970s) beside NOAA's 2025 425.62 ppm. **Findings:** R* misprinted × 10⁻³ in Table 2; Humphreys' (1920) homogeneous atmosphere 7991 m vs 7995 m from USSA constants. Labelled *illustrative* (an idealised reference, not observations).
+* **Moist air (20.2):** NWS El Paso e_s = 6.11 × 10^(7.5T/(237.3+T)) hPa, rh = e/e_s, dew point by inversion; FAA/NASA cloud base (T − T_d in °F) ÷ 4.4 × 1,000 ft. **Finding:** the FAA's example (85/71 °F) prints 3,180 ft; the rule gives 3,182. Stability: NWS dry rate 9.8 °C/km; moist rate a slider over the FAA's 1.1–2.8 °C per 1,000 ft (3.6–9.2 °C/km), classes by the NWS glossary; Humphreys' 1 °C per 102.93 m shown beside it. Bolton (1980) not used (AMS refused access); IPCC's 7 %/°C not used (IPCC copyright page refused access) — the per-degree rise is computed from the NWS formula.
+* **Radiation (20.3):** NASA My NASA Data energy budget (340.4 in, 99.9 reflected, 239.9 out; surface 398.2 up, 340.3 back; latent 86.4, thermals 18.4, net 0.6 — the books balance, tested in view); effective temperature [S(1−α)/4σ]^¼ = 255.1 K vs the NSSDCA fact sheet's 254.0 K (finding); NASA TN D-1850 absorption bands under a 288 K Planck curve; CO₂ forcing by Penn State's 5.35 ln(C/280) and NOAA AGGI's AR6 expression (reproduces 2.372 W/m² for 2025 to 2.371); AGGI 2025 by gas; ozone formation, Dobson units and UV bands (WMO/NOAA 2022); aerosols (NASA EO).
+* **Tests:** `tests/science/atmosphere.test.ts` (13); browser tests 127–129.

@@ -157,3 +157,15 @@ Started 2026-11-28 as part of the approved run through Phase 14. Research notes:
 | 12.7 | From the body to a molecule (`#/biologic/zoom`): one zoom through about ten powers of ten — BodyParts3D body, kidney, cell, nucleus, mitochondrion and ribosome beside it, DNA, water — every stop at its quoted size; the scale ladder's Human level now routes to the body | BodyParts3D; NCI SEER; *Inside the Cell*; NIGMS; PubChem3D | **Done** |
 
 If a gate turns out much larger than planned, it is split into documented sub-gates. Scientific quality is not reduced to make it fit.
+
+## Meteorology & Climate (Phases 20–26; brief: METEOROLOGY_EXPANSION_BRIEF.md)
+
+| Phase | Scope (brief section) | Status |
+|---|---|---|
+| 20 Atmospheric physics (A) | 20.1 structure (USSA 1976) · 20.2 moist air & stability · 20.3 radiation, greenhouse, ozone, aerosols · 20.4 Coriolis, convection, clouds, precipitation, water cycle, circulation | 20.1–20.3 complete (2026-11-28) |
+| 21 Earth weather & storms (B) | global atlas (3D Earth + 2D map, layers, timeline), regional climates, storm laboratory, historical observations | Planned |
+| 22 Planetary meteorology (C) | atmospheres of the planets, comparison engine | Planned |
+| 23 Climate history & environment (D) | geological timeline, paleoclimate, oceans, biomes | Planned |
+| 24 Human impact & future climate (E) | records, projections, scenarios, uncertainty | Planned |
+| 25 Environmental sandbox (F) | adjustable planetary and regional variables, presets, save/compare | Planned |
+| 26 Validation & optimisation (G) | source and equation audit, performance, mobile | Planned |

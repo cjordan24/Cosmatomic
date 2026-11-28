@@ -458,6 +458,14 @@ registerEntity(E('instrument:eng-systems', 'Integrated systems', '#/engineering/
 registerRelationship({ from: 'instrument:space', to: 'instrument:eng-systems', type: 'part-of', context: 'Voyager “requires a received signal-power-to-noise-spectral-density ratio of 2.05 × 10⁵ Hz for a data rate of 115.2 kilobits per second” (Yuen 1982)', source: 'yuen-1982' });
 registerRelationship({ from: 'instrument:datacentres', to: 'instrument:eng-systems', type: 'part-of', context: 'PUE: “the ratio of total facility energy use … to IT equipment energy use” (LBNL 2025)', source: 'lbnl-2025-datacentre' });
 registerRelationship({ from: 'instrument:machines', to: 'instrument:eng-systems', type: 'part-of', context: 'lithium-ion energy density rose from 55 to 450 Wh/L between 2008 and 2020 (DOE)', source: 'doe-fotw-1234' });
+// ---------------- Phase 20: atmospheric physics ----------------
+registerEntity(E('instrument:atmosphere-structure', 'The structure of the atmosphere', '#/meteorology', 'U.S. Standard Atmosphere 1976 to 86 km: temperature, pressure, density, layers, composition (Gate 20.1)'));
+registerEntity(E('instrument:moist-air', 'Moist air and stability', '#/meteorology/air', 'Saturation vapour pressure, dew point, cloud base, parcel stability (Gate 20.2)'));
+registerEntity(E('instrument:radiation-budget', 'Sunlight, heat and the greenhouse effect', '#/meteorology/radiation', 'Energy budget, absorption bands, CO₂ forcing, ozone, aerosols (Gate 20.3)'));
+registerRelationship({ from: 'instrument:atmosphere-structure', to: 'instrument:moist-air', type: 'part-of', context: 'the dry adiabatic lapse rate “is 5.5°F per 1000 ft or 9.8°C per km” (NWS)', source: 'nws-glossary' });
+registerRelationship({ from: 'instrument:radiation-budget', to: 'instrument:thermal-radiation', type: 'explains', context: 'the Stefan–Boltzmann law: radiation “proportional to the radiating surface area and the fourth power of its absolute temperature” (NASA glossary)', source: 'nasa-glossary' });
+registerRelationship({ from: 'instrument:radiation-budget', to: 'instrument:atmosphere', type: 'part-of', context: 'about 29 percent of incoming sunlight is reflected by clouds, particles and bright surfaces (NASA Earth Observatory)', source: 'nasa-earth-energy-budget' });
+registerRelationship({ from: 'molecule:pubchem-962', to: 'instrument:moist-air', type: 'part-of', context: 'saturation vapour pressure: vapour “in equilibrium with a plane surface of that substance\'s pure liquid or solid phase” (NWS)', source: 'nws-glossary' });
 
 export const getEntity = (id: string) => REGISTRY.get(id);
 export const allEntities = () => [...REGISTRY.values()];

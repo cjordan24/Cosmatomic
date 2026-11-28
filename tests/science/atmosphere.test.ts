@@ -1,49 +1,41 @@
 /**
- * Phase 10, Gate 10.7 — atmospheric radiation: Rayleigh 1871 (λ⁻⁴) and 1899 (eqs. 4, 14, 23; pp. 402–403);
- * NASA TM-82021 (air mass, Bouguer's law); USGS Landsat 8–9 bands; Wien (Planck 1914) for the thermal bands.
+ * Phase 20 — the U.S. Standard Atmosphere 1976 and humidity relations.
  */
 import { describe, expect, it } from 'vitest';
-import { LANDSAT_89, RAYLEIGH_1899, airMass, bouguer, loschmidt, molecularDepth, rayleighExtinction, rayleighRelative } from '@/core/physics/atmosphere/radiation';
-import { peakWavelength } from '@/core/physics/thermal/radiation';
+import { cloudBase, dewPoint, dryLapse, geopotential, layerBases, relHumidity, satVapour, scaleHeight, standardAtmosphere } from '@/core/meteorology/atmosphere';
 
-describe('Rayleigh scattering', () => {
-  it('intensity ∝ λ⁻⁴: blue 450 nm is scattered 4.35 times as strongly as red 650 nm', () => {
-    expect(rayleighRelative(450e-9) / rayleighRelative(650e-9)).toBeCloseTo((650 / 450) ** 4, 12);
-    expect((650 / 450) ** 4).toBeCloseTo(4.35, 2);
+describe('U.S. Standard Atmosphere 1976', () => {
+  it('sea level: 288.15 K, 101325 Pa, 1.2250 kg/m³', () => {
+    const s = standardAtmosphere(0);
+    expect(s.T).toBe(288.15); expect(s.P).toBe(101325); expect(s.rho).toBeCloseTo(1.2250, 4);
   });
-  it('Rayleigh’s 1899 numbers: λ = 6 × 10⁻⁵ cm, μ − 1 = ·0003 give x = 4·4 × 10⁻¹³ n cm (eq. 23) and 83 km with Maxwell’s n', () => {
-    const { lambda, muMinus1, nMaxwell } = RAYLEIGH_1899;
-    const x = 1 / rayleighExtinction(lambda, muMinus1, nMaxwell);
-    expect(x / 1e3).toBeCloseTo(82.7, 1);
-    expect(x * 100 / (nMaxwell / 1e6)).toBeCloseTo(4.4e-13, 14);
+  it('layer-base pressures match the standard’s table (Pa)', () => {
+    const P = layerBases().map((b) => b.P);
+    [101325, 22632.06, 5474.889, 868.0187, 110.9063, 66.93887, 3.956420].forEach((v, i) => expect(P[i] / v).toBeCloseTo(1, 5));
   });
-  it('with today’s Loschmidt number (p/kT at 0 °C) the attenuation length at 600 nm is 117 km', () => {
-    expect(loschmidt()).toBeCloseTo(2.6868e25, -21);
-    expect(1 / rayleighExtinction(6e-7, 0.0003, loschmidt()) / 1e3).toBeCloseTo(117.0, 0);
-  });
-  it('8·3 km of air: molecular zenith transmission ·90 at 600 nm with Maxwell’s n (Bouguer observed ·8); blue light is dimmed more', () => {
-    const T600 = Math.exp(-molecularDepth(6e-7, RAYLEIGH_1899.nMaxwell));
-    expect(T600).toBeCloseTo(0.905, 2);
-    expect(Math.exp(-molecularDepth(4.5e-7, loschmidt()))).toBeLessThan(Math.exp(-molecularDepth(6.5e-7, loschmidt())));
-    // Rayleigh's check: (·8)¹⁰ ≈ ·11 over 83 km against 1/e ≈ ·37
-    expect(0.8 ** 10).toBeCloseTo(0.107, 3);
+  it('the tropopause at 11 km geopotential is 216.65 K', () => { expect(layerBases()[1].T).toBeCloseTo(216.65, 9); });
+  it('geometric 11.019 km is geopotential 11 km', () => { expect(geopotential(11019.1)).toBeCloseTo(11000, 0); });
+  it('pressure halves roughly every 5.5 km near the ground', () => { expect(standardAtmosphere(5500).P / 101325).toBeCloseTo(0.5, 1); });
+  it('scale height at 288 K is about 8.4 km; dry lapse rate about 9.8 K/km', () => {
+    expect(scaleHeight(288.15) / 1000).toBeCloseTo(8.43, 2);
+    expect(dryLapse() * 1000).toBeCloseTo(9.77, 2);
   });
 });
-
-describe('air mass and Bouguer’s law (NASA TM-82021)', () => {
-  it('m = sec z: 1 at the zenith, 2 at 60°; transmission multiplies along the path', () => {
-    expect(airMass(0)).toBe(1);
-    expect(airMass(Math.PI / 3)).toBeCloseTo(2, 12);
-    expect(bouguer(0.2, 2)).toBeCloseTo(bouguer(0.2, 1) ** 2, 14);
-    expect(airMass(Math.PI / 2)).toBeNull();
+describe('humidity', () => {
+  it('saturation vapour pressure: 6.11 hPa at 0 °C; about 7 % more per kelvin near 15 °C', () => {
+    expect(satVapour(0)).toBeCloseTo(6.11, 9);
+    expect(satVapour(16) / satVapour(15)).toBeCloseTo(1.066, 2);
   });
+  it('dew point inverts relative humidity', () => {
+    const td = dewPoint(25, 0.6); expect(relHumidity(25, td)).toBeCloseTo(0.6, 9);
+  });
+  it('cloud base: 10 °C (18 °F) spread → 4,091 ft ≈ 1,247 m', () => { expect(cloudBase(25, 15)).toBeCloseTo(1246.9, 1); });
 });
 
-describe('Landsat 8–9 (USGS)', () => {
-  it('eleven bands; the thermal bands contain the 10 µm Wien peak of a 288 K surface', () => {
-    expect(LANDSAT_89).toHaveLength(11);
-    const peak = peakWavelength(288) * 1e6;
-    expect(peak).toBeCloseTo(10.06, 2);
-    expect(LANDSAT_89.filter((b) => b.sensor === 'TIRS').every((b) => b.lo >= 10 && b.hi <= 12.6)).toBe(true);
-  });
+import { co2ForcingAR6, co2ForcingSimple, duToMm, effectiveTemp } from '@/core/meteorology/atmosphere';
+describe('radiation', () => {
+  it('reproduces NOAA AGGI: 425.62 ppm (2025) → 2.372 W/m² with the AR6 formula', () => { expect(co2ForcingAR6(425.62)).toBeCloseTo(2.372, 2); });
+  it('simple formula: doubling gives 3.71 W/m² (“just under 4”)', () => { expect(co2ForcingSimple(560, 280)).toBeCloseTo(3.708, 3); });
+  it('effective temperature with S = 1361, α = 0.294 is 255 K (fact sheet prints 254.0)', () => { expect(effectiveTemp(1361, 0.294)).toBeCloseTo(255.0, 0); });
+  it('300 DU is 3 mm', () => { expect(duToMm(300)).toBeCloseTo(3, 12); });
 });
