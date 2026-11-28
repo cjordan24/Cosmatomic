@@ -1,6 +1,6 @@
 # Voyager Ventures — status report and index
 
-*Kept up to date by Claude during the autonomous run. Last updated: **2026-11-28, Gate 15.1**.*
+*Kept up to date by Claude during the autonomous run. Last updated: **2026-11-28, Gate 15.2**.*
 
 Live site: https://voyager-ventures.vercel.app — **production still serves the build from 2026-11-27** (Phase 10 + universe map + interface pass). Nothing from Phases 11–14 is deployed: you asked for no deploys until Phase 14 is finished. The deploy command is at the bottom.
 
@@ -91,6 +91,7 @@ Four portals: ATOMIC, COSMIC, SPECTRAL, **BIOLOGIC** (new in Phase 11; shows the
 ### ENGINEERING (coral) — **new in Phase 15**
 | Address | What it is | Main sources |
 |---|---|---|
+| `#/engineering/semiconductors` | **Semiconductors** — silicon’s band gap; a live p-n junction (Shockley’s 1949 equation) | Shockley 1949, TU Delft OCW |
 | `#/engineering` | **Bits & logic** — a byte in binary/hex/two's complement, logic gates with truth tables, NAND universality, a 4-bit adder built from gates | Boole 1854, Shannon 1938 and 1948, NIST |
 
 ### Shared tools (all modes)
@@ -100,6 +101,8 @@ Four portals: ATOMIC, COSMIC, SPECTRAL, **BIOLOGIC** (new in Phase 11; shows the
 ---
 
 ## 4. What was done in this run (newest first)
+
+- **Gate 15.2** — semiconductors: silicon and a live p-n junction from Shockley's 1949 equation.
 
 - **Phase 15 begun (your Computing & Engineering brief)** — a fifth mode, ENGINEERING, with its own landing portal (a working adder that adds today's day and month), and Gate 15.1: bits, logic gates and adders. Roadmap for Phases 15–19 written into `DEVELOPMENT_ROADMAP.md`.
 

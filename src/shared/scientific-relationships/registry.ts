@@ -412,6 +412,9 @@ registerRelationship({ from: 'instrument:grtests', to: 'context:gravitational-le
 registerRelationship({ from: 'instrument:models', to: 'context:dark-matter', type: 'part-of', context: 'the same SPARC rotation curves read through eq. (4) of the radial acceleration relation', source: 'mcgaugh-2016-rar' });
 // ---------------- Phase 15: computing & computer engineering ----------------
 registerEntity(E('instrument:logic', 'Bits and logic', '#/engineering', 'Binary, logic gates and adders evaluated gate by gate (Gate 15.1)'));
+registerEntity(E('instrument:semiconductors', 'Semiconductors and the junction', '#/engineering/semiconductors', 'Silicon’s band gap and Shockley’s p-n junction equation (Gate 15.2)'));
+registerRelationship({ from: 'element:14', to: 'instrument:semiconductors', type: 'part-of', context: '“silicon and germanium may be either n-type or p-type semiconductors” (Shockley 1949)', source: 'shockley-1949' });
+registerRelationship({ from: 'instrument:semiconductors', to: 'wave:em-infrared', type: 'absorbs', context: 'silicon’s 1.12 eV band gap corresponds to 1107 nm, “in the infrared part of the spectrum of light” (TU Delft)', source: 'tudelft-ocw-solar' });
 
 export const getEntity = (id: string) => REGISTRY.get(id);
 export const allEntities = () => [...REGISTRY.values()];

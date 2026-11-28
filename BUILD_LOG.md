@@ -937,3 +937,9 @@ Committed together (one view with six tabs, one dataset).
 3. **Read on page images:** Boole 1854 p. 31; Shannon 1938 p. 714; Shannon 1948 p. 380. Research for all of Phase 15 saved (`research/SOURCE_NOTES_PHASE15.md`). Licence notes: Intel's terms forbid bots (Moore 1965 not used); LBNL 2024 report blocked (eScholarship 403) — its 2025 update (CC BY 4.0) is available; Unicode Core Spec not redistributable (facts only).
 4. **Sources (+4, 264 entries):** boole-1854, shannon-1938, shannon-1948, nist-binary-prefixes.
 5. **Tests:** science `logic.test.ts` (9); browser test 116; landing tests 01 and 18 updated for five portals.
+
+## Gate 15.2: semiconductors and the junction (`#/engineering/semiconductors`), 2026-11-28
+
+1. **View:** Engineering → Semiconductors: a live p-n junction (bias, saturation current, temperature) from Shockley's eq. (4.13); silicon's element data, band gap and 1107 nm edge; links to element 14 and the infrared in Spectral.
+2. **Sources (+2, 266 entries):** shockley-1949 (page images pp. 435, 460), tudelft-ocw-solar. Searched for a US-government silicon band-gap source: the DOE page survives only in the UNT web archive, whose robots.txt disallows ClaudeBot — not used.
+3. **Tests:** science `semiconductor.test.ts` (5, including hc/1.12 eV = 1107 nm); browser test 117.

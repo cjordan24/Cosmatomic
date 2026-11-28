@@ -48,3 +48,17 @@ test('116 engineering mode: portal, bits, gates and a ripple-carry adder', async
   await expect(page.getByLabel('Adder result')).toContainText('21 = 10101');
   await shot(page, '116c-adder', 'Adding with gates: 9 + 12 through a 4-bit ripple-carry adder — every carry and sum bit computed by the gates; the answer needs a fifth bit.');
 });
+
+// ---------------- Gate 15.2 ----------------
+test('117 semiconductors: silicon’s band gap and Shockley’s junction equation', async ({ page }) => {
+  await page.goto('/#/engineering');
+  await page.getByRole('navigation', { name: 'Engineering sections' }).getByRole('button', { name: 'Semiconductors' }).click();
+  await expect(page).toHaveURL(/#\/engineering\/semiconductors$/);
+  const v = page.getByLabel('Junction values');
+  await expect(v).toContainText('12 mA'); await expect(v).toContainText('25.85'); await expect(v).toContainText('0.536');
+  await expect(page.getByLabel('Silicon values')).toContainText('1,107');
+  await expect(page.locator('.stage-head')).toContainText('silicon and germanium may be either n-type or p-type');
+  await shot(page, '117a-junction', 'Semiconductors (Gate 15.2): Shockley’s 1949 p-n junction equation (4.13) as a live current–voltage curve — 12 mA at +0.6 V for I_s = 1 pA, kT/q = 25.85 mV; silicon’s 1.12 eV band gap and its 1107 nm absorption edge (TU Delft).');
+  await page.getByLabel('Bias voltage').fill('-0.5');
+  await expect(v).toContainText('−1 pA');
+});

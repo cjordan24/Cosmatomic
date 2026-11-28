@@ -1,0 +1,27 @@
+{
+  "dataset": "semiconductors",
+  "version": "1.0.0",
+  "records": 6,
+  "sources": [
+    {
+      "institution": "Shockley (1949), Bell System Technical Journal 28, 435",
+      "url": "https://archive.org/details/bstj28-3-435",
+      "license": "free to read (Bell Labs); short quotation only",
+      "notes": "p-n junction equation (page image)"
+    },
+    {
+      "institution": "TU Delft OpenCourseWare, Solar Energy, §12.1",
+      "url": "https://ocw.tudelft.nl/courses/solar-energy/",
+      "license": "course page: CC BY-NC-SA 4.0",
+      "notes": "silicon band gap 1.12 eV, 1107 nm"
+    }
+  ],
+  "adapter": "scripts/ingestion/curated-semiconductors.ts",
+  "warnings": [
+    "The compact form I = I_s(e^{qV/kT} − 1) restates Shockley’s (4.13); “I_s” is not his notation."
+  ],
+  "output": "datasets/engineering/semiconductors.json",
+  "retrievedAt": "2026-11-28T10:51:43.661Z",
+  "bytes": 1354,
+  "sha256": "f5b90dd318fcf6f938d26d3b321146e273afac6cededed0f517e76ea1adc59a6"
+}
