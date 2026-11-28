@@ -13,7 +13,8 @@ describe('source index', () => {
     expect(new Set(SOURCES.map((s) => s.id)).size).toBe(SOURCES.length);
     for (const s of SOURCES) {
       expect(s.citation.length, s.id).toBeGreaterThan(20);
-      expect(s.url, s.id).toMatch(/^https:\/\//);
+      // cvrl.org serves no HTTPS at all (checked 2026-11-28): the one documented exception
+      expect(s.url, s.id).toMatch(s.id === 'cvrl' ? /^http:\/\/www\.cvrl\.org\// : /^https:\/\//);
       expect(s.institution.length, s.id).toBeGreaterThan(3);
       expect(s.usedFor.length, s.id).toBeGreaterThan(0);
       if (s.authorBio !== null) expect(s.authorBio.length, s.id).toBeGreaterThan(20);

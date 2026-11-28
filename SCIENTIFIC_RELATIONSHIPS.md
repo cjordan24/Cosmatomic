@@ -162,6 +162,10 @@ Every encyclopedia entry describes a registry entity, so E.2 registered the 11 s
 
 `instrument:zoom` (`#/biologic/zoom`) is *part of* the body and the scale of life and ends at water.
 
+## Waves, life and imaging (Phase 13)
+
+`instrument:senses` (`#/biologic/senses`): *absorbs* visible light (cone and luminosity peaks, CVRL); the pupil's diffraction circle is *part of* the same physics as Telescopes (Helmholtz p. 196); it *explains* the heartbeat's electrical variation as recorded through Einthoven's leads (linked to Nerves); the heart is *observed with* the ECG (NHLBI).
+
 ## Rules
 
 1. No edge without a source.

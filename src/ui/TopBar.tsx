@@ -31,7 +31,7 @@ interface Hit { kind: 'element' | 'molecule' | 'body' | 'reaction' | 'material' 
 /** Spectral sub-routes other than the atlas; Phase 9 views sit in chip menus so the bar does not grow. */
 const SPECTRAL_SECTIONS = ['lab', 'fields', 'compare', 'antennas', 'rf', 'room', 'modulation', 'acoustics', 'audio', 'roomacoustics', 'optics', 'waveoptics', 'polarisation', 'spectroscopy', 'thermal', 'telescopes', 'atmosphere'];
 /** Biologic sub-routes other than the scale-of-life atlas (Phase 11+). */
-export const BIOLOGIC_SECTIONS: string[] = ['molecules', 'proteins', 'cells', 'membranes', 'transport', 'plants', 'body', 'movement', 'circulation', 'nerves', 'systems', 'zoom'];
+export const BIOLOGIC_SECTIONS: string[] = ['molecules', 'proteins', 'cells', 'membranes', 'transport', 'plants', 'body', 'movement', 'circulation', 'nerves', 'systems', 'zoom', 'senses'];
 const COSMIC_SECTIONS = ['map', 'stars', 'sandbox', 'relativity', 'compact', 'lensing', 'galaxies', 'nebulae', 'universe', 'ladder', 'cmb', 'darkmatter', 'gw'];
 
 /** A chip that opens a small menu of related sections; it is highlighted when one of them is open. */
@@ -307,6 +307,9 @@ export function TopBar() {
               { label: 'Membranes', to: '/biologic/membranes', active: path[1] === 'membranes' },
               { label: 'Transport', to: '/biologic/transport', active: path[1] === 'transport' },
               { label: 'Plants & microbes', to: '/biologic/plants', active: path[1] === 'plants' },
+            ]} />
+            <ChipMenu label="Waves & life" items={[
+              { label: 'Senses & signals', to: '/biologic/senses', active: path[1] === 'senses' },
             ]} />
             <ChipMenu label="Body" items={[
               { label: 'Human body', to: '/biologic/body', active: path[1] === 'body' },

@@ -1,0 +1,43 @@
+{
+  "dataset": "senses",
+  "version": "1.0.0",
+  "records": 12,
+  "sources": [
+    {
+      "institution": "Helmholtz, Treatise on Physiological Optics vol. 1, tr. J. P. C. Southall (OSA, 1924)",
+      "url": "https://archive.org/details/helmholtzs-treatise-on-physiological-optics-vol-1",
+      "notes": "reduced eyes, pupil, diffraction blur (page images)"
+    },
+    {
+      "institution": "Colour & Vision Research Laboratory (UCL), cvrl.org",
+      "url": "http://www.cvrl.org/",
+      "notes": "peak wavelengths only (no licence for the tables)"
+    },
+    {
+      "institution": "Fletcher, H. and Munson, W. A. (1933) Bell System Technical Journal 12, 377",
+      "url": "https://archive.org/details/bstj12-4-377",
+      "notes": "intensity level, eq. (4)"
+    },
+    {
+      "institution": "Waller (1887); Einthoven (1912)",
+      "url": "https://doi.org/10.1016/s0140-6736(00)50560-1",
+      "notes": "first human ECG; Einthoven’s leads and relation (page images)"
+    },
+    {
+      "institution": "NEI, NIDCD, NHLBI",
+      "url": "https://www.nidcd.nih.gov/health/how-do-we-hear",
+      "license": "public domain (NEI, NIDCD policies)",
+      "notes": "how the eye and ear work; noise; the EKG"
+    }
+  ],
+  "adapter": "scripts/ingestion/curated-senses.ts",
+  "warnings": [
+    "Equations read on page images.",
+    "CVRL peaks located in its files; the spectra are not bundled.",
+    "The ECG view projects a dipole onto Einthoven’s leads: educational, not a heart model."
+  ],
+  "output": "datasets/biology/senses.json",
+  "retrievedAt": "2026-11-28T08:52:35.776Z",
+  "bytes": 5194,
+  "sha256": "5edfbc56a4749be16e61322587f90439a93ab4c5d7c42b7c7d7f7e235f241b48"
+}

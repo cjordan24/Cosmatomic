@@ -383,6 +383,12 @@ registerEntity(E('instrument:zoom', 'From the body to a molecule', '#/biologic/z
 registerRelationship({ from: 'instrument:zoom', to: 'instrument:body', type: 'part-of', context: 'starts from the BodyParts3D body, 1.71 m tall', source: 'bodyparts3d' });
 registerRelationship({ from: 'instrument:zoom', to: 'instrument:life-atlas', type: 'part-of', context: 'cell, nucleus, mitochondrion, ribosome and DNA sizes from the scale of life', source: 'nigms-inside-the-cell' });
 registerRelationship({ from: 'instrument:zoom', to: 'molecule:pubchem-962', type: 'has-property', context: 'ends at a water molecule, the smallest stop', source: 'pubchem' });
+// ---------------- Phase 13: waves, life and imaging ----------------
+registerEntity(E('instrument:senses', 'Senses and signals', '#/biologic/senses', 'The eye as an instrument, colour peaks, hearing, the ECG (Gates 13.1–13.3)'));
+registerRelationship({ from: 'instrument:senses', to: 'wave:em-visible', type: 'absorbs', context: 'cone peaks at 566, 541 and 441 nm; day vision peaks at 555 nm, night vision at 506 nm (CVRL)', source: 'cvrl' });
+registerRelationship({ from: 'instrument:senses', to: 'instrument:telescopes', type: 'part-of', context: 'the pupil’s diffraction circle δ = 2.440 lr/d is Airy’s disc (Helmholtz p. 196)', source: 'helmholtz-1924' });
+registerRelationship({ from: 'instrument:senses', to: 'instrument:nerves', type: 'explains', context: 'each heartbeat is accompanied by an electrical variation, recorded through Einthoven’s three leads', source: 'einthoven-1912' });
+registerRelationship({ from: 'instrument:senses', to: 'structure:organ-heart', type: 'observed-with', context: 'the ECG records the heart’s electrical activity (NHLBI)', source: 'nhlbi' });
 
 export const getEntity = (id: string) => REGISTRY.get(id);
 export const allEntities = () => [...REGISTRY.values()];

@@ -881,3 +881,12 @@ Committed together (one view with six tabs, one dataset).
 4. **Tests:** science 888/888 (+4, `tests/science/zoom.test.ts`); browser test 106.
 
 **Phase 12 summary:** Body ▾ menu with seven views (human body in 3D, movement, circulation and breathing, nerves, organ systems, body-to-molecule zoom); a real anatomical model (BodyParts3D, CC BY 4.0) decimated in Blender; Hodgkin–Huxley simulated live; 6 new datasets (53 manifests); 15 new Source-index entries (219); science tests 854 → 888; browser tests 101–106. Findings: Poiseuille's printed mean coefficient, Hodgkin–Huxley's leak potential (−10·599 vs −10·613), NIDDK's two filtration figures 20 % apart, the model kidney against SEER's size.
+
+## Gates 13.1–13.3: senses and signals (`#/biologic/senses`), 2026-11-28
+
+1. **View:** a new Biologic menu, Waves & life ▾ → Senses & signals, with four tabs. *The eye:* NEI's path of light; Gullstrand's reduced eye gives the retinal image of an object; Helmholtz's diffraction circle against pupil size. *Colour:* cone and luminosity peaks on the spectrum. *Hearing:* NIDCD's path of sound, Fletcher & Munson's intensity level, NIDCD's 70/85 dBA. *Heart signals:* Waller (1887), Einthoven's triangle with a draggable heart vector.
+2. **Read on page images:** Helmholtz pp. 95, 96, 178, 196, 355; Fletcher & Munson p. 381; Waller p. 229; Einthoven pp. 854, 859. CVRL peaks recomputed from its files (566/541/441, 555, 506 nm).
+3. **Findings:** Helmholtz's δ = 0.0122 mm for a 2 mm pupil reproduced exactly. Listing's printed reduced-eye radius 5.1248 mm vs 5.0674 mm from his own focal lengths (ratio exactly 103/77) — both shown.
+4. **Sources (+10, 229 entries):** helmholtz-1924, cvrl, stockman-sharpe-2000, nei-how-eyes-work, nei-rods-news, nidcd-how-we-hear, nidcd-noise, fletcher-munson-1933, waller-1887, einthoven-1912 (DOIs checked on Crossref). CVRL serves no HTTPS: its http link is the one documented exception in the source-index test.
+5. **Research for 13.4–13.6 saved** (`research/SOURCE_NOTES_PHASE13.md` §B): NIST X-ray tables (SRD 126 — copyrighted compilation: only selected values will be used), FDA ultrasound and MRI guidance, 47 CFR §1.1310 SAR limits, the Gabriel tissue model (IFAC-CNR, free for scientific use), Abbe 1873, de Broglie & Flint 1930, NBS SP 525 tissue sound speeds. Blocked: nibib.nih.gov (robots disallow all), fcc.gov and dtic.mil (403), ecfr.gov (CAPTCHA; govinfo copy used).
+6. **Tests:** science 897/897 (+9, `tests/science/senses.test.ts`); browser test 107.
