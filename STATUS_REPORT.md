@@ -124,6 +124,8 @@ Four portals: ATOMIC, COSMIC, SPECTRAL, **BIOLOGIC** (new in Phase 11; shows the
 
 ## 4. What was done in this run (newest first)
 
+- **Held at the user's request (end of Phase 23).** Resume from `HANDOFF_PHASE23.md`. Phase 24 not started; run the full browser suite first.
+
 - **Phase 23 complete (Gate 23.3)** — oceans, ice and biomes: the conveyor belt, El Niño and La Niña on NOAA's new Relative ONI, a souring ocean from 36 years of Hawaiian measurements, Arctic sea ice since 1979, and seven biomes.
 
 - **Gate 23.2** — Earth's climate through geological time: a 4.6-billion-year timeline with twenty events, each labelled consensus, proxy or model, and where reliable numbers don't exist the app says so.
