@@ -1023,3 +1023,7 @@ Test 93 (universe map) failed: the fly-to zoom eased by 8 % per frame, so at the
 2. **Views:** `#/meteorology` (structure), `#/meteorology/air` (humidity, stability), `#/meteorology/radiation` (energy budget, absorption, forcing, ozone, aerosols).
 3. **Research:** three agents (notes `research/SOURCE_NOTES_PHASE20A/B/C.md`). Refused hosts logged: www.noaa.gov/jetstream (403), journals.ametsoc.org (403), www.ipcc.ch copyright page (403 → IPCC not used), ozonewatch (TLS), spc (robots), pluto.jhuapl.edu, gpm.nasa.gov (504).
 4. **Sources (+13).** **Tests:** science `atmosphere.test.ts` (13); browser 127–129.
+
+## Gate 20.4: wind, clouds and water (`#/meteorology/motion`), 2026-11-28 — Phase 20 complete
+
+Six tabs: Coriolis (turntable), convection (Rayleigh 1916), clouds (ten genera), rain, water cycle, circulation. A research misreading caught on the page image (Rayleigh's κ = 5ν/2, not 4ν/3), corrected in the notes. Sources +10; science `motion.test.ts` (8); browser 130.

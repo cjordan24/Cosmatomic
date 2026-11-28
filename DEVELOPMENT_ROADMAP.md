@@ -162,7 +162,7 @@ If a gate turns out much larger than planned, it is split into documented sub-ga
 
 | Phase | Scope (brief section) | Status |
 |---|---|---|
-| 20 Atmospheric physics (A) | 20.1 structure (USSA 1976) · 20.2 moist air & stability · 20.3 radiation, greenhouse, ozone, aerosols · 20.4 Coriolis, convection, clouds, precipitation, water cycle, circulation | 20.1–20.3 complete (2026-11-28) |
+| 20 Atmospheric physics (A) | 20.1 structure (USSA 1976) · 20.2 moist air & stability · 20.3 radiation, greenhouse, ozone, aerosols · 20.4 Coriolis, convection, clouds, precipitation, water cycle, circulation | **Complete** (2026-11-28; four views) |
 | 21 Earth weather & storms (B) | global atlas (3D Earth + 2D map, layers, timeline), regional climates, storm laboratory, historical observations | Planned |
 | 22 Planetary meteorology (C) | atmospheres of the planets, comparison engine | Planned |
 | 23 Climate history & environment (D) | geological timeline, paleoclimate, oceans, biomes | Planned |
