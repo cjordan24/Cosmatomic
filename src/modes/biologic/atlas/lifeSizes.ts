@@ -41,7 +41,8 @@ function derivedMolecule(id: string, label: string): LifeSize {
 }
 
 const LINKS: Record<string, { label: string; to: string }[]> = {
-  dna: [{ label: 'Deoxyribose, DNA’s sugar, in the molecule viewer', to: '/atomic/molecules/pubchem-9828112' }],
+  dna: [{ label: 'DNA’s building blocks', to: '/biologic/molecules?tab=nucleic' }],
+  haemoglobin: [{ label: 'Amino acids, its building blocks', to: '/biologic/molecules' }],
 };
 
 export const LIFE_SIZES: LifeSize[] = [

@@ -318,6 +318,12 @@ registerRelationship({ from: 'instrument:life-atlas', to: 'structure:mitochondri
 registerRelationship({ from: 'structure:mitochondrion', to: 'molecule:pubchem-5957', type: 'produces', context: '“ATP is made in organelles called mitochondria” (Inside the Cell, p. 11)', source: 'nigms-inside-the-cell' });
 for (const [id, what] of [['pubchem-962', 'water'], ['pubchem-5793', 'glucose'], ['pubchem-5957', 'ATP']] as const)
   registerRelationship({ from: 'instrument:life-atlas', to: `molecule:${id}`, type: 'has-property', context: `size of ${what}: largest nucleus-to-nucleus distance in its PubChem3D conformer`, source: 'pubchem' });
+registerEntity(E('instrument:biomolecules', 'Biomolecules and the genetic code', '#/biologic/molecules', 'Amino acids, nucleic-acid parts, sugars and lipids; the standard and vertebrate mitochondrial genetic codes (Gate 11.2)'));
+for (const [mol, one] of [['pubchem-5950', 'A'], ['pubchem-5862', 'C'], ['pubchem-5960', 'D'], ['pubchem-33032', 'E'], ['pubchem-6140', 'F'], ['pubchem-750', 'G'], ['pubchem-6274', 'H'], ['pubchem-6306', 'I'], ['pubchem-5962', 'K'], ['pubchem-6106', 'L'], ['pubchem-6137', 'M'], ['pubchem-6267', 'N'], ['pubchem-145742', 'P'], ['pubchem-5961', 'Q'], ['pubchem-6322', 'R'], ['pubchem-5951', 'S'], ['pubchem-6288', 'T'], ['pubchem-6287', 'V'], ['pubchem-6305', 'W'], ['pubchem-6057', 'Y']] as const)
+  registerRelationship({ from: `molecule:${mol}`, to: 'instrument:biomolecules', type: 'has-property', context: `amino acid ${one}: its codons in the standard genetic code`, source: 'ncbi-genetic-codes' });
+for (const mol of ['pubchem-190', 'pubchem-135398634', 'pubchem-597', 'pubchem-1135', 'pubchem-9828112'])
+  registerRelationship({ from: `molecule:${mol}`, to: 'instrument:biomolecules', type: 'part-of', context: 'a building block of DNA (base or sugar of a nucleotide)', source: 'nhgri-glossary' });
+registerRelationship({ from: 'molecule:pubchem-1174', to: 'instrument:biomolecules', type: 'part-of', context: 'uracil takes the place of thymine in RNA', source: 'nhgri-glossary' });
 
 export const getEntity = (id: string) => REGISTRY.get(id);
 export const allEntities = () => [...REGISTRY.values()];

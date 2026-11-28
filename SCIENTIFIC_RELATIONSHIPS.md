@@ -138,6 +138,8 @@ Every encyclopedia entry describes a registry entity, so E.2 registered the 11 s
 
 `instrument:life-atlas` (`#/biologic`) *has-property* the size of the mitochondrion (NIGMS *Inside the Cell*) and of water, glucose and ATP (their PubChem3D conformers). `structure:mitochondrion` now opens the atlas (no longer planned) and *produces* ATP (“ATP is made in organelles called mitochondria”, *Inside the Cell* p. 11).
 
+`instrument:biomolecules` (`#/biologic/molecules`): each of the 20 amino acids *has-property* its codons in the standard code (NCBI); adenine, guanine, cytosine, thymine and deoxyribose are *part of* DNA's building blocks and uracil takes thymine's place in RNA (NHGRI).
+
 ## Rules
 
 1. No edge without a source.

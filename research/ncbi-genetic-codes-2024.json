@@ -1,0 +1,66 @@
+{
+ "standard": {
+  "name": "The Standard Code",
+  "AAs": "FFLLSSSSYY**CC*WLLLLPPPPHHQQRRRRIIIMTTTTNNKKSSRRVVVVAAAADDEEGGGG",
+  "Starts": "---M------**--*----M---------------M----------------------------"
+ },
+ "vertMito": {
+  "name": "The Vertebrate Mitochondrial Code",
+  "AAs": "FFLLSSSSYY**CCWWLLLLPPPPHHQQRRRRIIMMTTTTNNKKSS**VVVVAAAADDEEGGGG",
+  "Starts": "----------**--------------------MMMM----------**---M------------"
+ },
+ "pairs": [
+  [
+   "Arg",
+   "R"
+  ],
+  [
+   "Asn",
+   "N"
+  ],
+  [
+   "Cys",
+   "C"
+  ],
+  [
+   "Gln",
+   "Q"
+  ],
+  [
+   "Gly",
+   "G"
+  ],
+  [
+   "Ile",
+   "I"
+  ],
+  [
+   "Leu",
+   "L"
+  ],
+  [
+   "Lys",
+   "K"
+  ],
+  [
+   "Met",
+   "M"
+  ],
+  [
+   "Ser",
+   "S"
+  ],
+  [
+   "Thr",
+   "T"
+  ],
+  [
+   "Trp",
+   "W"
+  ],
+  [
+   "Tyr",
+   "Y"
+  ]
+ ]
+}

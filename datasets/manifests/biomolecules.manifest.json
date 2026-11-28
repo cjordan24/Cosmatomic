@@ -1,0 +1,34 @@
+{
+  "dataset": "biomolecules",
+  "version": "1.0.0",
+  "records": 30,
+  "sources": [
+    {
+      "institution": "NCBI, The Genetic Codes (A. Elzanowski and J. Ostell)",
+      "url": "https://www.ncbi.nlm.nih.gov/Taxonomy/Utils/wprintgc.cgi",
+      "license": "NLM: “Information that is created by or for the US government on this site is within the public domain.”",
+      "notes": "standard and vertebrate mitochondrial codes, initiation codons"
+    },
+    {
+      "institution": "NHGRI Talking Glossary of Genomic and Genetic Terms",
+      "url": "https://www.genome.gov/genetics-glossary",
+      "license": "Public domain (NHGRI: “Text … on National Human Genome Research Institute (NHGRI) websites are in the public domain, unless otherwise indicated”)",
+      "notes": "definitions of amino acids, base pair, codon, genetic code, nucleotide, protein, translation, uracil"
+    },
+    {
+      "institution": "IUPAC-IUB Joint Commission on Biochemical Nomenclature (1984), Pure Appl. Chem. 56, 595–624",
+      "url": "https://iupac.qmul.ac.uk/AminoAcid/A2021.html",
+      "license": "© IUBMB and IUPAC; only the symbols are used (facts)",
+      "notes": "one- and three-letter amino-acid symbols (Table 5)"
+    }
+  ],
+  "adapter": "scripts/ingestion/biomolecules.ts",
+  "warnings": [
+    "Glossary text quoted verbatim; one pronunciation guide replaced by […].",
+    "Amino acids are joined to the bundled L-forms (glycine has no stereocentre)."
+  ],
+  "output": "datasets/biology/biomolecules.json",
+  "retrievedAt": "2026-11-28T06:52:43.864Z",
+  "bytes": 6752,
+  "sha256": "9ca2e5f8a1d6ee41f550def1d328917097b4bace4312289b0c1c67e6f7faaf2f"
+}

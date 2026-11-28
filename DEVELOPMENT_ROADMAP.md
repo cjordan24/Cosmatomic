@@ -130,5 +130,6 @@ Approved by the user on 2026-11-28 together with Phases 12–14 (“continue thr
 | Gate | Deliverable | Main sources | Status |
 |---|---|---|---|
 | 11.1 | Biologic Mode (`#/biologic`, emerald) with a live landing portal (the 1BNA B-DNA dodecamer), and the **scale of life**: 24 sizes from a water molecule to an ant on one log axis with verbatim quotes, disagreeing sources side by side and size ratios; Nanostructures and Microscopic levels of the scale ladder now route here; PDB structures ingested (7 entries) | NIGMS *Inside the Cell* (2005) pp. 7, 11, 20; NIGMS Biomedical Beat; nano.gov; U.S. DOE *Scale of Things*; PDB-101; wwPDB (CC0) | **Done** |
+| 11.2 | Biomolecules (`#/biologic/molecules`): the 20 amino acids with IUPAC-IUB symbols, codons and 3D conformers; nucleic-acid parts, sugars and lipids with ChEBI descriptions; the **genetic code** (NCBI standard and vertebrate mitochondrial tables) with a three-frame, two-strand translator | NCBI *The Genetic Codes* (2024); IUPAC-IUB (1984) Table 5; NHGRI Talking Glossary; ChEBI | **Done** |
 
 If a gate turns out much larger than planned, it is split into documented sub-gates. Scientific quality is not reduced to make it fit.

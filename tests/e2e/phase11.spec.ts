@@ -60,3 +60,38 @@ test('94 biologic: landing portal with 1BNA, scale of life from water to an ant,
   await page.waitForTimeout(2000);
   await shot(page, '94c-landing-biologic', 'The landing page with the live BIOLOGIC portal: the 486 atoms of the B-DNA dodecamer 1BNA (Drew et al. 1981, PDB CC0) coloured by element.');
 });
+
+// ---------------- Gate 11.2 ----------------
+test('95 biomolecules: amino acids with IUPAC symbols and codons, nucleic-acid parts, the NCBI genetic codes and a translation', async ({ page }) => {
+  await page.goto('/#/biologic');
+  await page.getByRole('navigation', { name: 'Biologic sections' }).getByRole('button', { name: 'Biomolecules' }).click();
+  await expect(page).toHaveURL(/#\/biologic\/molecules$/);
+  await expect(page.locator('.center-stage h1')).toContainText('Amino acids');
+  await expect(page.getByRole('list', { name: 'Amino acids cards' }).getByRole('listitem')).toHaveCount(20);
+  await expect(page.locator('blockquote[data-term="Amino Acids"]')).toContainText('There are 20 different amino acids.');
+  await page.getByRole('list', { name: 'Amino acids cards' }).getByRole('listitem', { name: 'L-leucine' }).click();
+  const codons = page.getByRole('region', { name: 'Codons' });
+  await expect(codons).toContainText('Codons in the standard code (6)');
+  await expect(codons).toContainText('UUA UUG CUU CUC CUA CUG');
+  await expect(page.getByLabel('Molecule facts')).toContainText('Leu · L');
+  await page.waitForTimeout(1200);
+  await shot(page, '95a-amino-acids', 'The 20 amino acids (Gate 11.2): IUPAC-IUB one- and three-letter symbols, the bundled PubChem3D conformers, ChEBI descriptions and, for leucine, its six codons in NCBI’s standard code.');
+  await page.getByRole('navigation', { name: 'Biomolecule sections' }).getByRole('button', { name: 'Nucleic-acid parts' }).click();
+  await expect(page.locator('blockquote[data-term="Base Pair"]')).toContainText('adenine pairs with thymine, and cytosine pairs with guanine');
+  await expect(page.getByRole('list', { name: 'Nucleic-acid parts cards' }).getByRole('listitem')).toHaveCount(9);
+  // genetic code
+  await page.getByRole('navigation', { name: 'Biomolecule sections' }).getByRole('button', { name: 'Genetic code' }).click();
+  await expect(page.getByRole('table', { name: /Codon table: The Standard Code/ })).toBeVisible();
+  await expect(page.locator('.stage-head')).toContainText('61 codons specify amino acids and 3 are stops');
+  await expect(page.getByLabel('Protein (one-letter)')).toHaveText('REFA');   // 1BNA strand, frame 1
+  await page.getByLabel('Sequence to translate').fill('ATGGCCATTGTAATGGGCCGCTGA');
+  await expect(page.getByLabel('Protein (one-letter)')).toHaveText('MAIVMGR*');
+  await expect(page.getByLabel('Protein (three-letter)')).toContainText('Met–Ala–Ile–Val–Met–Gly–Arg–Stop');
+  await shot(page, '95b-genetic-code', 'NCBI’s Standard Code as a codon table (stops red, possible starts outlined) translating ATGGCCATTGTAATGGGCCGCTGA to MAIVMGR* in frame 1; amber marks the four codons read differently in vertebrate mitochondria.');
+  await page.getByRole('group', { name: 'Genetic code' }).getByRole('button', { name: 'Vertebrate mitochondrial (2)' }).click();
+  await expect(page.locator('.stage-head')).toContainText('60 codons specify amino acids and 4 are stops');
+  await expect(page.getByLabel('Protein (one-letter)')).toHaveText('MAIVMGRW');   // UGA reads Trp in vertebrate mitochondria
+  await page.locator('.codon[data-codon="AUG"]').click();
+  await expect(page.getByLabel('Codons per amino acid')).toContainText('Met');
+  await expect(page.locator('.right-panel')).toContainText('Codons in this code');
+});
