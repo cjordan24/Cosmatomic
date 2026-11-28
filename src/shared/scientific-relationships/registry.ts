@@ -48,7 +48,7 @@ const BASE_ENTITIES: Entity[] = [
   E('process:photosynthesis', 'Photosynthesis', '#/biologic/plants', 'Plants & microbes (Gate 11.7)'),
   E('process:cellular-respiration', 'Cellular respiration', null, 'Biologic Mode (Phase 11)'),
   E('process:glycolysis', 'Glycolysis', null, 'Biologic Mode (Phase 11)'),
-  E('process:muscle-contraction', 'Muscle contraction', null, 'Biologic Mode (Phase 12)'),
+  E('process:muscle-contraction', 'Muscle contraction', '#/biologic/movement?tab=muscle', 'Movement (Gate 12.2): Hill’s force–velocity relation'),
   E('process:blood-co2-transport', 'CO₂ transport in blood', null, 'Biologic Mode (Phase 12)'),
   E('process:nitrogen-cycle', 'Nitrogen cycle', null),
   E('structure:mitochondrion', 'Mitochondrion', '#/biologic/cells?part=mitochondrion', 'Cells (Gate 11.4): typically 1–2 µm long'),
@@ -363,6 +363,13 @@ for (const [id, label] of [['skeleton', 'Skeleton'], ['heart', 'Heart'], ['right
 registerRelationship({ from: 'structure:organ-heart', to: 'structure:pdb-4hhb', type: 'drives', context: 'the heart pumps about 5 litres of blood a minute; haemoglobin in its red cells carries oxygen', source: 'seer-training' });
 registerRelationship({ from: 'structure:organ-right-kidney', to: 'instrument:transport', type: 'explains', context: 'about a million nephrons filter about 150 quarts of blood a day', source: 'niddk' });
 registerRelationship({ from: 'structure:organ-left-kidney', to: 'instrument:transport', type: 'explains', context: 'only 1 to 2 quarts of the filtered blood become urine', source: 'niddk' });
+registerEntity(E('instrument:movement', 'Bones and muscle', '#/biologic/movement', 'SEER bones and muscle; Hill’s force–velocity relation (Gate 12.2)'));
+registerEntity(E('instrument:circulation', 'Circulation and breathing', '#/biologic/circulation', 'Heart, blood pressure, Poiseuille flow, blood and lungs (Gate 12.3)'));
+registerRelationship({ from: 'process:muscle-contraction', to: 'instrument:movement', type: 'part-of', context: 'shortening speed falls with load along Hill’s hyperbola (P + a)(v + b) = const', source: 'hill-1938' });
+registerRelationship({ from: 'structure:organ-skeleton', to: 'instrument:movement', type: 'part-of', context: '206 named bones: 80 axial, 126 appendicular', source: 'seer-training' });
+registerRelationship({ from: 'structure:organ-heart', to: 'instrument:circulation', type: 'part-of', context: 'one cardiac cycle lasts 0.8 s at a normal rate; about 5 litres a minute', source: 'seer-training' });
+registerRelationship({ from: 'instrument:circulation', to: 'structure:organ-right-lung', type: 'explains', context: 'oxygen-poor blood goes to the lungs and returns oxygen-rich through the pulmonary veins', source: 'nhlbi' });
+registerRelationship({ from: 'instrument:circulation', to: 'instrument:transport', type: 'explains', context: 'flow through narrow tubes grows as the fourth power of the diameter (Poiseuille 1840)', source: 'poiseuille-1840' });
 
 export const getEntity = (id: string) => REGISTRY.get(id);
 export const allEntities = () => [...REGISTRY.values()];

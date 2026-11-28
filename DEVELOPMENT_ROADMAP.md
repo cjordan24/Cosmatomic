@@ -146,5 +146,7 @@ Started 2026-11-28 as part of the approved run through Phase 14. Research notes:
 | Gate | Deliverable | Main sources | Status |
 |---|---|---|---|
 | 12.1 | Human body (`#/biologic/body`): skeleton (202 bone files) and ten organs in 3D from BodyParts3D 4.0, decimated in Blender to ~140 000 triangles (3.2 MB, lazy-loaded); select, hide, isolate (the camera frames the organ); quoted facts and the model's own sizes and volumes from the full-resolution files; the ten organ systems | BodyParts3D 4.0 (DBCLS, CC BY 4.0); NCI SEER; NHLBI; NIDDK | **Done** |
+| 12.2 | Movement (`#/biologic/movement`): SEER's bones (206 = 80 axial + 126 appendicular; four bone types) and muscle types; Hill's force–velocity hyperbola and power curve for frog sartorius at 0 °C. No quantitative lever model (no open source for joint geometry) | NCI SEER; Hill (1938) pp. 160–161 (page images) | **Done** |
+| 12.3 | Circulation and breathing (`#/biologic/circulation`): NHLBI's path of blood and valves; SEER's cycle (0.8 s) and output (5 L/min) with the implied stroke volume; NHLBI's adult blood-pressure categories as printed; Poiseuille's Q = k″PD⁴/L with his seven tubes; where the blood is; alveoli and breathing rate | NHLBI; NCI SEER; Poiseuille (1840) p. 1046 (page image) | **Done** |
 
 If a gate turns out much larger than planned, it is split into documented sub-gates. Scientific quality is not reduced to make it fit.

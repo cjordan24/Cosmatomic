@@ -1,0 +1,37 @@
+{
+  "dataset": "physiology",
+  "version": "1.0.0",
+  "records": 28,
+  "sources": [
+    {
+      "institution": "NCI SEER Training Modules",
+      "url": "https://training.seer.cancer.gov/",
+      "notes": "bones, muscle, heart, circulation, blood, breathing"
+    },
+    {
+      "institution": "NHLBI",
+      "url": "https://www.nhlbi.nih.gov/health/high-blood-pressure/diagnosis",
+      "notes": "heart valves and rate, blood-pressure categories, alveoli"
+    },
+    {
+      "institution": "Hill, A. V. (1938) Proc. R. Soc. B 126, 136",
+      "url": "https://doi.org/10.1098/rspb.1938.0050",
+      "notes": "force–velocity equations and frog-sartorius constants (page images)"
+    },
+    {
+      "institution": "Poiseuille, J. L. M. (1840) Comptes rendus 11, 1041",
+      "url": "https://archive.org/details/comptesrendusheb11acad",
+      "notes": "Q = k″PD⁴/L and coefficients at 10 °C (page images)"
+    }
+  ],
+  "adapter": "scripts/ingestion/curated-physiology.ts",
+  "warnings": [
+    "Quotes verbatim; equations transcribed from page images.",
+    "Hill’s constants are for frog muscle at 0 °C, not human muscle.",
+    "Poiseuille’s printed mean k″ (2495,224) differs from the mean of his seven printed values (2495,37); both are kept."
+  ],
+  "output": "datasets/biology/physiology.json",
+  "retrievedAt": "2026-11-28T08:21:35.256Z",
+  "bytes": 7640,
+  "sha256": "4fc342054d0d174716932e40b5bd766bdee59399cc87097a3b0f97365701038a"
+}

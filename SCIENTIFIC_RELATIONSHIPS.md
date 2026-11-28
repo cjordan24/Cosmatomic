@@ -154,6 +154,8 @@ Every encyclopedia entry describes a registry entity, so E.2 registered the 11 s
 
 `instrument:body` (`#/biologic/body`): eleven `structure:organ-*` entities are *part of* it (BodyParts3D). The heart *drives* haemoglobin's oxygen transport (SEER); the kidneys *explain* filtration and link to osmosis (NIDDK).
 
+`instrument:movement` and `instrument:circulation`: muscle contraction (`process:muscle-contraction`, now routed to the Hill curve) and the skeleton are *part of* Movement; the heart is *part of* Circulation, which *explains* the lungs' oxygenation (NHLBI) and links to transport through Poiseuille's law.
+
 ## Rules
 
 1. No edge without a source.

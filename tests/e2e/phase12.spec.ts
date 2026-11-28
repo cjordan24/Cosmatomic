@@ -46,3 +46,35 @@ test('101 human body: BodyParts3D organs in 3D, selection, isolation, quoted fac
   await page.getByRole('list', { name: 'Organ list' }).getByRole('button', { name: 'Right lung (airways and vessels)' }).click();
   await expect(page.locator('.warn-note')).toContainText('not the lung tissue itself');
 });
+
+// ---------------- Gate 12.2 ----------------
+test('102 movement: SEER bones and muscle; Hill’s force–velocity curve for frog sartorius', async ({ page }) => {
+  await page.goto('/#/biologic/body');
+  await page.getByRole('navigation', { name: 'Biologic sections' }).getByRole('button', { name: 'Body ▾' }).click();
+  await page.getByRole('menuitem', { name: 'Movement' }).click();
+  await expect(page).toHaveURL(/#\/biologic\/movement$/);
+  await expect(page.getByRole('img', { name: 'Axial and appendicular bones' })).toContainText('80 + 126 = 206');
+  await expect(page.getByRole('list', { name: 'Bone types' }).getByRole('listitem')).toHaveCount(4);
+  await page.getByRole('navigation', { name: 'Movement sections' }).getByRole('button', { name: 'Muscle' }).click();
+  const v = page.getByLabel('Muscle values');
+  await expect(v).toContainText('1.32');    // unloaded speed b/a = 0.33/0.25
+  await expect(v).toContainText('0.309');   // load for greatest power
+  await shot(page, '102-hill', 'Movement (Gate 12.2): Hill’s (1938) force–velocity hyperbola (P + a)(v + b) = (P₀ + a)b for frog sartorius at 0 °C (a/P₀ ≈ 0·25, b/l ≈ 0·33/s), the power curve and its maximum at 31 % of the maximum force.');
+});
+
+// ---------------- Gate 12.3 ----------------
+test('103 circulation: path of blood, cycle and stroke volume, NHLBI blood-pressure categories, Poiseuille’s D⁴ law', async ({ page }) => {
+  await page.goto('/#/biologic/circulation');
+  await expect(page.getByLabel('Heart values')).toContainText('0.8');
+  await expect(page.getByLabel('Heart values')).toContainText('66.7');
+  await expect(page.getByLabel('Blood pressure category')).toHaveText('Normal');
+  await page.getByLabel('Systolic pressure').fill('135');
+  await expect(page.getByLabel('Blood pressure category')).toHaveText('High Blood Pressure Stage 1');
+  await shot(page, '103a-heart', 'The heart (Gate 12.3): NHLBI’s path of blood, SEER’s 0.8 s cycle and 5 L/min (stroke volume 66.7 mL at 75 /min, derived), and NHLBI’s blood-pressure categories applied as printed (135/76 → Stage 1).');
+  await page.getByRole('navigation', { name: 'Circulation sections' }).getByRole('button', { name: 'Flow in tubes' }).click();
+  await expect(page.getByLabel('Flow ratio')).toContainText('16');
+  await expect(page.locator('.right-panel')).toContainText('2,495.366');
+  await shot(page, '103b-poiseuille', 'Poiseuille (1840), Comptes rendus p. 1046: Q = k″PD⁴/L — doubling the diameter passes 16 times the flow; his seven k″ values average 2495.37 against his printed 2495,224.');
+  await page.getByRole('navigation', { name: 'Circulation sections' }).getByRole('button', { name: 'Blood' }).click();
+  await expect(page.getByRole('img', { name: 'Share of blood volume by vessel' })).toContainText('70 %');
+});

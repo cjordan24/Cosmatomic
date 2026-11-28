@@ -842,3 +842,14 @@ The Gate 11.7 commit went in with three failing science tests (the commit comman
 6. **Also:** `src/core/biology/hodgkinHuxley.ts` and its tests landed early (for Gate 12.4); the science test for the body reads the GLB itself (a Node type reference was needed for `tsc -b`, which first broke the build).
 7. **Sources:** `bodyparts3d` (Mitsuhashi et al. 2009, DOI checked), `seer-training`, `nhlbi`, `niddk` (212 entries). Registry: `instrument:body` and eleven `structure:organ-*` entities.
 8. **Tests:** science 867/867 (+6 body, +7 Hodgkin–Huxley); browser test 101 (screenshots 101a–b); test 100 updated for the moved menu item.
+
+## Gates 12.2–12.3: movement (`#/biologic/movement`) and circulation and breathing (`#/biologic/circulation`), 2026-11-28
+
+Committed together: the two views share one dataset (`physiology`) and one module (`src/core/biology/physiology.ts`).
+
+1. **Views:** Body ▾ gains Movement (Bones · Muscle) and Circulation & breathing (Heart · Flow in tubes · Blood · Lungs). Hill's curve and power with sliders for a/P₀, b/l and the load; a heart-rate slider with cycle length and implied stroke volume; a blood-pressure classifier over NHLBI's table; Poiseuille's D⁴ law with his tube table; a bar chart of where the blood is.
+2. **Data:** `datasets/biology/physiology.json` (adapter `curated-physiology.ts`, 51 manifests): SEER and NHLBI quotes checked against the saved pages; Hill's equations and constants and Poiseuille's law and coefficients read on page images.
+3. **Findings:** Poiseuille's printed mean k″ (2495,224) is not the mean of his seven printed values (2495.37). Hill's a/P₀ ≈ 0·25 is confirmed twice on the page images (p. 160 directly; p. 161 by the heat P₀x/4).
+4. **Screenshots:** the path-of-blood boxes clipped two-word names (now two lines); the NHLBI citation link read “National Heart” (the link shows the author field up to its first comma; NHLBI's field is now “NHLBI”). A units sentence for Poiseuille went beyond the page and was narrowed to what the page states.
+5. **Sources:** `hill-1938` (DOI checked on Crossref), `poiseuille-1840` (214 entries). Registry: `instrument:movement`, `instrument:circulation`; `process:muscle-contraction` now routes to the Hill curve.
+6. **Tests:** science 875/875 (+8, `tests/science/physiology.test.ts`); browser tests 102–103.
