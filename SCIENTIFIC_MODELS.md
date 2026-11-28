@@ -880,3 +880,8 @@ A sixth mode (periwinkle #82b1ff) with a shared **depth switch** (`src/ui/Depth.
 * Titan preset now real: synchronous 15.945421-day rotation (NSSDCA); Bond albedo 0.265 ± 0.003 (2017; Creecy et al. 2021) — NSSDCA's 0.22 is geometric.
 * Guided experiments: the brief's nine examples as one-click set-ups.
 * **Tests:** `env-sandbox.test.ts` (now 43); browser test 142.
+
+### 83 Validation (Phase 26): `src/modes/meteorology/validation/checks.ts`, `#/meteorology/validation`
+* 30 reference checks recomputed with the views' own code against printed values: USSA 1976 (tropopause 216.65 K, 101,325 Pa); NSSDCA equatorial gravity (5 worlds, 3 %), sunlight by distance (4, 2 %), black-body temperatures (4, 1 %), scale heights (3, 6 %), Earth's atmosphere mass (6 %); Rose 303 K; insolation global mean S₀/4; GCB budget closure; EDGAR sum; waste heat 0.04 W/m²; cement 0.52; PMEL ~30 %; sea-ice trend vs NASA 12.2 %; NCA5 °F→°C; Sweet m→ft. One recorded finding (NSSDCA Pluto black body) must stay a disagreement.
+* Citation audit (`meteorology-audit.test.ts`): every quote in the 13 Meteorology datasets has an own, inherited or paired source, and every source id named in them resolves (> 200 quotes and ids checked).
+* **Tests:** `meteorology-validation.test.ts` (31), `meteorology-audit.test.ts` (15); browser tests 143–144.

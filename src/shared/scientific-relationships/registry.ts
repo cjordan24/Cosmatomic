@@ -506,6 +506,8 @@ registerRelationship({ from: 'instrument:iceages', to: 'instrument:future', type
 registerEntity(E('instrument:sandbox', 'Environmental sandbox', '#/meteorology/sandbox', 'Build a planet from presets (Earth, Venus, Mars, Titan, Jupiter, Pluto) or set up a region; save and compare experiments (Phase 25)'));
 registerRelationship({ from: 'instrument:planet-weather', to: 'instrument:sandbox', type: 'part-of', context: 'Presets use the NSSDCA fact-sheet values shown in Other worlds', source: 'nssdc-factsheet' });
 registerRelationship({ from: 'instrument:radiation-budget', to: 'instrument:sandbox', type: 'part-of', context: 'σT⁴ = S(1 − A)/4: the energy balance behind every world in the sandbox', source: 'nasa-earth-energy-budget' });
+registerEntity(E('instrument:met-validation', 'Model checks', '#/meteorology/validation', 'Reference checks of the Meteorology models, recomputed in the browser (Phase 26)'));
+registerRelationship({ from: 'instrument:met-validation', to: 'instrument:sandbox', type: 'explains', context: 'Equatorial gravity, sunlight and black-body temperatures checked against NSSDCA', source: 'nssdc-planetfact-notes' });
 
 export const getEntity = (id: string) => REGISTRY.get(id);
 export const allEntities = () => [...REGISTRY.values()];

@@ -19,14 +19,13 @@ import { AtDepth, DepthSwitch } from '@/ui/Depth';
 import { formatSig } from '@/core/units/units';
 import { budgetImbalance, cementProcessCO2, dF2dC, heatFlux, mixIntensity, molarMass, shares } from '@/core/meteorology/human';
 import data from '@datasets/meteorology/human.json';
-import elements from '@datasets/atomic/elements.json';
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 const D = data as any;
 const ON = '#82b1ff', WARM = '#ff7a90', COOL = '#5cf2a6', GOLD = '#f5c76b';
 const clamp = (x: number, a: number, b: number) => Math.min(b, Math.max(a, x));
 const num = (q: URLSearchParams, k: string, d: number, a: number, b: number) => { const v = Number(q.get(k)); return q.has(k) && Number.isFinite(v) ? clamp(v, a, b) : d; };
-const aw = (sym: string) => (elements as any[]).find((e) => e.symbol === sym).atomicWeight as number;
+const aw = (sym: 'C' | 'O' | 'Ca') => D.atomicWeights[sym] as number;
 const Related = ({ children }: { children?: React.ReactNode }) => <Panel id="hu-detail" className="right-panel" title="Related">{children}<RelatedLinks id="instrument:human" limit={3} /></Panel>;
 
 const KIND_COLOR: Record<string, string> = { greenhouse: WARM, pollution: '#c792ea', heat: GOLD, ecosystem: COOL, resource: ON };

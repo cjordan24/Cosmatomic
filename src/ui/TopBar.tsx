@@ -1,4 +1,4 @@
-import { LIGHT_ITEMS, RADIO_ITEMS, WAVE_ITEMS } from '@/ui/navItems';
+import { LIGHT_ITEMS, METEOROLOGY_CHIPS, METEOROLOGY_GROUPS, RADIO_ITEMS, WAVE_ITEMS } from '@/ui/navItems';
 import { UnitConverter } from '@/ui/instruments';
 import { SnapshotDialog } from '@/ui/Snapshot';
 import { Suspense, lazy, useEffect, useMemo, useRef, useState } from 'react';
@@ -314,27 +314,8 @@ export function TopBar() {
         )}
         {mode === 'meteorology' && (
           <nav className="chip-row hide-mobile" aria-label="Meteorology sections">
-            <ChipMenu label="Atmosphere" items={[
-              { label: 'Structure of the atmosphere', to: '/meteorology', active: !['air', 'radiation', 'motion', 'storms', 'atlas', 'climates', 'records', 'planets', 'iceages', 'deeptime', 'oceans', 'human', 'future', 'sandbox'].includes(path[1] ?? '') },
-              { label: 'Moist air & stability', to: '/meteorology/air', active: path[1] === 'air' },
-              { label: 'Sunlight, heat & greenhouse', to: '/meteorology/radiation', active: path[1] === 'radiation' },
-              { label: 'Wind, clouds & water', to: '/meteorology/motion', active: path[1] === 'motion' },
-            ]} />
-            <ChipMenu label="Weather" items={[
-              { label: 'Earth weather atlas', to: '/meteorology/atlas', active: path[1] === 'atlas' },
-              { label: 'Storm laboratory', to: '/meteorology/storms', active: path[1] === 'storms' },
-              { label: 'Regional climates', to: '/meteorology/climates', active: path[1] === 'climates' },
-              { label: 'Temperature record', to: '/meteorology/records', active: path[1] === 'records' },
-            ]} />
-            <ChipMenu label="Climate" items={[
-              { label: 'Climate through geological time', to: '/meteorology/deeptime', active: path[1] === 'deeptime' },
-              { label: 'Ice ages and the orbit', to: '/meteorology/iceages', active: path[1] === 'iceages' },
-              { label: 'Oceans, ice and biomes', to: '/meteorology/oceans', active: path[1] === 'oceans' },
-              { label: 'Human activities', to: '/meteorology/human', active: path[1] === 'human' },
-              { label: 'Future climate', to: '/meteorology/future', active: path[1] === 'future' },
-            ]} />
-            <button className={`chip ${path[1] === 'planets' ? 'active' : ''}`} onClick={() => navigate('/meteorology/planets')}>Other worlds</button>
-            <button className={`chip ${path[1] === 'sandbox' ? 'active' : ''}`} onClick={() => navigate('/meteorology/sandbox')}>Sandbox</button>
+            {METEOROLOGY_GROUPS.map((g) => <ChipMenu key={g.label} label={g.label} items={g.items.map(([label, to]) => ({ label, to, active: `/${path.join('/')}` === to }))} />)}
+            {METEOROLOGY_CHIPS.map(([label, to]) => <button key={to} className={`chip ${`/${path.join('/')}` === to ? 'active' : ''}`} onClick={() => navigate(to)}>{label}</button>)}
           </nav>
         )}
         {mode === 'engineering' && (
@@ -400,6 +381,8 @@ export function TopBar() {
           <button className={`icon-btn ${moreOpen ? 'active' : ''}`} aria-haspopup="menu" aria-expanded={moreOpen} aria-label="More" onClick={() => setMoreOpen((o) => !o)}>☰</button>
           {moreOpen && (
             <div className="chip-menu-list" role="menu" aria-label="More" style={{ right: 0, left: 'auto' }}>
+              {mode === 'meteorology' && ([...METEOROLOGY_GROUPS.flatMap((g) => g.items), ...METEOROLOGY_CHIPS] as [string, string][]).map(([label, to]) =>
+                <button key={to} role="menuitem" className={`/${path.join('/')}` === to ? 'active' : ''} onClick={() => { setMoreOpen(false); navigate(to); }}>☁ {label}</button>)}
               {mode === 'spectral' && ([['Atlas', '/spectral'], ...WAVE_ITEMS, ...RADIO_ITEMS, ...LIGHT_ITEMS, ['Fields', '/spectral/fields']] as [string, string][]).map(([label, to]) =>
                 <button key={to} role="menuitem" className={`/${path.join('/')}` === to ? 'active' : ''} onClick={() => { setMoreOpen(false); navigate(to); }}>〰 {label}</button>)}
               {([['📖 Encyclopedia', () => setQuery({ enc: query.has('enc') ? null : 'index' })], ['🔗 Relationships', () => navigate('/relations')], ['📚 Sources', () => navigate('/sources')], ['📓 Notebook', () => navigate('/notebook')], ['📸 Snapshot this view', () => setSnapOpen(true)],

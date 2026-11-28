@@ -1,6 +1,6 @@
 # Voyager Ventures — status report and index
 
-*Kept up to date by Claude during the autonomous run. Last updated: **2026-11-28, end of Phase 25**.*
+*Kept up to date by Claude during the autonomous run. Last updated: **2026-11-28, end of Phase 26 (Meteorology expansion complete)**.*
 
 Live site: https://voyager-ventures.vercel.app — **production still serves the build from 2026-11-27** (Phase 10 + universe map + interface pass). Nothing from Phases 11–14 is deployed: you asked for no deploys until Phase 14 is finished. The deploy command is at the bottom.
 
@@ -37,7 +37,7 @@ You said: if a permission prompt gets no answer within 5 minutes, treat it as de
 | 12 Human Anatomy & Physiology | reference model, skeleton/muscle, heart/lungs, nervous system (Hodgkin–Huxley), other organ systems, organ-to-cell zoom | **Complete** (not deployed) |
 | 13 Waves, Life & Imaging | vision, hearing, bioelectricity, EM–tissue, microscopy, medical imaging | **Complete** (not deployed) |
 | 14 Advanced Foundations | Standard Model, quantum lab, nuclear physics, plasma, relativity, cosmology models | **Complete** (not deployed) |
-| 15–19 Computing & Engineering | your brief (`COMPUTING_ENGINEERING_BRIEF.md`, saved verbatim); gate plan in `DEVELOPMENT_ROADMAP.md` | **Phases 15–19 complete**; **Phase 23 complete** (ice ages, deep time, oceans/ice/biomes); **Phase 24 complete** (human activities, future climate); **Phase 25 complete** (environmental sandbox); Phase 26 (validation and optimisation) next |
+| 15–19 Computing & Engineering | your brief (`COMPUTING_ENGINEERING_BRIEF.md`, saved verbatim); gate plan in `DEVELOPMENT_ROADMAP.md` | **Phases 15–19 complete**; **Phase 23 complete** (ice ages, deep time, oceans/ice/biomes); **Phase 24 complete** (human activities, future climate); **Phases 24–26 complete** — the Meteorology & Climate brief is finished (human activities, future climate, sandbox, validation) |
 | 20+ Meteorology & Climate | your brief (`METEOROLOGY_EXPANSION_BRIEF.md`, saved verbatim) | Queued — after Phase 19 |
 
 **Counts (end of Phase 11):** 854 science tests (60 files), 94 browser tests (11 spec files; numbered up to 100), 49 dataset manifests, 208 Source-index entries, 84 commits in this repository.
@@ -107,6 +107,7 @@ Four portals: ATOMIC, COSMIC, SPECTRAL, **BIOLOGIC** (new in Phase 11; shows the
 | `#/meteorology/human` | **Human activities** — the carbon budget, emissions by sector and methane, life-cycle electricity and cement chemistry, waste heat vs greenhouse forcing, water, ozone recovery, carbon removal and solar radiation modification | GCP (GCB 2025, methane budget), EDGAR (JRC), NOAA GML/CSL, NREL, USGS, EPA, DOE, WMO, OSTP |
 | `#/meteorology/future` | **Future climate** — forecasts vs projections vs scenarios, what NCA5 says at each warming level, NOAA's five sea-level scenarios with exceedance chances, ocean pH and ice, climate sensitivity and tipping elements | USGCRP NCA5 (2023), NOAA (Sweet et al. 2022, GFDL, Climate.gov), NASA, NSIDC |
 | `#/meteorology/sandbox` | **Environmental sandbox** — build a planet from Earth, Venus, Mars, Titan, Jupiter or Pluto and change its mass, distance, spin, albedo, air and CO₂ with every dependent value recomputed; a regional lab (rain shadow, comfort indices, cyclone checklist); save and compare experiments | NSSDCA, JPL, NASA, NOAA/NWS, FAA, Penn State, NCA5 |
+| `#/meteorology/validation` | **Model checks** — 30 reference examples recomputed in your browser beside the printed values | USSA 1976, NSSDCA, Rose, GCB, EDGAR, NOAA, NCA5 |
 | `#/engineering/systems` | **Build a system** (Phase 19) — a spacecraft from power to bits, a chatbot service from power plant to chip, an electric car from battery to wheels, and a map of eight systems | chains of sources used earlier (Yuen 1982, NASA, LBNL, EIA, DOE) |
 | `#/engineering/space` | **Spacecraft & space systems** (Phase 18) — Voyager to Landsat, the rocket equation, orbits and transfers, RTG and solar power, Voyager’s radio link, pointing and heat, from detector to archive | NASA (Science, Glenn, Goddard, Earthdata, DSN), USGS, GPS.gov, DOE; Moulton 1914; Yuen 1982 |
 | `#/engineering/machines` | **Machines & electricity** (Phase 17) — circuits, gears and levers, heat engines, generators and the U.S. grid, batteries and EVs, Maxwell’s governor | Ohm, Kirchhoff, Faraday, Carnot, Rankine, Maxwell; EIA, DOE, EPA, NASA |
@@ -129,6 +130,7 @@ Four portals: ATOMIC, COSMIC, SPECTRAL, **BIOLOGIC** (new in Phase 11; shows the
 
 - **Held at the user's request (end of Phase 23).** Resume from `HANDOFF_PHASE23.md`. Phase 24 not started; run the full browser suite first.
 
+- **Phase 26 complete** — every Meteorology quote audited for a source; a Model checks page recomputes 30 reference values live; on phones the ☰ menu now reaches every Meteorology view and none overflows sideways; the Human activities page loads faster.
 - **Phase 25 complete (Gate 25.2)** — the sandbox gains a greenhouse built from grey layers, daily sunlight by latitude for any tilt, circulation regimes by spin rate, ground cover and albedo, and nine guided experiments; Titan now uses its measured albedo and true rotation.
 - **Phase 25 Gate 25.1** — an environmental sandbox: start from a real world, change it, and watch gravity, sunlight, temperature and the air respond — with the model's limits always on screen; plus a regional lab and saved, comparable experiments.
 - **Phase 24 complete (Gate 24.2)** — future climate: the difference between a forecast, a projection and a scenario; what the Fifth National Climate Assessment ties to 1.5, 2, 3 and 4 °C of warming; five sea-level scenarios to 2150 with their chances; ocean acidity, ice and permafrost; and what is well established versus still being investigated. Every projection is labelled as conditional.

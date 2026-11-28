@@ -11,10 +11,16 @@
  * USGS mine drainage. Notes: research/SOURCE_NOTES_PHASE24A.md. Every quote is verbatim; values labelled
  * “derived” are Voyager arithmetic on the printed values.
  */
+import { readFileSync } from 'node:fs';
 import { writeDataset } from './lib/ingest.ts';
+
+/* standard atomic weights copied from the app's CIAAW element table, so the view need not load all 118 elements */
+const EL = JSON.parse(readFileSync('datasets/atomic/elements.json', 'utf8')) as { symbol: string; atomicWeight: number }[];
+const aw = (s: string) => EL.find((e) => e.symbol === s)!.atomicWeight;
 
 const data = {
   version: '1.0.0',
+  atomicWeights: { s: 'iupac-ciaaw', C: aw('C'), O: aw('O'), Ca: aw('Ca') },
   kinds: {
     greenhouse: 'Greenhouse warming — gases that absorb outgoing longwave radiation',
     pollution: 'Local air pollution — smog, particles and their chemistry near the source',

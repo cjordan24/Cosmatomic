@@ -1075,3 +1075,7 @@ Planet builder from fact-sheet presets with enforced dependencies (validated aga
 ## Gate 25.2: sandbox models, 2026-11-28 — Phase 25 complete
 
 Grey layers, insolation by latitude (Rose, CC BY), rotation regimes (Showman et al. 2013), ground-cover albedo, GFDL/NPS quotes, real Titan rotation and Bond albedo, guided experiments. Sources +15 (one merged with an existing entry); `env-sandbox.test.ts` 43; browser 142.
+
+## Phase 26: validation & optimisation, 2026-11-28 — Meteorology expansion complete
+
+Full browser suite before the phase: 136/136 (23.4 min). Citation audit, 30 live reference checks (`#/meteorology/validation`), shared Meteorology menu (desktop + phone ☰), phone overflow test over 16 routes, atomic weights embedded in human.json (Human view no longer loads elements.json). Tests: +46 science; browser 143–144.

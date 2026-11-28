@@ -10,3 +10,11 @@ export const SPECTRAL_GROUPS: { key: string; label: string; icon: string; items:
   { key: 'radio', label: 'Radio', icon: '⌁', items: RADIO_ITEMS },
   { key: 'light', label: 'Light', icon: '✦', items: LIGHT_ITEMS },
 ];
+
+/** Meteorology sections, shared by the top-bar menus (desktop) and the ☰ menu (phones). */
+export const METEOROLOGY_GROUPS: { label: string; items: NavItem[] }[] = [
+  { label: 'Atmosphere', items: [['Structure of the atmosphere', '/meteorology'], ['Moist air & stability', '/meteorology/air'], ['Sunlight, heat & greenhouse', '/meteorology/radiation'], ['Wind, clouds & water', '/meteorology/motion'], ['Model checks', '/meteorology/validation']] },
+  { label: 'Weather', items: [['Earth weather atlas', '/meteorology/atlas'], ['Storm laboratory', '/meteorology/storms'], ['Regional climates', '/meteorology/climates'], ['Temperature record', '/meteorology/records']] },
+  { label: 'Climate', items: [['Climate through geological time', '/meteorology/deeptime'], ['Ice ages and the orbit', '/meteorology/iceages'], ['Oceans, ice and biomes', '/meteorology/oceans'], ['Human activities', '/meteorology/human'], ['Future climate', '/meteorology/future']] },
+];
+export const METEOROLOGY_CHIPS: NavItem[] = [['Other worlds', '/meteorology/planets'], ['Sandbox', '/meteorology/sandbox']];
