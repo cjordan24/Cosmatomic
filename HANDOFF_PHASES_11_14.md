@@ -13,7 +13,16 @@ So:
 - Only stop early if something genuinely needs the user (a decision that is theirs, a blocked permission). Otherwise keep going.
 - The standing rules below still apply in full. Quality is not to be traded for speed: if a gate has no open source for some content, leave that content out and document it, as in Phases 9–10.
 
-## ▶ CURRENT STATE (2026-11-28)
+## ▶ PROGRESS LOG (update as gates land)
+
+- **Phase 11 complete (2026-11-28):** 11.1 0487514 · 11.2 4e52562 · 11.3 b9ef5e5 · 11.4 d9f0b3b · 11.5 081aecf · 11.6 f4f7b6c · 11.7 d4050c5 (+ fix 0e3f379). 854 science tests, browser tests 94–100, 49 manifests, 208 sources. Biologic routes: `#/biologic` (scale of life), `/molecules`, `/proteins`, `/cells`, `/membranes`, `/transport`, `/plants`; top bar: Scale of life · Molecules ▾ · Cell biology ▾ · Plants & microbes (room for one more chip or menu at 1440 px — use a menu for Phase 12, e.g. **Body ▾**).
+- **New off-limits (found in Phase 11):** pubchem.ncbi.nlm.nih.gov (robots disallows ClaudeBot since 2026-10-29: keep bundled data, never fetch), book.bionumbers.org, europepmc.org, biodiversitylibrary.org, jbc.org (robots); cdc.gov, niaid.nih.gov, rupress.org, photochemcad.com, nih.gov (robots 403); nobelprize.org (terms); data.rcsb.org/rest (use files.rcsb.org). Research notes: `research/SOURCE_NOTES_PHASE11.md`.
+- **Queued after Phase 14 (user, 2026-11-28):** **Phases 15–19 Computing & Engineering** (`COMPUTING_ENGINEERING_BRIEF.md`, verbatim; begin once Phase 14 is complete, no confirmation needed), then the **Meteorology & Climate** expansion (`METEOROLOGY_EXPANSION_BRIEF.md`, Phases 20+).
+- **User away (2026-11-28):** a permission prompt unanswered for 5 minutes counts as denied — choose another solution within the instructions and log it in `STATUS_REPORT.md` (the running status report and full index for the user; keep it updated at every gate).
+- **Commit trailer** now uses `Claude-Session: https://claude.ai/code/session_012kk9KVTjrcZt1kBsRpDRu1`.
+- **Lesson:** check the test result before committing (one commit went in with failing tests; fixed in 0e3f379).
+
+## ▶ CURRENT STATE (2026-11-28, before Phase 11)
 
 - Last commit on `main`: `b001485` (everything pushed). **Production = `main`** (deployed 2026-11-27, live suite 87/87).
 - Phases 1–10 complete, plus Gate 10.8 (universe map, `#/cosmic/map`) and an interface pass (glass UI, Spectral wheel, space-age Cosmic, atomic backdrop, fades).
