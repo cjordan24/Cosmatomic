@@ -977,3 +977,14 @@ Committed together (one view with six tabs, one dataset).
 3. **Tests:** science `datacentre.test.ts` (4); browser test 122.
 
 **Phase 15 summary:** a fifth mode, ENGINEERING, with its landing portal and seven views: bits and logic, semiconductors, integrated circuits, the stored-program computer, information and encoding, networks, data centres. 17 new sources, read on page images, patent images, RFC text or born-digital PDFs. Findings: von Neumann's own preference that output go from M, not C (our machine differs, said so); LBNL's PUE and infrastructure-share statements agree; Shannon's (1938) hindrance convention stated as he wrote it. Left out: Moore 1965 (terms forbid bots), MOSFET/CMOS (no open primary source yet), memory-hierarchy figures, device 3D models (no open technical documentation).
+
+## End-of-Phase-15 browser suite and the top-bar fix, 2026-11-28
+
+105/116 on the first run: the ENGINEERING mode button made the top bar up to 115 px too wide in every other mode, pushing Scale and Notebook off-screen (11 tests). Fix: below 1700 px the wordmark gives way to the logo and the mode buttons tighten (`.topbar.many-chips`). All 11 pass after the fix. Lesson: a change to the shared top bar needs the full suite, not just its own phase's tests.
+
+## Phase 16: machine learning and AI (`#/engineering/ai`), 2026-11-28
+
+1. **View:** Engineering → AI ▾ with six tabs: History, Training (a network trained live), Attention (and scaling), Models (disclosed vs not disclosed), Agents (educational coding-agent walk-through), Energy (labelled figures and a calculator).
+2. **Read:** page images for Cauchy 1847, Turing 1950, Rosenblatt 1961, Widrow & Hoff 1960; rendered pages for Vaswani eq. (1) and DDPM eq. (2); text layers for the other arXiv papers. Licences: arXiv non-exclusive papers quoted briefly; CC BY / CC BY-SA papers; MCP spec Apache-2.0; d2l CC BY-SA 4.0. Not used: OpenAI and Meta web pages (terms / notice), IEA (bot wall), Nielsen's book (withdrawn by its author, Nov 2026).
+3. **Sources (+21, 294 entries).**
+4. **Tests:** science `neural.test.ts` (6); browser test 123.

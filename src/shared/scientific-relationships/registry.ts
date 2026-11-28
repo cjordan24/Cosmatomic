@@ -430,6 +430,11 @@ registerRelationship({ from: 'instrument:network', to: 'wave:em-radio', type: 'e
 registerEntity(E('instrument:datacentres', 'Data centres and electricity', '#/engineering/datacentres', 'U.S. data-centre electricity and PUE (LBNL), with a one-facility calculator (Gate 15.7)'));
 registerRelationship({ from: 'instrument:architecture', to: 'instrument:datacentres', type: 'part-of', context: 'servers, storage and network equipment are the “IT equipment” whose energy PUE compares with the whole facility’s (LBNL 2025 Update)', source: 'lbnl-2025-datacentre' });
 registerRelationship({ from: 'instrument:datacentres', to: 'instrument:thermal-radiation', type: 'explains', context: '“Cooling systems, which dominate facility infrastructure energy use” (LBNL 2025 Update, p. 24)', source: 'lbnl-2025-datacentre' });
+// ---------------- Phase 16: machine learning & AI ----------------
+registerEntity(E('instrument:ai', 'Machine learning and AI', '#/engineering/ai', 'History, a network trained live, attention, model families, coding agents and energy (Phase 16)'));
+registerRelationship({ from: 'instrument:ai', to: 'instrument:nerves', type: 'explains', context: '“A perceptron is first and foremost a brain model, not an invention for pattern recognition.” (Rosenblatt 1961)', source: 'rosenblatt-1961' });
+registerRelationship({ from: 'instrument:ai', to: 'instrument:datacentres', type: 'part-of', context: 'Llama 3 training caused “instant fluctuations of power consumption across the data center on the order of tens of megawatts” (Meta 2024)', source: 'llama3-2024' });
+registerRelationship({ from: 'instrument:architecture', to: 'instrument:ai', type: 'part-of', context: 'Turing (1950): “I PROPOSE to consider the question, ‘Can machines think ?’”', source: 'turing-1950' });
 
 export const getEntity = (id: string) => REGISTRY.get(id);
 export const allEntities = () => [...REGISTRY.values()];

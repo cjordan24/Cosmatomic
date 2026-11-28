@@ -311,6 +311,8 @@ input[type='range'] { accent-color: var(--accent); }
 @media (max-width: 1500px) { .search { width: min(280px, 24vw); } }
 @media (max-width: 1280px) { .topbar .icon-btn .hide-mobile { display: none; } }
 /* Cosmic and Atomic have the most section chips: icon-only buttons below 1500 px so nothing overflows (Gates 7.1, E.1) */
+/* Five modes (Phase 15): below 1700 px the wordmark gives way to the logo and the mode buttons tighten, so section chips and tools still fit */
+@media (max-width: 1700px) { .topbar.many-chips .brand .wordmark { display: none; } .topbar.many-chips .mode-switch button { padding: 6px 10px; letter-spacing: 0.1em; } }
 @media (max-width: 1500px) { .topbar.many-chips .icon-btn .hide-mobile { display: none; } .topbar.many-chips .topbar-actions { gap: 6px; } .topbar.many-chips .icon-btn { padding: 0 7px; } }
 .mode-spectral { --accent: #f5c76b; --accent-2: #ffb347; --accent-3: #ffe2a8; --accent-glow: rgba(245, 199, 107, 0.35); --bg-2: #160f05; }
 .mode-switch button.spectral.active { background: #f5c76b; color: #1a1205; }

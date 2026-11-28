@@ -742,3 +742,13 @@ Five new pathways through the Phase 11–14 records — From quarks to leaves; F
 * **Consistency check (tested):** LBNL's infrastructure shares 36 % and 31 % equal 1 − 1/PUE for 1.55 and 1.45 (35.5 %, 31.0 %).
 * One-facility calculator: facility = IT × PUE, annual energy at constant load; 192 TWh = 21.9 GW average (derived).
 * **Tests:** `tests/science/datacentre.test.ts` (4).
+
+## 73. Machine learning and AI (Phase 16): `src/core/computing/neural.ts`, `src/modes/engineering/ai/`, `#/engineering/ai`
+
+* **History:** documented results kept apart from predictions and conjectures (Turing's 1950 prediction; the Dartmouth conjecture); AGI is stated to be a hypothesis, not an entry. Quotes from Cauchy 1847 (page image), Turing 1950 (page images), the Dartmouth proposal, Rosenblatt 1961, Widrow & Hoff 1960 (page images), and the arXiv papers.
+* **Training:** a small network (tanh hidden layers, sigmoid output, cross-entropy) trained live by full-batch gradient descent; backpropagated gradients equal finite differences to 10⁻⁶ (tested); learns XOR (> 90 %). Cauchy's step α = −θX and eq. (3) (p. 537) and Widrow–Hoff's eq. (13) and stability condition (pp. 17–18), read on page images.
+* **Attention:** Vaswani et al. eq. (1) (checked on the rendered page) computed on hand-set vectors (labelled illustrative); Kaplan et al. eq. (1.1) L(N) = (N_c/N)^0.076, N_c ∼ 8.8 × 10¹³ (not mixed with the joint fit's 6.4 × 10¹³).
+* **Model families:** only what each developer's own documents state, with an explicit “not disclosed” list; OpenAI and Meta web pages not read (terms/notice) — their arXiv reports used instead.
+* **Coding agents:** an educational step-through built from Anthropic's Claude Code documentation and the MCP specification (2026-07-28), labelled as not reproducing any product's internals.
+* **Energy:** Google's company-reported 0.24 Wh per median Gemini Apps text prompt (CC BY 4.0), Jegham et al.'s independent estimate 0.42 ± 0.13 Wh (short GPT-4o prompt), Luccioni et al.'s measured kWh per 1,000 inferences (Table 2; their prose's 0.042 vs table 0.047 noted). Calculator with the user's own grid intensity.
+* **Tests:** `tests/science/neural.test.ts` (6).

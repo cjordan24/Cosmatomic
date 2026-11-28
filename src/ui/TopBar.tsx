@@ -32,7 +32,7 @@ interface Hit { kind: 'element' | 'molecule' | 'body' | 'reaction' | 'material' 
 const SPECTRAL_SECTIONS = ['lab', 'fields', 'compare', 'antennas', 'rf', 'room', 'modulation', 'acoustics', 'audio', 'roomacoustics', 'optics', 'waveoptics', 'polarisation', 'spectroscopy', 'thermal', 'telescopes', 'atmosphere'];
 /** Biologic sub-routes other than the scale-of-life atlas (Phase 11+). */
 export const BIOLOGIC_SECTIONS: string[] = ['molecules', 'proteins', 'cells', 'membranes', 'transport', 'plants', 'body', 'movement', 'circulation', 'nerves', 'systems', 'zoom', 'senses', 'imaging'];
-const ENGINEERING_SECTIONS: string[] = ['semiconductors', 'chips', 'architecture', 'information', 'network', 'datacentres'];
+const ENGINEERING_SECTIONS: string[] = ['semiconductors', 'chips', 'architecture', 'information', 'network', 'datacentres', 'ai'];
 const COSMIC_SECTIONS = ['map', 'stars', 'sandbox', 'relativity', 'compact', 'lensing', 'galaxies', 'nebulae', 'universe', 'ladder', 'cmb', 'darkmatter', 'gw', 'plasma', 'grtests', 'models'];
 
 /** A chip that opens a small menu of related sections; it is highlighted when one of them is open. */
@@ -318,6 +318,9 @@ export function TopBar() {
               { label: 'Information & encoding', to: '/engineering/information', active: path[1] === 'information' },
               { label: 'Networks', to: '/engineering/network', active: path[1] === 'network' },
             ]} />
+            <ChipMenu label="AI" items={[
+              ['history', 'History'], ['learning', 'Train a network'], ['attention', 'Attention & scaling'], ['models', 'Model families'], ['agents', 'Coding agents'], ['energy', 'Energy'],
+            ].map(([t, l]) => ({ label: l, to: t === 'history' ? '/engineering/ai' : `/engineering/ai?tab=${t}`, active: path[1] === 'ai' && (query.get('tab') ?? 'history') === t }))} />
             <ChipMenu label="Hardware" items={[
               { label: 'Semiconductors', to: '/engineering/semiconductors', active: path[1] === 'semiconductors' },
               { label: 'Chips', to: '/engineering/chips', active: path[1] === 'chips' },
