@@ -1,0 +1,28 @@
+{
+  "dataset": "machines",
+  "version": "1.0.0",
+  "records": 40,
+  "sources": [
+    {
+      "institution": "Ohm 1827; Kirchhoff 1845 (1882 reprint); Faraday 1832, 1852; Carnot 1824; Rankine 1859, 1869; Archimedes (Heath 1897); Maxwell 1868",
+      "url": "https://archive.org/details/diegalvanischeke00ohmg",
+      "license": "public domain",
+      "notes": "read on page images"
+    },
+    {
+      "institution": "U.S. EIA, DOE, EPA, AFDC, NASA Glenn",
+      "url": "https://www.eia.gov/energyexplained/electricity/electricity-in-the-us.php",
+      "license": "U.S. government works (EIA asks for attribution and dates)",
+      "notes": "grid mix, losses, batteries, vehicle efficiency, Otto cycle"
+    }
+  ],
+  "adapter": "scripts/ingestion/curated-machines.ts",
+  "warnings": [
+    "DOE (about 30%) and EPA (16–25%) give different gasoline-vehicle efficiencies; both are quoted.",
+    "Rankine’s 461·2 °F for absolute zero differs from today’s 459.67 °F; shown as a finding."
+  ],
+  "output": "datasets/engineering/machines.json",
+  "retrievedAt": "2026-11-28T12:18:52.637Z",
+  "bytes": 7486,
+  "sha256": "8ac332804f3c9c483f5fae000fe6b4040594590e56f131e9d10c608922046ee8"
+}

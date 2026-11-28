@@ -152,11 +152,13 @@ export default function UniverseMapView() {
   labelLayer.first = sel?.id ?? null;
   // wheel zoom on the canvas; animated flights to presets
   useEffect(() => {
-    let raf = 0, lastPush = 0;
+    let raf = 0, lastPush = 0, lastT = 0;
     const loop = (t: number) => {
+      const dt = lastT ? Math.min(0.5, (t - lastT) / 1000) : 1 / 60; lastT = t;
       if (target.current !== null) {
         const d = target.current - zRef.current;
-        zRef.current += Math.abs(d) < 0.01 ? d : d * 0.08;
+        // time-based easing (τ ≈ 0.2 s; was 8 % per frame, which crawled at low frame rates)
+        zRef.current += Math.abs(d) < 0.01 ? d : d * (1 - Math.exp(-dt / 0.2));
         if (Math.abs(d) < 0.01) target.current = null;
       }
       if (t - lastPush > 80) { lastPush = t; setZ((old) => (Math.abs(old - zRef.current) > 0.005 ? zRef.current : old)); }

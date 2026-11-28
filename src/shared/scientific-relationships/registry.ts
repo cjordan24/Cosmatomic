@@ -435,6 +435,12 @@ registerEntity(E('instrument:ai', 'Machine learning and AI', '#/engineering/ai',
 registerRelationship({ from: 'instrument:ai', to: 'instrument:nerves', type: 'explains', context: '“A perceptron is first and foremost a brain model, not an invention for pattern recognition.” (Rosenblatt 1961)', source: 'rosenblatt-1961' });
 registerRelationship({ from: 'instrument:ai', to: 'instrument:datacentres', type: 'part-of', context: 'Llama 3 training caused “instant fluctuations of power consumption across the data center on the order of tens of megawatts” (Meta 2024)', source: 'llama3-2024' });
 registerRelationship({ from: 'instrument:architecture', to: 'instrument:ai', type: 'part-of', context: 'Turing (1950): “I PROPOSE to consider the question, ‘Can machines think ?’”', source: 'turing-1950' });
+// ---------------- Phase 17: mechanical & electrical engineering ----------------
+registerEntity(E('instrument:machines', 'Machines and electricity', '#/engineering/machines', 'Circuits, mechanisms, heat engines, the grid, batteries, vehicles and feedback (Phase 17)'));
+registerRelationship({ from: 'instrument:machines', to: 'instrument:thermal-radiation', type: 'explains', context: 'Carnot (1824): the motive power of heat is “fixée uniquement par les températures des corps” between which heat flows', source: 'carnot-1824' });
+registerRelationship({ from: 'instrument:machines', to: 'instrument:datacentres', type: 'part-of', context: 'U.S. utility-scale generation of about 4.43 trillion kWh in 2025, with about 5 % lost in transmission and distribution (EIA)', source: 'eia-generation' });
+registerRelationship({ from: 'element:3', to: 'instrument:machines', type: 'part-of', context: 'lithium-ion cells: “Li+ ions are transferred from the cathode to the anode during charging and then back” (DOE 2023)', source: 'doe-libs-2023' });
+registerRelationship({ from: 'instrument:semiconductors', to: 'instrument:machines', type: 'part-of', context: 'Ohm (1827): current “der Summe aller Spannungen direkt, und der ganzen reduzirten Länge der Kette umgekehrt proportional”', source: 'ohm-1827' });
 
 export const getEntity = (id: string) => REGISTRY.get(id);
 export const allEntities = () => [...REGISTRY.values()];

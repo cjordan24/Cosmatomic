@@ -1,0 +1,7 @@
+{
+  "124a-circuits.png": "Machines and electricity (Phase 17): a battery and three resistors in parallel — the branch currents (Ohm 1827) add up at the junction (Kirchhoff 1845), both read on the page images.",
+  "124b-gears.png": "Levers, gears and power: a 12:36 gear pair turns 3000 rpm into 1000 rpm and triples the torque at constant power (Archimedes; Rankine 1869).",
+  "124c-engines.png": "Heat engines: Carnot’s 1824 principle and Rankine’s 1859 efficiency (T₁ − T₂)/T₁ (62.5 % between 800 K and 300 K); NASA Glenn’s ideal Otto cycle, 60.2 % at r = 10.",
+  "124d-grid.png": "Generators and the grid: a coil turning in a field gives ε = N B A ω sin ωt (Faraday); EIA’s 2025 U.S. generation mix and ~5 % transmission and distribution losses.",
+  "124e-governor.png": "Feedback: Maxwell’s 1868 governor — with negative damping the disturbance becomes “an oscillation of continually increasing amplitude”, inadmissible in a good governor because a root has a positive real part."
+}

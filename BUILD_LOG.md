@@ -988,3 +988,15 @@ Committed together (one view with six tabs, one dataset).
 2. **Read:** page images for Cauchy 1847, Turing 1950, Rosenblatt 1961, Widrow & Hoff 1960; rendered pages for Vaswani eq. (1) and DDPM eq. (2); text layers for the other arXiv papers. Licences: arXiv non-exclusive papers quoted briefly; CC BY / CC BY-SA papers; MCP spec Apache-2.0; d2l CC BY-SA 4.0. Not used: OpenAI and Meta web pages (terms / notice), IEA (bot wall), Nielsen's book (withdrawn by its author, Nov 2026).
 3. **Sources (+21, 294 entries).**
 4. **Tests:** science `neural.test.ts` (6); browser test 123.
+
+## End-of-Phase-16 browser suite: 116/117, 2026-11-28
+
+Test 93 (universe map) failed: the fly-to zoom eased by 8 % per frame, so at the low frame rates SwiftShader reaches on that heavy scene a preset took far longer than the test allowed. Fixed by time-based easing (τ ≈ 0.2 s, same feel at 60 fps) — a real fix for slow devices too. Passes.
+
+## Phase 17: machines and electricity (`#/engineering/machines`), 2026-11-28
+
+1. **View:** Engineering → Hardware ▾ → Machines & electricity, six tabs: Circuits, Mechanisms, Engines, Grid, Batteries & EVs, Control.
+2. **Read on page images:** Ohm 1827; Kirchhoff (1882 reprint of 1845); Faraday 1832, 1852; Carnot 1824; Rankine 1859, 1869; Archimedes (Heath 1897); Maxwell 1868. U.S. government pages: EIA, DOE, EPA, AFDC, NASA Glenn.
+3. **Findings:** Rankine's absolute zero (−461·2 °F); DOE and EPA disagree on gasoline-vehicle efficiency (about 30 % vs 16–25 %).
+4. **Sources (+20, 314 entries).**
+5. **Tests:** science `machines.test.ts` (11); browser test 124.

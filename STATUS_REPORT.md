@@ -1,6 +1,6 @@
 # Voyager Ventures — status report and index
 
-*Kept up to date by Claude during the autonomous run. Last updated: **2026-11-28, end of Phase 16**.*
+*Kept up to date by Claude during the autonomous run. Last updated: **2026-11-28, end of Phase 17**.*
 
 Live site: https://voyager-ventures.vercel.app — **production still serves the build from 2026-11-27** (Phase 10 + universe map + interface pass). Nothing from Phases 11–14 is deployed: you asked for no deploys until Phase 14 is finished. The deploy command is at the bottom.
 
@@ -36,7 +36,7 @@ You said: if a permission prompt gets no answer within 5 minutes, treat it as de
 | 12 Human Anatomy & Physiology | reference model, skeleton/muscle, heart/lungs, nervous system (Hodgkin–Huxley), other organ systems, organ-to-cell zoom | **Complete** (not deployed) |
 | 13 Waves, Life & Imaging | vision, hearing, bioelectricity, EM–tissue, microscopy, medical imaging | **Complete** (not deployed) |
 | 14 Advanced Foundations | Standard Model, quantum lab, nuclear physics, plasma, relativity, cosmology models | **Complete** (not deployed) |
-| 15–19 Computing & Engineering | your brief (`COMPUTING_ENGINEERING_BRIEF.md`, saved verbatim); gate plan in `DEVELOPMENT_ROADMAP.md` | **Phases 15 and 16 complete**; Phase 17 (mechanical & electrical) next |
+| 15–19 Computing & Engineering | your brief (`COMPUTING_ENGINEERING_BRIEF.md`, saved verbatim); gate plan in `DEVELOPMENT_ROADMAP.md` | **Phases 15–17 complete**; Phase 18 (aerospace & space systems) next |
 | 20+ Meteorology & Climate | your brief (`METEOROLOGY_EXPANSION_BRIEF.md`, saved verbatim) | Queued — after Phase 19 |
 
 **Counts (end of Phase 11):** 854 science tests (60 files), 94 browser tests (11 spec files; numbered up to 100), 49 dataset manifests, 208 Source-index entries, 84 commits in this repository.
@@ -91,6 +91,7 @@ Four portals: ATOMIC, COSMIC, SPECTRAL, **BIOLOGIC** (new in Phase 11; shows the
 ### ENGINEERING (coral) — **new in Phase 15**
 | Address | What it is | Main sources |
 |---|---|---|
+| `#/engineering/machines` | **Machines & electricity** (Phase 17) — circuits, gears and levers, heat engines, generators and the U.S. grid, batteries and EVs, Maxwell’s governor | Ohm, Kirchhoff, Faraday, Carnot, Rankine, Maxwell; EIA, DOE, EPA, NASA |
 | `#/engineering/ai` | **AI** (Phase 16) — history, a neural network you can train, attention and scaling laws, what the big AI developers disclose (and don’t), how a coding agent works, energy per prompt | Cauchy 1847, Turing 1950, Widrow & Hoff 1960, Vaswani 2017, Kaplan 2020, developer documents, Google/independent energy papers |
 | `#/engineering/datacentres` | **Data centres** — U.S. data-centre electricity 2024–2030 and PUE, with a one-facility calculator | LBNL 2025 Update |
 | `#/engineering/network` | **Networks** — a real IPv4 packet and its checksum hopping through routers, TCP’s handshake, Shannon’s channel capacity | RFC 791, RFC 9293, Shannon 1948 |
@@ -107,6 +108,9 @@ Four portals: ATOMIC, COSMIC, SPECTRAL, **BIOLOGIC** (new in Phase 11; shows the
 ---
 
 ## 4. What was done in this run (newest first)
+
+- **Phase 17 complete** — machines and electricity: circuits from Ohm's and Kirchhoff's own pages, gears and levers, heat-engine limits (Carnot, Rankine), generators and the U.S. grid (EIA), batteries and EVs (DOE/EPA — they disagree on gasoline cars, both shown), and Maxwell's 1868 governor with an interactive stability demo.
+- **Universe-map fix** — the zoom slowed to a crawl at low frame rates (caught by the full suite); now time-based.
 
 - **Phase 16 complete** — AI: a history that separates documented results from predictions, a network you can train in the page, attention, the four big model families (only what each developer itself discloses), an educational look at how coding agents work, and AI energy with every figure labelled company-reported, measured or estimated.
 - **Top-bar fix** — with five modes the bar overflowed in the other modes (caught by the full browser suite: 11 failures); the wordmark now gives way to the logo below 1700 px. All pass again.

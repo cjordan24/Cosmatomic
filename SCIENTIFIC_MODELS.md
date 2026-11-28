@@ -752,3 +752,13 @@ Five new pathways through the Phase 11–14 records — From quarks to leaves; F
 * **Coding agents:** an educational step-through built from Anthropic's Claude Code documentation and the MCP specification (2026-07-28), labelled as not reproducing any product's internals.
 * **Energy:** Google's company-reported 0.24 Wh per median Gemini Apps text prompt (CC BY 4.0), Jegham et al.'s independent estimate 0.42 ± 0.13 Wh (short GPT-4o prompt), Luccioni et al.'s measured kWh per 1,000 inferences (Table 2; their prose's 0.042 vs table 0.047 noted). Calculator with the user's own grid intensity.
 * **Tests:** `tests/science/neural.test.ts` (6).
+
+## 74. Machines and electricity (Phase 17): `src/core/engineering/machines.ts`, `src/modes/engineering/machines/`, `#/engineering/machines`
+
+* **Circuits:** Ohm (1827) p. 36 S = A/L and Kirchhoff (1845, 1882 reprint) pp. 15–16 junction and loop laws and bridge balance, read on page images; a battery with three parallel resistors (branch currents sum to the source current, tested), divider, RC charging.
+* **Mechanisms:** Archimedes (tr. Heath 1897) p. 192; Rankine (1869) p. 23 (revolutions inversely as teeth) and p. 341 (rate of work = moment × angular velocity) — ideal gear pair conserves power (tested).
+* **Engines:** Carnot (1824) p. 38; Rankine (1859) p. 343 eq. (2) (T₁ − T₂)/(T₁ + 461·2) — **finding:** his 461·2 °F for absolute zero vs today's 459.67; ideal Otto 1 − r^(1−γ) derived from NASA Glenn's T₃/T₂ = r^(γ−1) and equal to the Carnot limit between T₃ and T₂ (tested). Brayton and transformer turns-ratio formulas left out (no source).
+* **Grid:** coil EMF N B A ω sin ωt (Faraday 1852 §3115 in modern form); EIA 2025 generation mix (4.43 trillion kWh) and ~5 % T&D losses.
+* **Storage and vehicles:** DOE lithium-ion assessment (2023), DOE Explains, FOTW #1234 (55 → 450 Wh/L); DOE FOTW #1360 (EV 87–91 % vs about 30 %) and EPA (16–25 %) — the disagreement shown.
+* **Control:** Maxwell (1868) pp. 270–271 — his four kinds of disturbance and the negative-roots condition, illustrated with x″ + cx′ + kx = 0 (labelled illustrative).
+* **Tests:** `tests/science/machines.test.ts` (11).
