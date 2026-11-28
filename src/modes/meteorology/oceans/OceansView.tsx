@@ -66,6 +66,7 @@ function Enso() {
   const eps = useMemo(() => ensoEpisodes(seq), [seq]);
   const pts = seq.map((x) => [x.year + (x.s + 1) / 12, x.v] as [number, number]);
   const last = seq[seq.length - 1];
+  const defIds = which === 'oni' ? [E.oniS] : [E.pnsS, E.roniS];
   return (
     <>
       <Panel id="oc-e" className="left-panel" title="Episodes">
@@ -80,7 +81,7 @@ function Enso() {
         <div className="stage-head"><h1>El Niño and La Niña <ProvenanceBadge cls="observed" title="NOAA CPC indices from reconstructed sea-surface temperatures (ERSSTv6), as retrieved 2026-11-28; recent values provisional" /><DepthSwitch /></h1>
           <p className="note">“{E.elnino}” “{E.lanina}” <SourceLinks ids={[E.cgS]} /></p></div>
         <LinePlot ariaLabel="ENSO index" width={640} height={260} xLabel="year" yLabel="°C" series={[{ points: pts, color: ON, label: which.toUpperCase() }]} hLines={[{ y: 0.5, label: '+0.5', color: '#ff7a90' }, { y: -0.5, label: '−0.5', color: '#82b1ff' }]} />
-        <p className="note">“{which === 'oni' ? E.oniDef : E.pns}” <SourceLinks ids={[which === 'oni' ? E.oniS : E.pnsS, which === 'oni' ? E.oniS : E.roniS]} /> {which === 'oni' ? <>“{E.rule}”</> : null}</p>
+        <p className="note">“{which === 'oni' ? E.oniDef : E.pns}” <SourceLinks ids={defIds} /> {which === 'oni' ? <>“{E.rule}”</> : null}</p>
         <AtDepth level="understand"><p className="note">Why the change — NWS (2026): the relative index “{E.pnsWhy}” <SourceLinks ids={[E.pnsS]} /> “{E.timing}” <SourceLinks ids={[E.faqS]} /></p></AtDepth>
         <AtDepth level="research"><p className="note">Findings: {E.freqFinding} {E.typo} Values are revisable for two months and the ONI base period is updated every five years.</p></AtDepth>
       </div>
