@@ -144,3 +144,22 @@ test('97 cells: eukaryote and prokaryote at one scale, parts with NIGMS/NHGRI de
   await expect(page.getByLabel('Sphere values')).toContainText('0.04');   // 6/150 µm⁻¹
   await shot(page, '97b-size-surface', 'Size and surface: a sphere’s area grows as d², its volume as d³, so A/V = 6/d; quoted cell sizes (prokaryotes, a 30 µm animal cell, the 150 µm human egg) placed on the curves.');
 });
+
+// ---------------- Gate 11.5 ----------------
+test('98 membranes: Hodgkin–Katz equation (4) reproduces Table 7; resting, active and refractory axon; the bilayer', async ({ page }) => {
+  await page.goto('/#/biologic');
+  await page.getByRole('navigation', { name: 'Biologic sections' }).getByRole('button', { name: 'Membranes' }).click();
+  await expect(page).toHaveURL(/#\/biologic\/membranes$/);
+  const pot = page.getByLabel('Potential values');
+  await expect(pot).toContainText('+59.3');                // E at rest in sea water, 18 °C (printed +59)
+  await expect(pot).toContainText('-59.3');                // V_m
+  await expect(page.getByRole('table', { name: 'Potentials in sea water' })).toContainText('+48+J');
+  await expect(page.getByRole('table', { name: 'Table 7 recomputed' })).toContainText('+4.8');   // solution A, printed +5
+  await shot(page, '98a-membrane-rest', 'Resting squid axon in sea water (Hodgkin & Katz 1949, eq. 4, P_K : P_Na : P_Cl = 1 : 0.04 : 0.45, 18 °C): E = +59 mV in the paper’s sign, V_m = −59 mV, near the potassium potential; Table 7 recomputed beside the printed values.');
+  await page.getByRole('group', { name: 'State of the nerve' }).getByRole('button', { name: 'Active' }).click();
+  await expect(pot).toContainText('+37.8');                // V_m at the peak of the spike (printed E −38)
+  await shot(page, '98b-membrane-active', 'Peak of the spike: P_Na/P_K = 20 moves V_m to +38 mV, towards the sodium potential; the curve shows V_m against P_Na/P_K between the potassium and sodium limits.');
+  await page.getByRole('navigation', { name: 'Membrane sections' }).getByRole('button', { name: 'Lipid bilayer' }).click();
+  await expect(page.getByRole('img', { name: 'Schematic lipid bilayer' })).toBeVisible();
+  await expect(page.locator('blockquote').first()).toContainText('two lipid molecules deep');
+});

@@ -144,6 +144,8 @@ Every encyclopedia entry describes a registry entity, so E.2 registered the 11 s
 
 `instrument:cells` (`#/biologic/cells`): the nucleus, ribosome, cell membrane, ER, Golgi and lysosome (new `structure:*` entities) and the mitochondrion (now routed here) are *part of* it; the ribosome *explains* the genetic code's use (NHGRI) and *has-property* its 20–30 nm size on the scale of life.
 
+`instrument:membranes` (`#/biologic/membranes`): the cell membrane *has-property* a voltage set by ion gradients (Hodgkin & Katz 1949); the view *explains* sodium (the spike moves V_m towards the sodium potential) and potassium (rest lies near the potassium potential); cholesterol is *part of* the cell membrane (NIGMS).
+
 ## Rules
 
 1. No edge without a source.

@@ -339,6 +339,11 @@ for (const [id, label] of [['nucleus', 'Cell nucleus'], ['ribosome', 'Ribosome']
 registerRelationship({ from: 'structure:mitochondrion', to: 'instrument:cells', type: 'part-of', context: 'several thousand in a human heart cell, around 25 % of its volume (Inside the Cell p. 33)', source: 'nigms-inside-the-cell' });
 registerRelationship({ from: 'structure:ribosome', to: 'instrument:biomolecules', type: 'explains', context: 'the ribosome reads the mRNA sequence and translates the genetic code into a string of amino acids', source: 'nhgri-glossary' });
 registerRelationship({ from: 'structure:ribosome', to: 'instrument:life-atlas', type: 'has-property', context: 'ribosome diameter 20–30 nm', source: 'nigms-inside-the-cell' });
+registerEntity(E('instrument:membranes', 'Membranes and the membrane potential', '#/biologic/membranes', 'Hodgkin & Katz (1949) equation (4) for the squid axon; the lipid bilayer (Gate 11.5)'));
+registerRelationship({ from: 'structure:cell-membrane', to: 'instrument:membranes', type: 'has-property', context: 'a voltage across it set by ion gradients and permeabilities (Hodgkin & Katz equation 4)', source: 'hodgkin-katz-1949' });
+registerRelationship({ from: 'molecule:pubchem-5997', to: 'structure:cell-membrane', type: 'part-of', context: 'cholesterol, a membrane lipid that helps regulate stiffness', source: 'nigms-biobeat-membranes-2021' });
+registerRelationship({ from: 'instrument:membranes', to: 'element:11', type: 'explains', context: 'raising the sodium permeability (P_Na/P_K = 20 at the peak of the spike) drives the potential towards the sodium potential', source: 'hodgkin-katz-1949' });
+registerRelationship({ from: 'instrument:membranes', to: 'element:19', type: 'explains', context: 'at rest the potential lies near the potassium potential (P_K : P_Na : P_Cl = 1 : 0.04 : 0.45)', source: 'hodgkin-katz-1949' });
 
 export const getEntity = (id: string) => REGISTRY.get(id);
 export const allEntities = () => [...REGISTRY.values()];

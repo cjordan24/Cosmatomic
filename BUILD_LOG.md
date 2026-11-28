@@ -792,3 +792,12 @@ Requested by the user, taking UI notes from the Lodestar Digital Studio site (ld
 3. **Screenshots showed three bugs, fixed:** the prokaryote's label overlapped the large cell (the drawing now reserves a label column), the scale bar's label collided with the eukaryote caption, and a panel title “Compared with a 1 µm sphere” rendered as “1 MM SPHERE” (the uppercase transform turns µ into M; the title is spelled out). Clicked SVG parts no longer show the browser's square focus ring (keyboard focus keeps a dashed outline).
 4. **Sources:** `nigms-glossary` (199 entries); `nhgri-glossary` and `nigms-inside-the-cell` now also feed `cells`. Registry: `instrument:cells` and six new `structure:*` entities; the mitochondrion routes to the Cells view.
 5. **Tests:** science 831/831 (+6, `tests/science/cells.test.ts`); browser test 97 (screenshots 97a–b).
+
+## Gate 11.5: membranes and the membrane potential (`#/biologic/membranes`), 2026-11-28
+
+1. **View:** a Membranes chip; tab “Membrane potential”: presets for resting, active and refractory nerve, sliders for P_K, P_Na, P_Cl and temperature, the outside solution from Table 7; a voltage scale with V_m and the K, Na, Cl potentials; V_m against P_Na/P_K between the two limits; Table 7 recomputed beside the observed and printed values; the sea-water potentials against the paper. Tab “Lipid bilayer”: a labelled schematic with NIGMS quotes and links to the bundled lipids.
+2. **Data:** `datasets/biology/membranes.json` (adapter `curated-membranes.ts`, 47 manifests): equation (4), the internal concentrations and Table 7 in full, transcribed from the page images (pp. 66–67), and three NIGMS membrane quotes.
+3. **Finding:** the paper's numbers reproduce every printed calculation within 1 mV between 14.6 and 21.5 °C (best 17.7 °C), so the temperature is a parameter with that range stated rather than a guessed value.
+4. **Screenshots:** the V_m label sat on the V_Na label near the peak of the spike; it now moves to a free row. A test expectation had been guessed (+59.2) instead of computed (+59.3) — fixed, and noted as the lesson the handoff already gives.
+5. **Sources:** `hodgkin-katz-1949`, `nigms-biobeat-membranes-2021` (201 entries). Registry: `instrument:membranes`, edges to the cell membrane, cholesterol, sodium and potassium.
+6. **Tests:** science 838/838 (+7, `tests/science/membrane.test.ts`); browser test 98 (screenshots 98a–b).

@@ -1,0 +1,28 @@
+{
+  "dataset": "membranes",
+  "version": "1.0.0",
+  "records": 35,
+  "sources": [
+    {
+      "institution": "Hodgkin, A. L. and Katz, B. (1949) J. Physiol. 108, 37–77",
+      "url": "https://doi.org/10.1113/jphysiol.1949.sp004310",
+      "notes": "equation (4), internal concentrations, Table 7 (read on archive.org page images, pp. 66–67)"
+    },
+    {
+      "institution": "NIGMS Biomedical Beat (Bigler 2021)",
+      "url": "https://nigms.nih.gov/biobeat/2021/12/science-snippet-the-marvels-of-membranes",
+      "license": "NIGMS: “Most of the information on this website is not copyrighted so you are free to use it with proper attribution.”",
+      "notes": "phospholipid bilayer, ion gradients, membrane proteins"
+    }
+  ],
+  "adapter": "scripts/ingestion/curated-membranes.ts",
+  "warnings": [
+    "Hand-transcribed from page images.",
+    "Squid giant axon only: no mammalian ion concentrations were found in an allowed source.",
+    "Concentrations stand in for activities, as in the paper’s calculation."
+  ],
+  "output": "datasets/biology/membranes.json",
+  "retrievedAt": "2026-11-28T07:18:02.328Z",
+  "bytes": 3713,
+  "sha256": "6a8198f2c94a806171196be0e0aa53d6a93e77b5c42dcb386c04ee348afc5e31"
+}
