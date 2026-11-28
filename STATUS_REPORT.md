@@ -1,6 +1,6 @@
 # Voyager Ventures — status report and index
 
-*Kept up to date by Claude during the autonomous run. Last updated: **2026-11-28, Phase 12 Gates 12.1–12.4**.*
+*Kept up to date by Claude during the autonomous run. Last updated: **2026-11-28, end of Phase 12**.*
 
 Live site: https://voyager-ventures.vercel.app — **production still serves the build from 2026-11-27** (Phase 10 + universe map + interface pass). Nothing from Phases 11–14 is deployed: you asked for no deploys until Phase 14 is finished. The deploy command is at the bottom.
 
@@ -33,7 +33,7 @@ You said: if a permission prompt gets no answer within 5 minutes, treat it as de
 |---|---|---|
 | 1–10 | Foundations → Optics, Radiation & Energy (+ universe map, interface pass) | Complete, deployed |
 | **11 Biologic Foundations** | Biologic mode with seven views | **Complete** (not deployed) |
-| 12 Human Anatomy & Physiology | reference model, skeleton/muscle, heart/lungs, nervous system (Hodgkin–Huxley), other organ systems, organ-to-cell zoom | **In progress** — 12.1–12.4 done (3D body, movement, circulation, nerves) |
+| 12 Human Anatomy & Physiology | reference model, skeleton/muscle, heart/lungs, nervous system (Hodgkin–Huxley), other organ systems, organ-to-cell zoom | **Complete** (not deployed) |
 | 13 Waves, Life & Imaging | vision, hearing, bioelectricity, EM–tissue, microscopy, medical imaging | Planned |
 | 14 Advanced Foundations | Standard Model, quantum lab, nuclear physics, plasma, relativity, cosmology models | Planned |
 | 15–19 Computing & Engineering | your brief (`COMPUTING_ENGINEERING_BRIEF.md`, saved verbatim) | Queued — begins when Phase 14 is complete |
@@ -80,6 +80,8 @@ Four portals: ATOMIC, COSMIC, SPECTRAL, **BIOLOGIC** (new in Phase 11; shows the
 | `#/biologic/movement` | **Movement** — bones (SEER) and Hill's force–velocity curve | NCI SEER, Hill 1938 |
 | `#/biologic/circulation` | **Circulation & breathing** — heart, blood-pressure categories, Poiseuille's law, blood, lungs | NHLBI, NCI SEER, Poiseuille 1840 |
 | `#/biologic/nerves` | **Nerves** — a live Hodgkin–Huxley action-potential simulator; conduction velocity | Hodgkin & Huxley 1952, Hursh 1939 |
+| `#/biologic/systems` | **Organ systems** — kidneys, digestion, hormones, blood & lymph, skin, reproduction | NIDDK, NCI SEER, NIST SP 811 |
+| `#/biologic/zoom` | **From body to molecule** — one zoom through ten powers of ten, sizes to scale | BodyParts3D, SEER, Inside the Cell |
 | `#/biologic/plants` | **Plants & microbes** — photosynthesis, chlorophyll absorption maxima over sunlight; viruses to plant cells | NASA, OMLC/PhotochemCAD, NIGMS, NHGRI |
 
 ### Shared tools (all modes)
@@ -89,6 +91,8 @@ Four portals: ATOMIC, COSMIC, SPECTRAL, **BIOLOGIC** (new in Phase 11; shows the
 ---
 
 ## 4. What was done in this run (newest first)
+
+- **Phase 12 complete** — Gates 12.5–12.7: organ systems (NIDDK's two kidney filtration figures turn out 20 % apart) and the body-to-molecule zoom; a recurring µ→“M” display bug fixed at its source.
 
 - **Gate 12.4** — a working simulation of the Nobel-winning Hodgkin–Huxley nerve model, read from the 1952 paper's own pages; it reproduces their 18·8 m/s conduction velocity.
 

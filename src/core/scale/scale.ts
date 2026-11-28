@@ -23,7 +23,7 @@ export const SCALE_LEVELS: ScaleLevel[] = [
   { id: 'nano', label: 'Nanostructures', log10m: -8, support: 'educational', route: '#/biologic?sel=feline-distemper', example: 'Feline distemper virus 28.4 nm (PDB-101); ribosome 20–30 nm (NIGMS)' },
   { id: 'micro', label: 'Microscopic', log10m: -5, support: 'educational', route: '#/biologic?sel=red-blood-cell', example: 'Red blood cells ~7–8 µm (U.S. DOE); most animal cells 10–30 µm (NIGMS)' },
   { id: 'material', label: 'Materials', log10m: -2, support: 'interactive', route: '#/atomic/materials/nacl', example: 'Salt crystal ≈ 1 mm (unit cell 0.56 nm)' },
-  { id: 'human', label: 'Human scale', log10m: 0.2, support: 'planned', route: null, example: 'A person ≈ 1.7 m' },
+  { id: 'human', label: 'Human scale', log10m: 0.2, support: 'educational', route: '#/biologic/body', example: 'The BodyParts3D skeleton is 1.71 m tall; zoom into it at #/biologic/zoom' },
   { id: 'surface', label: 'Planetary surfaces', log10m: 4, support: 'planned', route: null, example: 'Olympus Mons ≈ 600 km wide' },
   { id: 'planet', label: 'Planets', log10m: 7.1, support: 'interactive', route: '#/cosmic/earth', example: 'Earth diameter 12 756 km' },
   { id: 'solar-system', label: 'Solar system', log10m: 12.7, support: 'interactive', route: '#/cosmic', example: 'Neptune orbit ≈ 60 au across' },

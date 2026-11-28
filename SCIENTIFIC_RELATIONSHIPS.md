@@ -158,6 +158,10 @@ Every encyclopedia entry describes a registry entity, so E.2 registered the 11 s
 
 `instrument:nerves` (`#/biologic/nerves`) *explains* how the resting potential of the Membranes view becomes a spike (Hodgkin & Huxley 1952) and the role of sodium; the brain's neurons (Azevedo et al. 2009) are *part of* it.
 
+`instrument:systems` (`#/biologic/systems`): the kidneys and digestive organs are *part of* it; it *explains* glucose regulation by insulin and glucagon (SEER) and the digestive breakdown into the biomolecules (NIDDK).
+
+`instrument:zoom` (`#/biologic/zoom`) is *part of* the body and the scale of life and ends at water.
+
 ## Rules
 
 1. No edge without a source.

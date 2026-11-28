@@ -97,3 +97,48 @@ test('104 nerves: Hodgkin–Huxley action potential simulated live; threshold; c
   await expect(page.getByLabel('Conduction velocity')).toContainText('18.8');
   await shot(page, '104b-conduction', 'Conduction: Hodgkin & Huxley’s eq. (34) θ = √(Ka/2R₂C_M) for their fibre (a = 238 µ, R₂ = 35·4 Ω cm) gives 18·8 m/s against 21·2 measured; Hursh’s (1939) cat fibres: 6.0 m/s per µm of diameter; neuron count from Azevedo et al. (2009).');
 });
+
+// ---------------- Gates 12.5–12.6 ----------------
+test('105 organ systems: kidneys with NIDDK’s two filtration figures compared, digestion, hormones, blood and lymph, skin, reproduction', async ({ page }) => {
+  await page.goto('/#/biologic/body');
+  await page.getByRole('navigation', { name: 'Biologic sections' }).getByRole('button', { name: 'Body ▾' }).click();
+  await page.getByRole('menuitem', { name: 'Organ systems' }).click();
+  await expect(page).toHaveURL(/#\/biologic\/systems$/);
+  const k = page.getByLabel('Kidney arithmetic');
+  await expect(k).toContainText('98.6');
+  await expect(k).toContainText('118');
+  await expect(page.getByRole('list', { name: 'GFR categories' })).toContainText('a GFR of 15 or less is called kidney failure.');
+  await shot(page, '105a-kidneys', 'Organ systems (Gates 12.5–12.6): the kidneys — NIDDK’s “about 150 quarts” a day and “about a half cup … every minute” converted with NIST SP 811 factors (99 and 118 mL/min: the same order, not the same number), the urine share, and NIDDK’s GFR statements.');
+  await page.getByRole('navigation', { name: 'Organ system sections' }).getByRole('button', { name: 'Skin' }).click();
+  await expect(page.getByLabel('Skin arithmetic')).toContainText('2.72');
+  await page.getByRole('navigation', { name: 'Organ system sections' }).getByRole('button', { name: 'Reproduction' }).click();
+  await expect(page.getByLabel('Oocyte arithmetic')).toContainText('43 %');
+  await page.getByRole('navigation', { name: 'Organ system sections' }).getByRole('button', { name: 'Digestion' }).click();
+  await page.getByRole('list', { name: 'What digestion breaks food into' }).getByRole('listitem').filter({ hasText: 'Proteins' }).click();
+  await expect(page).toHaveURL(/#\/biologic\/molecules$/);
+});
+
+// ---------------- Gate 12.7 ----------------
+test('106 from the body to a molecule: one zoom through nine powers of ten, sizes to scale', async ({ page }) => {
+  await page.goto('/#/biologic/body');
+  await page.getByRole('navigation', { name: 'Biologic sections' }).getByRole('button', { name: 'Body ▾' }).click();
+  await page.getByRole('menuitem', { name: 'From body to molecule' }).click();
+  await expect(page).toHaveURL(/#\/biologic\/zoom$/);
+  const svg = page.getByRole('img', { name: 'Nested sizes from the body to a molecule' });
+  await expect(svg.locator('[data-stop="body"]')).toBeVisible();
+  await expect(page.locator('.right-panel')).toContainText('1.71 m tall');
+  await shot(page, '106a-zoom-body', 'From the body to a molecule (Gate 12.7): the BodyParts3D body (1.71 m) with a kidney (SEER, 12 × 6 cm) drawn to the same scale.');
+  await page.getByRole('list', { name: 'Zoom path' }).getByRole('button', { name: 'A cell (30 µm example)' }).click();
+  await expect(svg.locator('[data-stop="cell"]')).toBeVisible();
+  await expect(svg.locator('[data-stop="nucleus"]')).toBeVisible();
+  await expect(svg.locator('[data-stop="mitochondrion"]')).toBeVisible();
+  await expect(svg.locator('[data-stop="body"]')).toHaveCount(0);
+  await shot(page, '106b-zoom-cell', 'Six powers of ten further: a 30 µm cell with its 5 µm nucleus at the centre and a mitochondrion (1–2 µm long) beside it in the cytoplasm, all sizes from Inside the Cell p. 11; the ruler shows the view’s scale.');
+  await page.getByRole('list', { name: 'Zoom path' }).getByRole('button', { name: 'Mitochondrion' }).click();
+  await expect(page).toHaveURL(/c=mitochondrion/);
+  await expect(page.locator('.right-panel')).toContainText('Typically 1–2 micrometers');
+  await page.getByRole('button', { name: 'Reset' }).click();
+  await page.getByRole('list', { name: 'Zoom path' }).getByRole('button', { name: 'Water molecule' }).click();
+  await expect(svg.locator('[data-stop="water"]')).toBeVisible();
+  await expect(svg.locator('[data-stop="dna"]')).toBeVisible();
+});

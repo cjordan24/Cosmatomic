@@ -19,7 +19,8 @@ export function Panel({ id, title, className = '', style, children, actions, onC
     {autoToggle && <button className={`chip mobile-only panel-mobile-toggle ${mobileOpen ? 'active open' : ''}`} aria-expanded={mobileOpen} onClick={() => setMobileOpen((o) => !o)}>{label} {mobileOpen ? "▾" : "▴"}</button>}
     <section className={`panel ${className} ${autoToggle && mobileOpen ? 'mobile-open' : ''} ${collapsed ? 'collapsed' : ''}`} style={style} aria-label={typeof title === 'string' ? title : id}>
       <header className="panel-head">
-        <span className="title">{title}</span>
+        {/* panel titles are upper-cased by CSS, which turns µ into a capital mu that reads as “M” — keep µ lower-case */}
+        <span className="title">{typeof title === 'string' && title.includes('µ') ? title.split('µ').flatMap((part, i) => (i ? [<span key={i} style={{ textTransform: 'none' }}>µ</span>, part] : [part])) : title}</span>
         {actions}
         <button onClick={() => toggle(id)} aria-expanded={!collapsed} aria-label={collapsed ? 'Expand panel' : 'Collapse panel'}>{collapsed ? '▸' : '▾'}</button>
         {onClose && <button onClick={onClose} aria-label="Close panel">✕</button>}

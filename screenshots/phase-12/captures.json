@@ -5,5 +5,8 @@
   "103a-heart.png": "The heart (Gate 12.3): NHLBI’s path of blood, SEER’s 0.8 s cycle and 5 L/min (stroke volume 66.7 mL at 75 /min, derived), and NHLBI’s blood-pressure categories applied as printed (135/76 → Stage 1).",
   "103b-poiseuille.png": "Poiseuille (1840), Comptes rendus p. 1046: Q = k″PD⁴/L — doubling the diameter passes 16 times the flow; his seven k″ values average 2495.37 against his printed 2495,224.",
   "104a-action-potential.png": "Nerves (Gate 12.4): the Hodgkin–Huxley (1952) membrane action potential computed live from their equations and Table 3 (RK4): −V rising towards V_Na after a 15 mV stimulus at 6·3 °C, the gates m, h, n and the Na and K currents.",
-  "104b-conduction.png": "Conduction: Hodgkin & Huxley’s eq. (34) θ = √(Ka/2R₂C_M) for their fibre (a = 238 µ, R₂ = 35·4 Ω cm) gives 18·8 m/s against 21·2 measured; Hursh’s (1939) cat fibres: 6.0 m/s per µm of diameter; neuron count from Azevedo et al. (2009)."
+  "104b-conduction.png": "Conduction: Hodgkin & Huxley’s eq. (34) θ = √(Ka/2R₂C_M) for their fibre (a = 238 µ, R₂ = 35·4 Ω cm) gives 18·8 m/s against 21·2 measured; Hursh’s (1939) cat fibres: 6.0 m/s per µm of diameter; neuron count from Azevedo et al. (2009).",
+  "105a-kidneys.png": "Organ systems (Gates 12.5–12.6): the kidneys — NIDDK’s “about 150 quarts” a day and “about a half cup … every minute” converted with NIST SP 811 factors (99 and 118 mL/min: the same order, not the same number), the urine share, and NIDDK’s GFR statements.",
+  "106a-zoom-body.png": "From the body to a molecule (Gate 12.7): the BodyParts3D body (1.71 m) with a kidney (SEER, 12 × 6 cm) drawn to the same scale.",
+  "106b-zoom-cell.png": "Six powers of ten further: a 30 µm cell with its 5 µm nucleus at the centre and a mitochondrion (1–2 µm long) beside it in the cytoplasm, all sizes from Inside the Cell p. 11; the ruler shows the view’s scale."
 }

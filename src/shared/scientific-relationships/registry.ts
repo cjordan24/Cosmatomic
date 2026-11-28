@@ -374,6 +374,15 @@ registerEntity(E('instrument:nerves', 'Nerves and the action potential', '#/biol
 registerRelationship({ from: 'instrument:nerves', to: 'instrument:membranes', type: 'explains', context: 'the resting potential of Hodgkin & Katz (1949) becomes a spike when the sodium conductance rises (Hodgkin & Huxley 1952)', source: 'hodgkin-huxley-1952' });
 registerRelationship({ from: 'structure:organ-brain', to: 'instrument:nerves', type: 'part-of', context: '86.1 ± 8.1 billion neurons in the adult male human brain', source: 'azevedo-2009' });
 registerRelationship({ from: 'instrument:nerves', to: 'element:11', type: 'explains', context: 'the sodium current I_Na carries the rising phase of the action potential', source: 'hodgkin-huxley-1952' });
+registerEntity(E('instrument:systems', 'Organ systems', '#/biologic/systems', 'Kidneys, digestion, hormones, blood and lymph, skin, reproduction (Gates 12.5–12.6)'));
+for (const id of ['right-kidney', 'stomach', 'small-intestine', 'large-intestine', 'liver'] as const)
+  registerRelationship({ from: `structure:organ-${id}`, to: 'instrument:systems', type: 'part-of', context: id.includes('kidney') ? 'about 150 quarts of blood filtered a day; 1 to 2 quarts become urine' : 'the digestive tract is about 9 metres long', source: id.includes('kidney') ? 'niddk' : 'seer-training' });
+registerRelationship({ from: 'instrument:systems', to: 'molecule:pubchem-5793', type: 'explains', context: 'beta cells secrete insulin at high blood glucose, alpha cells glucagon at low', source: 'seer-training' });
+registerRelationship({ from: 'instrument:systems', to: 'instrument:biomolecules', type: 'explains', context: 'digestion breaks proteins into amino acids, fats into fatty acids and glycerol, carbohydrates into simple sugars', source: 'niddk' });
+registerEntity(E('instrument:zoom', 'From the body to a molecule', '#/biologic/zoom', 'One zoom from the body to a water molecule, sizes to scale (Gate 12.7)'));
+registerRelationship({ from: 'instrument:zoom', to: 'instrument:body', type: 'part-of', context: 'starts from the BodyParts3D body, 1.71 m tall', source: 'bodyparts3d' });
+registerRelationship({ from: 'instrument:zoom', to: 'instrument:life-atlas', type: 'part-of', context: 'cell, nucleus, mitochondrion, ribosome and DNA sizes from the scale of life', source: 'nigms-inside-the-cell' });
+registerRelationship({ from: 'instrument:zoom', to: 'molecule:pubchem-962', type: 'has-property', context: 'ends at a water molecule, the smallest stop', source: 'pubchem' });
 
 export const getEntity = (id: string) => REGISTRY.get(id);
 export const allEntities = () => [...REGISTRY.values()];

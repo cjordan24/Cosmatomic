@@ -1,0 +1,32 @@
+{
+  "dataset": "systems",
+  "version": "1.0.0",
+  "records": 34,
+  "sources": [
+    {
+      "institution": "NIDDK",
+      "url": "https://www.niddk.nih.gov/health-information/kidney-disease/kidneys-how-they-work",
+      "license": "NIDDK: “The majority of information on this site is copyright free”",
+      "notes": "kidneys, GFR, digestion"
+    },
+    {
+      "institution": "NCI SEER Training Modules",
+      "url": "https://training.seer.cancer.gov/",
+      "notes": "endocrine, lymphatic, blood, skin, reproductive"
+    },
+    {
+      "institution": "NIST SP 811 (2008), Appendix B.9",
+      "url": "https://www.nist.gov/pml/special-publication-811/nist-guide-si-appendix-b-conversion-factors/nist-guide-si-appendix-b9",
+      "notes": "quart, cup and pound conversion factors"
+    }
+  ],
+  "adapter": "scripts/ingestion/curated-systems.ts",
+  "warnings": [
+    "Quotes verbatim (SEER prints “glucagons”).",
+    "U.S. customary values converted with NIST SP 811 factors; conversions are labelled derived."
+  ],
+  "output": "datasets/biology/systems.json",
+  "retrievedAt": "2026-11-28T08:29:00.628Z",
+  "bytes": 7836,
+  "sha256": "9e69d2feb3e55ca5784946a115d473dc7853dcd4480c941c55641ee5180a6b94"
+}

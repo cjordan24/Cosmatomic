@@ -862,3 +862,22 @@ Committed together: the two views share one dataset (`physiology`) and one modul
 4. **Caught before commit:** a sentence calling the squid axon unmyelinated and Hursh's fibres myelinated had no source read; replaced by what Hursh's page states (proportional to diameter, square-root and square laws rejected).
 5. **Sources:** `hodgkin-huxley-1952`, `hursh-1939`, `azevedo-2009`, `nigms-biobeat-nerve-2022` (218 entries; DOIs checked on Crossref). Registry: `instrument:nerves`.
 6. **Tests:** science 879/879 (+4 nerves; the 7 Hodgkin–Huxley tests landed with 12.1); browser test 104.
+
+## Gates 12.5–12.6: organ systems (`#/biologic/systems`), 2026-11-28
+
+Committed together (one view with six tabs, one dataset).
+
+1. **View:** Body ▾ Organ systems: Kidneys · Digestion · Hormones · Blood & lymph · Skin · Reproduction. Quoted facts with “Worked out (derived)” panels; digestion cards link to the amino acids, lipids and sugars.
+2. **Data:** `datasets/biology/systems.json` (adapter `curated-systems.ts`, 53 manifests): NIDDK and SEER quotes checked against the saved pages; NIST SP 811 Appendix B.9 read for the quart, cup and pound (nist.gov robots.txt checked first).
+3. **Finding:** NIDDK's “about 150 quarts” a day and “about a half cup … every minute” come to 99 and 118 mL/min — the same order, 20 % apart; both shown.
+4. **Sources:** `nist-sp811` (219 entries); NIDDK's link label shortened to “NIDDK”. Registry: `instrument:systems`.
+5. **Tests:** science 884/884 (+5, `tests/science/systems.test.ts`); browser test 105.
+
+## Gate 12.7: from the body to a molecule (`#/biologic/zoom`), 2026-11-28 — Phase 12 complete
+
+1. **View:** Body ▾ From body to molecule: a log slider (and an on-demand zoom) from 2.4 m to 0.4 nm; the stops listed with their quoted sizes; the right panel quotes the stop in focus and links to its view and to the scale navigator at the same width.
+2. **Screenshots caught three problems, fixed:** the first version nested the mitochondrion inside the nucleus (anatomically wrong even as a schematic; side branches now sit in the cytoplasm and recentre the view when chosen); the list showed DNA as 20 nm (the drawn length) instead of its quoted 2 nm width (stops now carry their quoted size); a panel title “A cell (30 µm example)” rendered as “30 MM” — fixed once in the shared Panel component (µ stays lower-case in every title).
+3. **Scale ladder:** the Human-scale level (planned since Gate 8.1) is now *educational* and routes to the body.
+4. **Tests:** science 888/888 (+4, `tests/science/zoom.test.ts`); browser test 106.
+
+**Phase 12 summary:** Body ▾ menu with seven views (human body in 3D, movement, circulation and breathing, nerves, organ systems, body-to-molecule zoom); a real anatomical model (BodyParts3D, CC BY 4.0) decimated in Blender; Hodgkin–Huxley simulated live; 6 new datasets (53 manifests); 15 new Source-index entries (219); science tests 854 → 888; browser tests 101–106. Findings: Poiseuille's printed mean coefficient, Hodgkin–Huxley's leak potential (−10·599 vs −10·613), NIDDK's two filtration figures 20 % apart, the model kidney against SEER's size.
