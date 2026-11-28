@@ -3,5 +3,9 @@
   "139b-sectors.png": "EDGAR 2026: 54.1 Gt CO₂eq in 2025 by sector (shares derived from the report totals; power “nearly 30%”), agriculture selected; NOAA methane annual increase and Global Methane Budget sources with ranges.",
   "139c-electricity.png": "NREL (2021) life-cycle medians in g CO₂e/kWh with the phase table; a low-carbon grid mix (illustrative weighted mean); cement process CO₂ from Andrew (2019) eq. 1 with Mr(CO₂)/Mr(CaO) = 0.7848 (0.36 t CO₂ per tonne of cement at the 2018 clinker ratio).",
   "139d-heat.png": "Waste heat (595 EJ → 18.9 TW → 0.04 W/m²) against 2.7 W/m² greenhouse forcing (ESD editorial, 2023); EPA heat islands; USGS 2015 water withdrawn vs consumed — thermoelectric 133 vs 4.31 Bgal/d.",
-  "139e-ozone.png": "Ozone return dates, WMO 2026 vs 2022 (Arctic date no longer given); carbon removal in 2024 about a million times smaller than fossil emissions; solar radiation modification — mechanism, limits and the modelled ozone delay."
+  "139e-ozone.png": "Ozone return dates, WMO 2026 vs 2022 (Arctic date no longer given); carbon removal in 2024 about a million times smaller than fossil emissions; solar radiation modification — mechanism, limits and the modelled ozone delay.",
+  "140a-levels.png": "Future climate (Gate 24.2): at 2 °C of global warming — US +4.4 to +5.6 °F (very likely), 10–30 % chance of an ice-free Arctic September by 2100, drought, cyclones and sea level as NCA5 ties them to that level; 2 °C crossed 2033–2054 only in the very high scenario.",
+  "140b-sea.png": "NOAA’s five sea-level scenarios (Sweet et al. 2022) for the contiguous US — 0.6 to 2.2 m by 2100 relative to 2000 — with NCA5’s chance of exceeding each at each warming level.",
+  "140c-kinds.png": "What kind of statement? NCA5 glossary definitions (scenario: “neither predictions nor forecasts”), the five NCA5 scenarios and how projections are built.",
+  "140d-known.png": "Well established vs under investigation (NCA5); climate sensitivity — two likely ranges in the same report (2.5–4.0 and 2.6–3.9 °C) — and ten possible tipping elements listed in words."
 }

@@ -166,6 +166,6 @@ If a gate turns out much larger than planned, it is split into documented sub-ga
 | 21 Earth weather & storms (B) | 21.1 storm laboratory · 21.2 global atlas (3D Earth + 2D map, layers, timeline) · 21.3 regional climates · 21.4 historical observations | **Complete** (2026-11-28; storms, atlas, climates, records) |
 | 22 Planetary meteorology (C) | atmospheres of the planets, comparison engine | **Complete** (2026-11-28; `#/meteorology/planets`) |
 | 23 Climate history & environment (D) | 23.1 ice ages and orbits · 23.2 geological timeline and proxies · 23.3 oceans, ice and biomes | **Complete** (2026-11-28; ice ages, deep time, oceans/ice/biomes) |
-| 24 Human impact & future climate (E) | 24.1 human activities (carbon budget, sectors, life-cycle, waste heat, water, ozone, interventions) · 24.2 future climate (scenarios, warming levels, sea level, uncertainty) | 24.1 complete (2026-11-28) |
+| 24 Human impact & future climate (E) | 24.1 human activities (carbon budget, sectors, life-cycle, waste heat, water, ozone, interventions) · 24.2 future climate (scenarios, warming levels, sea level, uncertainty) | **Complete** (2026-11-28; human activities, future climate) |
 | 25 Environmental sandbox (F) | adjustable planetary and regional variables, presets, save/compare | Planned |
 | 26 Validation & optimisation (G) | source and equation audit, performance, mobile | Planned |

@@ -499,6 +499,10 @@ registerEntity(E('instrument:human', 'Human activities and environmental change'
 registerRelationship({ from: 'instrument:human', to: 'instrument:radiation-budget', type: 'explains', context: '“the observed radiative forcing change at the top of the atmosphere of 2.7 W m−2 that can clearly be attributed to the increase in greenhouse gases” (Kleidon et al. 2023)', source: 'kleidon-2023' });
 registerRelationship({ from: 'instrument:human', to: 'instrument:oceans', type: 'explains', context: '“The ocean CO2 sink was 3.2 ± 0.4 GtC yr−1 during the decade 2015–2024” (GCB 2025)', source: 'gcb-2025' });
 registerRelationship({ from: 'instrument:datacentres', to: 'instrument:human', type: 'part-of', context: 'Electricity demand is one of the human activities whose life-cycle emissions are compared (NREL 2021)', source: 'nrel-lca-2021' });
+registerEntity(E('instrument:future', 'Future climate', '#/meteorology/future', 'Forecasts vs projections vs scenarios, warming levels, sea-level scenarios, ocean and ice, climate sensitivity and tipping elements (Gate 24.2)'));
+registerRelationship({ from: 'instrument:human', to: 'instrument:future', type: 'explains', context: '“the largest source of uncertainty is the trajectory of our greenhouse gas emissions” (NCA5 Ch. 2)', source: 'nca5-ch2' });
+registerRelationship({ from: 'instrument:future', to: 'instrument:oceans', type: 'explains', context: '“Even after the world reaches net-zero emissions, oceans will continue to acidify” (NCA5 Ch. 2)', source: 'nca5-ch2' });
+registerRelationship({ from: 'instrument:iceages', to: 'instrument:future', type: 'explains', context: '“estimated temperature and radiative forcing changes for multiple warm and cold periods in paleoclimate records” constrain climate sensitivity (NCA5 Ch. 3)', source: 'nca5-ch3' });
 
 export const getEntity = (id: string) => REGISTRY.get(id);
 export const allEntities = () => [...REGISTRY.values()];

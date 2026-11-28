@@ -851,3 +851,12 @@ A sixth mode (periwinkle #82b1ff) with a shared **depth switch** (`src/ui/Depth.
 * Interventions: WMO 2026 ozone return dates vs 2022; CDR in 2024 (GCB); DOE direct air capture; OSTP 2023 SRM limits; WMO modelled SAI ozone delay.
 * Every effect is tagged as greenhouse / local pollution / waste heat / ecosystem / resource, and different kinds are never summed.
 * **Tests:** `human.test.ts` (13); browser test 139.
+
+### 81.2 Future climate (Gate 24.2): `src/core/meteorology/future.ts`, `#/meteorology/future`
+* Kinds of statement from the NCA5 glossary (weather, climate, prediction, projection, scenario, statistical downscaling, ESM, ensemble), NOAA GFDL (simulated vs parameterized processes) and NASA (weather “minutes … to weeks” vs NCA5 “minutes to days” — both shown). NCA5 Table 3 scenarios and the SSP → IAM → ESM chain.
+* Warming levels 1.5/2/2.5/3/4 °C: only statements NCA5 ties to that level, with likelihood words. US warming printed at 2 °C (4.4–5.6 °F); above 2 °C our extrapolation of “around 2.5°F” per additional °C, flagged derived; below 2 °C “not stated” (tested). 2 °C crossed 2033–2054 (mean 2042) only under SSP5-8.5; current policies ≈2.6 °C (2–3.7) by 2100.
+* Sea level: Sweet et al. (2022) Table 2.3 for the globe and contiguous US (2050/2100/2150 vs 2000); NCA5 Table A3.1 exceedance probabilities (monotonic in scenario and warming, tested); feet are our conversion.
+* Ocean pH only from a 2010 study (Bernie et al.; our H⁺ ratios 1.41× and 3.1× vs the page's “about 1.5” and “roughly five times” — tested and shown); NSIDC ice-sheet volumes; permafrost carbon; water and ecosystems.
+* Known vs unknown: two NCA5 likely ECS ranges (2.5–4.0 Ch. 3; 2.6–3.9 Ch. 2 TA) and very likely 2.3–4.7; ten possible tipping elements in words (Fig. 2.15 not reproduced: adapted with permission).
+* Every projection panel carries a “Projections, not predictions” notice quoting NCA5.
+* **Tests:** `future.test.ts` (13); browser test 140.

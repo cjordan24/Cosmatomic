@@ -62,3 +62,37 @@ test('139 human activities: carbon budget, sectors and methane, life-cycle elect
   await expect(page.getByLabel('Removal values')).toContainText('0.011 MtC/yr');
   await shot(page, '139e-ozone', 'Ozone return dates, WMO 2026 vs 2022 (Arctic date no longer given); carbon removal in 2024 about a million times smaller than fossil emissions; solar radiation modification — mechanism, limits and the modelled ozone delay.');
 });
+
+test('140 future climate: projections never shown as outcomes — warming levels, sea-level scenarios, ocean and ice, what is known', async ({ page }) => {
+  await page.goto('/#/meteorology');
+  await page.getByRole('navigation', { name: 'Meteorology sections' }).getByRole('button', { name: 'Climate ▾' }).click();
+  await page.getByRole('menuitem', { name: 'Future climate' }).click();
+  await expect(page).toHaveURL(/#\/meteorology\/future$/);
+  await fits(page);
+  await expect(page.getByRole('note', { name: 'Projection notice' })).toContainText('Projections, not predictions');
+  await expect(page.getByLabel('US warming')).toContainText('+4.4 to +5.6 °F');
+  await expect(page.getByLabel('Projections at this level')).toContainText('10–30 %');
+  await expect(page.getByRole('img', { name: 'Timing of 2 °C' })).toContainText('2033–2054');
+  await shot(page, '140a-levels', 'Future climate (Gate 24.2): at 2 °C of global warming — US +4.4 to +5.6 °F (very likely), 10–30 % chance of an ice-free Arctic September by 2100, drought, cyclones and sea level as NCA5 ties them to that level; 2 °C crossed 2033–2054 only in the very high scenario.');
+  await page.getByRole('radiogroup', { name: 'Global warming level' }).getByRole('radio', { name: '3 °C' }).click();
+  await expect(page.getByLabel('US warming')).toContainText('our extrapolation');
+  await page.getByRole('radiogroup', { name: 'Global warming level' }).getByRole('radio', { name: '1.5 °C' }).click();
+  await expect(page.getByLabel('US warming')).toContainText('not stated for this level');
+  const tabs = page.getByRole('navigation', { name: 'Future climate sections' });
+  await tabs.getByRole('button', { name: 'Sea level', exact: true }).click();
+  await expect(page.getByLabel('Sea level scenarios').first()).toBeVisible();
+  await page.getByRole('radiogroup', { name: 'Region' }).getByRole('radio', { name: 'Contiguous US' }).click();
+  await expect(page.getByRole('table', { name: 'Sea level scenarios' })).toContainText('2.2');
+  await expect(page.getByRole('table', { name: 'Exceedance probabilities' })).toContainText('49%');
+  await shot(page, '140b-sea', 'NOAA’s five sea-level scenarios (Sweet et al. 2022) for the contiguous US — 0.6 to 2.2 m by 2100 relative to 2000 — with NCA5’s chance of exceeding each at each warming level.');
+  await tabs.getByRole('button', { name: 'Projections?', exact: true }).click();
+  await page.getByRole('listbox', { name: 'Kinds of statement' }).getByRole('option', { name: 'Conditional scenario' }).click();
+  await expect(page.getByLabel('Definition')).toContainText('neither predictions nor forecasts');
+  await shot(page, '140c-kinds', 'What kind of statement? NCA5 glossary definitions (scenario: “neither predictions nor forecasts”), the five NCA5 scenarios and how projections are built.');
+  await tabs.getByRole('button', { name: 'Ocean & ice', exact: true }).click();
+  await expect(page.getByLabel('pH values')).toContainText('1.41');
+  await tabs.getByRole('button', { name: 'Known & unknown', exact: true }).click();
+  await expect(page.getByRole('img', { name: 'Climate sensitivity ranges' })).toContainText('2.5–4.0');
+  await expect(page.getByRole('list', { name: 'Tipping elements' })).toContainText('Amazon rainforest dieback');
+  await shot(page, '140d-known', 'Well established vs under investigation (NCA5); climate sensitivity — two likely ranges in the same report (2.5–4.0 and 2.6–3.9 °C) — and ten possible tipping elements listed in words.');
+});

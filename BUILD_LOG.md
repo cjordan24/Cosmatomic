@@ -1063,3 +1063,7 @@ Five tabs; NOAA's 2026 switch to the Relative ONI reflected; HOT pH from every c
 ## Gate 24.1: human activities (`#/meteorology/human`), 2026-11-28
 
 Five tabs (carbon, sectors, electricity, heat & water, interventions); every effect tagged by kind of impact. Full browser suite before the gate: 132/132. Sources +16; `human.test.ts` (13); browser 139.
+
+## Gate 24.2: future climate (`#/meteorology/future`), 2026-11-28 — Phase 24 complete
+
+Five tabs (kinds of statement, warming levels, sea level, ocean & ice, known & unknown); a projection notice on every projection panel. NCA5 read from NOAA's mirror PDFs (site offline). Sources +13; `future.test.ts` (13); browser 140.

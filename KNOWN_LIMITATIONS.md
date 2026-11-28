@@ -231,6 +231,7 @@
 ## Phase 23 (Meteorology — climate history and Earth systems)
 * Oceans: the conveyor is a schematic, not a map; no AMOC transport numbers (AOML 403); no Mauna Loa–ALOHA comparison (GML robots); ENSO values as retrieved (revisable); biome what-if changes only the classification.
 * Human activities: life-cycle values are medians only (NREL ranges only on a chart; NLR data catalogue offline); no DAC energy per tonne (no citable open source); EDGAR sector shares derived; aviation from the abstract only (publisher blocks bots); waste heat from an editorial (Flanner 2009 unreadable by allowed routes); U.S. water data are 2015.
+* Future climate: NCA5 read from NOAA's mirror (the NCA5 site is offline); no global temperature by scenario for 2030/2050 and no CMIP6 ocean pH in an allowed source (IPCC not used); sea-level report has no DOI and its NOAA URL is 404 (earth.gov copy); US warming above 2 °C is our extrapolation of NCA5's per-degree rule; NCA5 figures adapted with permission are described in words only.
 * Deep time: no maps of past continents (no openly licensed reconstructions read); timeline events only where sourced; ICS chart numbers cited without its graphic.
 * Ice ages: Berger & Loutre (1991), not La2004 (IMCCE refused access); Antarctic (not global) temperature; age scales differ between records (AICC2012 vs EDC3) and are modelled.
 

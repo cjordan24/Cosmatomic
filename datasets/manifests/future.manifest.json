@@ -1,0 +1,39 @@
+{
+  "dataset": "future",
+  "version": "1.0.0",
+  "records": 95,
+  "sources": [
+    {
+      "institution": "U.S. Global Change Research Program — Fifth National Climate Assessment (2023), official PDFs on NOAA toolkit.climate.gov",
+      "url": "https://doi.org/10.7930/NCA5.2023",
+      "license": "Public domain with credit (figures “adapted with permission” not reproduced)",
+      "notes": "scenarios, warming levels, projections, ECS, tipping elements, water, ecosystems, glossary"
+    },
+    {
+      "institution": "NOAA National Ocean Service — Sweet et al. (2022) Technical Report NOS 01 (copy on earth.gov)",
+      "url": "https://earth.gov/sealevel/us/internal_resources/756/noaa-nos-techrpt01-global-regional-SLR-scenarios-US.pdf",
+      "license": "U.S. government work",
+      "notes": "sea level rise scenarios (Table 2.3)"
+    },
+    {
+      "institution": "NOAA Climate.gov (archived), NOAA GFDL, NASA, NSIDC",
+      "url": "https://www.gfdl.noaa.gov/climate-modeling/",
+      "license": "U.S. government works; NSIDC quoted briefly",
+      "notes": "ocean pH study (2010), climate models, weather vs climate, ice-sheet volumes"
+    }
+  ],
+  "adapter": "scripts/ingestion/curated-future.ts",
+  "warnings": [
+    "nca2023.globalchange.gov offline; NCA5 read from NOAA mirror PDFs.",
+    "Two NCA5 likely ECS ranges: 2.5–4.0 (Ch. 3) and 2.6–3.9 °C (Ch. 2 TA).",
+    "NCA5 “United States” sea level ≠ Sweet CONUS.",
+    "Weather: minutes to days (NCA5) vs minutes to weeks (NASA).",
+    "NSIDC: 23 ft and 24 ft for 7.4 m.",
+    "Ocean pH projection only from a 2010 study.",
+    "No global temperature by scenario for 2030/2050 in an allowed source."
+  ],
+  "output": "datasets/meteorology/future.json",
+  "retrievedAt": "2026-11-28T16:09:05.894Z",
+  "bytes": 33948,
+  "sha256": "294bd8abfbdf84c27764a11f8ecedf37967f610a0e359136079fc2a463139f8c"
+}
