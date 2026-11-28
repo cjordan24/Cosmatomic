@@ -1,0 +1,33 @@
+{
+  "dataset": "oceans",
+  "version": "1.0.0",
+  "records": 2326,
+  "sources": [
+    {
+      "institution": "NOAA (Ocean Service, CPC, PMEL, NWS), NASA, NSIDC, USGS",
+      "url": "https://oceanservice.noaa.gov",
+      "license": "U.S. government works; NSIDC text quoted",
+      "notes": "circulation, ENSO indices, ocean heat and acidification, sea ice, biomes"
+    },
+    {
+      "institution": "Hawaii Ocean Time-series (University of Hawaiʻi; Dore et al. 2009)",
+      "url": "https://hahana.soest.hawaii.edu/hot/hotco2/hotco2.html",
+      "license": "citation requested",
+      "notes": "surface pH, 1988–2024"
+    }
+  ],
+  "adapter": "scripts/ingestion/curated-oceans.ts",
+  "warnings": [
+    "NOAA official ENSO index changed to RONI on 1 Feb 2026; both shown.",
+    "ONI v6 page says “ERSSTv5” once.",
+    "ENSO interval 3–5 (2–7) years (CPC) vs 3–7 (Climate.gov).",
+    "Ocean CO₂ uptake 30 % (NOS) vs a quarter each year (PMEL).",
+    "Sea-ice trend 11.8 / 12.2 / ~13 % per decade; NASA “monthly averages” are daily minima.",
+    "NASA ice-sheet loss rates differ within one page.",
+    "Mission: Biomes example stations fall outside some stated ranges."
+  ],
+  "output": "datasets/meteorology/oceans.json",
+  "retrievedAt": "2026-11-28T15:14:19.002Z",
+  "bytes": 28411,
+  "sha256": "548d62db5859e1e8067d6e5ff174c4229372d8c0b9c49e26fde32e1d31a0c031"
+}

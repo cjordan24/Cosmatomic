@@ -60,3 +60,27 @@ test('137 climate through geological time: a log-scale timeline with the time sc
   await expect(page.getByLabel('What is known')).toContainText('not reliably quantified');
   await shot(page, '137b-goe', 'The Great Oxidation Event, about 2.4 billion years ago (NASA Astrobiology) — where no accredited oxygen level exists, the app says so instead of guessing.');
 });
+
+test('138 oceans, ice and biomes: conveyor belt, ENSO indices with NOAA’s rule, ocean pH, Arctic sea ice, biomes with a what-if', async ({ page }) => {
+  await page.goto('/#/meteorology');
+  await page.getByRole('navigation', { name: 'Meteorology sections' }).getByRole('button', { name: 'Climate ▾' }).click();
+  await page.getByRole('menuitem', { name: 'Oceans, ice and biomes' }).click();
+  await expect(page).toHaveURL(/#\/meteorology\/oceans$/);
+  await fits(page);
+  await expect(page.getByLabel('Conveyor step', { exact: true })).toContainText('northern polar region');
+  const nav = page.getByRole('navigation', { name: 'Earth systems sections' });
+  await nav.getByRole('button', { name: 'El Niño' }).click();
+  await expect(page.getByLabel('Strongest episodes')).toContainText('El Niño');
+  await shot(page, '138a-enso', 'El Niño and La Niña (Gate 23.3): NOAA’s Relative Oceanic Niño Index (official since February 2026), 1950–2026, with episodes found by NOAA’s rule of five overlapping seasons beyond ±0.5 °C.');
+  await nav.getByRole('button', { name: 'Heat & acidity' }).click();
+  await expect(page.getByLabel('Acidity values')).toContainText('28.8 %');
+  await shot(page, '138b-ph', 'A warming, souring ocean: 346 cruises at Station ALOHA (Hawaii Ocean Time-series, 1988–2024) with a fitted decline of about 0.02 pH per decade; a pH drop of 0.11 is 28.8 % more hydrogen ions (PMEL).');
+  await nav.getByRole('button', { name: 'Ice' }).click();
+  await expect(page.getByRole('img', { name: 'Arctic sea ice minimum' })).toBeVisible();
+  await nav.getByRole('button', { name: 'Biomes' }).click();
+  await page.getByRole('option', { name: 'Tundra' }).click();
+  await expect(page.getByLabel('Biome class')).toContainText('Dsc');   // NASA's tundra example, Aklavik, has a month above 10 °C
+  await page.getByLabel('Biome temperature shift').fill('8');
+  await expect(page.getByLabel('Biome class')).not.toContainText(/After the change\s*Dsc/);
+  await shot(page, '138c-biomes', 'Biomes (NASA Mission: Biomes): NASA’s tundra example, Aklavik, classes Dsc by Köppen (one month passes 10 °C); warm it by 8 °C and the Köppen class moves — an illustrative change of one variable.');
+});

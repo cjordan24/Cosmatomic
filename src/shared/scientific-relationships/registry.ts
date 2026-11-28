@@ -492,6 +492,9 @@ registerRelationship({ from: 'instrument:iceages', to: 'instrument:records', typ
 registerRelationship({ from: 'instrument:iceages', to: 'instrument:radiation-budget', type: 'explains', context: 'orbital cycles “cause variations of up to 25 percent in the amount of incoming insolation at Earth\'s mid-latitudes” (NASA)', source: 'nasa-milankovitch' });
 registerEntity(E('instrument:deeptime', 'Climate through geological time', '#/meteorology/deeptime', 'From Earth’s formation to today: twenty events, the time scale, and how proxies record climate (Gate 23.2)'));
 registerRelationship({ from: 'instrument:iceages', to: 'instrument:deeptime', type: 'part-of', context: '“we are technically still in an ice age. We\'re just living out our lives during an interglacial” (NOAA Climate.gov)', source: 'climate-gov-coldest' });
+registerEntity(E('instrument:oceans', 'Oceans, ice and biomes', '#/meteorology/oceans', 'Conveyor belt, ENSO indices, ocean heat and pH, sea ice, permafrost and biomes (Gate 23.3)'));
+registerRelationship({ from: 'instrument:oceans', to: 'instrument:radiation-budget', type: 'part-of', context: '“About 90% of the excess heat from planetary warming over the past century has been absorbed by the ocean” (NASA)', source: 'nasa-ocean-warming' });
+registerRelationship({ from: 'instrument:oceans', to: 'instrument:climates', type: 'explains', context: 'Mission: Biomes — temperature, precipitation and vegetation of seven biomes (NASA)', source: 'nasa-mission-biomes' });
 
 export const getEntity = (id: string) => REGISTRY.get(id);
 export const allEntities = () => [...REGISTRY.values()];

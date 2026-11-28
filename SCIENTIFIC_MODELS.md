@@ -834,3 +834,11 @@ A sixth mode (periwinkle #82b1ff) with a shared **depth switch** (`src/ui/Depth.
 
 ### 80.2 Climate through geological time (Gate 23.2): `#/meteorology/deeptime`
 * Log-scale timeline 4.6 Ga → today; USGS FS 2018–3054 eons/eras/periods (page image checked) with ICS 2024/12 revisions listed (numbers cited; the chart is © ICS). Twenty events (formation, early atmosphere, faint young Sun, GOE, Huronian, Cryogenian, Cambrian, five mass extinctions, Pangaea, Cretaceous greenhouse, PETM, Eocene–Oligocene, Pleistocene, LGM, Holocene, industrial era), each tagged consensus / proxy / model, with only sourced quantities; unknowns (GOE oxygen level, Cretaceous CO₂, Cambrian temperature) shown as not reliably quantified. Findings: LGM sea level 125/120/130 m; PETM “about 6 °C” vs “5–8 °C” in one article; Neoproterozoic window 750–600 vs 600–800 Ma; Chicxulub sizes; end-Permian 96 vs 95 %; Pangaea “~335–175 Ma” not found (USGS: breakup about 225–200 Ma). NOAA NCEI proxies (ice cores, sediments, tree rings, corals, pollen, caves, documents; δ18O). Browser test 137.
+
+### 80.3 Oceans, ice and biomes (Gate 23.3): `src/core/meteorology/ocean.ts`, `#/meteorology/oceans`
+* Conveyor belt in NOAA's five steps (schematic), thermohaline sinking, AMOC weakening (uncertain), gyres, upwelling, Ekman ~100 m (NOAA Ocean Service).
+* ENSO: NOAA CPC ONI and RONI (ERSSTv6, retrieved 2026-11-28; RONI official since 1 Feb 2026 per NWS PNS 26-05); episodes found by NOAA's rule (≥5 overlapping seasons beyond ±0.5 °C, our application; tested: 1997–98, 2015–16, 2023–24 El Niño; 1988–89, 2010–11 La Niña). Ongoing episodes flagged provisional.
+* Ocean change: NASA ~90 % of excess heat, 372 ± 2 ZJ since 1955; PMEL ΔpH −0.11 = 28.8 % more H⁺ (tested); Hawaii Ocean Time-series 346 cruises 1988–2024, our OLS ≈ −0.02 pH per decade (tested).
+* Ice: Arctic minimum 1979–2026 (NASA/NSIDC); our OLS reproduces ~12 % per decade relative to 1981–2010 (tested; NASA 12.2, NSIDC 11.8); albedo mix ocean 0.06 / ice 0.6 (illustrative); permafrost, ice sheets.
+* Biomes: NASA Mission: Biomes ranges and example climates; Köppen what-if (illustrative). Finding: NASA's tundra example (Aklavik) classes Dsc.
+* **Tests:** `ocean.test.ts` (5); browser test 138.

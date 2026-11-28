@@ -1055,3 +1055,7 @@ Three NOAA paleo files, NASA explanations; a new “Climate ▾” menu in the M
 ## Gate 23.2: climate through geological time (`#/meteorology/deeptime`), 2026-11-28
 
 Twenty events, the time scale, proxies. Sources +20; browser 137.
+
+## Gate 23.3: oceans, ice and biomes (`#/meteorology/oceans`), 2026-11-28 — Phase 23 complete
+
+Five tabs; NOAA's 2026 switch to the Relative ONI reflected; HOT pH from every cruise. Sources +26; `ocean.test.ts` (5); browser 138.
