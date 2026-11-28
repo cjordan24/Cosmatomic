@@ -32,7 +32,7 @@ interface Hit { kind: 'element' | 'molecule' | 'body' | 'reaction' | 'material' 
 const SPECTRAL_SECTIONS = ['lab', 'fields', 'compare', 'antennas', 'rf', 'room', 'modulation', 'acoustics', 'audio', 'roomacoustics', 'optics', 'waveoptics', 'polarisation', 'spectroscopy', 'thermal', 'telescopes', 'atmosphere'];
 /** Biologic sub-routes other than the scale-of-life atlas (Phase 11+). */
 export const BIOLOGIC_SECTIONS: string[] = ['molecules', 'proteins', 'cells', 'membranes', 'transport', 'plants', 'body', 'movement', 'circulation', 'nerves', 'systems', 'zoom', 'senses', 'imaging'];
-const COSMIC_SECTIONS = ['map', 'stars', 'sandbox', 'relativity', 'compact', 'lensing', 'galaxies', 'nebulae', 'universe', 'ladder', 'cmb', 'darkmatter', 'gw'];
+const COSMIC_SECTIONS = ['map', 'stars', 'sandbox', 'relativity', 'compact', 'lensing', 'galaxies', 'nebulae', 'universe', 'ladder', 'cmb', 'darkmatter', 'gw', 'plasma', 'grtests', 'models'];
 
 /** A chip that opens a small menu of related sections; it is highlighted when one of them is open. */
 function ChipMenu({ label, items }: { label: string; items: { label: string; to: string; active: boolean }[] }) {
@@ -277,20 +277,25 @@ export function TopBar() {
               { label: 'Nearby stars', to: '/cosmic/stars', active: path[1] === 'stars' && !path[2] },
               { label: 'HR diagram', to: '/cosmic/stars/hr', active: path[1] === 'stars' && path[2] === 'hr' },
               { label: 'Exoplanets', to: '/cosmic/stars/planets', active: path[1] === 'stars' && path[2] === 'planets' },
+              { label: 'Plasma & solar wind', to: '/cosmic/plasma', active: path[1] === 'plasma' },
             ]} />
             <ChipMenu label="Gravity" items={[
               { label: 'Relativity', to: '/cosmic/relativity', active: path[1] === 'relativity' },
+              { label: 'Tests of relativity', to: '/cosmic/grtests', active: path[1] === 'grtests' },
               { label: 'Black holes', to: '/cosmic/compact', active: path[1] === 'compact' },
               { label: 'Lensing', to: '/cosmic/lensing', active: path[1] === 'lensing' },
               { label: 'N-body sandbox', to: '/cosmic/sandbox', active: path[1] === 'sandbox' },
             ]} />
-            <button className={`chip ${path[1] === 'galaxies' ? 'active' : ''}`} onClick={() => navigate('/cosmic/galaxies')}>Galaxies</button>
-            <button className={`chip ${path[1] === 'nebulae' ? 'active' : ''}`} onClick={() => navigate('/cosmic/nebulae')}>Nebulae</button>
+            <ChipMenu label="Galaxies" items={[
+              { label: 'Galaxies', to: '/cosmic/galaxies', active: path[1] === 'galaxies' },
+              { label: 'Nebulae', to: '/cosmic/nebulae', active: path[1] === 'nebulae' },
+            ]} />
             <ChipMenu label="Universe" items={[
               { label: 'Expansion', to: '/cosmic/universe', active: path[1] === 'universe' },
               { label: 'Distance ladder', to: '/cosmic/ladder', active: path[1] === 'ladder' },
               { label: 'Cosmic microwave background', to: '/cosmic/cmb', active: path[1] === 'cmb' },
               { label: 'Dark-matter evidence', to: '/cosmic/darkmatter', active: path[1] === 'darkmatter' },
+              { label: 'Dark matter or modified gravity?', to: '/cosmic/models', active: path[1] === 'models' },
               { label: 'Gravitational waves', to: '/cosmic/gw', active: path[1] === 'gw' },
             ]} />
           </nav>

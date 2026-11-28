@@ -231,6 +231,9 @@
 ## Phase 14 (Advanced Foundations)
 * **Particles (14.1):** values only — no interactions, decays, Feynman diagrams or hadrons; no generations grouping (no public-domain source); Fermilab pages are behind a bot challenge.
 * **Quantum lab (14.2):** one dimension, time-independent, one particle; hard walls at the plot edges; no time evolution or spin.
+* **Plasma (14.4):** single-species formulas only; no waves, instabilities or collisions; NRL 2009 edition (current edition behind a bot wall).
+* **Relativity tests (14.5):** only the relativistic part of each perihelion advance; no Kerr formula (paper not openly readable); GP-B shown as published numbers.
+* **Model comparison (14.6):** fixed Υ⋆ (no per-galaxy fits); no MOND interpolating-function choice beyond eq. (4); Milgrom 1983 not openly available. The view does not adjudicate between dark matter and modified gravity.
 * **Nuclei (14.3):** NUBASE2020 masses may include extrapolated values (not flagged in the bundled table); the fit uses only A ≥ 16 and half-life ≥ 1 s to limit this. Liquid-drop model only — no shell effects, no fission barriers. Decay series: U-238 only (main branches). No full CNO cycle (no open source listing all its steps); no Bethe 1939 (not openly licensed).
 
 ## Phase 13 (Waves, Life & Imaging)

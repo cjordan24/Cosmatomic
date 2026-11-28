@@ -1,0 +1,39 @@
+{
+  "dataset": "advanced",
+  "version": "1.0.0",
+  "records": 20,
+  "sources": [
+    {
+      "institution": "Huba, NRL Plasma Formulary (2009 revision), DTIC ADA499299",
+      "url": "https://archive.org/details/DTIC_ADA499299",
+      "license": "U.S. government work; approved for public release",
+      "notes": "coefficients and typical plasmas (page images)"
+    },
+    {
+      "institution": "Divine (1973) JPL TM 33-637; NOAA SWPC",
+      "url": "https://ntrs.nasa.gov/citations/19730021133",
+      "license": "NTRS: GOV_PUBLIC_USE_PERMITTED; NOAA public domain",
+      "notes": "solar wind near 1 AU"
+    },
+    {
+      "institution": "Einstein (1916); Gravity Probe B (Stanford/NASA)",
+      "url": "https://archive.org/details/sim_annalen-der-physik_1916_49_7",
+      "notes": "perihelion and light bending (page image); GP-B results"
+    },
+    {
+      "institution": "McGaugh, Lelli & Schombert (2016) arXiv:1609.05917; Famaey & McGaugh (2012) arXiv:1112.3960",
+      "url": "https://arxiv.org/abs/1609.05917",
+      "license": "arXiv non-exclusive licence: short quotations only",
+      "notes": "radial acceleration relation; MOND a0"
+    }
+  ],
+  "adapter": "scripts/ingestion/curated-advanced.ts",
+  "warnings": [
+    "NRL formulary: 2009 edition (current edition behind a bot wall).",
+    "Kerr ISCO: only the three limiting values (Bardeen et al. 1972 not readable in an allowed open copy)."
+  ],
+  "output": "datasets/astronomical/advanced.json",
+  "retrievedAt": "2026-11-28T09:49:54.525Z",
+  "bytes": 5511,
+  "sha256": "92a8f62864be2a5716c5512ed175a2ff9f827a616424a8f2181f5f63707a6b62"
+}

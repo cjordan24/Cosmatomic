@@ -910,3 +910,12 @@ Committed together (one view with six tabs, one dataset).
 4. **Findings:** Condon & Morse eq. (68.5) sign misprint; Mott's 1-cm example (3·2 vs 5.5 × 10⁻⁷ V); Green's 1954 coefficients still fit modern masses to 3.4 MeV rms.
 5. **Sources (+9, 251 entries):** pdg-2025, doe-explains, schrodinger-1928, mott-1930, condon-morse-1929, gurney-condon-1928, wing-anl-6814, usgs-ofr-2004-1050, nasa-msfc-solar-interior. The Bardeen–Press–Teukolsky Kerr ISCO formula could not be read in an open copy (ADS bot challenge; IOP off-limits): its code was removed rather than shipped unverified.
 6. **Tests:** science 944/944 (quantum, nuclear, plus the plasma and GR/RAR cores for 14.4–14.6); browser tests 109–111. End-of-Phase-13 full suite: 102/102.
+
+## Gates 14.4–14.6: plasma, tests of relativity, dark matter or modified gravity (`#/cosmic/plasma`, `/grtests`, `/models`), 2026-11-28
+
+1. **Menus:** Cosmic gains Stars ▾ Plasma & solar wind, Gravity ▾ Tests of relativity, Universe ▾ Dark matter or modified gravity?; Galaxies and Nebulae fold into Galaxies ▾ (the Cosmic bar overflowed 1440 px by 58 px; phase 6 tests updated).
+2. **Read on page images:** NRL Formulary pp. 28–29, 40, 42; Einstein 1916 p. 822; Friedmann 1922 p. 381. RAR paper's selection read in its text (PDFKit).
+3. **Findings:** the bundled SPARC tables reproduce the RAR paper's sample (153 galaxies; 2,696 vs 2,693 points) and its g† within 3 % (1.16 vs 1.20 × 10⁻¹⁰); Einstein's 43″ reproduced with today's elements (42.98″); his 1.7″ is 1.751″ unrounded.
+4. **Sources (+9, 260 entries):** nrl-formulary-2009, divine-1973, noaa-swpc-solar-wind, einstein-1916, gpb-stanford-2011, cen-song-2025, mcgaugh-2016-rar, famaey-mcgaugh-2012, friedmann-1922.
+5. **Screenshot helper:** Phase 14 captures wait for the heading and disable finite animations (blank frames were an entry animation caught mid-way, not an app fault).
+6. **Tests:** browser tests 112–114.

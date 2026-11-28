@@ -1,6 +1,6 @@
 # Voyager Ventures — status report and index
 
-*Kept up to date by Claude during the autonomous run. Last updated: **2026-11-28, Gates 14.1–14.3**.*
+*Kept up to date by Claude during the autonomous run. Last updated: **2026-11-28, Gates 14.4–14.6**.*
 
 Live site: https://voyager-ventures.vercel.app — **production still serves the build from 2026-11-27** (Phase 10 + universe map + interface pass). Nothing from Phases 11–14 is deployed: you asked for no deploys until Phase 14 is finished. The deploy command is at the bottom.
 
@@ -35,7 +35,7 @@ You said: if a permission prompt gets no answer within 5 minutes, treat it as de
 | **11 Biologic Foundations** | Biologic mode with seven views | **Complete** (not deployed) |
 | 12 Human Anatomy & Physiology | reference model, skeleton/muscle, heart/lungs, nervous system (Hodgkin–Huxley), other organ systems, organ-to-cell zoom | **Complete** (not deployed) |
 | 13 Waves, Life & Imaging | vision, hearing, bioelectricity, EM–tissue, microscopy, medical imaging | **Complete** (not deployed) |
-| 14 Advanced Foundations | Standard Model, quantum lab, nuclear physics, plasma, relativity, cosmology models | **In progress** — particles, quantum lab, nuclei done |
+| 14 Advanced Foundations | Standard Model, quantum lab, nuclear physics, plasma, relativity, cosmology models | **In progress** — particles, quantum lab, nuclei, plasma, relativity tests, model comparison done |
 | 15–19 Computing & Engineering | your brief (`COMPUTING_ENGINEERING_BRIEF.md`, saved verbatim) | Queued — begins when Phase 14 is complete |
 | 20+ Meteorology & Climate | your brief (`METEOROLOGY_EXPANSION_BRIEF.md`, saved verbatim) | Queued — after Phase 19 |
 
@@ -59,7 +59,8 @@ Four portals: ATOMIC, COSMIC, SPECTRAL, **BIOLOGIC** (new in Phase 11; shows the
 - `#/cosmic` solar system · `#/cosmic/map` universe map (zoom from planets to the cosmic microwave background)
 - Stars: `#/cosmic/stars`, `#/cosmic/stars/hr`, `#/cosmic/stars/planets`
 - Gravity: `#/cosmic/relativity`, `#/cosmic/compact` (black holes), `#/cosmic/lensing`, `#/cosmic/sandbox` (N-body)
-- `#/cosmic/galaxies` · `#/cosmic/nebulae`
+- `#/cosmic/galaxies` · `#/cosmic/nebulae` (now under Galaxies ▾)
+- **Phase 14:** `#/cosmic/plasma` plasma and the solar wind · `#/cosmic/grtests` Mercury, bending light, Gravity Probe B · `#/cosmic/models` dark matter or modified gravity (radial acceleration relation)
 - Universe: `#/cosmic/universe` (expansion), `#/cosmic/ladder` (distance ladder), `#/cosmic/cmb`, `#/cosmic/darkmatter`, `#/cosmic/gw` (gravitational waves)
 
 ### SPECTRAL (amber)
@@ -94,6 +95,8 @@ Four portals: ATOMIC, COSMIC, SPECTRAL, **BIOLOGIC** (new in Phase 11; shows the
 ---
 
 ## 4. What was done in this run (newest first)
+
+- **Gates 14.4–14.6** — plasma (NRL formulary, solar wind), tests of relativity (Einstein's 43″ for Mercury reproduced: 42.98″; Gravity Probe B), and a dark-matter vs modified-gravity comparison that reproduces a 2016 paper's sample and fit from the bundled galaxy data.
 
 - **Gates 14.1–14.3** — particles (PDG 2025), a quantum lab that solves Schrödinger's equation live, and nuclei (binding energies of 3,556 nuclides, the U-238 series, fusion in the Sun). Findings: a sign misprint in Condon & Morse's 1929 tunnelling formula; Mott's 1930 worked example is off by nearly a factor of two. End-of-Phase-13 browser suite: **102/102**.
 - **Left out:** the Kerr (spinning black hole) orbit formula — the 1972 paper could not be read in an allowed open copy, so it was not used.

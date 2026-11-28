@@ -172,6 +172,8 @@ Every encyclopedia entry describes a registry entity, so E.2 registered the 11 s
 
 `instrument:particles` (`#/atomic/particles`): quarks are *part of* the nuclei (DOE); the photon *explains* visible light. `instrument:quantum` *explains* alpha decay (Gurney & Condon 1928). `instrument:nuclei` *explains* the Sun's light via the pp chain (NASA; NUBASE2020).
 
+`instrument:plasma` (`#/cosmic/plasma`) *explains* the solar wind (NOAA); `instrument:grtests` *explains* gravitational lensing (Einstein eq. 74); `instrument:models` is *part of* the dark-matter evidence (same SPARC curves).
+
 ## Rules
 
 1. No edge without a source.

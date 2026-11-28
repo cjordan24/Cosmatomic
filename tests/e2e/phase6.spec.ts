@@ -112,7 +112,8 @@ test('61 lensing: lens plane by inverse ray shooting, microlensing light curves,
 // ---------------- Gate 6.4 ----------------
 test('62 galaxies: SPARC rotation curves vs baryons-only and an NFW halo fit; the Milky Way', async ({ page }) => {
   await page.goto('/#/cosmic');
-  await page.getByRole('navigation', { name: 'Cosmic sections' }).getByRole('button', { name: 'Galaxies' }).click();
+  await page.getByRole('navigation', { name: 'Cosmic sections' }).getByRole('button', { name: 'Galaxies ▾' }).click();
+  await page.getByRole('menuitem', { name: 'Galaxies' }).click();
   await expect(page).toHaveURL(/#\/cosmic\/galaxies$/);
   await expect(page.getByRole('img', { name: 'Rotation curve' })).toBeVisible({ timeout: 15000 });
   const info = page.locator('.right-panel');
@@ -139,7 +140,8 @@ test('62 galaxies: SPARC rotation curves vs baryons-only and an NFW halo fit; th
 // ---------------- Gate 6.5 ----------------
 test('63 nebulae and gallery: licensed images with credits, nebula records, emission lines into the Spectral atlas, EHT images', async ({ page }) => {
   await page.goto('/#/cosmic');
-  await page.getByRole('navigation', { name: 'Cosmic sections' }).getByRole('button', { name: 'Nebulae' }).click();
+  await page.getByRole('navigation', { name: 'Cosmic sections' }).getByRole('button', { name: 'Galaxies ▾' }).click();
+  await page.getByRole('menuitem', { name: 'Nebulae' }).click();
   await expect(page).toHaveURL(/#\/cosmic\/nebulae$/);
   const neb = page.getByRole('list', { name: 'Nebula images' });
   await expect(neb.getByRole('listitem')).toHaveCount(5);
