@@ -78,3 +78,22 @@ test('103 circulation: path of blood, cycle and stroke volume, NHLBI blood-press
   await page.getByRole('navigation', { name: 'Circulation sections' }).getByRole('button', { name: 'Blood' }).click();
   await expect(page.getByRole('img', { name: 'Share of blood volume by vessel' })).toContainText('70 %');
 });
+
+// ---------------- Gate 12.4 ----------------
+test('104 nerves: Hodgkin–Huxley action potential simulated live; threshold; conduction velocity 18·8 vs 21·2 m/s', async ({ page }) => {
+  await page.goto('/#/biologic/body');
+  await page.getByRole('navigation', { name: 'Biologic sections' }).getByRole('button', { name: 'Body ▾' }).click();
+  await page.getByRole('menuitem', { name: 'Nerves' }).click();
+  await expect(page).toHaveURL(/#\/biologic\/nerves$/);
+  const s = page.getByLabel('Spike values');
+  await expect(s).toContainText('action potential');
+  await expect(s).toContainText('105');    // peak depolarisation (mV), 15 mV stimulus at 6·3 °C
+  await expect(s).toContainText('1.16');   // time to peak (ms)
+  await page.waitForTimeout(500);
+  await shot(page, '104a-action-potential', 'Nerves (Gate 12.4): the Hodgkin–Huxley (1952) membrane action potential computed live from their equations and Table 3 (RK4): −V rising towards V_Na after a 15 mV stimulus at 6·3 °C, the gates m, h, n and the Na and K currents.');
+  await page.getByRole('button', { name: 'Below threshold (5 mV)' }).click();
+  await expect(s).toContainText('no action potential');
+  await page.getByRole('navigation', { name: 'Nerve sections' }).getByRole('button', { name: 'Conduction' }).click();
+  await expect(page.getByLabel('Conduction velocity')).toContainText('18.8');
+  await shot(page, '104b-conduction', 'Conduction: Hodgkin & Huxley’s eq. (34) θ = √(Ka/2R₂C_M) for their fibre (a = 238 µ, R₂ = 35·4 Ω cm) gives 18·8 m/s against 21·2 measured; Hursh’s (1939) cat fibres: 6.0 m/s per µm of diameter; neuron count from Azevedo et al. (2009).');
+});

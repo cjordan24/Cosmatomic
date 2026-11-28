@@ -1,0 +1,36 @@
+{
+  "dataset": "nerves",
+  "version": "1.0.0",
+  "records": 17,
+  "sources": [
+    {
+      "institution": "Hodgkin, A. L. and Huxley, A. F. (1952) J. Physiol. 117, 500–544",
+      "url": "https://doi.org/10.1113/jphysiol.1952.sp004764",
+      "notes": "equations, Table 3, propagation (page images)"
+    },
+    {
+      "institution": "Hursh, J. B. (1939) Am. J. Physiol. 127, 131–139",
+      "url": "https://doi.org/10.1152/ajplegacy.1939.127.1.131",
+      "notes": "velocity = 6.0 × diameter (cat), p. 136 (page image)"
+    },
+    {
+      "institution": "Azevedo, F. A. C. et al. (2009) J. Comp. Neurol. 513, 532–541",
+      "url": "https://doi.org/10.1002/cne.21974",
+      "notes": "neuron count (abstract, via Crossref)"
+    },
+    {
+      "institution": "NIGMS Biomedical Beat; NCI SEER Training Modules",
+      "url": "https://training.seer.cancer.gov/anatomy/nervous/tissue.html",
+      "notes": "neurons, synapse, myelin, neuroglia, spinal cord"
+    }
+  ],
+  "adapter": "scripts/ingestion/curated-nerves.ts",
+  "warnings": [
+    "Squid giant axon (Hodgkin–Huxley) and cat nerves (Hursh): neither is human.",
+    "Hodgkin–Huxley sign convention kept in the data; the view plots −V (depolarisation upward)."
+  ],
+  "output": "datasets/biology/nerves.json",
+  "retrievedAt": "2026-11-28T08:23:22.959Z",
+  "bytes": 3272,
+  "sha256": "d03a412fcd42ed70c3c3d1d176d92ff3409bcfbc3380eb2c11e04496dd849f4a"
+}

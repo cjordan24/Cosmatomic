@@ -853,3 +853,12 @@ Committed together: the two views share one dataset (`physiology`) and one modul
 4. **Screenshots:** the path-of-blood boxes clipped two-word names (now two lines); the NHLBI citation link read “National Heart” (the link shows the author field up to its first comma; NHLBI's field is now “NHLBI”). A units sentence for Poiseuille went beyond the page and was narrowed to what the page states.
 5. **Sources:** `hill-1938` (DOI checked on Crossref), `poiseuille-1840` (214 entries). Registry: `instrument:movement`, `instrument:circulation`; `process:muscle-contraction` now routes to the Hill curve.
 6. **Tests:** science 875/875 (+8, `tests/science/physiology.test.ts`); browser tests 102–103.
+
+## Gate 12.4: nerves (`#/biologic/nerves`), 2026-11-28
+
+1. **View:** Body ▾ Nerves. Tab Action potential: the Hodgkin–Huxley equations integrated live (RK4, 0.01 ms) with sliders for the stimulus, temperature, ḡ_Na and ḡ_K; plots of −V, the gates and the currents; a threshold preset; Table 3 beside the run. Tab Conduction: eq. (34) with sliders for radius and axoplasm resistivity; Hursh's cat-fibre line; neurons, myelin and the neuron count.
+2. **Data:** `datasets/biology/nerves.json` (adapter `curated-nerves.ts`, 52 manifests). The equations, Table 3 and p. 528 were checked by hand on the page images (as were Hursh's p. 136 and the Azevedo abstract on Crossref).
+3. **Findings:** V_l = −10·599 mV zeroes the resting current with the printed equations (printed −10·613). The calculated 18·8 m/s is reproduced from the printed fibre.
+4. **Caught before commit:** a sentence calling the squid axon unmyelinated and Hursh's fibres myelinated had no source read; replaced by what Hursh's page states (proportional to diameter, square-root and square laws rejected).
+5. **Sources:** `hodgkin-huxley-1952`, `hursh-1939`, `azevedo-2009`, `nigms-biobeat-nerve-2022` (218 entries; DOIs checked on Crossref). Registry: `instrument:nerves`.
+6. **Tests:** science 879/879 (+4 nerves; the 7 Hodgkin–Huxley tests landed with 12.1); browser test 104.

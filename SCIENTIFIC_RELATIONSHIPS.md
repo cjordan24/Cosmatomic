@@ -156,6 +156,8 @@ Every encyclopedia entry describes a registry entity, so E.2 registered the 11 s
 
 `instrument:movement` and `instrument:circulation`: muscle contraction (`process:muscle-contraction`, now routed to the Hill curve) and the skeleton are *part of* Movement; the heart is *part of* Circulation, which *explains* the lungs' oxygenation (NHLBI) and links to transport through Poiseuille's law.
 
+`instrument:nerves` (`#/biologic/nerves`) *explains* how the resting potential of the Membranes view becomes a spike (Hodgkin & Huxley 1952) and the role of sodium; the brain's neurons (Azevedo et al. 2009) are *part of* it.
+
 ## Rules
 
 1. No edge without a source.

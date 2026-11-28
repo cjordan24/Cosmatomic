@@ -370,6 +370,10 @@ registerRelationship({ from: 'structure:organ-skeleton', to: 'instrument:movemen
 registerRelationship({ from: 'structure:organ-heart', to: 'instrument:circulation', type: 'part-of', context: 'one cardiac cycle lasts 0.8 s at a normal rate; about 5 litres a minute', source: 'seer-training' });
 registerRelationship({ from: 'instrument:circulation', to: 'structure:organ-right-lung', type: 'explains', context: 'oxygen-poor blood goes to the lungs and returns oxygen-rich through the pulmonary veins', source: 'nhlbi' });
 registerRelationship({ from: 'instrument:circulation', to: 'instrument:transport', type: 'explains', context: 'flow through narrow tubes grows as the fourth power of the diameter (Poiseuille 1840)', source: 'poiseuille-1840' });
+registerEntity(E('instrument:nerves', 'Nerves and the action potential', '#/biologic/nerves', 'Hodgkin–Huxley (1952) simulated; conduction velocity (Gate 12.4)'));
+registerRelationship({ from: 'instrument:nerves', to: 'instrument:membranes', type: 'explains', context: 'the resting potential of Hodgkin & Katz (1949) becomes a spike when the sodium conductance rises (Hodgkin & Huxley 1952)', source: 'hodgkin-huxley-1952' });
+registerRelationship({ from: 'structure:organ-brain', to: 'instrument:nerves', type: 'part-of', context: '86.1 ± 8.1 billion neurons in the adult male human brain', source: 'azevedo-2009' });
+registerRelationship({ from: 'instrument:nerves', to: 'element:11', type: 'explains', context: 'the sodium current I_Na carries the rising phase of the action potential', source: 'hodgkin-huxley-1952' });
 
 export const getEntity = (id: string) => REGISTRY.get(id);
 export const allEntities = () => [...REGISTRY.values()];

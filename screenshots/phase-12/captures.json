@@ -3,5 +3,7 @@
   "101b-kidney-isolated.png": "The right kidney isolated: the model measures 10.4 × 5.7 × 4.7 cm and 106 cm³ (full-resolution BodyParts3D data), beside SEER’s “approximately 3 cm thick, 6 cm wide, and 12 cm long” and NIDDK’s million nephrons.",
   "102-hill.png": "Movement (Gate 12.2): Hill’s (1938) force–velocity hyperbola (P + a)(v + b) = (P₀ + a)b for frog sartorius at 0 °C (a/P₀ ≈ 0·25, b/l ≈ 0·33/s), the power curve and its maximum at 31 % of the maximum force.",
   "103a-heart.png": "The heart (Gate 12.3): NHLBI’s path of blood, SEER’s 0.8 s cycle and 5 L/min (stroke volume 66.7 mL at 75 /min, derived), and NHLBI’s blood-pressure categories applied as printed (135/76 → Stage 1).",
-  "103b-poiseuille.png": "Poiseuille (1840), Comptes rendus p. 1046: Q = k″PD⁴/L — doubling the diameter passes 16 times the flow; his seven k″ values average 2495.37 against his printed 2495,224."
+  "103b-poiseuille.png": "Poiseuille (1840), Comptes rendus p. 1046: Q = k″PD⁴/L — doubling the diameter passes 16 times the flow; his seven k″ values average 2495.37 against his printed 2495,224.",
+  "104a-action-potential.png": "Nerves (Gate 12.4): the Hodgkin–Huxley (1952) membrane action potential computed live from their equations and Table 3 (RK4): −V rising towards V_Na after a 15 mV stimulus at 6·3 °C, the gates m, h, n and the Na and K currents.",
+  "104b-conduction.png": "Conduction: Hodgkin & Huxley’s eq. (34) θ = √(Ka/2R₂C_M) for their fibre (a = 238 µ, R₂ = 35·4 Ω cm) gives 18·8 m/s against 21·2 measured; Hursh’s (1939) cat fibres: 6.0 m/s per µm of diameter; neuron count from Azevedo et al. (2009)."
 }

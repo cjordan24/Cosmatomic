@@ -61,6 +61,7 @@ const PlantsView = lazy(() => import('@/modes/biologic/plants/PlantsView'));
 const BodyView = lazy(() => import('@/modes/biologic/body/BodyView'));
 const MovementView = lazy(() => import('@/modes/biologic/movement/MovementView'));
 const CirculationView = lazy(() => import('@/modes/biologic/circulation/CirculationView'));
+const NervesView = lazy(() => import('@/modes/biologic/nerves/NervesView'));
 
 export default function App() {
   const { path } = useRoute();
@@ -93,7 +94,7 @@ export default function App() {
     else view = <PeriodicTable />;
   } else if (mode === 'cosmic') view = path[1] === 'map' ? <UniverseMapView /> : path[1] === 'sandbox' ? <SandboxView /> : path[1] === 'relativity' ? <RelativityView /> : path[1] === 'compact' ? <CompactView /> : path[1] === 'lensing' ? <LensingView /> : path[1] === 'galaxies' ? <GalaxiesView /> : path[1] === 'nebulae' ? <NebulaeView /> : path[1] === 'universe' ? <UniverseView /> : path[1] === 'ladder' ? <LadderView /> : path[1] === 'cmb' ? <CmbView /> : path[1] === 'darkmatter' ? <DarkMatterView /> : path[1] === 'gw' ? <GwView /> : path[1] === 'stars' ? (path[2] === 'hr' ? <HrView /> : path[2] === 'planets' ? <PlanetsView /> : <StarsView />) : <CosmicView focusId={path[1] ?? 'sun'} />;
   else if (mode === 'spectral') view = path[1] === 'lab' ? <WaveLab /> : path[1] === 'fields' ? <FieldsView /> : path[1] === 'compare' ? <CompareView /> : path[1] === 'antennas' ? <AntennaView /> : path[1] === 'rf' ? <RfView /> : path[1] === 'room' ? <RoomView /> : path[1] === 'modulation' ? <ModulationView /> : path[1] === 'acoustics' ? <AcousticsView /> : path[1] === 'audio' ? <AudioView /> : path[1] === 'roomacoustics' ? <RoomAcousticsView /> : path[1] === 'optics' ? <OpticsView /> : path[1] === 'waveoptics' ? <WaveOpticsView /> : path[1] === 'polarisation' ? <PolarisationView /> : path[1] === 'spectroscopy' ? <SpectroscopyView /> : path[1] === 'thermal' ? <ThermalView /> : path[1] === 'telescopes' ? <TelescopesView /> : path[1] === 'atmosphere' ? <AtmosphereView /> : <SpectralAtlas />;
-  else if (mode === 'biologic') view = path[1] === 'molecules' ? <BiomoleculesView /> : path[1] === 'proteins' ? <ProteinsView /> : path[1] === 'cells' ? <CellsView /> : path[1] === 'membranes' ? <MembranesView /> : path[1] === 'transport' ? <TransportView /> : path[1] === 'plants' ? <PlantsView /> : path[1] === 'body' ? <BodyView /> : path[1] === 'movement' ? <MovementView /> : path[1] === 'circulation' ? <CirculationView /> : <LifeAtlasView />;
+  else if (mode === 'biologic') view = path[1] === 'molecules' ? <BiomoleculesView /> : path[1] === 'proteins' ? <ProteinsView /> : path[1] === 'cells' ? <CellsView /> : path[1] === 'membranes' ? <MembranesView /> : path[1] === 'transport' ? <TransportView /> : path[1] === 'plants' ? <PlantsView /> : path[1] === 'body' ? <BodyView /> : path[1] === 'movement' ? <MovementView /> : path[1] === 'circulation' ? <CirculationView /> : path[1] === 'nerves' ? <NervesView /> : <LifeAtlasView />;
   else if (mode === 'notebook') view = <NotebookView />;
   else if (mode === 'scale') view = <ScaleView />;
   else if (mode === 'relations') view = <RelationsView />;
