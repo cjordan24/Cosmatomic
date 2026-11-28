@@ -477,6 +477,9 @@ registerRelationship({ from: 'instrument:air-motion', to: 'instrument:storms', t
 registerEntity(E('instrument:atlas', 'Earth weather atlas', '#/meteorology/atlas', 'Nineteen global layers for 2024 and 1991–2020 climatologies on a map or globe (Gate 21.2)'));
 registerRelationship({ from: 'instrument:radiation-budget', to: 'instrument:atlas', type: 'part-of', context: 'outgoing longwave radiation measured by satellite (CPC Blended OLR, 2024)', source: 'noaa-cpc-olr' });
 registerRelationship({ from: 'instrument:air-motion', to: 'instrument:atlas', type: 'part-of', context: 'sea-level pressure and wind, 1991–2020 means (NCEP/NCAR Reanalysis 1)', source: 'ncep-r1' });
+registerEntity(E('instrument:climates', 'Regional climates', '#/meteorology/climates', 'NOAA 1991–2020 normals for 16 stations, Köppen–Geiger classes and the causes of climate differences (Gate 21.3)'));
+registerRelationship({ from: 'instrument:moist-air', to: 'instrument:climates', type: 'explains', context: 'orographic lifting: air “forced to rise and cool due to terrain … water vapor condenses into clouds” (NWS)', source: 'nws-glossary' });
+registerRelationship({ from: 'instrument:radiation-budget', to: 'instrument:climates', type: 'explains', context: 'the tropics receive about 90 % of the equator’s energy, mid-latitudes 70 %, the polar circles 40 % (NASA Earth Observatory)', source: 'nasa-earth-energy-budget' });
 
 export const getEntity = (id: string) => REGISTRY.get(id);
 export const allEntities = () => [...REGISTRY.values()];

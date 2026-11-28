@@ -229,6 +229,7 @@
 * **Plants and microbes (Gate 11.7):** chlorophyll maxima only (no spectra: OMLC states no licence and PhotochemCAD's own site refused the robots.txt request); in ether, not in leaves; sunlight is a black-body model (no measured solar spectrum is openly licensed); no photosynthetic efficiency, no chloroplast drawing or size (no open source with a size was read; NHGRI has no chloroplast entry), no plant-cell schematic beyond its quoted size range. **Not built in Phase 11:** glycolysis and cellular respiration as views (`process:glycolysis` and `process:cellular-respiration` stay *planned*): no allowed open source for the ATP yield or the pathway steps was found.
 
 ## Phase 21 (Meteorology — Earth weather)
+* Regional climates: U.S. stations only (NCEI normals); no global Köppen map (Beck et al. maps unreachable: nature.com robots, figshare bot challenge); Peel’s criteria (C/D at 0 °C); normals flags not verified.
 * Atlas: one year (2024) plus 1991–2020 climatologies; byte quantisation (step shown); GIBS-decoded layers are bin midpoints; cloud cover, water vapour, net radiation, pressure and wind are reanalysis; no observed CERES, IMERG or real topography (logins or robots); no isobars/contours. Storms: schematic drawings, no animation of storm structure, no IBTrACS tracks, no tornado life-cycle stages (not sourced).
 
 ## Phase 20 (Meteorology — atmospheric physics)

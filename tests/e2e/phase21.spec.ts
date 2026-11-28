@@ -79,3 +79,27 @@ test('132 Earth weather atlas: nineteen labelled layers on a map and a globe, mo
   await page.waitForTimeout(1500);
   await shot(page, '132c-globe', 'The same atlas on a 3D globe: July 2024 precipitation (GPCP v2.3, interim), the rain belt shifted north with the season.');
 });
+
+test('133 regional climates: NOAA 1991–2020 climographs, Köppen–Geiger classes step by step, causes compared in pairs, a what-if reclassification', async ({ page }) => {
+  await page.goto('/#/meteorology');
+  await page.getByRole('navigation', { name: 'Meteorology sections' }).getByRole('button', { name: 'Weather ▾' }).click();
+  await page.getByRole('menuitem', { name: 'Regional climates' }).click();
+  await expect(page).toHaveURL(/#\/meteorology\/climates$/);
+  await fits(page);
+  await expect(page.getByLabel('Station A values')).toContainText('Cfb');
+  await expect(page.getByLabel('Station B values')).toContainText('BSk');
+  await page.getByRole('radiogroup', { name: 'Causes' }).getByRole('radio', { name: 'Mountains and rain shadows' }).click();
+  await expect(page.getByLabel('Cause', { exact: true })).toContainText('lee side of a mountain barrier');
+  await shot(page, '133a-rainshadow', 'Regional climates (Gate 21.3): the rain shadow — Quillayute on the Olympic coast (2,574 mm a year, Cfb) against Yakima in the lee of the Cascades (204 mm, BSk), from NOAA 1991–2020 normals; Köppen–Geiger classes by Peel et al. (2007).');
+  await page.getByRole('radiogroup', { name: 'Causes' }).getByRole('radio', { name: 'Mediterranean climates' }).click();
+  await page.getByRole('radiogroup', { name: 'Depth' }).getByRole('radio', { name: 'Understand' }).click();
+  await expect(page.getByLabel('Classification steps')).toContainText('BSk');
+  await expect(page.locator('.center-stage')).toContainText('just arid');
+  await shot(page, '133b-mediterranean', 'Mediterranean summers: Los Angeles and San Francisco, wet winters and dry summers; by Peel’s criteria Los Angeles airport is just arid (BSk), a finding shown beside the National Park Service’s description.');
+  await page.getByRole('radiogroup', { name: 'Causes' }).getByRole('radio', { name: 'Height' }).click();
+  await expect(page.getByLabel('What-if class')).toContainText('BSk');   // Denver
+  await page.getByLabel('Station A', { exact: true }).selectOption('USW00014755');
+  await expect(page.getByLabel('What-if class')).toContainText('ET');
+  await page.getByLabel('Temperature shift').fill('2');
+  await expect(page.getByLabel('What-if class')).toContainText(/With these changes\s*D/);
+});

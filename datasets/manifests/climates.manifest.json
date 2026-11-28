@@ -1,0 +1,32 @@
+{
+  "dataset": "climates",
+  "version": "1.0.0",
+  "records": 776,
+  "sources": [
+    {
+      "institution": "NOAA NCEI U.S. Climate Normals 1991–2020 (v1.0.1)",
+      "url": "https://www.ncei.noaa.gov/products/land-based-station/us-climate-normals",
+      "license": "U.S. government work",
+      "notes": "16 stations, monthly normals via the Access Data Service API"
+    },
+    {
+      "institution": "Peel, Finlayson & McMahon (2007), HESS",
+      "url": "https://doi.org/10.5194/hess-11-1633-2007",
+      "license": "CC BY-NC-SA 2.5",
+      "notes": "Köppen–Geiger criteria, Table 1"
+    }
+  ],
+  "adapter": "scripts/ingestion/curated-climates.ts",
+  "warnings": [
+    "NCEI API metric output leaves TAVG in °F; °F values converted.",
+    "Normals flags S/R/X not verified.",
+    "No dataset DOI found for the 1991–2020 monthly normals.",
+    "Stations are U.S. only (no Singapore, Manaus or Mumbai).",
+    "Peel uses Tcold = 0 °C for the C/D boundary (some versions use −3 °C).",
+    "Earth axial tilt: NASA “about 23 degrees” vs USGS 23.5°."
+  ],
+  "output": "datasets/meteorology/climates.json",
+  "retrievedAt": "2026-11-28T14:26:39.494Z",
+  "bytes": 12997,
+  "sha256": "d33988f62ad95a13a32201e1b62a666d0a0acbbd9e6dcc3175d077eddc4559c0"
+}

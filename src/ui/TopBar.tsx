@@ -323,6 +323,7 @@ export function TopBar() {
             <ChipMenu label="Weather" items={[
               { label: 'Earth weather atlas', to: '/meteorology/atlas', active: path[1] === 'atlas' },
               { label: 'Storm laboratory', to: '/meteorology/storms', active: path[1] === 'storms' },
+              { label: 'Regional climates', to: '/meteorology/climates', active: path[1] === 'climates' },
             ]} />
           </nav>
         )}

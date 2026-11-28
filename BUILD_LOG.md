@@ -1035,3 +1035,7 @@ Six tabs: Coriolis (turntable), convection (Rayleigh 1916), clouds (ten genera),
 3. **Top bar:** Meteorology sections grouped into Atmosphere ▾ and Weather ▾ menus (six chips overflowed at 1440 px — caught in the screenshots; fit now asserted in tests 131–132).
 4. **End-of-Phase-20 suite:** 124/124.
 5. **Sources +27.** **Tests:** `storms.test.ts` (7), `grid.test.ts` (6); browser 131–132.
+
+## Gate 21.3: regional climates (`#/meteorology/climates`), 2026-11-28
+
+Sixteen NOAA stations, Köppen–Geiger by Peel et al. (2007), eight causes with station pairs, a what-if reclassifier. Finding: LAX is BSk by the criteria. Sources +10; science `koppen.test.ts` (6); browser 133.
