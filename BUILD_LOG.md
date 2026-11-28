@@ -1000,3 +1000,10 @@ Test 93 (universe map) failed: the fly-to zoom eased by 8 % per frame, so at the
 3. **Findings:** Rankine's absolute zero (−461·2 °F); DOE and EPA disagree on gasoline-vehicle efficiency (about 30 % vs 16–25 %).
 4. **Sources (+20, 314 entries).**
 5. **Tests:** science `machines.test.ts` (11); browser test 124.
+
+## Phase 18: spacecraft and space systems (`#/engineering/space`), 2026-11-28
+
+1. **View:** Engineering → Hardware ▾ → Spacecraft & space systems, seven tabs: Spacecraft, Rockets, Orbits, Power, Radio, Pointing, Data.
+2. **Research:** two source agents (notes `research/SOURCE_NOTES_PHASE18A.md`, `…18B.md`); robots.txt logged for every host.
+3. **Findings shown:** NASA Glenn MR 10 vs 9.19; Yuen 3.05 vs 3.20 × 10⁻¹⁶ W; Voyager HGA 47 vs 48.1 dBi; received power 10⁻¹⁶ vs 10⁻²² W; Voyager power vs Pu-238 decay; Hubble 483 vs 560 km and 5,500 vs >5,200 W; Landsat 9 750 vs 740 scenes; Voyager 1 instruments on (4 vs 2).
+4. **Sources (+32).** **Tests:** science `spaceflight.test.ts` (10); browser test 125.

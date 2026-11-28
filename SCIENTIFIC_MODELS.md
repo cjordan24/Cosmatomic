@@ -762,3 +762,14 @@ Five new pathways through the Phase 11–14 records — From quarks to leaves; F
 * **Storage and vehicles:** DOE lithium-ion assessment (2023), DOE Explains, FOTW #1234 (55 → 450 Wh/L); DOE FOTW #1360 (EV 87–91 % vs about 30 %) and EPA (16–25 %) — the disagreement shown.
 * **Control:** Maxwell (1868) pp. 270–271 — his four kinds of disturbance and the negative-roots condition, illustrated with x″ + cx′ + kx = 0 (labelled illustrative).
 * **Tests:** `tests/science/machines.test.ts` (11).
+
+## 75. Spacecraft and space systems (Phase 18): `src/core/engineering/spaceflight.ts`, `src/modes/engineering/space/`, `#/engineering/space`
+
+* **Fleet:** Voyager 1 and 2, Pioneer 10 and 11, Cassini, New Horizons, ISS, Hubble, Webb, Perseverance, GPS, Landsat 9 — quoted from NASA Science, nasa.gov, USGS and GPS.gov pages (dated). Missing values (Cassini mass, GPS/Landsat mass and power, ISS altitude) are shown as "not given".
+* **Rocket:** NASA Glenn Δu = Veq ln(mf/me), Isp = Veq/g0 (mf is the *full* mass on that page). **Finding:** NASA's example (350 s, 25,000 ft/s) gives MR 9.19, printed as 10.
+* **Orbits:** NASA Glenn V = √(g0Re²/(Re+h)) (reproduces its 17,478 mph); Moulton (1914) escape V² = 2gR (11,180 m/s), vis-viva, √2 ratio, Kepler III — page images. Hohmann burns **derived** from vis-viva (no source prints the Δv formula); coplanar circular orbits.
+* **Power:** RTG description (NASA RPS); Pu-238 half-life 87.7 y (DOE-STD-1128-2008; NASA rounds to 88). Voyager 474 We (3 × 158) at launch, 225 We in 2023, “4 watts less each year”. **Finding:** decay alone would leave 330 W in 2023; the average decline is 5.4 W/yr. Sunlight 1361/d² W/m² (NASA Goddard TSI; Juno's “25 times less sunlight” at 5×).
+* **Radio link:** Yuen (1982, JPL 82-76) ρ = P_T G_T/4πr², L_S = (λ/4πr)², G = η(4π/λ²)A — page images. **Findings:** his P_R prints 3.05e-16 W where the inputs give 3.20e-16 W; Voyager HGA gain 6.5e4 (48.1 dBi) vs 47 dBi (Basics of Space Flight); NASA pages give 1e-16 W and 1e-22 W for the received signal.
+* **Pointing and heat:** Hubble reaction wheels and gyros (NASA); heat balance (NASA small-spacecraft SOA ch. 7); Stefan–Boltzmann (NASA glossary). The plate temperature αS = εσT⁴ is illustrative and our combination.
+* **Data chain:** eight quoted steps from detector to archive (Basics of Space Flight, Earthdata, USGS, DSN) and a ten-entry instrument encyclopedia linking to the spectral, atomic and cosmic views.
+* **Tests:** `tests/science/spaceflight.test.ts` (10); browser test 125.

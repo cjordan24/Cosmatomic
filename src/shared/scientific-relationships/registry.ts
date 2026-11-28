@@ -441,6 +441,12 @@ registerRelationship({ from: 'instrument:machines', to: 'instrument:thermal-radi
 registerRelationship({ from: 'instrument:machines', to: 'instrument:datacentres', type: 'part-of', context: 'U.S. utility-scale generation of about 4.43 trillion kWh in 2025, with about 5 % lost in transmission and distribution (EIA)', source: 'eia-generation' });
 registerRelationship({ from: 'element:3', to: 'instrument:machines', type: 'part-of', context: 'lithium-ion cells: “Li+ ions are transferred from the cathode to the anode during charging and then back” (DOE 2023)', source: 'doe-libs-2023' });
 registerRelationship({ from: 'instrument:semiconductors', to: 'instrument:machines', type: 'part-of', context: 'Ohm (1827): current “der Summe aller Spannungen direkt, und der ganzen reduzirten Länge der Kette umgekehrt proportional”', source: 'ohm-1827' });
+// ---------------- Phase 18: aerospace & space systems ----------------
+registerEntity(E('instrument:space', 'Spacecraft and space systems', '#/engineering/space', 'Twelve spacecraft; rockets, orbits, power, radio links, pointing, heat and the instrument-to-archive chain (Phase 18)'));
+registerRelationship({ from: 'instrument:space', to: 'instrument:machines', type: 'part-of', context: 'RTGs convert decay heat into electricity “using devices called thermocouples … via the Seebeck effect” (NASA RPS)', source: 'nasa-rps-faq' });
+registerRelationship({ from: 'instrument:space', to: 'instrument:thermal-radiation', type: 'explains', context: 'a radiator “has a high IR emissivity and low solar absorptivity” (NASA small-spacecraft thermal control)', source: 'nasa-smallsat-thermal' });
+registerRelationship({ from: 'instrument:semiconductors', to: 'instrument:space', type: 'part-of', context: 'a CCD well “releases a quantity of electrons proportional to the intensity of light” (Basics of Space Flight)', source: 'nasa-bsf' });
+registerRelationship({ from: 'instrument:space', to: 'instrument:network', type: 'part-of', context: 'the received power falls as the space loss (λ/4πr)² (Yuen 1982)', source: 'yuen-1982' });
 
 export const getEntity = (id: string) => REGISTRY.get(id);
 export const allEntities = () => [...REGISTRY.values()];

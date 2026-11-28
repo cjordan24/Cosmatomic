@@ -32,7 +32,7 @@ interface Hit { kind: 'element' | 'molecule' | 'body' | 'reaction' | 'material' 
 const SPECTRAL_SECTIONS = ['lab', 'fields', 'compare', 'antennas', 'rf', 'room', 'modulation', 'acoustics', 'audio', 'roomacoustics', 'optics', 'waveoptics', 'polarisation', 'spectroscopy', 'thermal', 'telescopes', 'atmosphere'];
 /** Biologic sub-routes other than the scale-of-life atlas (Phase 11+). */
 export const BIOLOGIC_SECTIONS: string[] = ['molecules', 'proteins', 'cells', 'membranes', 'transport', 'plants', 'body', 'movement', 'circulation', 'nerves', 'systems', 'zoom', 'senses', 'imaging'];
-const ENGINEERING_SECTIONS: string[] = ['semiconductors', 'chips', 'architecture', 'information', 'network', 'datacentres', 'ai', 'machines'];
+const ENGINEERING_SECTIONS: string[] = ['semiconductors', 'chips', 'architecture', 'information', 'network', 'datacentres', 'ai', 'machines', 'space'];
 const COSMIC_SECTIONS = ['map', 'stars', 'sandbox', 'relativity', 'compact', 'lensing', 'galaxies', 'nebulae', 'universe', 'ladder', 'cmb', 'darkmatter', 'gw', 'plasma', 'grtests', 'models'];
 
 /** A chip that opens a small menu of related sections; it is highlighted when one of them is open. */
@@ -327,6 +327,7 @@ export function TopBar() {
               { label: 'Stored-program computer', to: '/engineering/architecture', active: path[1] === 'architecture' },
               { label: 'Data centres', to: '/engineering/datacentres', active: path[1] === 'datacentres' },
               { label: 'Machines & electricity', to: '/engineering/machines', active: path[1] === 'machines' },
+              { label: 'Spacecraft & space systems', to: '/engineering/space', active: path[1] === 'space' },
             ]} />
           </nav>
         )}

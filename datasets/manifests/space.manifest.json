@@ -1,0 +1,33 @@
+{
+  "dataset": "space",
+  "version": "1.0.0",
+  "records": 42,
+  "sources": [
+    {
+      "institution": "NASA (Science, Glenn, Goddard, Earthdata, DSN), USGS, GPS.gov, DOE",
+      "url": "https://science.nasa.gov/learn/basics-of-space-flight/",
+      "license": "U.S. government works",
+      "notes": "spacecraft facts, instruments, signal chain, rocket and orbit relations, RTGs, link budget"
+    },
+    {
+      "institution": "Moulton 1914; Yuen (ed.) 1982, JPL Publication 82-76",
+      "url": "https://ntrs.nasa.gov/citations/19830013955",
+      "license": "public domain / NTRS public use permitted",
+      "notes": "read on page images"
+    }
+  ],
+  "adapter": "scripts/ingestion/curated-space.ts",
+  "warnings": [
+    "NASA Glenn prints MR = 10 for its own example; the inputs give 9.2.",
+    "Yuen prints P_R = 3.05e-16 W; its inputs give 3.2e-16 W.",
+    "Voyager HGA gain: 6.5e4 (48.1 dBi, Yuen) vs 47 dBi (Basics of Space Flight).",
+    "Hubble altitude 483 km vs 560 km; array power ~5,500 W vs >5,200 W.",
+    "Landsat 9: 750 vs 740 scenes per day.",
+    "Voyager power 474 We (1977) → 225 We (2023) is not a steady 4 W/yr, and is below Pu-238 decay alone.",
+    "Voyager 1 instruments on: four (mission page) vs two (spacecraft status table)."
+  ],
+  "output": "datasets/engineering/space.json",
+  "retrievedAt": "2026-11-28T12:46:16.821Z",
+  "bytes": 21427,
+  "sha256": "da3a472453394f46a7643ec796531617805b9b0674565c072d8b074556b0c0f2"
+}
