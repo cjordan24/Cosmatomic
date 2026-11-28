@@ -218,25 +218,22 @@ test('49 spectral atlas: band conventions, photon quantities, plane wave, blackb
 });
 
 // ---------------- Gate 4.7 ----------------
-test('50 landing: SPECTRAL portal enters the atlas; CELLULAR is greyed out and inert', async ({ page }) => {
+test('50 landing: SPECTRAL portal enters the atlas; the fourth portal, BIOLOGIC, is live (Gate 11.1)', async ({ page }) => {
   await page.goto('/#/');
-  const cell = page.getByRole('group', { name: 'Cellular mode, coming soon' });
-  await expect(cell).toContainText('CELLULAR');
-  await expect(cell).toContainText('Coming soon');
-  await expect(cell).toHaveAttribute('aria-disabled', 'true');
-  expect(await cell.evaluate((el) => (el as { tagName: string }).tagName)).toBe('DIV');
-  await expect(cell.locator('a, button')).toHaveCount(0);
-  await expect(page.getByRole('button', { name: /cellular/i })).toHaveCount(0);
-  await expect(page.getByRole('link', { name: /cellular/i })).toHaveCount(0);
-  await cell.click({ force: true });   // aria-disabled: Playwright would otherwise wait for it to become enabled
-  await page.waitForTimeout(900);
-  await expect(page).toHaveURL(/#\/$/);
+  // Gate 4.7 had a greyed-out CELLULAR placeholder here; Gate 11.1 turned it into the live BIOLOGIC portal.
+  const bio = page.getByRole('button', { name: 'Enter Biologic mode' });
+  await expect(bio).toContainText('BIOLOGIC');
+  await expect(bio).toContainText('ENTER');
+  await expect(page.getByRole('group', { name: /coming soon/i })).toHaveCount(0);
   await expect(page.getByRole('button', { name: 'Enter Spectral mode' })).toContainText('Waves, frequencies, radiation and energy.');
   await page.waitForTimeout(2000);
-  await shot(page, '50-landing-four-portals', 'Landing page with four portals at 1440×900: ATOMIC, COSMIC, SPECTRAL (live plane-wave scene from em.ts) and CELLULAR, greyed out with “Coming soon”: not a button or link, and clicking it leaves the URL unchanged.');
+  await shot(page, '50-landing-four-portals', 'Landing page with four live portals at 1440×900: ATOMIC, COSMIC, SPECTRAL (plane wave from em.ts) and BIOLOGIC (Gate 11.1), which replaced the greyed-out CELLULAR placeholder.');
   await page.getByRole('button', { name: 'Enter Spectral mode' }).click();
   await expect(page).toHaveURL(/#\/spectral$/);
   await expect(page.locator('.center-stage h1')).toHaveText('Electromagnetic spectrum');
+  await page.goto('/#/');
+  await page.getByRole('button', { name: 'Enter Biologic mode' }).click();
+  await expect(page).toHaveURL(/#\/biologic$/);
 });
 
 test('51 fields explorer: Coulomb, plane-wave and heat layers with toggles, opacity and metadata', async ({ page }) => {
@@ -299,12 +296,12 @@ test.describe('mobile', () => {
   test.use({ viewport: { width: 390, height: 844 } });
   test('53 mobile layout: four-portal landing and the Fields explorer', async ({ page }) => {
     await page.goto('/#/');
-    await expect(page.getByRole('group', { name: 'Cellular mode, coming soon' })).toBeVisible();
+    await expect(page.getByRole('button', { name: 'Enter Biologic mode' })).toBeVisible();
     const boxes = await Promise.all(['Enter Atomic mode', 'Enter Cosmic mode', 'Enter Spectral mode'].map((n) => page.getByRole('button', { name: n }).boundingBox()));
-    const cell = await page.getByRole('group', { name: 'Cellular mode, coming soon' }).boundingBox();
-    expect(boxes.every((b) => b && cell && b.y < cell.y)).toBe(true);   // CELLULAR last
+    const cell = await page.getByRole('button', { name: 'Enter Biologic mode' }).boundingBox();
+    expect(boxes.every((b) => b && cell && b.y < cell.y)).toBe(true);   // BIOLOGIC last
     await page.waitForTimeout(2000);
-    await shot(page, '53-mobile-landing', 'Mobile layout (390×844): the four portals stacked, CELLULAR last and greyed out with “Coming soon”.');
+    await shot(page, '53-mobile-landing', 'Mobile layout (390×844): the four live portals stacked, BIOLOGIC last (Gate 11.1).');
     await page.goto('/#/spectral/fields?layers=coulomb,heat');
     await expect(page.locator('.center-stage h1')).toHaveText('Fields');
     await page.waitForTimeout(800);

@@ -1,0 +1,22 @@
+{
+  "dataset": "pdb-structures",
+  "version": "1.0.0",
+  "records": 7,
+  "sources": [
+    {
+      "institution": "Worldwide Protein Data Bank (wwPDB); files served by RCSB PDB",
+      "url": "https://www.wwpdb.org/about/usage-policies",
+      "license": "CC0 1.0 Universal (wwPDB: “Data files contained in the PDB archive are available under the CC0 1.0 Universal (CC0 1.0) Public Domain Dedication.”)",
+      "notes": "coordinates, secondary structure and primary citations of 1BNA, 1MBN, 1A6M, 4HHB, 4INS, 1EMA, 1LYZ"
+    }
+  ],
+  "adapter": "scripts/ingestion/pdb-structures.ts",
+  "warnings": [
+    "First model and first alternate location only; waters removed.",
+    "Secondary structure is the HELIX/SHEET assignment stored in each file, not recomputed."
+  ],
+  "output": "datasets/biology/pdb-index.json",
+  "retrievedAt": "2026-11-28T06:37:55.052Z",
+  "bytes": 4385,
+  "sha256": "b6218e9844bd7f67d9a997f06a028659da1eee033166b61472770e3bbbf0cd25"
+}

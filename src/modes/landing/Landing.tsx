@@ -4,7 +4,8 @@
  *  COSMIC   — the planets at their actual heliocentric longitudes today (JPL elements),
  *             with radial distances log-compressed for the thumbnail (labelled).
  *  SPECTRAL — the analytic vacuum plane wave (planeE/planeB from em.ts): E ⊥ B ⊥ k, |B| = |E|/c.
- *  CELLULAR — Biologic Mode (Phase 11): greyed out, not interactive, "Coming soon" under the title.
+ *  BIOLOGIC — the 486 atoms of the B-DNA dodecamer 1BNA (Drew et al. 1981; PDB, CC0), coloured by element.
+ *             Until Gate 11.1 this was a greyed-out "CELLULAR — Coming soon" placeholder.
  */
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useFrame } from '@react-three/fiber';
@@ -21,6 +22,8 @@ import { useVoyager } from '@/shared/store';
 import { Logo } from '@/ui/components';
 import { planeB, planeE, POLARISATIONS } from '@/core/physics/em/em';
 import { CONSTANTS } from '@/core/constants/constants';
+import dna from '@datasets/biology/pdb/1BNA.json';
+import { principalExtents } from '@/core/biology/structure';
 
 function Spin({ children, speed = 0.08 }: { children: React.ReactNode; speed?: number }) {
   const ref = useRef<THREE.Group>(null);
@@ -108,7 +111,36 @@ function SpectralPortalScene() {
   );
 }
 
-type Live = 'atomic' | 'cosmic' | 'spectral';
+/** B-DNA dodecamer 1BNA: every non-water atom from the PDB file, coloured by element (P gold, O red, N blue, C green). */
+function BiologicPortalScene() {
+  const { positions, colors } = useMemo(() => {
+    const d = dna as unknown as { cols: { xyz: number[]; el: string[] } };
+    const n = d.cols.el.length;
+    const pos = new Float32Array(d.cols.xyz);
+    let cx = 0, cy = 0, cz = 0;
+    for (let i = 0; i < n; i++) { cx += pos[3 * i]; cy += pos[3 * i + 1]; cz += pos[3 * i + 2]; }
+    cx /= n; cy /= n; cz /= n;
+    // turn the helix axis (the longest principal axis) to the vertical so it spins about its own axis
+    const [ax, b2, b3] = principalExtents(d.cols.xyz).axes;
+    for (let i = 0; i < n; i++) {
+      const v = [pos[3 * i] - cx, pos[3 * i + 1] - cy, pos[3 * i + 2] - cz];
+      pos[3 * i] = v[0] * b2[0] + v[1] * b2[1] + v[2] * b2[2];
+      pos[3 * i + 1] = v[0] * ax[0] + v[1] * ax[1] + v[2] * ax[2];
+      pos[3 * i + 2] = v[0] * b3[0] + v[1] * b3[1] + v[2] * b3[2];
+    }
+    const palette: Record<string, [number, number, number]> = { P: [1, 0.78, 0.35], O: [1, 0.45, 0.45], N: [0.45, 0.6, 1], C: [0.36, 0.95, 0.65] };
+    const col = new Float32Array(n * 3);
+    for (let i = 0; i < n; i++) col.set(palette[d.cols.el[i]] ?? [0.8, 0.8, 0.8], i * 3);
+    return { positions: pos, colors: col };
+  }, []);
+  return (
+    <group position={[2.3, 0.85, 0]} rotation={[0.15, 0, -0.3]}><Spin speed={0.3}>
+      <PointCloud positions={positions} colors={colors} size={0.13} opacity={0.9} scale={0.075} />
+    </Spin></group>
+  );
+}
+
+type Live = 'atomic' | 'cosmic' | 'spectral' | 'biologic';
 
 export default function Landing() {
   const [leaving, setLeaving] = useState<Live | null>(null);
@@ -122,7 +154,7 @@ export default function Landing() {
     <div className="landing">
       <div className="landing-title">
         <h1 style={{ display: 'inline-flex', alignItems: 'center', gap: 14 }}><span style={{ width: 28, height: 28, display: 'inline-block' }}><Logo /></span>VOYAGER VENTURES</h1>
-        <p>A SCIENTIFIC SANDBOX FROM ATOMIC NUCLEI TO THE SOLAR SYSTEM</p>
+        <p>A SCIENTIFIC SANDBOX FROM ATOMIC NUCLEI TO LIVING CELLS AND THE SOLAR SYSTEM</p>
       </div>
       <button className={`portal atomic ${leaving === 'atomic' ? 'zoom' : leaving ? 'fade' : ''}`} onClick={() => enter('atomic')} aria-label="Enter Atomic mode">
         <Viewport className="portal-canvas" camera={{ position: [0, 0, 5.2], fov: 45 }}><AtomPortalScene /></Viewport>
@@ -148,13 +180,15 @@ export default function Landing() {
           <span className="cta">ENTER →</span>
         </div>
       </button>
-      <div className={`portal cellular disabled ${leaving ? 'fade' : ''}`} role="group" aria-disabled="true" aria-label="Cellular mode, coming soon">
+      <button className={`portal biologic ${leaving === 'biologic' ? 'zoom' : leaving ? 'fade' : ''}`} onClick={() => enter('biologic')} aria-label="Enter Biologic mode">
+        <Viewport className="portal-canvas" camera={{ position: [0, 0, 6.2], fov: 45 }}><BiologicPortalScene /></Viewport>
         <div className="portal-text">
-          <h2>CELLULAR</h2>
-          <p className="soon">Coming soon</p>
+          <h2>BIOLOGIC</h2>
+          <p>Molecules, cells and the machinery of life.</p>
+          <span className="cta">ENTER →</span>
         </div>
-      </div>
-      <div className="landing-foot">Atomic: hydrogen 3d<sub>z²</sub> probability density (analytic ψ). Cosmic: planets at today's heliocentric longitudes (JPL elements), distances log-compressed. Spectral: analytic vacuum plane wave, E ⊥ B ⊥ k, |B| = |E|/c.</div>
+      </button>
+      <div className="landing-foot">Atomic: hydrogen 3d<sub>z²</sub> probability density (analytic ψ). Cosmic: planets at today's heliocentric longitudes (JPL elements), distances log-compressed. Spectral: analytic vacuum plane wave, E ⊥ B ⊥ k, |B| = |E|/c. Biologic: atoms of the B-DNA dodecamer 1BNA (Drew et al. 1981, Protein Data Bank).</div>
     </div>
   );
 }

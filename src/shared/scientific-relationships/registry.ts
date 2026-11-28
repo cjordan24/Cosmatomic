@@ -51,7 +51,7 @@ const BASE_ENTITIES: Entity[] = [
   E('process:muscle-contraction', 'Muscle contraction', null, 'Biologic Mode (Phase 12)'),
   E('process:blood-co2-transport', 'CO₂ transport in blood', null, 'Biologic Mode (Phase 12)'),
   E('process:nitrogen-cycle', 'Nitrogen cycle', null),
-  E('structure:mitochondrion', 'Mitochondrion', null, 'Biologic Mode (Phase 11)'),
+  E('structure:mitochondrion', 'Mitochondrion', '#/biologic?sel=mitochondrion', 'Scale of life (Gate 11.1): typically 1–2 µm long'),
   E('context:ozone-layer', 'Stratospheric ozone layer', null),
   E('context:urban-smog', 'Photochemical smog', null),
   E('context:greenhouse-effect', 'Greenhouse effect', null, 'Thermal-radiation laboratory (Phase 10)'),
@@ -311,6 +311,13 @@ registerRelationship({ from: 'instrument:atmosphere', to: 'context:sunlight', ty
 registerRelationship({ from: 'instrument:atmosphere', to: 'body:earth', type: 'explains', context: 'molecular extinction h = 32π³(μ − 1)²/(3nλ⁴) through 8·3 km of air at standard pressure', source: 'rayleigh-scientific-papers-4' });
 registerRelationship({ from: 'instrument:atmosphere', to: 'instrument:thermal-radiation', type: 'part-of', context: 'Landsat’s thermal bands near 11 µm sit at the Wien peak of a 288 K surface', source: 'usgs-landsat-bands' });
 registerRelationship({ from: 'instrument:atmosphere', to: 'wave:em-infrared', type: 'explains', context: 'Landsat 8–9 TIRS bands 10.6–11.19 and 11.50–12.51 µm', source: 'usgs-landsat-bands' });
+
+// ---------------- Phase 11: Biologic foundations ----------------
+registerEntity(E('instrument:life-atlas', 'Scale of life', '#/biologic', 'Sizes from molecules to small animals on one log axis, quoted from NIH/NIGMS, nano.gov, U.S. DOE and PDB-101 (Gate 11.1)'));
+registerRelationship({ from: 'instrument:life-atlas', to: 'structure:mitochondrion', type: 'has-property', context: 'mitochondrion length typically 1–2 µm, up to 7 µm', source: 'nigms-inside-the-cell' });
+registerRelationship({ from: 'structure:mitochondrion', to: 'molecule:pubchem-5957', type: 'produces', context: '“ATP is made in organelles called mitochondria” (Inside the Cell, p. 11)', source: 'nigms-inside-the-cell' });
+for (const [id, what] of [['pubchem-962', 'water'], ['pubchem-5793', 'glucose'], ['pubchem-5957', 'ATP']] as const)
+  registerRelationship({ from: 'instrument:life-atlas', to: `molecule:${id}`, type: 'has-property', context: `size of ${what}: largest nucleus-to-nucleus distance in its PubChem3D conformer`, source: 'pubchem' });
 
 export const getEntity = (id: string) => REGISTRY.get(id);
 export const allEntities = () => [...REGISTRY.values()];

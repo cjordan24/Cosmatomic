@@ -30,6 +30,8 @@ interface Hit { kind: 'element' | 'molecule' | 'body' | 'reaction' | 'material' 
 /** Cosmic sub-routes that are not solar-system bodies (#/cosmic/<id> otherwise focuses a body). */
 /** Spectral sub-routes other than the atlas; Phase 9 views sit in chip menus so the bar does not grow. */
 const SPECTRAL_SECTIONS = ['lab', 'fields', 'compare', 'antennas', 'rf', 'room', 'modulation', 'acoustics', 'audio', 'roomacoustics', 'optics', 'waveoptics', 'polarisation', 'spectroscopy', 'thermal', 'telescopes', 'atmosphere'];
+/** Biologic sub-routes other than the scale-of-life atlas (Phase 11+). */
+export const BIOLOGIC_SECTIONS: string[] = [];
 const COSMIC_SECTIONS = ['map', 'stars', 'sandbox', 'relativity', 'compact', 'lensing', 'galaxies', 'nebulae', 'universe', 'ladder', 'cmb', 'darkmatter', 'gw'];
 
 /** A chip that opens a small menu of related sections; it is highlighted when one of them is open. */
@@ -233,12 +235,13 @@ export function TopBar() {
   const [moreOpen, setMoreOpen] = useState(false);
   return (
     <>
-      <header className={`topbar ${mode === 'cosmic' || mode === 'atomic' || mode === 'spectral' ? 'many-chips' : ''}`}>
+      <header className={`topbar ${mode === 'cosmic' || mode === 'atomic' || mode === 'spectral' || mode === 'biologic' ? 'many-chips' : ''}`}>
         <button className="brand" onClick={() => navigate('/')} aria-label="Voyager Ventures home"><Logo /><span className="wordmark">VOYAGER VENTURES</span></button>
         <nav className="mode-switch" aria-label="Mode">
           <button className={mode === 'atomic' ? 'active' : ''} onClick={() => navigate('/atomic')}>ATOMIC</button>
           <button className={`cosmic ${mode === 'cosmic' ? 'active' : ''}`} onClick={() => navigate('/cosmic')}>COSMIC</button>
           <button className={`spectral ${mode === 'spectral' ? 'active' : ''}`} onClick={() => navigate('/spectral')}>SPECTRAL</button>
+          <button className={`biologic ${mode === 'biologic' ? 'active' : ''}`} onClick={() => navigate('/biologic')}>BIOLOGIC</button>
         </nav>
         {mode === 'atomic' && (
           <nav className="chip-row hide-mobile" aria-label="Atomic sections">
@@ -283,6 +286,11 @@ export function TopBar() {
             <ChipMenu label="Radio" items={RADIO_ITEMS.map(([label, to]) => ({ label, to, active: `/${path.join('/')}` === to }))} />
             <ChipMenu label="Light" items={LIGHT_ITEMS.map(([label, to]) => ({ label, to, active: `/${path.join('/')}` === to }))} />
             <button className={`chip ${path[1] === 'fields' ? 'active' : ''}`} onClick={() => navigate('/spectral/fields')}>Fields</button>
+          </nav>
+        )}
+        {mode === 'biologic' && (
+          <nav className="chip-row hide-mobile" aria-label="Biologic sections">
+            <button className={`chip ${!BIOLOGIC_SECTIONS.includes(path[1]) ? 'active' : ''}`} onClick={() => navigate('/biologic')}>Scale of life</button>
           </nav>
         )}
         <div className="spacer" />

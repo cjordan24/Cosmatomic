@@ -134,6 +134,10 @@ Every encyclopedia entry describes a registry entity, so E.2 registered the 11 s
 `instrument:telescopes` (`#/spectral/telescopes`) is *part of* wave optics (Airy's diffraction pattern) and *explains* the resolution of visible (Rayleigh) and infrared (JWST, STScI) telescopes.
 `instrument:atmosphere` (`#/spectral/atmosphere`) *explains* the colour of scattered sunlight (Rayleigh 1871), the extinction of light by Earth's air (Rayleigh 1899) and the infrared bands of Landsat (USGS), and is *part of* thermal radiation through the Wien peak of Earth's surface.
 
+## Biologic (Phase 11)
+
+`instrument:life-atlas` (`#/biologic`) *has-property* the size of the mitochondrion (NIGMS *Inside the Cell*) and of water, glucose and ATP (their PubChem3D conformers). `structure:mitochondrion` now opens the atlas (no longer planned) and *produces* ATP (“ATP is made in organelles called mitochondria”, *Inside the Cell* p. 11).
+
 ## Rules
 
 1. No edge without a source.

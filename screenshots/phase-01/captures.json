@@ -1,5 +1,5 @@
 {
-  "01-landing.png": "Landing page, four portals: ATOMIC (sampled hydrogen 3d_z² density), COSMIC (planets at today’s JPL heliocentric longitudes), SPECTRAL (analytic vacuum plane wave, E ⊥ B ⊥ k) and CELLULAR, greyed out with “Coming soon” until Biologic Mode (Phase 11).",
+  "01-landing.png": "Landing page, four portals: ATOMIC (sampled hydrogen 3d_z² density), COSMIC (planets at today’s JPL heliocentric longitudes), SPECTRAL (analytic vacuum plane wave, E ⊥ B ⊥ k) and BIOLOGIC (live since Gate 11.1; a greyed-out CELLULAR placeholder until then).",
   "02-atomic-main.png": "Atomic Mode main environment after clicking the ATOMIC portal: periodic table of all 118 elements coloured by family.",
   "03-periodic-table-electronegativity.png": "Full periodic table recoloured by Pauling electronegativity (continuous legend with units; hatched tiles = no data). Hover card on fluorine.",
   "03b-periodic-table-radioactivity.png": "Periodic table coloured by radioactivity: Tc, Pm and Z ≥ 83 have no stable isotope (NUBASE).",
@@ -25,7 +25,7 @@
   "16-timeline.png": "Simulation timeline after playing at 1 month/s then pausing (2026-11-26 07:57 UTC → 2026-12-25 05:42 UTC), stepping one day, with bookmarks open. Range clamped to JPL Table-1 validity 1800–2050.",
   "17-universal-search.png": "Universal search across elements, molecules and celestial bodies (“tita” → Titanium, Titan, Titania).",
   "17b-scale-navigator.png": "Logarithmic scale navigator (10⁻¹⁶ m → 10²⁷ m): interactive, educational and planned scales labelled honestly.",
-  "18-mobile-landing.png": "Mobile layout (390×844): ATOMIC, COSMIC, SPECTRAL and CELLULAR (coming soon) portals stacked, CELLULAR last.",
+  "18-mobile-landing.png": "Mobile layout (390×844): ATOMIC, COSMIC, SPECTRAL and BIOLOGIC portals stacked, BIOLOGIC last.",
   "18b-mobile-element.png": "Mobile layout: carbon 2p_z orbital with bottom sheet information panel.",
   "18c-mobile-cosmic.png": "Mobile layout: Cosmic mode with compact timeline.",
   "20-voyager-1-model.png": "Voyager 1 (Blender-built model from NASA/JPL dimensions, true scale — 3.66 m antenna) at today’s JPL-predicted position ~170 au from the Sun; high-gain antenna pointed at Earth; distance & light time in the info panel.",

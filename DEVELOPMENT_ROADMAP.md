@@ -20,7 +20,7 @@ Treat each phase below as a proposal. Re-assess numerical methods, dataset acces
 | **8 Unified Scale & Relationships** | 8.1 universal scale navigator · 8.2 relationship explorer · 8.3 integrated spectroscopy · 8.4 shared instruments · 8.5 unified notebook · 8.6 pathways | **Done — awaiting review** (Gates 8.1–8.6 and E.2 done 2026-11-27; not deployed) |
 | **9 Applied Waves & Communications** | 9.1 EM fields & antennas · 9.2 RF/wireless atlas · 9.3 3D communications room · 9.4 modulation lab · 9.5 acoustic lab · 9.6 audio synthesis/FFT · 9.7 room acoustics & resonance | **Complete** (deployed 2026-11-27) |
 | **10 Optics, Radiation & Energy** | 10.1 geometric optics · 10.2 wave optics · 10.3 polarisation & optical materials · 10.4 atomic/molecular spectroscopy · 10.5 thermal radiation & energy transfer · 10.6 camera/telescope instruments · 10.7 atmospheric radiation & remote sensing | **Done — awaiting review** (Gates 10.1–10.7 done 2026-11-27; not deployed) |
-| 11 Biologic Foundations | 11.1 bio data infrastructure & atlas · 11.2 biomolecular encyclopedia · 11.3 protein structures · 11.4 cells · 11.5 organelles & membranes · 11.6 transport & biochemistry · 11.7 plant cells & microorganisms | Planned |
+| **11 Biologic Foundations** | 11.1 bio data infrastructure & atlas · 11.2 biomolecular encyclopedia · 11.3 protein structures · 11.4 cells · 11.5 organelles & membranes · 11.6 transport & biochemistry · 11.7 plant cells & microorganisms | **In progress** (approved 2026-11-28 with Phases 12–14, built without stopping; no deploy until Phase 14) |
 | 12 Human Anatomy & Physiology | 12.1 reference model · 12.2 skeletal/muscular · 12.3 cardiovascular/respiratory · 12.4 nervous system & electrophysiology · 12.5 digestive/urinary/endocrine · 12.6 immune/reproductive/integumentary · 12.7 organ-to-cell navigation | Planned |
 | 13 Waves, Life & Imaging | 13.1 vision · 13.2 hearing · 13.3 bioelectricity · 13.4 EM–tissue interactions · 13.5 optical & electron microscopy · 13.6 ultrasound/X-ray/MRI · 13.7 integrated visualisations | Planned |
 | 14 Advanced Foundations | 14.1 Standard Model atlas · 14.2 quantum lab · 14.3 nuclear physics & nucleosynthesis · 14.4 plasma/MHD · 14.5 advanced relativity · 14.6 cosmology & dark-matter model comparison · 14.7 unified pathways | Planned |
@@ -122,5 +122,13 @@ Approved by the user on 2026-11-27 (“approve phase 10”). Re-assessed before 
 | 10.7 | Atmospheric radiation and remote sensing (`#/spectral/atmosphere`): λ⁻⁴ scattering of sunlight, Rayleigh's 1899 molecular extinction reproduced (83 km), air mass and Bouguer's law, Landsat 8–9 bands over reflected and emitted spectra | Rayleigh 1871, 1899; NASA TM-82021; NASA AERONET; USGS | **Done** |
 | 10.8 | Universe map (`#/cosmic/map`), requested by the user after Phase 10: one Sun-centred 3D map zooming from the planets through the nearest stars, the Milky Way (disc model), the Local Group and the SPARC galaxies to the last-scattering surface; new dataset of SIMBAD positions and McConnachie's Local Group catalogue | JPL; CNS5; SIMBAD; McConnachie (2012); SPARC; Bland-Hawthorn & Gerhard (2016); Planck 2018 | **Done** |
 
+
+## Phase 11 gates
+
+Approved by the user on 2026-11-28 together with Phases 12–14 (“continue through the remaining phases … don't stop to publish until phase 14 is completely done”). Re-assessed before starting (research notes: `research/SOURCE_NOTES_PHASE11.md`). Sources found closed to this project: **PubChem now disallows ClaudeBot in robots.txt** (version 2026-10-29; the molecules bundled earlier stay, no new PubChem requests; ChEBI is used instead), BioNumbers' book site, Europe PMC, the Biodiversity Heritage Library and jbc.org (robots.txt), CDC, NIAID and rupress.org (robots.txt answered 403), and nobelprize.org (terms of use).
+
+| Gate | Deliverable | Main sources | Status |
+|---|---|---|---|
+| 11.1 | Biologic Mode (`#/biologic`, emerald) with a live landing portal (the 1BNA B-DNA dodecamer), and the **scale of life**: 24 sizes from a water molecule to an ant on one log axis with verbatim quotes, disagreeing sources side by side and size ratios; Nanostructures and Microscopic levels of the scale ladder now route here; PDB structures ingested (7 entries) | NIGMS *Inside the Cell* (2005) pp. 7, 11, 20; NIGMS Biomedical Beat; nano.gov; U.S. DOE *Scale of Things*; PDB-101; wwPDB (CC0) | **Done** |
 
 If a gate turns out much larger than planned, it is split into documented sub-gates. Scientific quality is not reduced to make it fit.

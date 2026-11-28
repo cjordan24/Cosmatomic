@@ -1,0 +1,45 @@
+{
+  "dataset": "life-sizes",
+  "version": "1.0.0",
+  "records": 21,
+  "sources": [
+    {
+      "institution": "National Institute of General Medical Sciences (NIH), Inside the Cell (NIH Pub. No. 05-1051, 2005)",
+      "url": "https://archive.org/details/ost-biology-inside_the_cell",
+      "license": "U.S. government work; NIGMS: “Most of the information on this website is not copyrighted so you are free to use it with proper attribution.”",
+      "notes": "cell, organelle and filament sizes; eukaryote/prokaryote table; human egg"
+    },
+    {
+      "institution": "NIGMS Biomedical Beat (Machalek 2021; Bigler 2023)",
+      "url": "https://nigms.nih.gov/biobeat/2023/12/science-snippet-zooming-in-on-nanoparticles",
+      "notes": "DNA width, haemoglobin width, hair width; organelle size table"
+    },
+    {
+      "institution": "National Nanotechnology Initiative (nano.gov)",
+      "url": "https://www.nano.gov/nanotech-101/what/nano-size",
+      "license": "“government-produced materials appearing on this site are not copyright protected”",
+      "notes": "DNA 2.5 nm; hair 80 000–100 000 nm"
+    },
+    {
+      "institution": "U.S. Department of Energy, Office of Basic Energy Sciences: The Scale of Things (v. 05-26-06)",
+      "url": "https://www.nist.gov/document/doescaleofthingschartpdf",
+      "notes": "red blood cells, hair, dust mite, ATP synthase, DNA, ant"
+    },
+    {
+      "institution": "RCSB Protein Data Bank, PDB-101 “Virus Structures” flyer",
+      "url": "https://pdb101.rcsb.org/learn/flyers-posters-and-calendars/flyer/virus-structures",
+      "license": "CC BY 4.0 (RCSB policies: “PDB-101 content is free for use under a CC-BY-4.0 license”)",
+      "notes": "virus size range; feline distemper 28.4 nm; mimivirus 520 nm"
+    }
+  ],
+  "adapter": "scripts/ingestion/curated-life-sizes.ts",
+  "warnings": [
+    "Hand-transcribed from page images and web pages, 2026-11-28.",
+    "Most values are typical or approximate sizes, flagged per report; ranges are stored as [low, high].",
+    "Disagreeing sources are all kept (DNA width 2 nm vs 2.5 nm; hair width)."
+  ],
+  "output": "datasets/biology/life-sizes.json",
+  "retrievedAt": "2026-11-28T06:36:59.943Z",
+  "bytes": 7582,
+  "sha256": "ed9d1c4ec70413737d97e3178fa0eb5892c03348ba11a971dd101a9919b455fc"
+}

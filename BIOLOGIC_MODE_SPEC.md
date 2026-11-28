@@ -1,8 +1,10 @@
 # Biologic Mode specification (planned, Phase 11–12)
 
-Status: **not built.** This document records the decisions already made so that later phases start from them.
+Status: **being built (Phase 11, from 2026-11-28).** Gate 11.1 made the mode live: route `#/biologic`, emerald accent (`--accent: #5cf2a6`), a BIOLOGIC button in the mode switch and a Biologic chip row, and the landing portal below. The portal is titled **BIOLOGIC** (not CELLULAR) so it matches the mode switch and the roadmap; the earlier placeholder name is kept in this history.
 
-## Landing portal (exists now, greyed out)
+## Landing portal (Gate 4.7 placeholder, live since Gate 11.1)
+
+Since Gate 11.1 the portal is a live button (“Enter Biologic mode”) showing the 486 atoms of the B-DNA dodecamer 1BNA (Drew et al. 1981; PDB, CC0) coloured by element and turning about the helix axis; tests 01, 18, 50 and 53 were updated. The text below describes the placeholder as it was.
 
 The landing page (`src/modes/landing/Landing.tsx`) has four portals. The fourth, **CELLULAR**, exists from Gate 4.7 as a disabled placeholder:
 

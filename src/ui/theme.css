@@ -117,7 +117,7 @@ input[type='range'] { accent-color: var(--accent); }
 .portal.atomic { color: #7df9ff; background: radial-gradient(circle at 50% 45%, #06202b 0%, #03050c 70%); }
 .portal.cosmic { color: #c9b4ff; background: radial-gradient(circle at 50% 45%, #170d2e 0%, #03050c 70%); border-left: 1px solid var(--line); }
 .portal.spectral { color: #f5c76b; background: radial-gradient(circle at 50% 45%, #241805 0%, #03050c 70%); border-top: 1px solid var(--line); }
-.portal.cellular { color: #8a8f99; background: radial-gradient(circle at 50% 45%, #15171c 0%, #05060a 70%); border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
+.portal.biologic { color: #5cf2a6; background: radial-gradient(circle at 50% 45%, #052016 0%, #03050c 70%); border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
 .portal.disabled { cursor: default; filter: grayscale(1); opacity: 0.55; }
 .portal.disabled h2 { font-weight: 200; }
 .portal.disabled .soon { margin-top: 6px; color: #9aa0aa; letter-spacing: 0.32em; text-transform: uppercase; font-size: 12px; }
@@ -242,7 +242,7 @@ input[type='range'] { accent-color: var(--accent); }
   .mode-switch button { padding: 6px 9px; letter-spacing: 0.08em; }
   .topbar .hide-mobile { display: none; }
   .landing { grid-template-columns: 1fr; grid-template-rows: repeat(4, 1fr); }
-  .portal.cosmic, .portal.cellular { border-left: 0; border-top: 1px solid var(--line); }
+  .portal.cosmic, .portal.biologic { border-left: 0; border-top: 1px solid var(--line); }
   .portal h2 { font-size: 30px; letter-spacing: 0.26em; }
   .portal p { margin-top: 4px; font-size: 12px; }
   .portal .cta { margin-top: 8px; padding: 6px 12px; font-size: 10px; }
@@ -250,7 +250,7 @@ input[type='range'] { accent-color: var(--accent); }
   .landing-title { top: 14px; }
   .landing-title p { display: none; }
   .landing-foot { bottom: 6px; padding: 0 12px; font-size: 9.5px; letter-spacing: 0.04em; }
-  .portal.cellular .portal-text { bottom: 34%; }
+  .portal.biologic .portal-text { bottom: 36%; }   /* clear of the source caption (landing-foot) */
   .left-panel { top: auto; bottom: 8px; left: 8px; right: 8px; width: auto; height: 40%; }
   .right-panel { display: none; }
   .right-panel.mobile-open { display: flex; top: auto; bottom: 8px; left: 8px; right: 8px; width: auto; height: 46%; }
@@ -310,6 +310,9 @@ input[type='range'] { accent-color: var(--accent); }
 @media (max-width: 1500px) { .topbar.many-chips .icon-btn .hide-mobile { display: none; } .topbar.many-chips .topbar-actions { gap: 6px; } .topbar.many-chips .icon-btn { padding: 0 7px; } }
 .mode-spectral { --accent: #f5c76b; --accent-2: #ffb347; --accent-3: #ffe2a8; --accent-glow: rgba(245, 199, 107, 0.35); --bg-2: #160f05; }
 .mode-switch button.spectral.active { background: #f5c76b; color: #1a1205; }
+/* Biologic (Phase 11): emerald */
+.mode-biologic { --accent: #5cf2a6; --accent-2: #2fd08a; --accent-3: #b6f7d6; --accent-glow: rgba(92, 242, 166, 0.35); --bg-2: #04140d; }
+.mode-switch button.biologic.active { background: #5cf2a6; color: #03140b; }
 .wave-canvas { display: block; width: 100%; max-width: 760px; height: auto; border-radius: 12px; border: 1px solid var(--line); background: #03050c; }
 .no-propagation { padding: 28px; border: 1px dashed var(--warn); border-radius: 12px; color: var(--text); font-size: 14px; line-height: 1.6; }
 
@@ -378,3 +381,13 @@ input[type='range'] { accent-color: var(--accent); }
 @media (max-width: 900px) { .dm-bars > div { grid-template-columns: 92px 1fr 1fr; gap: 6px; font-size: 10.5px; } }
 .text-input { height: 30px; padding: 0 10px; border-radius: 8px; border: 1px solid var(--line); background: rgba(255, 255, 255, 0.04); color: var(--text); font: inherit; font-size: 12.5px; }
 .text-input::placeholder { color: var(--text-faint); }
+
+/* ---------- Biologic (Phase 11) ---------- */
+.life-list { list-style: none; margin: 0; padding: 0; font-size: 12px; }
+.life-list li { padding: 3px 0; border-bottom: 1px solid var(--line); }
+.life-list .link-btn.active { font-weight: 600; color: var(--text); }
+.life-reports { list-style: none; margin: 8px 0; padding: 0; }
+.life-reports li { margin-bottom: 10px; }
+blockquote.quote { margin: 4px 0; padding: 4px 10px; border-left: 2px solid var(--accent); color: var(--text); font-style: italic; font-size: 12.5px; }
+.warn-note { color: var(--warn); }
+.life-item:focus-visible { outline: 1px dashed var(--accent); }
